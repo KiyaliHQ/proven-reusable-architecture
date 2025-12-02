@@ -13,6 +13,57 @@ Vous démarrez un nouveau projet ? Vous cherchez la meilleure façon d'implémen
 
 Un **PRA (Proven Reusable Architecture)** est une **solution éprouvée** qui a déjà fait ses preuves dans de vrais projets de la Banque Nationale.
 
+### Vue d'ensemble de l'écosystème PRA
+
+```mermaid
+graph TB
+    subgraph BNC["🏦 Banque Nationale du Canada"]
+        subgraph GOV["👥 Gouvernance"]
+            GT[Table de Gouvernance<br/>Transversale]
+            ARCH[Architectes<br/>Senior]
+        end
+
+        subgraph REGISTRY["📚 Registre PRA"]
+            BW[PRAs Bank-Wide<br/>✅ Tous domaines]
+            DOM[PRAs par Domaine<br/>📦 Spécifiques]
+        end
+
+        subgraph DOMAINS["🏢 Domaines Métier"]
+            PART[Particuliers]
+            ENT[Entreprises]
+            GP[Gestion Patrimoine]
+        end
+
+        subgraph CONTRIB["💡 Contribution"]
+            DEV[Développeurs]
+            TEAM[Équipes Projet]
+        end
+    end
+
+    CONTRIB -->|Proposent| DOM
+    DOM -->|1+ proven-in-use| DOM
+    DOM -->|3+ proven-in-use<br/>+ Validation| GOV
+    GOV -->|Approuve pour<br/>Bank-Wide| BW
+    DOMAINS -->|Utilisent| BW
+    DOMAINS -->|Utilisent| DOM
+    BW -->|Feedback| GOV
+    DOM -->|Feedback| CONTRIB
+    ARCH -.->|Maintiennent| REGISTRY
+
+    style BW fill:#10b981,stroke:#059669,color:#fff
+    style DOM fill:#3b82f6,stroke:#2563eb,color:#fff
+    style GOV fill:#8b5cf6,stroke:#7c3aed,color:#fff
+    style CONTRIB fill:#f59e0b,stroke:#d97706,color:#fff
+```
+
+**Légende :**
+- 🟢 **PRAs Bank-Wide** : Validés et réutilisables partout dans la banque
+- 🔵 **PRAs par Domaine** : Spécifiques à un domaine métier (Particuliers, Entreprises, etc.)
+- 🟣 **Gouvernance** : Table de décision pour valider les PRAs bank-wide
+- 🟠 **Contribution** : Équipes qui créent et partagent les PRAs
+
+### Comment un PRA naît et évolue
+
 ```mermaid
 graph LR
     A[Problème récurrent] --> B[Solution documentée]

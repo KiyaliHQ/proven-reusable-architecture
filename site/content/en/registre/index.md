@@ -13,6 +13,57 @@ Starting a new project? Looking for the best way to implement authentication, CI
 
 A **PRA (Proven Reusable Architecture)** is a **proven solution** that has already been validated in real projects at the National Bank.
 
+### PRA Ecosystem Overview
+
+```mermaid
+graph TB
+    subgraph BNC["🏦 National Bank of Canada"]
+        subgraph GOV["👥 Governance"]
+            GT[Transversal<br/>Governance Table]
+            ARCH[Senior<br/>Architects]
+        end
+
+        subgraph REGISTRY["📚 PRA Registry"]
+            BW[Bank-Wide PRAs<br/>✅ All domains]
+            DOM[PRAs by Domain<br/>📦 Specific]
+        end
+
+        subgraph DOMAINS["🏢 Business Domains"]
+            PART[Retail]
+            ENT[Corporate]
+            GP[Wealth Management]
+        end
+
+        subgraph CONTRIB["💡 Contribution"]
+            DEV[Developers]
+            TEAM[Project Teams]
+        end
+    end
+
+    CONTRIB -->|Propose| DOM
+    DOM -->|1+ proven-in-use| DOM
+    DOM -->|3+ proven-in-use<br/>+ Validation| GOV
+    GOV -->|Approve for<br/>Bank-Wide| BW
+    DOMAINS -->|Use| BW
+    DOMAINS -->|Use| DOM
+    BW -->|Feedback| GOV
+    DOM -->|Feedback| CONTRIB
+    ARCH -.->|Maintain| REGISTRY
+
+    style BW fill:#10b981,stroke:#059669,color:#fff
+    style DOM fill:#3b82f6,stroke:#2563eb,color:#fff
+    style GOV fill:#8b5cf6,stroke:#7c3aed,color:#fff
+    style CONTRIB fill:#f59e0b,stroke:#d97706,color:#fff
+```
+
+**Legend:**
+- 🟢 **Bank-Wide PRAs**: Validated and reusable across the entire bank
+- 🔵 **PRAs by Domain**: Specific to a business domain (Retail, Corporate, etc.)
+- 🟣 **Governance**: Decision table to validate bank-wide PRAs
+- 🟠 **Contribution**: Teams that create and share PRAs
+
+### How a PRA is born and evolves
+
 ```mermaid
 graph LR
     A[Recurring problem] --> B[Documented solution]
