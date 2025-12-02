@@ -23,31 +23,54 @@ graph LR
 
 ### Candidate
 
-**Définition** : PRA en cours de validation, avec moins de 3 implémentations prouvées.
+**Définition** : PRA en cours de validation initiale.
 
-**Critères** :
--  Au moins **1 implémentation** prouvée en production
+**Critères selon le scope** :
+
+**PRA Domaine** :
+-  Au moins **1 implémentation** prouvée en production dans le domaine
 -  Documentation complète (contexte, architecture, ADR, exemples)
--  Réutilisabilité démontrée
--  Qualité technique validée par la Table de Gouvernance
+-  Réutilisabilité démontrée au sein du domaine
+-  Qualité technique validée par le **Comité de Gouvernance du Domaine**
 
-**Localisation** : `pra/candidates/[category]/`
+**PRA Bank-Wide** :
+-  Au moins **1 implémentation** prouvée en production
+-  Documentation complète
+-  Applicabilité multi-domaine démontrée
+-  Qualité technique validée par le **Comité de Gouvernance Architectes Experts**
 
-**Utilisation** : Peut être utilisé mais avec prudence et retour d'expérience requis
+**Localisation** :
+- Domaine : `pra/secteurs/[domaine]/[category]/`
+- Bank-Wide : `pra/transversal/[category]/`
+
+**Utilisation** : Peut être utilisé avec prudence et retour d'expérience requis
 
 ### Approved
 
-**Définition** : PRA validé et recommandé pour usage généralisé.
+**Définition** : PRA validé et recommandé pour usage.
 
-**Critères** :
--  Au moins **3 implémentations** prouvées en production
--  Retours positifs des équipes utilisatrices
+**Critères selon le scope** :
+
+**PRA Domaine Approved** :
+-  Au moins **1 implémentation** prouvée dans le domaine
+-  Retours positifs des équipes du domaine
 -  Documentation enrichie avec learnings
--  Validité confirmée sur plusieurs contextes
+-  Validé par **Comité de Gouvernance du Domaine**
 
-**Localisation** : `pra/approved/[category]/`
+**PRA Bank-Wide Approved** :
+-  Au moins **3 implémentations** prouvées (différents domaines/équipes)
+-  Retours positifs multi-domaines
+-  Documentation enrichie avec learnings multi-contextes
+-  Validité confirmée sur plusieurs domaines
+-  Validé par **Comité de Gouvernance Architectes Experts**
 
-**Utilisation** : Recommandé pour tous les projets applicables
+**Localisation** :
+- Domaine : `pra/secteurs/[domaine]/[category]/`
+- Bank-Wide : `pra/transversal/[category]/`
+
+**Utilisation** :
+- Domaine : Recommandé pour projets du domaine
+- Bank-Wide : Recommandé pour tous les domaines
 
 ### Deprecated
 
@@ -65,49 +88,95 @@ graph LR
 
 ##  Transitions de Statut
 
-### De Candidate à Approved
+### PRA Domaine : De Candidate à Approved
 
-**Déclencheur** : 3+ implémentations prouvées documentées
+**Déclencheur** : 1+ implémentation prouvée documentée dans le domaine
 
 **Processus** :
-1. Contributeur crée PR pour déplacement `candidates/`  `approved/`
-2. Update metadata : `status: approved`
-3. GitHub Actions validation automatique
-4. Review par Table de Gouvernance (2 approvals requis)
-5. Merge  PRA devient Approved
-6. Publication automatique sur Confluence
-7. Annonce à la communauté (Teams/email)
+1. Contributeur met à jour metadata : `status: approved`
+2. GitHub Actions validation automatique
+3. Review par **Comité de Gouvernance du Domaine** (2 approvals requis)
+4. Merge → PRA devient Approved (échelle domaine)
+5. Annonce au domaine (Teams/email)
 
 **Timeline** : 5-10 jours ouvrés
 
-### De Approved à Deprecated
+### PRA Bank-Wide : De Candidate à Approved
 
-**Déclencheur** : Proposition de la Table de Gouvernance ou feedback négatif répété
+**Déclencheur** : 3+ implémentations prouvées documentées (différents domaines/équipes)
 
 **Processus** :
-1. Proposition de dépréciation (avec justification)
-2. Discussion avec contributeurs originaux
-3. Vote de la Table de Gouvernance (majorité simple)
-4. PR pour déplacement `approved/`  `deprecated/`
-5. Update metadata : `status: deprecated`, `deprecated_date`, `replaces` (si applicable)
-6. Documentation mise à jour avec alternative recommandée
-7. Communication aux équipes utilisant le PRA
-8. Période de transition de 6 mois
-9. Archivage optionnel après période de transition
+1. Contributeur met à jour metadata : `status: approved`
+2. GitHub Actions validation automatique
+3. Review par **Comité de Gouvernance Architectes Experts** (2 approvals requis)
+4. Vérification applicabilité multi-domaine
+5. Merge → PRA devient Bank-Wide Approved
+6. Publication automatique sur Confluence
+7. Annonce à tous les domaines (Teams/email)
 
-**Timeline** : 2-4 semaines + 6 mois transition
+**Timeline** : 2-4 semaines
+
+### PRA Domaine : Promotion vers Bank-Wide
+
+**Déclencheur** : PRA Domaine identifié comme réutilisable hors domaine
+
+**Processus** :
+1. **Comité Domaine** propose promotion (avec justification)
+2. Création dossier promotion avec preuves multi-domaine
+3. Review par **Comité Architectes Experts**
+4. Validation critères Bank-Wide (3+ proven-in-use requis)
+5. Si approuvé → déplacement vers `transversal/`
+6. Communication à tous les domaines
+
+**Timeline** : 4-8 semaines
+
+Voir guide détaillé : [Processus de Promotion](/guides/07-promotion-process)
+
+### De Approved à Deprecated
+
+**Déclencheur** : Proposition comité concerné ou feedback négatif répété
+
+**Processus selon le scope** :
+
+**PRA Domaine** :
+1. Proposition **Comité Domaine** (avec justification)
+2. Discussion avec utilisateurs domaine
+3. Vote Comité Domaine (majorité simple)
+4. Update metadata : `status: deprecated`
+5. Communication équipes du domaine
+6. Période de transition de 3 mois
+
+**PRA Bank-Wide** :
+1. Proposition **Comité Architectes Experts** (avec justification)
+2. Consultation multi-domaines
+3. Vote Comité Architectes Experts (2/3)
+4. Update metadata : `status: deprecated`, alternative recommandée
+5. Communication à tous les domaines
+6. Période de transition de 6 mois
+
+**Timeline** : 2-4 semaines + période transition
 
 ##  Maintenance Continue
 
-### PRA Approved
+### PRA Domaine Approved
 
 **Responsabilités** :
 - **Mainteneur désigné** : Mise à jour documentation, réponse aux questions
-- **Table de Gouvernance** : Monitoring qualité, validation updates
+- **Comité de Gouvernance Domaine** : Monitoring qualité, validation updates
 
 **Rythme** :
-- **Review annuelle** : Pertinence, utilisation, feedback
+- **Review trimestrielle** : Pertinence dans le domaine, utilisation, feedback
 - **Updates as-needed** : Nouvelles versions technologiques, learnings
+
+### PRA Bank-Wide Approved
+
+**Responsabilités** :
+- **Mainteneur désigné** : Mise à jour documentation, support multi-domaine
+- **Comité Architectes Experts** : Monitoring qualité, validation updates
+
+**Rythme** :
+- **Review annuelle** : Pertinence multi-domaine, adoption, feedback
+- **Updates as-needed** : Évolutions standards BNC, nouveaux learnings
 
 ### PRA Candidate
 
@@ -115,7 +184,9 @@ graph LR
 - **Contributeur original** : Documentation initiale, premiers retours
 - **Early adopters** : Feedback actif, documentation learnings
 
-**Objectif** : Atteindre 3 implémentations pour promotion Approved
+**Objectif** :
+- Domaine : Atteindre 1 implémentation prouvée pour Approved local
+- Bank-Wide : Atteindre 3 implémentations multi-domaines pour Approved
 
 ##  Retour d'Expérience (Proven-in-use)
 
@@ -139,26 +210,38 @@ proven_in_use:
 
 ##  Critères de Succès
 
-### Pour un PRA Candidate
+### Pour un PRA Domaine Candidate
 
-- [ ] 1+ proven-in-use documenté
+- [ ] 1+ proven-in-use documenté dans le domaine
 - [ ] Documentation complète et claire
 - [ ] Feedback positif de l'équipe pilote
 - [ ] Aucun blocage technique majeur
+- [ ] Validé par Comité Domaine
 
-### Pour promotion Approved
+### Pour un PRA Domaine Approved
 
-- [ ] 3+ proven-in-use documentés
-- [ ] Feedback positif de multiples équipes
+- [ ] 1+ proven-in-use documenté dans le domaine
+- [ ] Feedback positif des équipes domaine
 - [ ] Documentation enrichie avec learnings
-- [ ] Cas d'usage variés (différents contextes)
+- [ ] Réutilisabilité confirmée au sein du domaine
+- [ ] Maintenance régulière (< 6 mois depuis dernière update)
 
-### Pour un PRA Approved
+### Pour un PRA Bank-Wide Candidate
 
-- [ ] Utilisation active dans 3+ projets
+- [ ] 1+ proven-in-use documenté
+- [ ] Documentation complète avec vision multi-domaine
+- [ ] Applicabilité multi-domaine démontrée
+- [ ] Aucun blocage technique majeur
+- [ ] Validé par Comité Architectes Experts
+
+### Pour un PRA Bank-Wide Approved
+
+- [ ] 3+ proven-in-use documentés (différents domaines/équipes)
+- [ ] Feedback positif multi-domaines
+- [ ] Documentation enrichie avec learnings multi-contextes
+- [ ] Cas d'usage variés (différents domaines)
 - [ ] Satisfaction > 8/10 des utilisateurs
 - [ ] Maintenance régulière (< 6 mois depuis dernière update)
-- [ ] Documentation à jour
 
 ##  Support et Questions
 
@@ -188,5 +271,5 @@ Pour toute question sur le cycle de vie d'un PRA :
 
 ---
 
-**Dernière mise à jour** : 2025-11-28
-**Prochaine review** : 2026-05-28
+**Dernière mise à jour** : 2025-12-02
+**Prochaine review** : 2026-06-02
