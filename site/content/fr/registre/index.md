@@ -16,51 +16,58 @@ Un **PRA (Proven Reusable Architecture)** est une **solution éprouvée** qui a 
 ### Vue d'ensemble de l'écosystème PRA
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'16px'}}}%%
 graph TB
-    subgraph BNC["🏦 Banque Nationale du Canada"]
-        subgraph GOV["👥 Gouvernance"]
-            GT[Table de Gouvernance<br/>Transversale]
-            ARCH[Architectes<br/>Senior]
-        end
-
-        subgraph REGISTRY["📚 Registre PRA"]
-            BW[PRAs Bank-Wide<br/>✅ Tous domaines]
-            DOM[PRAs par Domaine<br/>📦 Spécifiques]
-        end
-
-        subgraph DOMAINS["🏢 Domaines Métier"]
-            PART[Particuliers]
-            ENT[Entreprises]
-            GP[Gestion Patrimoine]
-        end
-
-        subgraph CONTRIB["💡 Contribution"]
-            DEV[Développeurs]
-            TEAM[Équipes Projet]
-        end
+    subgraph TRANS["⚡ ÉQUIPES TRANSVERSALES"]
+        SEC["Sécurité"]
+        INFRA["Infra Cloud"]
+        SE["Software Engineering"]
     end
 
-    CONTRIB -->|Proposent| DOM
-    DOM -->|1+ proven-in-use| DOM
-    DOM -->|3+ proven-in-use<br/>+ Validation| GOV
-    GOV -->|Approuve pour<br/>Bank-Wide| BW
-    DOMAINS -->|Utilisent| BW
-    DOMAINS -->|Utilisent| DOM
-    BW -->|Feedback| GOV
-    DOM -->|Feedback| CONTRIB
-    ARCH -.->|Maintiennent| REGISTRY
+    subgraph DOMAINS["🏢 DOMAINES MÉTIER"]
+        PART["Particuliers"]
+        ENT["Entreprises"]
+        GP["Gestion Patrimoine"]
+    end
 
-    style BW fill:#10b981,stroke:#059669,color:#fff
-    style DOM fill:#3b82f6,stroke:#2563eb,color:#fff
-    style GOV fill:#8b5cf6,stroke:#7c3aed,color:#fff
-    style CONTRIB fill:#f59e0b,stroke:#d97706,color:#fff
+    subgraph GOV_DOM["🔵 GOUVERNANCE DOMAINE"]
+        GOVD["Comités de Gouvernance<br/>par Domaine"]
+    end
+
+    subgraph GOV_BW["🟣 GOUVERNANCE BANK-WIDE"]
+        GOVB["Communauté d'Architectes<br/>Experts"]
+    end
+
+    DOM["🔵<br/>PRAs DOMAINE<br/>(Patterns fonctionnels)"]
+    BW["🟢<br/>PRAs BANK-WIDE<br/>(Infrastructure + Patterns communs)"]
+
+    TRANS -->|"PRAs infrastructure/<br/>fondation<br/>(direct)"| GOVB
+    DOMAINS -->|"PRAs<br/>fonctionnels"| DOM
+    DOM -->|"Validation<br/>locale"| GOV_DOM
+    GOV_DOM -->|"Patterns répétés<br/>→ Promotion"| GOVB
+    GOVB -->|"Approbation"| BW
+
+    style BW fill:#10b981,stroke:#059669,stroke-width:4px,color:#fff
+    style DOM fill:#3b82f6,stroke:#2563eb,stroke-width:4px,color:#fff
+    style GOV_BW fill:#8b5cf6,stroke:#7c3aed,stroke-width:3px,color:#fff
+    style GOV_DOM fill:#60a5fa,stroke:#2563eb,stroke-width:3px,color:#fff
+    style TRANS fill:#f59e0b,stroke:#d97706,stroke-width:3px,color:#000
+    style DOMAINS fill:#fbbf24,stroke:#d97706,stroke-width:3px,color:#000
 ```
 
-**Légende :**
-- 🟢 **PRAs Bank-Wide** : Validés et réutilisables partout dans la banque
-- 🔵 **PRAs par Domaine** : Spécifiques à un domaine métier (Particuliers, Entreprises, etc.)
-- 🟣 **Gouvernance** : Table de décision pour valider les PRAs bank-wide
-- 🟠 **Contribution** : Équipes qui créent et partagent les PRAs
+**Deux flux de création de PRAs :**
+
+**🟠 Flux 1 : Bank-Wide Direct (Infrastructure/Fondation)**
+- Équipes transversales : Sécurité, Infra Cloud, Software Engineering
+- Créent des PRAs **directement Bank-Wide** (patterns infrastructure/fondation)
+- Exemples : File transfer, APIs asynchrones, CI/CD, observabilité
+- Validés par la Communauté d'Architectes Experts
+
+**🔵 Flux 2 : Domaine → Bank-Wide (Patterns Fonctionnels)**
+- Architectes de solutions dans les domaines métier
+- PRAs fonctionnels validés localement par les Comités de Gouvernance
+- Patterns répétés entre domaines → extraction → promotion Bank-Wide
+- Exemples : Customer Onboarding, Payment Processing, Notification System
 
 ### Comment un PRA naît et évolue
 
@@ -74,10 +81,10 @@ graph LR
 
 ### En 4 points clés
 
- **Prouvée en production** : Validée dans au moins 3 implémentations réelles chez BNC
+ **Prouvée en production** : Validée dans au moins 1 implémentation réelle (Domaine) ou 3+ implémentations (Bank-Wide)
  **Réutilisable** : Généralisable à différents contextes et projets
- **Documentée** : Avec contexte, décisions architecturales (ADR), exemples de code et retours d'expérience
- **Maintenue** : Versionnée et supportée par la communauté architecture BNC
+ **Documentée** : Avec contexte, décisions architecturales (ADR), exemples de code et retours d'expérience par les architectes
+ **Maintenue** : Versionnée et supportée par la communauté d'architectes BNC (experts et de solutions)
 
 ### Analogie simple
 
@@ -90,24 +97,24 @@ Pensez aux PRA comme des **recettes de cuisine éprouvées** :
 
 ##  Démarrage rapide
 
-### Vous êtes développeur ?
+### Vous êtes architecte de solutions ?
 
-**Besoin : "Je dois implémenter de l'authentification"**
+**Besoin : "Je cherche un pattern pour mon projet"**
 
-1.  Allez dans [Transversal > Security](/registre/transversal)
-2.  Trouvez le PRA "Authentication & SSO"
-3.  Vérifiez si votre contexte correspond
-4.  Suivez le guide d'implémentation
-5.  Documentez votre retour d'expérience
+1.  Explorez le [Catalogue](/catalogue) ou parcourez les [PRAs Bank-Wide](/registre/transversal)
+2.  Consultez les [PRAs de votre Domaine](/registre/secteurs) pour des patterns fonctionnels
+3.  Vérifiez si le contexte correspond à votre projet
+4.  Suivez le guide d'implémentation et les ADRs
+5.  Documentez votre retour d'expérience avec votre comité de gouvernance
 
-### Vous êtes architecte ?
+### Vous êtes dans une équipe transversale ?
 
-**Besoin : "Je veux contribuer une architecture validée"**
+**Besoin : "Je veux contribuer un pattern infrastructure/fondation"**
 
 1.  Consultez les [Standards de Qualité](/guides/05-standards)
-2.  Préparez votre documentation (ADR, exemples, proven-in-use)
+2.  Préparez votre documentation (ADR, exemples de code, proven-in-use)
 3.  Suivez le [Guide de Contribution](/guides/06-contributing)
-4.  Soumettez votre PRA à la Table de Gouvernance
+4.  Soumettez directement à la Communauté d'Architectes Experts pour validation Bank-Wide
 
 ### Vous découvrez les PRA ?
 
@@ -235,17 +242,24 @@ Le registre contient actuellement :
 
 ### Comment sont validés les PRAs ?
 
-Chaque PRA passe par un processus rigoureux :
+Deux processus selon le type :
 
-1. **Soumission**  Review technique par la Table de Gouvernance
-2. **Candidate**  Validé avec 1+ proven-in-use
-3. **Approved**  Validé avec 3+ proven-in-use de différentes équipes
+**PRAs Domaine (fonctionnels):**
+1. **Soumission** → Review par le Comité de Gouvernance du Domaine
+2. **Candidate** → Validé avec 1+ proven-in-use dans le domaine
+3. **Approved** → Validé localement, peut être proposé pour promotion Bank-Wide
+
+**PRAs Bank-Wide (infrastructure/patterns communs):**
+1. **Soumission** → Review par la Communauté d'Architectes Experts
+2. **Approved** → Validé avec 3+ proven-in-use de différentes équipes/domaines
 
 [En savoir plus sur le Cycle de Vie](/guides/04-lifecycle)
 
-### Qui décide si un PRA sectoriel devient transversal ?
+### Qui décide si un PRA domaine devient Bank-Wide ?
 
-La **Table de Gouvernance Transversale** (5-7 architectes senior cross-équipes).
+La **Communauté d'Architectes Experts** (architectes proches de la pratique, représentant différents domaines).
+
+Les **Comités de Gouvernance par Domaine** valident les PRAs fonctionnels localement avant de les proposer pour promotion.
 
 [En savoir plus sur la Gouvernance](/guides/08-governance)
 
@@ -272,6 +286,7 @@ La **Table de Gouvernance Transversale** (5-7 architectes senior cross-équipes)
 
 ---
 
-**Dernière mise à jour** : 2025-11-28
-**Contributeurs actifs** : 45+ architectes BNC
-**PRAs validés** : 40+ patterns éprouvés
+**Dernière mise à jour** : 2025-12-02
+**Contributeurs actifs** : 45+ architectes BNC (solutions et experts)
+**PRAs validés** : 40+ patterns éprouvés (infrastructure et fonctionnels)
+**Gouvernance** : Comités par domaine + Communauté d'Architectes Experts
