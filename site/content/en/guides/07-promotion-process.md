@@ -1,15 +1,17 @@
 ---
 title: 07. Promotion Process
-description: How a sectorial pattern becomes transversal
+description: How a Domain pattern becomes Bank-Wide (Flow 1)
 ---
 
-# Promotion Process (Sectorial → Transversal)
+# Promotion Process (Domain → Bank-Wide)
 
-This document describes the process for promoting a sectorial pattern to the transversal level, making it applicable across all organizational sectors.
+**This represents Flow 1** of the three PRA creation flows described in [Governance](/guides/08-governance). This is the organic, bottom-up flow where Domain PRAs are identified as having multi-domain value and promoted to Bank-Wide status.
+
+This document describes the process for promoting a Domain pattern to the Bank-Wide level, making it applicable across all organizational domains.
 
 ## 📋 Overview
 
-The promotion of a sectorial pattern to the transversal level follows a 4-phase process:
+The promotion of a Domain pattern to the Bank-Wide level follows a 4-phase process:
 
 ```mermaid
 graph LR
@@ -22,7 +24,7 @@ graph LR
 
 ### Trigger
 
-A sector identifies a pattern that could benefit other sectors.
+A **Domain Governance Committee** identifies a Domain pattern that could benefit other domains.
 
 ### Required Actions
 
@@ -39,15 +41,15 @@ A sector identifies a pattern that could benefit other sectors.
 
    ## Proposed Pattern
    - **Name**: [Pattern Name]
-   - **Original Sector**: [Sector]
+   - **Original Domain**: [Domain]
    - **Category**: tech | integration | security | business
 
-   ## Why is this pattern of transversal interest?
-   - [Reason 1: Recurring need]
-   - [Reason 2: Multi-sector applicable]
+   ## Why is this pattern of Bank-Wide interest?
+   - [Reason 1: Recurring need across domains]
+   - [Reason 2: Multi-domain applicable]
    - [Reason 3: Mature and proven]
 
-   ## Proven-in-use within the sector
+   ## Proven-in-use within the domain
    - **Project 1**: [Project name, date, results]
    - **Project 2**: [Project name, date, results]
    - **Project 3**: [Project name, date, results]
@@ -61,16 +63,16 @@ A sector identifies a pattern that could benefit other sectors.
 
    Create `impact-analysis.md`:
    ```markdown
-   # Multi-Sector Impact Analysis
+   # Multi-Domain Impact Analysis
 
-   ## Sectors that can benefit
+   ## Domains that can benefit
 
-   ### Sector 1: [Name]
+   ### Domain 1: [Name]
    - **Use case**: [Description]
    - **Added value**: [Benefits]
    - **Adoption effort**: Low | Medium | High
 
-   ### Sector 2: [Name]
+   ### Domain 2: [Name]
    - **Use case**: [Description]
    - **Added value**: [Benefits]
    - **Adoption effort**: Low | Medium | High
@@ -86,7 +88,7 @@ A sector identifies a pattern that could benefit other sectors.
 
 4. **Update the pattern**
 
-   In the sectorial pattern frontmatter:
+   In the Domain pattern frontmatter:
    ```yaml
    promotion_status: proposed
    ```
@@ -94,36 +96,36 @@ A sector identifies a pattern that could benefit other sectors.
 5. **Submit PR**
 
    ```bash
-   git checkout -b promotion/[sector]-[pattern]
+   git checkout -b promotion/[domain]-[pattern]
    git add content/registre/en-promotion/[folder]/
-   git add content/registre/secteurs/[sector]/[pattern].md
-   git commit -m "feat: propose promotion [pattern] to transversal"
-   git push origin promotion/[sector]-[pattern]
+   git add content/registre/domaines/[domain]/[pattern].md
+   git commit -m "feat: propose promotion [pattern] to Bank-Wide"
+   git push origin promotion/[domain]-[pattern]
    ```
 
 ## 🔍 Phase 2: Review
 
 ### Assignment
 
-The Pull Request is automatically assigned to the **Transversal Governance Committee**.
+The Pull Request is automatically assigned to the **Expert Architects Governance Committee**.
 
 ### Committee Analysis
 
 The committee evaluates according to these criteria:
 
-#### 1. Multi-Sector Reusability
+#### 1. Multi-Domain Reusability
 
-- ✅ Does the pattern solve a problem common to 3+ sectors?
+- ✅ Does the pattern solve a problem common to 3+ domains?
 - ✅ Are the necessary adaptations minor?
-- ✅ Can sector-specific aspects be parameterized?
+- ✅ Can domain-specific aspects be parameterized?
 
 #### 2. Pattern Maturity
 
-- ✅ 3+ proven implementations in the original sector?
-- ✅ Positive feedback from user teams?
+- ✅ 1+ proven implementation in the original domain (Domain Approved)?
+- ✅ Positive feedback from domain teams?
 - ✅ Complete and clear documentation?
 
-#### 3. Compliance with Transversal Standards
+#### 3. Compliance with Bank-Wide Standards
 
 - ✅ Complies with enterprise technical standards?
 - ✅ Compatible with target architecture?
@@ -131,15 +133,15 @@ The committee evaluates according to these criteria:
 
 #### 4. Impact on Enterprise Consistency
 
-- ✅ Strengthens architectural alignment?
+- ✅ Strengthens architectural alignment across domains?
 - ✅ Avoids solution duplication?
-- ✅ Facilitates interoperability?
+- ✅ Facilitates multi-domain interoperability?
 
 ### Possible Decisions
 
 1. **✅ Approved** → Proceeds to Phase 3 (Migration)
-2. **🔄 Revisions required** → Returns to sector with feedback
-3. **❌ Rejected** → Remains sectorial with justification
+2. **🔄 Revisions required** → Returns to domain with feedback
+3. **❌ Rejected** → Remains Domain-level with justification
 
 ### Timeline
 
@@ -151,66 +153,66 @@ The committee evaluates according to these criteria:
 
 ### 7. Cleanup and Generalization
 
-The pattern maintainer (with committee support):
+The pattern maintainer (with Expert Architects Committee support):
 
-1. **Remove sector-specific aspects**
+1. **Remove domain-specific aspects**
    - Replace specific references with generic parameters
    - Document configuration points
 
 2. **Enrich documentation**
-   - Add multi-sector examples
-   - Document sectorial variations
+   - Add multi-domain examples
+   - Document domain-specific variations
    - Create adaptation guide
 
 ### 8. Technical Migration
 
 ```bash
 # Move the pattern
-git mv content/registre/secteurs/[sector]/[category]/[pattern].md \
-       content/registre/transversal/[category]/[pattern].md
+git mv content/registre/domaines/[domain]/[category]/[pattern].md \
+       content/registre/bank-wide/[category]/[pattern].md
 
 # Update metadata
 # In the frontmatter:
-scope: transversal
-original_sector: [original-sector]
+scope: bank-wide
+original_domain: [original-domain]
 promotion_status: promoted
 promotion_date: YYYY-MM-DD
 ```
 
 ### 9. Historical Marking
 
-In the original sector, create a redirect:
+In the original domain, create a redirect:
 
 ```markdown
 ---
 title: [Pattern Name]
-redirect: /registre/transversal/[category]/[pattern]
+redirect: /registre/bank-wide/[category]/[pattern]
 ---
 
 # [Pattern Name]
 
-📢 This pattern was **promoted to transversal level** on [date].
+📢 This pattern was **promoted to Bank-Wide level** on [date].
 
-It is now accessible to all sectors:
-👉 [View the transversal pattern](/registre/transversal/[category]/[pattern])
+It is now accessible to all domains:
+👉 [View the Bank-Wide pattern](/registre/bank-wide/[category]/[pattern])
 ```
 
 ### 10. Communication
 
 Automated email sent to:
 - All architects
-- Architecture managers of each sector
+- Architecture managers of each domain
 - PRA distribution list
 
 Template:
 ```
-Subject: 🎉 New transversal pattern: [Pattern Name]
+Subject: 🎉 New Bank-Wide pattern: [Pattern Name]
 
-The pattern "[Pattern Name]" from the [Sector] sector has been promoted
-to transversal level.
+The pattern "[Pattern Name]" from the [Domain] domain has been promoted
+to Bank-Wide level.
 
 Benefits: [Summary]
-Applicable sectors: [List]
+Applicable domains: [List]
 Documentation: [Link]
 
 Use it in your new projects!
@@ -226,11 +228,11 @@ git mv content/registre/en-promotion/[folder]/ \
 
 ## 📈 Phase 4: Adoption
 
-### Multi-Sector Encouragement
+### Multi-Domain Encouragement
 
-The transversal committee:
-- Presents the pattern in enterprise architecture meeting
-- Identifies pilot projects in different sectors
+The Expert Architects Committee:
+- Presents the pattern in enterprise architecture meetings
+- Identifies pilot projects in different domains
 - Organizes Q&A sessions
 
 ### Feedback and Improvement
@@ -242,19 +244,19 @@ Adopting teams:
 
 ### Continuous Evolution
 
-The maintainer (now at transversal level):
-- Integrates multi-sector learnings
+The maintainer (now at Bank-Wide level):
+- Integrates multi-domain learnings
 - Publishes regular updates
-- Maintains compatibility across sectors
+- Maintains compatibility across domains
 
 ## 📊 Success Metrics
 
 A promotion is considered successful if:
 
-- ✅ **3+ sectors** adopt the pattern within 6 months
+- ✅ **3+ domains** adopt the pattern within 6 months (to reach Bank-Wide Approved)
 - ✅ **80%+ satisfaction** from user teams
-- ✅ **Reduced duplication**: no new similar sectorial pattern
-- ✅ **Maintained documentation**: < 3 months since last update
+- ✅ **Reduced duplication**: no new similar domain-specific pattern
+- ✅ **Maintained documentation**: < 6 months since last update
 
 ## ❓ FAQ
 
@@ -265,19 +267,19 @@ A promotion is considered successful if:
 
 ### Who decides on the promotion?
 
-The **Transversal Governance Committee**, with consultation from the original sector.
+The **Expert Architects Governance Committee**, with consultation from the original domain committee.
 
 ### Can we propose multiple patterns simultaneously?
 
-Yes, but max **2 active promotions** per sector to avoid overload.
+Yes, but max **2 active promotions** per domain to avoid overload.
 
 ### What happens if the promotion is rejected?
 
-The pattern remains sectorial. The rejection rationale is documented and can be reevaluated after 6 months.
+The pattern remains at Domain level. The rejection rationale is documented and can be reevaluated after 6 months.
 
-### Can a transversal pattern be "demoted"?
+### Can a Bank-Wide pattern be "demoted"?
 
-No. If a transversal pattern becomes obsolete, it transitions to `deprecated`, but does not return to sectorial level.
+No. If a Bank-Wide pattern becomes obsolete, it transitions to `deprecated`, but does not return to Domain level.
 
 ## 🆘 Support
 
@@ -307,5 +309,5 @@ For any questions about promotions:
 
 ---
 
-**Last Updated**: 2025-11-28
-**Next Review**: 2026-05-28
+**Last Updated**: 2025-12-02
+**Next Review**: 2026-06-02

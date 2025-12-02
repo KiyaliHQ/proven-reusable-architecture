@@ -1,15 +1,17 @@
 ---
 title: 07. Processus de Promotion
-description: Comment un patron sectoriel devient transversal
+description: Comment un patron Domaine devient Bank-Wide (Flow 1)
 ---
 
-# Processus de Promotion (Sectoriel  Transversal)
+# Processus de Promotion (Domaine → Bank-Wide)
 
-Ce document décrit le processus permettant de promouvoir un patron sectoriel au niveau transversal, le rendant ainsi applicable à tous les secteurs de l'organisation.
+**Ceci représente le Flow 1** des trois flows de création de PRA décrits dans [Gouvernance](/guides/08-governance). C'est le flow organique, bottom-up où les PRAs Domaine sont identifiés comme ayant une valeur multi-domaine et promus au statut Bank-Wide.
+
+Ce document décrit le processus permettant de promouvoir un patron Domaine au niveau Bank-Wide, le rendant ainsi applicable à tous les domaines de l'organisation.
 
 ##  Vue d'ensemble
 
-La promotion d'un patron sectoriel vers le niveau transversal suit un processus en 4 phases :
+La promotion d'un patron Domaine vers le niveau Bank-Wide suit un processus en 4 phases :
 
 ```mermaid
 graph LR
@@ -22,13 +24,13 @@ graph LR
 
 ### Déclencheur
 
-Un secteur identifie un patron qui pourrait bénéficier à d'autres secteurs.
+Un **Comité de Gouvernance du Domaine** identifie un patron Domaine qui pourrait bénéficier à d'autres domaines.
 
 ### Actions requises
 
 1. **Créer dossier de promotion**
    ```
-   content/registre/en-promotion/[secteur]-[categorie]-[nom-patron]/
+   content/registre/en-promotion/[domaine]-[categorie]-[nom-patron]/
    ```
 
 2. **Documenter la justification**
@@ -39,15 +41,15 @@ Un secteur identifie un patron qui pourrait bénéficier à d'autres secteurs.
 
    ## Patron Proposé
    - **Nom** : [Nom du patron]
-   - **Secteur d'origine** : [Secteur]
+   - **Domaine d'origine** : [Domaine]
    - **Catégorie** : tech | integration | security | business
 
-   ## Pourquoi ce patron est d'intérêt transversal ?
+   ## Pourquoi ce patron est d'intérêt Bank-Wide ?
    - [Raison 1 : Besoin récurrent]
-   - [Raison 2 : Applicable multi-secteurs]
+   - [Raison 2 : Applicable multi-domaines]
    - [Raison 3 : Mature et éprouvé]
 
-   ## Proven-in-use dans le secteur
+   ## Proven-in-use dans le domaine
    - **Projet 1** : [Nom projet, date, résultats]
    - **Projet 2** : [Nom projet, date, résultats]
    - **Projet 3** : [Nom projet, date, résultats]
@@ -57,20 +59,20 @@ Un secteur identifie un patron qui pourrait bénéficier à d'autres secteurs.
    - [Bénéfice 2]
    ```
 
-3. **Analyser l'impact multi-secteur**
+3. **Analyser l'impact multi-domaine**
 
    Créer `impact-analysis.md` :
    ```markdown
-   # Analyse d'Impact Multi-Secteur
+   # Analyse d'Impact Multi-Domaine
 
-   ## Secteurs pouvant bénéficier
+   ## Domaines pouvant bénéficier
 
-   ### Secteur 1 : [Nom]
+   ### Domaine 1 : [Nom]
    - **Cas d'usage** : [Description]
    - **Valeur ajoutée** : [Bénéfices]
    - **Effort d'adoption** : Faible | Moyen | Élevé
 
-   ### Secteur 2 : [Nom]
+   ### Domaine 2 : [Nom]
    - **Cas d'usage** : [Description]
    - **Valeur ajoutée** : [Bénéfices]
    - **Effort d'adoption** : Faible | Moyen | Élevé
@@ -86,7 +88,7 @@ Un secteur identifie un patron qui pourrait bénéficier à d'autres secteurs.
 
 4. **Mettre à jour le patron**
 
-   Dans le frontmatter du patron sectoriel :
+   Dans le frontmatter du patron domaine :
    ```yaml
    promotion_status: proposed
    ```
@@ -94,32 +96,32 @@ Un secteur identifie un patron qui pourrait bénéficier à d'autres secteurs.
 5. **Soumettre PR**
 
    ```bash
-   git checkout -b promotion/[secteur]-[patron]
+   git checkout -b promotion/[domaine]-[patron]
    git add content/registre/en-promotion/[dossier]/
-   git add content/registre/secteurs/[secteur]/[patron].md
-   git commit -m "feat: propose promotion [patron] vers transversal"
-   git push origin promotion/[secteur]-[patron]
+   git add content/registre/domaines/[domaine]/[patron].md
+   git commit -m "feat: propose promotion [patron] vers Bank-Wide"
+   git push origin promotion/[domaine]-[patron]
    ```
 
 ##  Phase 2 : Revue
 
 ### Assignation
 
-La Pull Request est automatiquement assignée au **Comité de Gouvernance Transversal**.
+La Pull Request est automatiquement assignée au **Comité de Gouvernance Architectes Experts**.
 
 ### Analyse du Comité
 
 Le comité évalue selon ces critères :
 
-#### 1. Réutilisabilité Multi-Secteur
+#### 1. Réutilisabilité Multi-Domaine
 
--  Le patron résout-il un problème commun à 3+ secteurs ?
+-  Le patron résout-il un problème commun à 3+ domaines ?
 -  Les adaptations nécessaires sont-elles mineures ?
--  Les spécificités sectorielles peuvent-elles être paramétrées ?
+-  Les spécificités domaineles peuvent-elles être paramétrées ?
 
 #### 2. Maturité du Patron
 
--  3+ implémentations prouvées dans le secteur d'origine ?
+-  3+ implémentations prouvées dans le domaine d'origine ?
 -  Retours positifs des équipes utilisatrices ?
 -  Documentation complète et claire ?
 
@@ -138,8 +140,8 @@ Le comité évalue selon ces critères :
 ### Décisions Possibles
 
 1. ** Approuvé**  Passe en Phase 3 (Migration)
-2. ** Révisions requises**  Retour au secteur avec feedback
-3. ** Refusé**  Reste sectoriel avec justification
+2. ** Révisions requises**  Retour au domaine avec feedback
+3. ** Refusé**  Reste domaine avec justification
 
 ### Timeline
 
@@ -153,64 +155,64 @@ Le comité évalue selon ces critères :
 
 Le mainteneur du patron (avec support du comité) :
 
-1. **Retire les spécificités sectorielles**
+1. **Retire les spécificités domaineles**
    - Remplace références spécifiques par paramètres génériques
    - Documente les points de configuration
 
 2. **Enrichit la documentation**
-   - Ajoute exemples multi-secteurs
-   - Documente les variations sectorielles
+   - Ajoute exemples multi-domaines
+   - Documente les variations domaineles
    - Crée guide d'adaptation
 
 ### 8. Migration Technique
 
 ```bash
 # Déplacer le patron
-git mv content/registre/secteurs/[secteur]/[categorie]/[patron].md \
-       content/registre/transversal/[categorie]/[patron].md
+git mv content/registre/domaines/[domaine]/[categorie]/[patron].md \
+       content/registre/Bank-Wide/[categorie]/[patron].md
 
 # Mettre à jour metadata
 # Dans le frontmatter :
-scope: transversal
-original_sector: [secteur-origine]
+scope: Bank-Wide
+original_sector: [domaine-origine]
 promotion_status: promoted
 promotion_date: YYYY-MM-DD
 ```
 
 ### 9. Marquage Historique
 
-Dans le secteur d'origine, créer une redirection :
+Dans le domaine d'origine, créer une redirection :
 
 ```markdown
 ---
 title: [Nom Patron]
-redirect: /registre/transversal/[categorie]/[patron]
+redirect: /registre/Bank-Wide/[categorie]/[patron]
 ---
 
 # [Nom Patron]
 
- Ce patron a été **promu au niveau transversal** le [date].
+ Ce patron a été **promu au niveau Bank-Wide** le [date].
 
-Il est maintenant accessible à tous les secteurs :
- [Voir le patron transversal](/registre/transversal/[categorie]/[patron])
+Il est maintenant accessible à tous les domaines :
+ [Voir le patron Bank-Wide](/registre/Bank-Wide/[categorie]/[patron])
 ```
 
 ### 10. Communication
 
 Email automatique envoyé à :
 - Tous les architectes
-- Responsables architecture de chaque secteur
+- Responsables architecture de chaque domaine
 - Liste de diffusion PRA
 
 Template :
 ```
-Sujet:  Nouveau patron transversal : [Nom Patron]
+Sujet:  Nouveau patron Bank-Wide : [Nom Patron]
 
-Le patron "[Nom Patron]" du secteur [Secteur] a été promu
-au niveau transversal.
+Le patron "[Nom Patron]" du domaine [Domaine] a été promu
+au niveau Bank-Wide.
 
 Bénéfices : [Résumé]
-Secteurs applicables : [Liste]
+Domaines applicables : [Liste]
 Documentation : [Lien]
 
 Utilisez-le dans vos nouveaux projets !
@@ -226,11 +228,11 @@ git mv content/registre/en-promotion/[dossier]/ \
 
 ##  Phase 4 : Adoption
 
-### Encouragement Multi-Secteur
+### Encouragement Multi-Domaine
 
-Le comité transversal :
+Le Comité Architectes Experts :
 - Présente le patron en réunion architecture d'entreprise
-- Identifie projets pilotes dans différents secteurs
+- Identifie projets pilotes dans différents domaines
 - Organise sessions de Q&A
 
 ### Feedback et Amélioration
@@ -242,18 +244,18 @@ Les équipes adoptantes :
 
 ### Évolution Continue
 
-Le mainteneur (désormais au niveau transversal) :
-- Intègre les learnings multi-secteurs
+Le mainteneur (désormais au niveau Bank-Wide) :
+- Intègre les learnings multi-domaines
 - Publie updates régulières
-- Maintient compatibilité entre secteurs
+- Maintient compatibilité entre domaines
 
 ##  Métriques de Succès
 
 Une promotion est considérée réussie si :
 
--  **3+ secteurs** adoptent le patron dans les 6 mois
+-  **3+ domaines** adoptent le patron dans les 6 mois
 -  **80%+ satisfaction** des équipes utilisatrices
--  **Réduction duplication** : pas de nouveau patron sectoriel similaire
+-  **Réduction duplication** : pas de nouveau patron domaine similaire
 -  **Documentation maintenue** : < 3 mois depuis dernière update
 
 ##  FAQ
@@ -265,19 +267,19 @@ Une promotion est considérée réussie si :
 
 ### Qui décide de la promotion ?
 
-Le **Comité de Gouvernance Transversal**, avec consultation du secteur d'origine.
+Le **Comité de Gouvernance Architectes Experts**, avec consultation du domaine d'origine.
 
 ### Peut-on proposer plusieurs patrons simultanément ?
 
-Oui, mais max **2 promotions actives** par secteur pour éviter surcharge.
+Oui, mais max **2 promotions actives** par domaine pour éviter surcharge.
 
 ### Que se passe-t-il si la promotion est refusée ?
 
-Le patron reste sectoriel. La justification du refus est documentée et peut être réévaluée après 6 mois.
+Le patron reste domaine. La justification du refus est documentée et peut être réévaluée après 6 mois.
 
-### Un patron transversal peut-il être "rétrogradé" ?
+### Un patron Bank-Wide peut-il être "rétrogradé" ?
 
-Non. Si un patron transversal devient obsolète, il passe à `deprecated`, mais ne retourne pas au niveau sectoriel.
+Non. Si un patron Bank-Wide devient obsolète, il passe à `deprecated`, mais ne retourne pas au niveau domaine.
 
 ##  Support
 
@@ -307,5 +309,5 @@ Pour toute question sur les promotions :
 
 ---
 
-**Dernière mise à jour** : 2025-11-28
-**Prochaine review** : 2026-05-28
+**Dernière mise à jour** : 2025-12-02
+**Prochaine review** : 2026-06-02
