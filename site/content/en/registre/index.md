@@ -38,8 +38,8 @@ graph TB
         GOVB["Expert Architects<br/>Community"]
     end
 
-    DOM["🔵<br/>DOMAIN PRAs<br/>(Functional Patterns)"]
-    BW["🟢<br/>BANK-WIDE PRAs<br/>(Infrastructure + Common Patterns)"]
+    DOM["🔵<br/>DOMAIN PRAs<br/>(All types of patterns)"]
+    BW["🟢<br/>BANK-WIDE PRAs<br/>(Patterns validated for entire bank)"]
 
     TRANS -->|"Infrastructure/<br/>foundation PRAs<br/>(direct)"| GOVB
     DOMAINS -->|"Functional<br/>PRAs"| DOM
@@ -57,17 +57,24 @@ graph TB
 
 **Two PRA Creation Flows:**
 
-**🟠 Flow 1: Direct Bank-Wide (Infrastructure/Foundation)**
+**🟠 Flow 1: Direct Bank-Wide (Cross-Cutting Teams)**
 - Cross-cutting teams: Security, Cloud Infra, Software Engineering
-- Create PRAs **directly as Bank-Wide** (infrastructure/foundation patterns)
-- Examples: File transfer, Async APIs, CI/CD, observability
+- **Ideally** create PRAs directly as Bank-Wide (infrastructure/foundation patterns)
+- Examples: CI/CD, observability, network security, secrets management
 - Validated by Expert Architects Community
 
-**🔵 Flow 2: Domain → Bank-Wide (Functional Patterns)**
-- Solution architects in business domains
-- Functional PRAs validated locally by Domain Governance Committees
-- Repeated patterns across domains → extraction → Bank-Wide promotion
-- Examples: Customer Onboarding, Payment Processing, Notification System
+**🔵 Flow 2: Domain → Bank-Wide (Pragmatic)**
+- Solution architects in domains create **all types of PRAs**:
+  - Functional: Customer Onboarding, Payment Processing, Notification System
+  - **Technical too**: Serverless AWS, file transfer, async APIs
+- Why technical too? **Absence of Bank-Wide pattern** → domains fill the gap
+- Validated locally by Domain Governance Committees
+- **Repeated patterns across domains** or **particularly robust** → Bank-Wide promotion
+
+**Current Reality:**
+- Same topic (e.g., serverless) may exist in multiple domains (duplication)
+- The PRA Registry helps **identify these duplications** and **promote the best** to Bank-Wide
+- A technical pattern from a domain can become Bank-Wide if robust and proven (e.g., file transfer from Wealth Management)
 
 ### How a PRA is born and evolves
 
@@ -135,21 +142,28 @@ Follow our **8-step guided journey**:
 
 The registry is organized into **3 scopes** based on their reach:
 
-###  Transversal
+###  Bank-Wide
 
-**For whom?** All sectors of the National Bank
-**Maturity**: Validated by the Transversal Governance Table
-**Examples**: SSO Authentication, GitOps CI/CD, API Gateway, RBAC/ABAC
+**For whom?** All domains of the National Bank
+**Maturity**: Validated by Expert Architects Community (3+ proven-in-use)
+**Examples**:
+- Infrastructure: SSO Authentication, GitOps CI/CD, Observability
+- Technical: File Transfer (e.g., promoted from Wealth Mgmt), Async APIs
+- Functional: Customer Onboarding, Payment Processing (repeated patterns)
 
- [Explore Transversal PRAs](/registre/transversal)
+ [Explore Bank-Wide PRAs](/registre/transversal)
 
-###  Sectors
+###  Domains
 
-**For whom?** Teams from a specific sector (Retail, Corporate, Wealth Management)
-**Maturity**: Validated within their sector, awaiting transversal promotion
-**Examples**: Digital Onboarding (Retail), SAP ERP Integration (Corporate)
+**For whom?** Teams from a specific domain (Retail, Corporate, Wealth Management)
+**Maturity**: Locally validated by Domain Governance Committee (1+ proven-in-use)
+**Content**: All types of patterns (functional AND technical)
+**Examples**:
+- Functional: Digital Onboarding (Retail), SAP ERP Integration (Corporate)
+- Technical: Serverless AWS, file transfer, data pipelines (in absence of Bank-Wide pattern)
+**Note**: Can be promoted to Bank-Wide if repeated or particularly robust
 
- [Explore Sectoral PRAs](/registre/secteurs)
+ [Explore Domain PRAs](/registre/secteurs)
 
 ###  In Promotion
 

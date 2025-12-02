@@ -38,8 +38,8 @@ graph TB
         GOVB["Communauté d'Architectes<br/>Experts"]
     end
 
-    DOM["🔵<br/>PRAs DOMAINE<br/>(Patterns fonctionnels)"]
-    BW["🟢<br/>PRAs BANK-WIDE<br/>(Infrastructure + Patterns communs)"]
+    DOM["🔵<br/>PRAs DOMAINE<br/>(Tous types de patterns)"]
+    BW["🟢<br/>PRAs BANK-WIDE<br/>(Patterns validés pour toute la banque)"]
 
     TRANS -->|"PRAs infrastructure/<br/>fondation<br/>(direct)"| GOVB
     DOMAINS -->|"PRAs<br/>fonctionnels"| DOM
@@ -57,17 +57,24 @@ graph TB
 
 **Deux flux de création de PRAs :**
 
-**🟠 Flux 1 : Bank-Wide Direct (Infrastructure/Fondation)**
+**🟠 Flux 1 : Bank-Wide Direct (Équipes Transversales)**
 - Équipes transversales : Sécurité, Infra Cloud, Software Engineering
-- Créent des PRAs **directement Bank-Wide** (patterns infrastructure/fondation)
-- Exemples : File transfer, APIs asynchrones, CI/CD, observabilité
+- **Idéalement** créent des PRAs directement Bank-Wide (patterns infrastructure/fondation)
+- Exemples : CI/CD, observabilité, sécurité réseau, gestion des secrets
 - Validés par la Communauté d'Architectes Experts
 
-**🔵 Flux 2 : Domaine → Bank-Wide (Patterns Fonctionnels)**
-- Architectes de solutions dans les domaines métier
-- PRAs fonctionnels validés localement par les Comités de Gouvernance
-- Patterns répétés entre domaines → extraction → promotion Bank-Wide
-- Exemples : Customer Onboarding, Payment Processing, Notification System
+**🔵 Flux 2 : Domaine → Bank-Wide (Pragmatique)**
+- Architectes de solutions dans les domaines créent **tous types de PRAs** :
+  - Fonctionnels : Customer Onboarding, Payment Processing, Notification System
+  - **Techniques aussi** : Serverless AWS, file transfer, APIs asynchrones
+- Pourquoi technique aussi ? **Absence de pattern Bank-Wide** → les domaines comblent le vide
+- Validés localement par les Comités de Gouvernance
+- **Patterns répétés entre domaines** ou **particulièrement robustes** → promotion Bank-Wide
+
+**Réalité actuelle :**
+- Même sujet (ex: serverless) peut exister dans plusieurs domaines (duplication)
+- Le Registre PRA aide à **identifier ces duplications** et **promouvoir le meilleur** en Bank-Wide
+- Un pattern technique d'un domaine peut devenir Bank-Wide si robuste et proven (ex: file transfer de Gestion Patrimoine)
 
 ### Comment un PRA naît et évolue
 
@@ -135,21 +142,28 @@ Suivez notre **parcours guidé en 8 étapes** :
 
 Le registre est organisé en **3 scopes** selon leur portée :
 
-###  Transversal
+###  Bank-Wide
 
-**Pour qui ?** Tous les secteurs de la Banque Nationale
-**Maturité** : Validés par la Table de Gouvernance Transversale
-**Exemples** : Authentication SSO, CI/CD GitOps, API Gateway, RBAC/ABAC
+**Pour qui ?** Tous les domaines de la Banque Nationale
+**Maturité** : Validés par la Communauté d'Architectes Experts (3+ proven-in-use)
+**Exemples** :
+- Infrastructure : Authentication SSO, CI/CD GitOps, Observabilité
+- Techniques : File Transfer (ex: promu depuis GP), APIs asynchrones
+- Fonctionnels : Customer Onboarding, Payment Processing (patterns répétés)
 
- [Explorer les PRAs Transversaux](/registre/transversal)
+ [Explorer les PRAs Bank-Wide](/registre/transversal)
 
-###  Secteurs
+###  Domaines
 
-**Pour qui ?** Équipes d'un secteur spécifique (Particuliers, Entreprises, Gestion de Patrimoine)
-**Maturité** : Validés dans leur secteur, en attente de promotion transversale
-**Exemples** : Onboarding Digital (Particuliers), Intégration ERP SAP (Entreprises)
+**Pour qui ?** Équipes d'un domaine spécifique (Particuliers, Entreprises, Gestion de Patrimoine)
+**Maturité** : Validés localement par Comité de Gouvernance du Domaine (1+ proven-in-use)
+**Contenu** : Tous types de patterns (fonctionnels ET techniques)
+**Exemples** :
+- Fonctionnels : Onboarding Digital (Particuliers), Intégration ERP SAP (Entreprises)
+- Techniques : Serverless AWS, file transfer, data pipelines (en l'absence de pattern Bank-Wide)
+**Note** : Peuvent être promus en Bank-Wide si répétés ou particulièrement robustes
 
- [Explorer les PRAs Sectoriels](/registre/secteurs)
+ [Explorer les PRAs par Domaine](/registre/secteurs)
 
 ###  En Promotion
 
