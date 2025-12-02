@@ -45,33 +45,28 @@ Pensez aux PRA comme des **recettes de cuisine éprouvées** :
 
 ##  Comment naviguer dans le registre ?
 
-Le registre PRA est organisé en **3 scopes** :
+Le registre PRA est organisé en **2 scopes** :
 
 ```mermaid
 graph TD
-    A[Registre PRA] --> B[Transversal]
-    A --> C[Secteurs]
-    A --> D[En Promotion]
+    A[Registre PRA] --> B[Bank-Wide]
+    A --> C[Domaines]
 
     B --> B1[Approuvés pour tous]
-    C --> C1[Spécifiques à un secteur]
-    D --> D1[En cours de validation transversale]
+    C --> C1[Spécifiques à un domaine]
 ```
 
-###  Transversal
-- **Pour qui ?** Tous les secteurs de l'organisation
-- **Maturité** : Validés par la Table de Gouvernance
-- **Exemples** : Authentification, Observabilité, CI/CD
+###  Bank-Wide (Transversal)
+- **Pour qui ?** Tous les domaines de l'organisation
+- **Maturité** : Validés par le Comité de Gouvernance Architectes Experts (3+ proven-in-use)
+- **Exemples** : Authentification, Observabilité, CI/CD, File Transfer
 
-###  Secteurs
-- **Pour qui ?** Équipes d'un secteur spécifique
-- **Maturité** : Validés dans leur secteur
-- **Exemples** : Patterns métier spécifiques
-
-###  En Promotion
-- **Pour qui ?** Tous (en observation)
-- **Statut** : En cours de validation pour devenir transversal
-- **Utilité** : Voir les patterns émergents
+###  Domaines
+- **Pour qui ?** Équipes d'un domaine spécifique (Particuliers, Entreprises, Gestion de Patrimoine)
+- **Maturité** : Validés par le Comité de Gouvernance du Domaine (1+ proven-in-use)
+- **Contenu** : Tous types de patterns (fonctionnels ET techniques)
+- **Exemples** : Onboarding digital, Intégration SAP, Serverless AWS, Data pipelines
+- **Note** : Les PRAs en cours de promotion vers Bank-Wide ont un statut spécifique visible dans leur métadonnées
 
 ##  Vos premiers pas
 
@@ -150,14 +145,19 @@ Documentez votre implémentation dans les **proven-in-use**
 
 ### Combien de temps pour qu'un PRA soit approuvé ?
 
-- **Candidate** : 5-10 jours (review initiale)
-- **Approved** : Quand 3 proven-in-use documentés
+**PRA Domaine** :
+- **Candidate** : 5-10 jours (review par Comité Domaine)
+- **Approved** : Quand 1+ proven-in-use documenté dans le domaine
+
+**PRA Bank-Wide** :
+- **Review initiale** : 2-4 semaines (review par Comité Architectes Experts)
+- **Approved** : Quand 3+ proven-in-use documentés (multi-domaines)
 
 ### Je ne trouve pas de PRA pour mon besoin
 
 **Options** :
-1. Cherchez dans les **secteurs** (peut-être existe dans un autre secteur)
-2. Cherchez dans **En Promotion** (peut-être en cours de validation)
+1. Cherchez dans les **domaines** (peut-être existe dans un autre domaine)
+2. Vérifiez les PRAs avec statut **"en promotion"** (peut-être en cours de validation Bank-Wide)
 3. **Contribuez !** Votre solution peut devenir un nouveau PRA
 
 ##  Prochaines Étapes
@@ -187,4 +187,4 @@ Maintenant que vous comprenez les bases, continuez votre apprentissage :
 
 ---
 
-**Dernière mise à jour** : 2025-11-28
+**Dernière mise à jour** : 2025-12-02

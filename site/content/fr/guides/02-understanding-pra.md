@@ -99,9 +99,9 @@ graph TD
 ```
 
 **Caractéristiques** :
--  Applicable à **tous les secteurs**
--  Validé par la **Table de Gouvernance Transversale**
--  Au moins **3 proven-in-use** de différents secteurs
+-  Applicable à **tous les domaines**
+-  Validé par le **Comité de Gouvernance Architectes Experts**
+-  Au moins **3 proven-in-use** de différents domaines/équipes
 -  **Recommandé** pour nouveaux projets
 -  Localisation : `pra/transversal/[category]/`
 
@@ -122,16 +122,16 @@ graph TD
 ```
 
 **Caractéristiques** :
--  Applicable à **un secteur spécifique**
--  Validé par **l'équipe architecture du secteur**
--  Au moins **1 proven-in-use** dans le secteur
--  Peut être promu vers Transversal si réutilisable
--  Localisation : `pra/secteurs/[secteur]/[category]/`
+-  Applicable à **un domaine spécifique**
+-  Validé par le **Comité de Gouvernance du Domaine**
+-  Au moins **1 proven-in-use** dans le domaine
+-  **Tout type de pattern** (fonctionnel ET technique)
+-  Peut être promu vers Bank-Wide si réutilisable hors domaine
+-  Localisation : `pra/secteurs/[domaine]/[category]/`
 
 **Exemples** :
-- Patterns métier spécifiques (e.g., Booking flow pour secteur voyage)
-- Intégrations spécifiques à un domaine
-- Workflows sectoriels
+- Fonctionnels : Onboarding Digital (Particuliers), Intégration ERP SAP (Entreprises)
+- Techniques : Serverless AWS, file transfer, data pipelines (en l'absence de pattern Bank-Wide)
 
 ### 3. En Promotion
 
@@ -144,16 +144,16 @@ graph TD
 ```
 
 **Caractéristiques** :
--  Patron sectoriel proposé pour devenir transversal
--  En **cours de revue** par la Table de Gouvernance
--  **Observable** par tous les secteurs
--  Peut retourner Sectoriel ou devenir Transversal
--  Localisation : `pra/en-promotion/[secteur]-[patron]/`
+-  Patron de domaine proposé pour devenir Bank-Wide
+-  En **cours de revue** par le Comité de Gouvernance Architectes Experts
+-  **Observable** par tous les domaines
+-  Peut retourner Domaine ou devenir Bank-Wide
+-  Localisation : `pra/en-promotion/[domaine]-[patron]/`
 
 **Utilité** :
-- Voir patterns émergents
+- Voir patterns émergents avant leur généralisation
 - Participer aux discussions de promotion
-- Anticiper futurs standards transversaux
+- Anticiper futurs standards Bank-Wide
 
 ##  Les Statuts d'un PRA
 
@@ -310,4 +310,4 @@ Vous comprenez maintenant la structure des PRA. Continuez votre apprentissage :
 
 ---
 
-**Dernière mise à jour** : 2025-11-28
+**Dernière mise à jour** : 2025-12-02
