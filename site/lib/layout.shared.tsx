@@ -1,7 +1,9 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import Image from 'next/image';
+import { type Language, t } from './i18n';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 
-export function baseOptions(): BaseLayoutProps {
+export function baseOptions(lang: Language = 'fr'): BaseLayoutProps {
   return {
     nav: {
       title: (
@@ -18,21 +20,22 @@ export function baseOptions(): BaseLayoutProps {
           </span>
         </div>
       ),
-      url: '/',
+      url: `/${lang}`,
       transparentMode: 'none',
+      children: <LanguageSwitcher currentLang={lang} />,
     },
     links: [
       {
-        text: 'Accueil',
-        url: '/',
+        text: t(lang, 'nav.home'),
+        url: `/${lang}`,
       },
       {
-        text: 'Catalogue',
-        url: '/catalogue',
+        text: t(lang, 'nav.catalogue'),
+        url: `/${lang}/catalogue`,
       },
       {
-        text: 'Librairie',
-        url: '/registre',
+        text: t(lang, 'nav.library'),
+        url: `/${lang}/registre`,
       },
     ],
     // Disable dark mode - BNC branding is light mode only
