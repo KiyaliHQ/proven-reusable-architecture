@@ -136,3 +136,8 @@ main article {
 aside {
   z-index: 10;
 }
+
+/* Hide language switcher in sidebar header (keep in nav header and sidebar footer) */
+aside > div > div:first-child .fd-not-sidebar {
+  display: none !important;
+}

@@ -35,7 +35,7 @@ test.describe('Internationalization (i18n)', () => {
   test('should have language switcher visible', async ({ page }) => {
     await page.goto('/fr/registre');
 
-    // Check for FR and EN buttons (use more specific selectors)
+    // Check for FR and EN buttons in sidebar footer (last visible ones)
     const frButton = page.getByRole('link', { name: /Switch to Français/i }).or(
       page.locator('a[href*="/fr"]').filter({ hasText: 'FR' })
     );
@@ -43,8 +43,8 @@ test.describe('Internationalization (i18n)', () => {
       page.locator('a[href*="/en"]').filter({ hasText: 'EN' })
     );
 
-    await expect(frButton.first()).toBeVisible();
-    await expect(enButton.first()).toBeVisible();
+    await expect(frButton.last()).toBeVisible();
+    await expect(enButton.last()).toBeVisible();
   });
 
   test('should switch from French to English using language switcher', async ({ page }) => {

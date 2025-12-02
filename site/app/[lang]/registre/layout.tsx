@@ -19,6 +19,8 @@ export default async function Layout({
       tree={source.pageTree}
       {...baseOptions(lang)}
       sidebar={{
+        // Hide nav.children in sidebar by setting banner to null
+        banner: null,
         footer: (
           <div className="p-4 border-t border-gray-200">
             <LanguageSwitcher currentLang={lang} />
