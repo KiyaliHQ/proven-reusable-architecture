@@ -35,9 +35,9 @@ Submit a **Bank-Wide PRA** if your pattern:
 - Will be reviewed by the **Expert Architects Governance Committee**
 
 **Note**: Most PRAs start as Domain PRAs. Bank-Wide PRAs typically come from:
-- Cross-cutting teams (Software Engineering, Security, etc.) - **Flow 2**
-- Domain PRAs promoted to Bank-Wide - **Flow 1**
-- Bootstrap initiative (transitional) - **Flow 3**
+- Cross-cutting teams (Software Engineering, Security, etc.) - [**Flow 2**](/guides/08-governance#-flow-2-top-down-cross-cutting-teams--bank-wide)
+- Domain PRAs promoted to Bank-Wide - [**Flow 1**](/guides/08-governance#-flow-1-organic-domain--bank-wide)
+- Bootstrap initiative (transitional) - [**Flow 3**](/guides/08-governance#-flow-3-bootstrap-transitional)
 
 ## Submission Process
 

@@ -35,9 +35,9 @@ Soumettez un **PRA Bank-Wide** si votre patron :
 - Sera reviewé par le **Comité de Gouvernance Architectes Experts**
 
 **Note** : La plupart des PRAs commencent comme PRAs Domaine. Les PRAs Bank-Wide proviennent typiquement de :
-- Équipes transversales (Software Engineering, Sécurité, etc.) - **Flow 2**
-- PRAs Domaine promus vers Bank-Wide - **Flow 1**
-- Initiative Bootstrap (transitoire) - **Flow 3**
+- Équipes transversales (Software Engineering, Sécurité, etc.) - [**Flow 2**](/guides/08-governance#-flow-2--top-down-équipes-transversales---bank-wide)
+- PRAs Domaine promus vers Bank-Wide - [**Flow 1**](/guides/08-governance#-flow-1--organique-domaine---bank-wide)
+- Initiative Bootstrap (transitoire) - [**Flow 3**](/guides/08-governance#-flow-3--bootstrap-transitoire)
 
 ## Processus de Soumission
 
