@@ -1,6 +1,6 @@
 # Cycle de Vie des PRA
 
-Ce document décrit le cycle de vie complet d'un Patron Réutilisable d'Architecture (PRA), de sa création à son archivage.
+Ce document décrit le cycle de vie complet d'un Proven Reusable Architecture (PRA), de sa création à son archivage.
 
 **Version** : 1.0
 **Dernière mise à jour** : 28 novembre 2025

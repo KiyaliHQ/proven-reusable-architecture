@@ -24,7 +24,7 @@
 
 ### Vision
 
-Construire un **registre Git-native de Patrons Réutilisables d'Architecture (PRA)** pour capitaliser les pratiques architecturales éprouvées et accélérer la conception au sein de l'entreprise.
+Construire un **registre Git-native de Proven Reusable Architecture (PRA)** pour capitaliser les pratiques architecturales éprouvées et accélérer la conception au sein de l'entreprise.
 
 ### Objectifs
 

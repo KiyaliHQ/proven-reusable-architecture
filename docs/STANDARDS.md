@@ -1,6 +1,6 @@
 # Standards de Qualité - Registre PRA
 
-Ce document définit les standards de qualité pour tous les Patrons Réutilisables d'Architecture (PRA) du registre.
+Ce document définit les standards de qualité pour tous les Proven Reusable Architecture (PRA) du registre.
 
 **Version** : 1.0
 **Dernière mise à jour** : 28 novembre 2025

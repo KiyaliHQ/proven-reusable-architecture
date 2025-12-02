@@ -1,11 +1,11 @@
 ---
 title: 02. Comprendre les PRA
-description: Anatomie détaillée d'un Patron Réutilisable d'Architecture
+description: Anatomie détaillée d'un Proven Reusable Architecture
 ---
 
 #  Comprendre les PRA
 
-Maintenant que vous connaissez les bases, plongeons dans la structure et l'organisation des Patrons Réutilisables d'Architecture.
+Maintenant que vous connaissez les bases, plongeons dans la structure et l'organisation des Proven Reusable Architecture.
 
 ##  Anatomie d'un PRA
 

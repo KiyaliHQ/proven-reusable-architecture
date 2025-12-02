@@ -18,7 +18,7 @@ export function Footer() {
               />
             </div>
             <p className="text-white/70 text-sm mb-4">
-              Registre PRA - Patrons Réutilisables d'Architecture
+              Registre PRA - Proven Reusable Architecture
             </p>
             <p className="text-white/60 text-sm">
               Capitaliser sur l'expérience collective pour accélérer le développement et standardiser nos architectures.

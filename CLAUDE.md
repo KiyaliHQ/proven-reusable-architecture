@@ -10,7 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### What is a PRA?
 
-A **PRA (Patron Réutilisable d'Architecture)** is a proven solution validated in real production projects at Banque Nationale. Think of it as a battle-tested recipe that has been successfully used multiple times across different contexts.
+A **PRA (Proven Reusable Architecture)** is a proven solution validated in real production projects at Banque Nationale. Think of it as a battle-tested recipe that has been successfully used multiple times across different contexts.
 
 ### Key Principles
 

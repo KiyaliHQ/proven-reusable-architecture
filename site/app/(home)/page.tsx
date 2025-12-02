@@ -17,7 +17,7 @@ export default function HomePage() {
               Banque Nationale du Canada
             </h2>
             <p className="text-lg text-gray-600 mb-3">
-              Patrons Réutilisables d'Architecture
+              Proven Reusable Architecture
             </p>
             <p className="text-base text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
               Bibliothèque d'architectures validées en production pour accélérer vos projets avec qualité et cohérence

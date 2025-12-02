@@ -1,14 +1,14 @@
-# Registre PRA - Patrons Réutilisables d'Architecture
+# Registre PRA - Proven Reusable Architecture
 
 **Capitaliser • Accélérer • Standardiser**
 
-Bienvenue dans le registre des Patrons Réutilisables d'Architecture (PRA). Ce repository centralise les architectures validées et éprouvées en production pour accélérer la conception et renforcer la cohérence architecturale au sein de l'entreprise.
+Bienvenue dans le registre des Proven Reusable Architecture (PRA). Ce repository centralise les architectures validées et éprouvées en production pour accélérer la conception et renforcer la cohérence architecturale au sein de l'entreprise.
 
 ---
 
 ## 🎯 Qu'est-ce qu'un PRA ?
 
-Un **Patron Réutilisable d'Architecture (PRA)** est :
+Un **Proven Reusable Architecture (PRA)** est :
 
 - ✅ **Éprouvé** : Validé dans au moins 3 projets en production
 - ✅ **Documenté** : Architecture, ADR, exemples, retours d'expérience

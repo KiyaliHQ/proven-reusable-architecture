@@ -1,6 +1,6 @@
 ---
 title: 05. Standards de Qualité
-description: Critères et standards pour les Patrons Réutilisables d'Architecture
+description: Critères et standards pour les Proven Reusable Architecture
 ---
 
 # Standards de Qualité PRA

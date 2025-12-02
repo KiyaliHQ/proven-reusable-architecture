@@ -1,11 +1,11 @@
 ---
 title: 04. Cycle de Vie d'un PRA
-description: Les différentes étapes du cycle de vie d'un Patron Réutilisable d'Architecture
+description: Les différentes étapes du cycle de vie d'un Proven Reusable Architecture
 ---
 
 # Cycle de Vie d'un PRA
 
-Ce document décrit les différentes étapes du cycle de vie d'un Patron Réutilisable d'Architecture (PRA), de sa conception initiale à sa dépréciation éventuelle.
+Ce document décrit les différentes étapes du cycle de vie d'un Proven Reusable Architecture (PRA), de sa conception initiale à sa dépréciation éventuelle.
 
 ##  Vue d'ensemble
 

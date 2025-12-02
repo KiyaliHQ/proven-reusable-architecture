@@ -11,7 +11,7 @@ Vous démarrez un nouveau projet ? Vous cherchez la meilleure façon d'implémen
 
 ##  C'est quoi un PRA ?
 
-Un **PRA (Patron Réutilisable d'Architecture)** est une **solution éprouvée** qui a déjà fait ses preuves dans de vrais projets de la Banque Nationale.
+Un **PRA (Proven Reusable Architecture)** est une **solution éprouvée** qui a déjà fait ses preuves dans de vrais projets de la Banque Nationale.
 
 ```mermaid
 graph LR

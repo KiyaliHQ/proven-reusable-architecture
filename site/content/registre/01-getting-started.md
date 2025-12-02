@@ -1,17 +1,17 @@
 ---
 title: 01. Démarrer avec les PRA
-description: Guide de démarrage pour comprendre et utiliser les Patrons Réutilisables d'Architecture
+description: Guide de démarrage pour comprendre et utiliser les Proven Reusable Architecture
 ---
 
 #  Démarrer avec les PRA
 
-Bienvenue dans le **Registre des Patrons Réutilisables d'Architecture (PRA)** !
+Bienvenue dans le **Registre des Proven Reusable Architecture (PRA)** !
 
 Ce guide vous aidera à comprendre rapidement ce qu'est un PRA et comment l'utiliser dans vos projets.
 
 ##  Qu'est-ce qu'un PRA ?
 
-Un **Patron Réutilisable d'Architecture (PRA)** est une **solution éprouvée** à un problème récurrent d'architecture logicielle.
+Un **Proven Reusable Architecture (PRA)** est une **solution éprouvée** à un problème récurrent d'architecture logicielle.
 
 ### En 3 points clés
 

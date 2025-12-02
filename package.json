@@ -2,7 +2,7 @@
   "name": "pra-registry",
   "version": "1.0.0",
   "private": true,
-  "description": "Registre des Patrons Réutilisables d'Architecture (PRA)",
+  "description": "Registre des Proven Reusable Architecture (PRA)",
   "keywords": [
     "architecture",
     "patterns",
