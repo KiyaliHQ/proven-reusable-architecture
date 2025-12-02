@@ -53,9 +53,9 @@ Think of PRAs as **proven cooking recipes**:
 
 **Need: "I want to contribute a validated architecture"**
 
-1.  Review the [Quality Standards](/registre/05-standards)
+1.  Review the [Quality Standards](/guides/05-standards)
 2.  Prepare your documentation (ADRs, examples, proven-in-use)
-3.  Follow the [Contribution Guide](/registre/06-contributing)
+3.  Follow the [Contribution Guide](/guides/06-contributing)
 4.  Submit your PRA to the Governance Table
 
 ### Are you discovering PRAs?
@@ -64,14 +64,14 @@ Think of PRAs as **proven cooking recipes**:
 
 Follow our **8-step guided journey**:
 
-1. [Getting Started with PRAs](/registre/01-getting-started) - Introduction and first steps
-2. [Understanding PRAs](/registre/02-understanding-pra) - Detailed anatomy
-3. [Roles and Responsibilities](/registre/03-roles-responsibilities) - Who does what
-4. [Lifecycle](/registre/04-lifecycle) - From Candidate to Approved
-5. [Quality Standards](/registre/05-standards) - Criteria for excellence
-6. [Contributing a PRA](/registre/06-contributing) - Submission process
-7. [Promotion Process](/registre/07-promotion-process) - Sectoral  Transversal
-8. [Governance](/registre/08-governance) - Structure and decisions
+1. [Getting Started with PRAs](/guides/01-getting-started) - Introduction and first steps
+2. [Understanding PRAs](/guides/02-understanding-pra) - Detailed anatomy
+3. [Roles and Responsibilities](/guides/03-roles-responsibilities) - Who does what
+4. [Lifecycle](/guides/04-lifecycle) - From Candidate to Approved
+5. [Quality Standards](/guides/05-standards) - Criteria for excellence
+6. [Contributing a PRA](/guides/06-contributing) - Submission process
+7. [Promotion Process](/guides/07-promotion-process) - Sectoral  Transversal
+8. [Governance](/guides/08-governance) - Structure and decisions
 
 ##  Registry Organization
 
@@ -190,13 +190,13 @@ Each PRA goes through a rigorous process:
 2. **Candidate**  Validated with 1+ proven-in-use
 3. **Approved**  Validated with 3+ proven-in-use from different teams
 
-[Learn more about the Lifecycle](/registre/04-lifecycle)
+[Learn more about the Lifecycle](/guides/04-lifecycle)
 
 ### Who decides if a sectoral PRA becomes transversal?
 
 The **Transversal Governance Table** (5-7 senior cross-team architects).
 
-[Learn more about Governance](/registre/08-governance)
+[Learn more about Governance](/guides/08-governance)
 
 ##  Next Steps
 
@@ -206,11 +206,11 @@ The **Transversal Governance Table** (5-7 senior cross-team architects).
 
 ### Do you have 15 minutes?
 
- Follow the [Getting Started Guide](/registre/01-getting-started) for a complete introduction
+ Follow the [Getting Started Guide](/guides/01-getting-started) for a complete introduction
 
 ### Do you want to understand everything?
 
- Go through the [8 numbered guides](/registre/01-getting-started) in order
+ Go through the [8 numbered guides](/guides/01-getting-started) in order
 
 ##  Need Help?
 

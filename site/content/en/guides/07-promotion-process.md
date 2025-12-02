@@ -290,20 +290,20 @@ For any questions about promotions:
 ---
 
 **Recommended Journey**:
-1. [Getting Started with PRAs](/registre/01-getting-started)
-2. [Understanding PRAs](/registre/02-understanding-pra)
-3. [Roles and Responsibilities](/registre/03-roles-responsibilities)
-4. [Lifecycle](/registre/04-lifecycle)
-5. [Quality Standards](/registre/05-standards)
-6. [Contributing a PRA](/registre/06-contributing)
+1. [Getting Started with PRAs](/guides/01-getting-started)
+2. [Understanding PRAs](/guides/02-understanding-pra)
+3. [Roles and Responsibilities](/guides/03-roles-responsibilities)
+4. [Lifecycle](/guides/04-lifecycle)
+5. [Quality Standards](/guides/05-standards)
+6. [Contributing a PRA](/guides/06-contributing)
 7. 👉 **Promotion Process** (you are here)
-8. [Governance](/registre/08-governance)
+8. [Governance](/guides/08-governance)
 
 ---
 
 **Navigation**:
-- ⬅️ **Previous**: [Contributing a PRA](/registre/06-contributing)
-- ➡️ **Next**: [Governance](/registre/08-governance)
+- ⬅️ **Previous**: [Contributing a PRA](/guides/06-contributing)
+- ➡️ **Next**: [Governance](/guides/08-governance)
 
 ---
 

@@ -1,29 +1,53 @@
-import { docs, docs_en, docs_fr } from 'fumadocs-mdx:collections/server';
+import { guides_fr, guides_en, registre_fr, registre_en } from 'fumadocs-mdx:collections/server';
 import { type InferPageType, loader } from 'fumadocs-core/source';
 import { lucideIconsPlugin } from 'fumadocs-core/source/lucide-icons';
 import type { Language } from './i18n';
 
-// Language-specific sources
-const sources = {
+// Guide sources
+const guideSources = {
   en: loader({
-    baseUrl: '/en/registre',
-    source: docs_en.toFumadocsSource(),
+    baseUrl: '/en/guides',
+    source: guides_en.toFumadocsSource(),
     plugins: [lucideIconsPlugin()],
   }),
   fr: loader({
-    baseUrl: '/fr/registre',
-    source: docs_fr.toFumadocsSource(),
+    baseUrl: '/fr/guides',
+    source: guides_fr.toFumadocsSource(),
     plugins: [lucideIconsPlugin()],
   }),
 };
 
-// Get source by language
+// Registry (PRA) sources
+const registreSources = {
+  en: loader({
+    baseUrl: '/en/registre',
+    source: registre_en.toFumadocsSource(),
+    plugins: [lucideIconsPlugin()],
+  }),
+  fr: loader({
+    baseUrl: '/fr/registre',
+    source: registre_fr.toFumadocsSource(),
+    plugins: [lucideIconsPlugin()],
+  }),
+};
+
+// Get guide source by language
+export function getGuideSource(locale: Language) {
+  return guideSources[locale] || guideSources.fr;
+}
+
+// Get registry source by language
+export function getRegistreSource(locale: Language) {
+  return registreSources[locale] || registreSources.fr;
+}
+
+// Backward compatibility - returns registry source
 export function getSource(locale: Language) {
-  return sources[locale] || sources.fr;
+  return getRegistreSource(locale);
 }
 
 // Default source (backward compatibility)
-export const source = sources.fr;
+export const source = registreSources.fr;
 
 export function getPageImage(page: InferPageType<typeof source>) {
   const segments = [...page.slugs, 'image.png'];

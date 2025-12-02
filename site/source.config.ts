@@ -6,8 +6,36 @@ import {
 } from 'fumadocs-mdx/config';
 import { remarkMdxMermaid } from 'fumadocs-core/mdx-plugins';
 
-// French content (default)
-export const docs_fr = defineDocs({
+// French guides
+export const guides_fr = defineDocs({
+  dir: 'content/fr/guides',
+  docs: {
+    schema: frontmatterSchema,
+    postprocess: {
+      includeProcessedMarkdown: true,
+    },
+  },
+  meta: {
+    schema: metaSchema,
+  },
+});
+
+// English guides
+export const guides_en = defineDocs({
+  dir: 'content/en/guides',
+  docs: {
+    schema: frontmatterSchema,
+    postprocess: {
+      includeProcessedMarkdown: true,
+    },
+  },
+  meta: {
+    schema: metaSchema,
+  },
+});
+
+// French registry (PRAs only)
+export const registre_fr = defineDocs({
   dir: 'content/fr/registre',
   docs: {
     schema: frontmatterSchema,
@@ -20,8 +48,8 @@ export const docs_fr = defineDocs({
   },
 });
 
-// English content
-export const docs_en = defineDocs({
+// English registry (PRAs only)
+export const registre_en = defineDocs({
   dir: 'content/en/registre',
   docs: {
     schema: frontmatterSchema,
@@ -34,7 +62,9 @@ export const docs_en = defineDocs({
   },
 });
 
-// Keep original for backward compatibility
+// Backward compatibility aliases
+export const docs_fr = registre_fr;
+export const docs_en = registre_en;
 export const docs = docs_fr;
 
 export default defineConfig({

@@ -298,20 +298,20 @@ Architectes désignés comme responsables d'un ou plusieurs PRA spécifiques.
 ---
 
 **Parcours recommandé** :
-1. [Démarrer avec les PRA](/registre/01-getting-started)
-2. [Comprendre les PRA](/registre/02-understanding-pra)
+1. [Démarrer avec les PRA](/guides/01-getting-started)
+2. [Comprendre les PRA](/guides/02-understanding-pra)
 3.  **Rôles et Responsabilités** (vous êtes ici)
-4. [Cycle de Vie](/registre/04-lifecycle)
-5. [Standards de Qualité](/registre/05-standards)
-6. [Contribuer un PRA](/registre/06-contributing)
-7. [Processus de Promotion](/registre/07-promotion-process)
-8. [Gouvernance](/registre/08-governance)
+4. [Cycle de Vie](/guides/04-lifecycle)
+5. [Standards de Qualité](/guides/05-standards)
+6. [Contribuer un PRA](/guides/06-contributing)
+7. [Processus de Promotion](/guides/07-promotion-process)
+8. [Gouvernance](/guides/08-governance)
 
 ---
 
 **Navigation** :
--  **Précédent** : [Comprendre les PRA](/registre/02-understanding-pra)
--  **Suivant** : [Cycle de Vie](/registre/04-lifecycle)
+-  **Précédent** : [Comprendre les PRA](/guides/02-understanding-pra)
+-  **Suivant** : [Cycle de Vie](/guides/04-lifecycle)
 
 ---
 

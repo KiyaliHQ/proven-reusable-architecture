@@ -290,20 +290,20 @@ Pour toute question sur les promotions :
 ---
 
 **Parcours recommandé** :
-1. [Démarrer avec les PRA](/registre/01-getting-started)
-2. [Comprendre les PRA](/registre/02-understanding-pra)
-3. [Rôles et Responsabilités](/registre/03-roles-responsibilities)
-4. [Cycle de Vie](/registre/04-lifecycle)
-5. [Standards de Qualité](/registre/05-standards)
-6. [Contribuer un PRA](/registre/06-contributing)
+1. [Démarrer avec les PRA](/guides/01-getting-started)
+2. [Comprendre les PRA](/guides/02-understanding-pra)
+3. [Rôles et Responsabilités](/guides/03-roles-responsibilities)
+4. [Cycle de Vie](/guides/04-lifecycle)
+5. [Standards de Qualité](/guides/05-standards)
+6. [Contribuer un PRA](/guides/06-contributing)
 7.  **Processus de Promotion** (vous êtes ici)
-8. [Gouvernance](/registre/08-governance)
+8. [Gouvernance](/guides/08-governance)
 
 ---
 
 **Navigation** :
--  **Précédent** : [Contribuer un PRA](/registre/06-contributing)
--  **Suivant** : [Gouvernance](/registre/08-governance)
+-  **Précédent** : [Contribuer un PRA](/guides/06-contributing)
+-  **Suivant** : [Gouvernance](/guides/08-governance)
 
 ---
 

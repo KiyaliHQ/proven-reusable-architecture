@@ -394,20 +394,20 @@ Pour questions sur les standards :
 ---
 
 **Parcours recommandé** :
-1. [Démarrer avec les PRA](/registre/01-getting-started)
-2. [Comprendre les PRA](/registre/02-understanding-pra)
-3. [Rôles et Responsabilités](/registre/03-roles-responsibilities)
-4. [Cycle de Vie](/registre/04-lifecycle)
+1. [Démarrer avec les PRA](/guides/01-getting-started)
+2. [Comprendre les PRA](/guides/02-understanding-pra)
+3. [Rôles et Responsabilités](/guides/03-roles-responsibilities)
+4. [Cycle de Vie](/guides/04-lifecycle)
 5.  **Standards de Qualité** (vous êtes ici)
-6. [Contribuer un PRA](/registre/06-contributing)
-7. [Processus de Promotion](/registre/07-promotion-process)
-8. [Gouvernance](/registre/08-governance)
+6. [Contribuer un PRA](/guides/06-contributing)
+7. [Processus de Promotion](/guides/07-promotion-process)
+8. [Gouvernance](/guides/08-governance)
 
 ---
 
 **Navigation** :
--  **Précédent** : [Cycle de Vie](/registre/04-lifecycle)
--  **Suivant** : [Contribuer un PRA](/registre/06-contributing)
+-  **Précédent** : [Cycle de Vie](/guides/04-lifecycle)
+-  **Suivant** : [Contribuer un PRA](/guides/06-contributing)
 
 ---
 

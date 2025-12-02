@@ -288,25 +288,25 @@ Business patterns
 
 You now understand the structure of PRAs. Continue your learning:
 
-**Next**: [Roles and Responsibilities](/registre/03-roles-responsibilities) - Who does what in the PRA ecosystem
+**Next**: [Roles and Responsibilities](/guides/03-roles-responsibilities) - Who does what in the PRA ecosystem
 
 ---
 
 **Recommended Path**:
-1. [Getting Started with PRAs](/registre/01-getting-started)
+1. [Getting Started with PRAs](/guides/01-getting-started)
 2. **Understanding PRAs** (you are here)
-3. [Roles and Responsibilities](/registre/03-roles-responsibilities)
-4. [Lifecycle](/registre/04-lifecycle)
-5. [Quality Standards](/registre/05-standards)
-6. [Contributing a PRA](/registre/06-contributing)
-7. [Promotion Process](/registre/07-promotion-process)
-8. [Governance](/registre/08-governance)
+3. [Roles and Responsibilities](/guides/03-roles-responsibilities)
+4. [Lifecycle](/guides/04-lifecycle)
+5. [Quality Standards](/guides/05-standards)
+6. [Contributing a PRA](/guides/06-contributing)
+7. [Promotion Process](/guides/07-promotion-process)
+8. [Governance](/guides/08-governance)
 
 ---
 
 **Navigation**:
-- **Previous**: [Getting Started with PRAs](/registre/01-getting-started)
-- **Next**: [Roles and Responsibilities](/registre/03-roles-responsibilities)
+- **Previous**: [Getting Started with PRAs](/guides/01-getting-started)
+- **Next**: [Roles and Responsibilities](/guides/03-roles-responsibilities)
 
 ---
 

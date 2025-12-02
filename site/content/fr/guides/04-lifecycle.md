@@ -171,20 +171,20 @@ Pour toute question sur le cycle de vie d'un PRA :
 ---
 
 **Parcours recommandé** :
-1. [Démarrer avec les PRA](/registre/01-getting-started)
-2. [Comprendre les PRA](/registre/02-understanding-pra)
-3. [Rôles et Responsabilités](/registre/03-roles-responsibilities)
+1. [Démarrer avec les PRA](/guides/01-getting-started)
+2. [Comprendre les PRA](/guides/02-understanding-pra)
+3. [Rôles et Responsabilités](/guides/03-roles-responsibilities)
 4.  **Cycle de Vie** (vous êtes ici)
-5. [Standards de Qualité](/registre/05-standards)
-6. [Contribuer un PRA](/registre/06-contributing)
-7. [Processus de Promotion](/registre/07-promotion-process)
-8. [Gouvernance](/registre/08-governance)
+5. [Standards de Qualité](/guides/05-standards)
+6. [Contribuer un PRA](/guides/06-contributing)
+7. [Processus de Promotion](/guides/07-promotion-process)
+8. [Gouvernance](/guides/08-governance)
 
 ---
 
 **Navigation** :
--  **Précédent** : [Rôles et Responsabilités](/registre/03-roles-responsibilities)
--  **Suivant** : [Standards de Qualité](/registre/05-standards)
+-  **Précédent** : [Rôles et Responsabilités](/guides/03-roles-responsibilities)
+-  **Suivant** : [Standards de Qualité](/guides/05-standards)
 
 ---
 

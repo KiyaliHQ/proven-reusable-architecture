@@ -59,4 +59,4 @@ graph TD
 
 ---
 
-**Next**: [Understanding PRAs](/en/registre/02-understanding-pra)
+**Next**: [Understanding PRAs](/en/guides/02-understanding-pra)

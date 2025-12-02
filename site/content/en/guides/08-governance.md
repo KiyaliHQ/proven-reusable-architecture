@@ -116,17 +116,17 @@ This governance document may evolve. Any major modification must:
 ---
 
 **Recommended path**:
-1. [Getting Started with PRAs](/registre/01-getting-started)
-2. [Understanding PRAs](/registre/02-understanding-pra)
-3. [Roles and Responsibilities](/registre/03-roles-responsibilities)
-4. [Lifecycle](/registre/04-lifecycle)
-5. [Quality Standards](/registre/05-standards)
-6. [Contributing a PRA](/registre/06-contributing)
-7. [Promotion Process](/registre/07-promotion-process)
+1. [Getting Started with PRAs](/guides/01-getting-started)
+2. [Understanding PRAs](/guides/02-understanding-pra)
+3. [Roles and Responsibilities](/guides/03-roles-responsibilities)
+4. [Lifecycle](/guides/04-lifecycle)
+5. [Quality Standards](/guides/05-standards)
+6. [Contributing a PRA](/guides/06-contributing)
+7. [Promotion Process](/guides/07-promotion-process)
 8.  **Governance** (you are here)
 
 ---
 
 **Navigation**:
--  **Previous**: [Promotion Process](/registre/07-promotion-process)
--  **Back to start**: [Getting Started with PRAs](/registre/01-getting-started)
+-  **Previous**: [Promotion Process](/guides/07-promotion-process)
+-  **Back to start**: [Getting Started with PRAs](/guides/01-getting-started)

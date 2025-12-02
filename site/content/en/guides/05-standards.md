@@ -394,20 +394,20 @@ For questions about standards:
 ---
 
 **Recommended path**:
-1. [Getting Started with PRAs](/registre/01-getting-started)
-2. [Understanding PRAs](/registre/02-understanding-pra)
-3. [Roles and Responsibilities](/registre/03-roles-responsibilities)
-4. [Lifecycle](/registre/04-lifecycle)
+1. [Getting Started with PRAs](/guides/01-getting-started)
+2. [Understanding PRAs](/guides/02-understanding-pra)
+3. [Roles and Responsibilities](/guides/03-roles-responsibilities)
+4. [Lifecycle](/guides/04-lifecycle)
 5.  **Quality Standards** (you are here)
-6. [Contributing a PRA](/registre/06-contributing)
-7. [Promotion Process](/registre/07-promotion-process)
-8. [Governance](/registre/08-governance)
+6. [Contributing a PRA](/guides/06-contributing)
+7. [Promotion Process](/guides/07-promotion-process)
+8. [Governance](/guides/08-governance)
 
 ---
 
 **Navigation**:
--  **Previous**: [Lifecycle](/registre/04-lifecycle)
--  **Next**: [Contributing a PRA](/registre/06-contributing)
+-  **Previous**: [Lifecycle](/guides/04-lifecycle)
+-  **Next**: [Contributing a PRA](/guides/06-contributing)
 
 ---
 

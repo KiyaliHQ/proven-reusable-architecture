@@ -108,26 +108,26 @@ For a candidate PRA to become **approved**, it must:
 
 Consult:
 
-- [Governance](/registre/08-governance)
-- [Lifecycle](/registre/04-lifecycle)
-- [Standards](/registre/05-standards)
+- [Governance](/guides/08-governance)
+- [Lifecycle](/guides/04-lifecycle)
+- [Standards](/guides/05-standards)
 
 ---
 
 **Recommended Path**:
-1. [Getting Started with PRAs](/registre/01-getting-started)
-2. [Understanding PRAs](/registre/02-understanding-pra)
-3. [Roles and Responsibilities](/registre/03-roles-responsibilities)
-4. [Lifecycle](/registre/04-lifecycle)
-5. [Quality Standards](/registre/05-standards)
+1. [Getting Started with PRAs](/guides/01-getting-started)
+2. [Understanding PRAs](/guides/02-understanding-pra)
+3. [Roles and Responsibilities](/guides/03-roles-responsibilities)
+4. [Lifecycle](/guides/04-lifecycle)
+5. [Quality Standards](/guides/05-standards)
 6. **Contributing a PRA** (you are here)
-7. [Promotion Process](/registre/07-promotion-process)
-8. [Governance](/registre/08-governance)
+7. [Promotion Process](/guides/07-promotion-process)
+8. [Governance](/guides/08-governance)
 
 ---
 
 **Navigation**:
-- **Previous**: [Quality Standards](/registre/05-standards)
-- **Next**: [Promotion Process](/registre/07-promotion-process)
+- **Previous**: [Quality Standards](/guides/05-standards)
+- **Next**: [Promotion Process](/guides/07-promotion-process)
 
 Or open an issue on GitHub.

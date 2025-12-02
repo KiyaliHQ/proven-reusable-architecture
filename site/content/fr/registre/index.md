@@ -53,9 +53,9 @@ Pensez aux PRA comme des **recettes de cuisine éprouvées** :
 
 **Besoin : "Je veux contribuer une architecture validée"**
 
-1.  Consultez les [Standards de Qualité](/registre/05-standards)
+1.  Consultez les [Standards de Qualité](/guides/05-standards)
 2.  Préparez votre documentation (ADR, exemples, proven-in-use)
-3.  Suivez le [Guide de Contribution](/registre/06-contributing)
+3.  Suivez le [Guide de Contribution](/guides/06-contributing)
 4.  Soumettez votre PRA à la Table de Gouvernance
 
 ### Vous découvrez les PRA ?
@@ -64,14 +64,14 @@ Pensez aux PRA comme des **recettes de cuisine éprouvées** :
 
 Suivez notre **parcours guidé en 8 étapes** :
 
-1. [Démarrer avec les PRA](/registre/01-getting-started) - Introduction et premiers pas
-2. [Comprendre les PRA](/registre/02-understanding-pra) - Anatomie détaillée
-3. [Rôles et Responsabilités](/registre/03-roles-responsibilities) - Qui fait quoi
-4. [Cycle de Vie](/registre/04-lifecycle) - De Candidate à Approved
-5. [Standards de Qualité](/registre/05-standards) - Critères d'excellence
-6. [Contribuer un PRA](/registre/06-contributing) - Processus de soumission
-7. [Processus de Promotion](/registre/07-promotion-process) - Sectoriel  Transversal
-8. [Gouvernance](/registre/08-governance) - Structure et décisions
+1. [Démarrer avec les PRA](/guides/01-getting-started) - Introduction et premiers pas
+2. [Comprendre les PRA](/guides/02-understanding-pra) - Anatomie détaillée
+3. [Rôles et Responsabilités](/guides/03-roles-responsibilities) - Qui fait quoi
+4. [Cycle de Vie](/guides/04-lifecycle) - De Candidate à Approved
+5. [Standards de Qualité](/guides/05-standards) - Critères d'excellence
+6. [Contribuer un PRA](/guides/06-contributing) - Processus de soumission
+7. [Processus de Promotion](/guides/07-promotion-process) - Sectoriel  Transversal
+8. [Gouvernance](/guides/08-governance) - Structure et décisions
 
 ##  Organisation du Registre
 
@@ -190,13 +190,13 @@ Chaque PRA passe par un processus rigoureux :
 2. **Candidate**  Validé avec 1+ proven-in-use
 3. **Approved**  Validé avec 3+ proven-in-use de différentes équipes
 
-[En savoir plus sur le Cycle de Vie](/registre/04-lifecycle)
+[En savoir plus sur le Cycle de Vie](/guides/04-lifecycle)
 
 ### Qui décide si un PRA sectoriel devient transversal ?
 
 La **Table de Gouvernance Transversale** (5-7 architectes senior cross-équipes).
 
-[En savoir plus sur la Gouvernance](/registre/08-governance)
+[En savoir plus sur la Gouvernance](/guides/08-governance)
 
 ##  Prochaines Étapes
 
@@ -206,11 +206,11 @@ La **Table de Gouvernance Transversale** (5-7 architectes senior cross-équipes)
 
 ### Vous avez 15 minutes ?
 
- Suivez le [Guide de Démarrage](/registre/01-getting-started) pour une introduction complète
+ Suivez le [Guide de Démarrage](/guides/01-getting-started) pour une introduction complète
 
 ### Vous voulez tout comprendre ?
 
- Parcourez les [8 guides numérotés](/registre/01-getting-started) dans l'ordre
+ Parcourez les [8 guides numérotés](/guides/01-getting-started) dans l'ordre
 
 ##  Besoin d'Aide ?
 

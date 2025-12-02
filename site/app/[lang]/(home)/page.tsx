@@ -47,7 +47,7 @@ export default async function HomePage({
             </div>
             <div className="mt-4">
               <Link
-                href={`/${lang}/registre/01-getting-started`}
+                href={`/${lang}/guides/01-getting-started`}
                 className="text-sm text-gray-600 hover:text-gray-900 underline"
               >
                 {t(lang, 'home.getStarted')} →
@@ -91,13 +91,13 @@ export default async function HomePage({
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link
-              href={`/${lang}/registre/06-contributing`}
+              href={`/${lang}/guides/06-contributing`}
               className="inline-flex items-center justify-center rounded border border-white bg-white px-8 py-3 text-sm font-medium text-gray-900 transition-colors hover:bg-gray-100"
             >
               {lang === 'fr' ? 'Guide de Contribution' : 'Contributing Guide'}
             </Link>
             <Link
-              href={`/${lang}/registre/08-governance`}
+              href={`/${lang}/guides/08-governance`}
               className="inline-flex items-center justify-center rounded border border-gray-400 bg-transparent px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-gray-800"
             >
               {lang === 'fr' ? 'Gouvernance' : 'Governance'}
