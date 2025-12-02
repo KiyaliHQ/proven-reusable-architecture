@@ -293,7 +293,7 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
   // Badge helpers
   const getCategoryBadge = (category: string) => {
     return (
-      <span className="px-2.5 py-1 text-xs font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded whitespace-nowrap">
+      <span className="px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 rounded-full shadow-sm whitespace-nowrap">
         {CATEGORY_LABELS[category as Exclude<Category, 'all'>] || category}
       </span>
     );
@@ -301,12 +301,12 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
 
   const getStatusBadge = (status: string) => {
     const styles: Record<string, string> = {
-      approved: 'text-green-700 bg-green-50 border-green-300',
-      candidate: 'text-blue-700 bg-blue-50 border-blue-300',
-      deprecated: 'text-red-700 bg-red-50 border-red-300',
+      approved: 'text-green-700 bg-green-50 shadow-green-200/50',
+      candidate: 'text-blue-700 bg-blue-50 shadow-blue-200/50',
+      deprecated: 'text-red-700 bg-red-50 shadow-red-200/50',
     };
     return (
-      <span className={`px-2.5 py-1 text-xs font-medium border rounded whitespace-nowrap ${styles[status] || 'text-gray-700 bg-gray-100 border-gray-300'}`}>
+      <span className={`px-3 py-1.5 text-xs font-medium rounded-full shadow-sm whitespace-nowrap ${styles[status] || 'text-gray-700 bg-gray-100 shadow-gray-200/50'}`}>
         {STATUS_LABELS[status as Exclude<Status, 'all'>] || status}
       </span>
     );
@@ -314,7 +314,7 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
 
   const getScopeBadge = (scope: string) => {
     return (
-      <span className="px-2.5 py-1 text-xs font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded whitespace-nowrap">
+      <span className="px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 rounded-full shadow-sm whitespace-nowrap">
         {SCOPE_LABELS[scope as Exclude<Scope, 'all'>] || scope}
       </span>
     );
@@ -323,25 +323,25 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
   const getSecteurBadge = (secteur?: string) => {
     if (!secteur) return <span className="text-xs text-gray-400">-</span>;
     return (
-      <span className="px-2.5 py-1 text-xs font-medium text-gray-700 bg-blue-50 border border-blue-300 rounded whitespace-nowrap">
+      <span className="px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-50 rounded-full shadow-sm whitespace-nowrap">
         {SECTEUR_LABELS[secteur as Exclude<Secteur, 'all'>] || secteur}
       </span>
     );
   };
 
   return (
-    <div className="min-h-screen bg-white pt-16 pb-12 px-4">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white pt-16 pb-12 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-4 pb-4 border-b border-gray-200">
-          <h1 className="text-2xl font-semibold text-gray-900 mb-1">{t.title}</h1>
-          <p className="text-sm text-gray-600">
+        <div className="mb-6 pb-6">
+          <h1 className="text-3xl font-semibold text-gray-900 mb-2">{t.title}</h1>
+          <p className="text-base text-[#de161d] font-medium">
             {t.found(filteredAndSortedPRAs.length)}
           </p>
         </div>
 
         {/* Search Bar - Central */}
-        <div className="max-w-2xl mx-auto mb-4">
+        <div className="max-w-2xl mx-auto mb-6">
           <input
             type="search"
             placeholder={t.searchPlaceholder}
@@ -350,24 +350,24 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
               setSearchQuery(e.target.value);
               handleFilterChange();
             }}
-            className="w-full px-4 py-2.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400"
+            className="w-full px-4 py-3 rounded-lg shadow-sm border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#de161d]/20 focus:border-[#de161d]/50 transition-all duration-300"
           />
         </div>
 
         {/* Filters Toggle Button */}
-        <div className="flex justify-center mb-4">
+        <div className="flex justify-center mb-6">
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded hover:bg-gray-50 flex items-center gap-2"
+            className="px-6 py-2.5 text-sm font-medium text-gray-700 bg-white shadow-sm hover:shadow-md rounded-lg hover:bg-gray-50 transition-all duration-300 flex items-center gap-2"
           >
             {showFilters ? t.hideFilters : t.showFilters}
-            <span className="text-gray-500">{showFilters ? '▲' : '▼'}</span>
+            <span className="text-[#de161d]">{showFilters ? '▲' : '▼'}</span>
           </button>
         </div>
 
         {/* Collapsible Filters */}
         {showFilters && (
-          <div className="bg-gray-50 border border-gray-300 rounded p-6 mb-4">
+          <div className="bg-white rounded-lg shadow-md p-6 mb-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {/* Scope Filter */}
             <div>
@@ -379,7 +379,7 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
                   setSecteurFilter('all'); // Reset secteur quand on change de scope
                   handleFilterChange();
                 }}
-                className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400"
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#de161d]/20 focus:border-[#de161d]/50 transition-all duration-300"
               >
                 <option value="all">{t.all}</option>
                 <option value="transversal">{t.transversal}</option>
@@ -398,7 +398,7 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
                     setSecteurFilter(e.target.value as Secteur);
                     handleFilterChange();
                   }}
-                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400"
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#de161d]/20 focus:border-[#de161d]/50 transition-all duration-300"
                 >
                   <option value="all">{t.all}</option>
                   {availableSecteurs.map((secteur) => (
@@ -419,7 +419,7 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
                   setCategoryFilter(e.target.value as Category);
                   handleFilterChange();
                 }}
-                className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400"
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#de161d]/20 focus:border-[#de161d]/50 transition-all duration-300"
               >
                 <option value="all">{t.allFeminine}</option>
                 <option value="tech">{t.tech}</option>
@@ -438,7 +438,7 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
                   setStatusFilter(e.target.value as Status);
                   handleFilterChange();
                 }}
-                className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400"
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#de161d]/20 focus:border-[#de161d]/50 transition-all duration-300"
               >
                 <option value="all">{t.all}</option>
                 <option value="approved">{t.approved}</option>
@@ -451,59 +451,59 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
         )}
 
         {/* Table */}
-        <div className="bg-white border border-gray-300 rounded overflow-hidden mb-4">
+        <div className="bg-white rounded-lg shadow-md overflow-hidden mb-6">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-300">
+              <thead className="bg-gradient-to-r from-gray-50 to-gray-100">
                 <tr>
                   <th
-                    className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                    className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-colors duration-200"
                     onClick={() => handleSort('name')}
                   >
                     <div className="flex items-center gap-1">
                       {t.name}
-                      {sortKey === 'name' && <span className="text-gray-500">{sortDirection === 'asc' ? '↑' : '↓'}</span>}
+                      {sortKey === 'name' && <span className="text-[#de161d]">{sortDirection === 'asc' ? '↑' : '↓'}</span>}
                     </div>
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     {t.description}
                   </th>
                   <th
-                    className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                    className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-colors duration-200"
                     onClick={() => handleSort('scope')}
                   >
                     <div className="flex items-center gap-1">
                       {t.scope}
-                      {sortKey === 'scope' && <span className="text-gray-500">{sortDirection === 'asc' ? '↑' : '↓'}</span>}
+                      {sortKey === 'scope' && <span className="text-[#de161d]">{sortDirection === 'asc' ? '↑' : '↓'}</span>}
                     </div>
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     {t.secteur}
                   </th>
                   <th
-                    className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                    className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-colors duration-200"
                     onClick={() => handleSort('category')}
                   >
                     <div className="flex items-center gap-1">
                       {t.category}
-                      {sortKey === 'category' && <span className="text-gray-500">{sortDirection === 'asc' ? '↑' : '↓'}</span>}
+                      {sortKey === 'category' && <span className="text-[#de161d]">{sortDirection === 'asc' ? '↑' : '↓'}</span>}
                     </div>
                   </th>
                   <th
-                    className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                    className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-colors duration-200"
                     onClick={() => handleSort('status')}
                   >
                     <div className="flex items-center gap-1">
                       {t.status}
-                      {sortKey === 'status' && <span className="text-gray-500">{sortDirection === 'asc' ? '↑' : '↓'}</span>}
+                      {sortKey === 'status' && <span className="text-[#de161d]">{sortDirection === 'asc' ? '↑' : '↓'}</span>}
                     </div>
                   </th>
-                  <th className="px-6 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     {t.proven}
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200 bg-white">
+              <tbody className="divide-y divide-gray-100 bg-white">
                 {paginatedPRAs.length === 0 ? (
                   <tr>
                     <td colSpan={7} className="px-6 py-12 text-center text-gray-500 text-sm">
@@ -514,11 +514,11 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
                   paginatedPRAs.map((pra) => (
                     <tr
                       key={pra.slug}
-                      className="hover:bg-gray-50 cursor-pointer transition-colors"
+                      className="hover:bg-gray-50 cursor-pointer transition-all duration-200 group"
                       onClick={() => (window.location.href = pra.url)}
                     >
                       <td className="px-6 py-4">
-                        <Link href={pra.url} className="text-gray-900 hover:text-bnc-red font-medium text-sm">
+                        <Link href={pra.url} className="text-gray-900 hover:text-[#de161d] font-medium text-sm transition-colors duration-200">
                           {pra.name}
                         </Link>
                       </td>
@@ -528,7 +528,7 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
                       <td className="px-6 py-4">{getCategoryBadge(pra.category)}</td>
                       <td className="px-6 py-4">{getStatusBadge(pra.status)}</td>
                       <td className="px-6 py-4 text-center">
-                        <span className="text-sm font-medium text-gray-700">{pra.provenCount}</span>
+                        <span className="text-sm font-semibold text-[#de161d]">{pra.provenCount}</span>
                       </td>
                     </tr>
                   ))
@@ -540,22 +540,22 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-between border-t border-gray-300 bg-white px-6 py-4 rounded">
+          <div className="flex items-center justify-between bg-white shadow-sm rounded-lg px-6 py-4">
             <div className="text-sm text-gray-600">
-              {t.page} {currentPage} {t.of} {totalPages} · {t.results(filteredAndSortedPRAs.length)}
+              {t.page} <span className="font-semibold text-[#de161d]">{currentPage}</span> {t.of} {totalPages} · {t.results(filteredAndSortedPRAs.length)}
             </div>
             <div className="flex gap-2">
               <button
                 onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2 text-sm font-medium text-gray-700 bg-white shadow-sm rounded-lg hover:shadow-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
               >
                 {t.previous}
               </button>
               <button
                 onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                 disabled={currentPage === totalPages}
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2 text-sm font-medium text-gray-700 bg-white shadow-sm rounded-lg hover:shadow-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
               >
                 {t.next}
               </button>
@@ -564,12 +564,21 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
         )}
 
         {/* Help Section */}
-        <div className="mt-8 bg-gray-50 border border-gray-300 rounded p-6">
+        <div className="mt-8 bg-gradient-to-br from-white to-gray-50 rounded-lg shadow-sm p-6">
           <h3 className="text-sm font-semibold text-gray-900 mb-3">{t.helpTitle}</h3>
-          <ul className="text-sm text-gray-600 space-y-1.5">
-            <li>{t.helpFilter}</li>
-            <li>{t.helpSort}</li>
-            <li>{t.helpClick}</li>
+          <ul className="text-sm text-gray-600 space-y-2">
+            <li className="flex items-start gap-2">
+              <span className="text-[#de161d] font-bold mt-0.5">•</span>
+              <span>{t.helpFilter}</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-[#de161d] font-bold mt-0.5">•</span>
+              <span>{t.helpSort}</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-[#de161d] font-bold mt-0.5">•</span>
+              <span>{t.helpClick}</span>
+            </li>
           </ul>
         </div>
       </div>
