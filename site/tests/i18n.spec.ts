@@ -14,9 +14,9 @@ test.describe('Internationalization (i18n)', () => {
     await expect(page.locator('h2').first()).toContainText('Banque Nationale du Canada');
 
     // Check French navigation
-    await expect(page.getByRole('link', { name: 'Accueil' })).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Catalogue' })).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Librairie' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Accueil', exact: true })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Parcourir', exact: true })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Registre', exact: true })).toBeVisible();
   });
 
   test('should display English homepage at /en', async ({ page }) => {
@@ -27,9 +27,9 @@ test.describe('Internationalization (i18n)', () => {
     await expect(page.locator('h2').first()).toContainText('Banque Nationale du Canada');
 
     // Check English navigation
-    await expect(page.getByRole('link', { name: 'Home' })).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Catalogue' })).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Library' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Home', exact: true })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Browse', exact: true })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Registry', exact: true })).toBeVisible();
   });
 
   test('should have language switcher visible', async ({ page }) => {
@@ -57,7 +57,7 @@ test.describe('Internationalization (i18n)', () => {
     await expect(page).toHaveURL('/en/registre');
 
     // Check English content is displayed
-    await expect(page.getByRole('link', { name: 'Library' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Registry', exact: true })).toBeVisible();
   });
 
   test('should switch from English to French using language switcher', async ({ page }) => {
@@ -70,7 +70,7 @@ test.describe('Internationalization (i18n)', () => {
     await expect(page).toHaveURL('/fr/registre');
 
     // Check French content is displayed
-    await expect(page.getByRole('link', { name: 'Librairie' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Registre', exact: true })).toBeVisible();
   });
 
   test('should preserve page path when switching languages', async ({ page }) => {
@@ -122,11 +122,11 @@ test.describe('Internationalization (i18n)', () => {
     await page.goto('/en');
 
     // Navigate to catalogue
-    await page.click('text=Catalogue');
+    await page.click('text=Browse');
     await expect(page).toHaveURL('/en/catalogue');
 
-    // Navigate to library
-    await page.click('text=Library');
+    // Navigate to registry
+    await page.click('text=Registry');
     await expect(page).toHaveURL(/\/en\/registre/);
   });
 

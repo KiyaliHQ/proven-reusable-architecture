@@ -15,9 +15,9 @@ export const languageNames: Record<Language, string> = {
 export const translations: Record<Language, Record<string, string>> = {
   en: {
     'nav.home': 'Home',
-    'nav.catalogue': 'Catalogue',
+    'nav.catalogue': 'Browse',
     'nav.registry': 'Registry',
-    'nav.library': 'Library',
+    'nav.library': 'Registry',
     'footer.copyright': '© 2024 Banque Nationale du Canada. All rights reserved.',
     'home.title': 'PRA Registry',
     'home.subtitle': 'Banque Nationale du Canada',
@@ -35,9 +35,9 @@ export const translations: Record<Language, Record<string, string>> = {
   },
   fr: {
     'nav.home': 'Accueil',
-    'nav.catalogue': 'Catalogue',
+    'nav.catalogue': 'Parcourir',
     'nav.registry': 'Registre',
-    'nav.library': 'Librairie',
+    'nav.library': 'Registre',
     'footer.copyright': '© 2024 Banque Nationale du Canada. Tous droits réservés.',
     'home.title': 'Registre PRA',
     'home.subtitle': 'Banque Nationale du Canada',
