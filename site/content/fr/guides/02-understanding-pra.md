@@ -86,15 +86,15 @@ replaces: null
 ---
 ```
 
-##  Les 3 Scopes d'un PRA
+##  Les 2 Scopes d'un PRA
 
-### 1. Transversal
+### 1. Bank-Wide (Transversal)
 
 ```mermaid
 graph TD
-    A[PRA Transversal] --> B[Validé pour TOUS les secteurs]
-    B --> C[3+ proven-in-use multi-secteurs]
-    B --> D[Approuvé Table Gouvernance]
+    A[PRA Bank-Wide] --> B[Validé pour TOUS les domaines]
+    B --> C[3+ proven-in-use multi-domaines]
+    B --> D[Approuvé Comité Architectes Experts]
     B --> E[Documentation enrichie]
 ```
 
@@ -111,49 +111,29 @@ graph TD
 - CI/CD Pipelines
 - API Design Standards
 
-### 2. Sectoriel
+### 2. Domaine
 
 ```mermaid
 graph TD
-    A[PRA Sectoriel] --> B[Spécifique à un secteur]
-    B --> C[1+ proven-in-use dans le secteur]
-    B --> D[Approuvé dans le secteur]
-    B --> E[Peut être promu Transversal]
+    A[PRA Domaine] --> B[Spécifique à un domaine]
+    B --> C[1+ proven-in-use dans le domaine]
+    B --> D[Approuvé Comité Domaine]
+    B --> E[Peut être promu Bank-Wide]
 ```
 
 **Caractéristiques** :
--  Applicable à **un domaine spécifique**
+-  Applicable à **un domaine spécifique** (Particuliers, Entreprises, Gestion de Patrimoine)
 -  Validé par le **Comité de Gouvernance du Domaine**
 -  Au moins **1 proven-in-use** dans le domaine
 -  **Tout type de pattern** (fonctionnel ET technique)
--  Peut être promu vers Bank-Wide si réutilisable hors domaine
+-  Peut être promu vers Bank-Wide si réutilisable hors domaine (statut **"en promotion"**)
 -  Localisation : `pra/secteurs/[domaine]/[category]/`
 
 **Exemples** :
 - Fonctionnels : Onboarding Digital (Particuliers), Intégration ERP SAP (Entreprises)
 - Techniques : Serverless AWS, file transfer, data pipelines (en l'absence de pattern Bank-Wide)
 
-### 3. En Promotion
-
-```mermaid
-graph TD
-    A[PRA En Promotion] --> B[Sectoriel vers Transversal]
-    B --> C[En cours de validation]
-    B --> D[Observable par tous]
-    B --> E[Décision Table Gouvernance]
-```
-
-**Caractéristiques** :
--  Patron de domaine proposé pour devenir Bank-Wide
--  En **cours de revue** par le Comité de Gouvernance Architectes Experts
--  **Observable** par tous les domaines
--  Peut retourner Domaine ou devenir Bank-Wide
--  Localisation : `pra/en-promotion/[domaine]-[patron]/`
-
-**Utilité** :
-- Voir patterns émergents avant leur généralisation
-- Participer aux discussions de promotion
-- Anticiper futurs standards Bank-Wide
+**Note sur la promotion** : Quand un PRA Domaine est proposé pour devenir Bank-Wide, il reçoit le statut **"en promotion"** dans ses métadonnées. Ce statut est visible par tous les domaines pendant la période de revue par le Comité Architectes Experts.
 
 ##  Les Statuts d'un PRA
 
@@ -229,22 +209,21 @@ graph LR
 
 ```mermaid
 graph TD
-    A[J'ai un besoin] --> B{PRA Transversal existe ?}
+    A[J'ai un besoin] --> B{PRA Bank-Wide existe ?}
     B -->|Oui| C[Vérifier contexte d'application]
-    B -->|Non| D{PRA Sectoriel existe ?}
+    B -->|Non| D{PRA Domaine existe ?}
 
-    C -->|Applicable| E[Utiliser PRA Transversal]
+    C -->|Applicable| E[Utiliser PRA Bank-Wide]
     C -->|Non applicable| D
 
     D -->|Oui| F[Vérifier contexte]
-    D -->|Non| G[Consulter En Promotion]
+    D -->|Non| G[Créer nouveau PRA ?]
 
-    F -->|Applicable| H[Utiliser PRA Sectoriel]
+    F -->|Applicable| H[Utiliser PRA Domaine]
     F -->|Non applicable| G
-
-    G -->|Trouvé| I[Évaluer pattern émergent]
-    G -->|Non trouvé| J[Créer nouveau PRA ?]
 ```
+
+**Note** : Les PRAs avec statut **"en promotion"** sont visibles dans les métadonnées des PRAs Domaine et peuvent être consultés pour voir les patterns émergents.
 
 ### Questions à se poser
 

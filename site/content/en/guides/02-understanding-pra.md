@@ -86,22 +86,22 @@ replaces: null
 ---
 ```
 
-## The 3 Scopes of a PRA
+## The 2 Scopes of a PRA
 
-### 1. Transversal
+### 1. Bank-Wide (Transversal)
 
 ```mermaid
 graph TD
-    A[Transversal PRA] --> B[Validated for ALL sectors]
-    B --> C[3+ multi-sector proven-in-use]
-    B --> D[Approved by Governance Table]
+    A[Bank-Wide PRA] --> B[Validated for ALL domains]
+    B --> C[3+ multi-domain proven-in-use]
+    B --> D[Approved by Expert Architects Committee]
     B --> E[Enriched documentation]
 ```
 
 **Characteristics**:
-- Applicable to **all sectors**
-- Validated by the **Transversal Governance Table**
-- At least **3 proven-in-use** from different sectors
+- Applicable to **all domains**
+- Validated by the **Expert Architects Governance Committee**
+- At least **3 proven-in-use** from different domains/teams
 - **Recommended** for new projects
 - Location: `pra/transversal/[category]/`
 
@@ -111,49 +111,29 @@ graph TD
 - CI/CD Pipelines
 - API Design Standards
 
-### 2. Sectoral
+### 2. Domain
 
 ```mermaid
 graph TD
-    A[Sectoral PRA] --> B[Specific to one sector]
-    B --> C[1+ proven-in-use in the sector]
-    B --> D[Approved in the sector]
-    B --> E[Can be promoted to Transversal]
+    A[Domain PRA] --> B[Specific to one domain]
+    B --> C[1+ proven-in-use in the domain]
+    B --> D[Approved by Domain Committee]
+    B --> E[Can be promoted to Bank-Wide]
 ```
 
 **Characteristics**:
-- Applicable to **a specific sector**
-- Validated by **the sector's architecture team**
-- At least **1 proven-in-use** in the sector
-- Can be promoted to Transversal if reusable
-- Location: `pra/secteurs/[sector]/[category]/`
+- Applicable to **a specific domain** (Retail, Corporate, Wealth Management)
+- Validated by the **Domain Governance Committee**
+- At least **1 proven-in-use** in the domain
+- **All types of patterns** (functional AND technical)
+- Can be promoted to Bank-Wide if reusable outside the domain (**"in promotion"** status)
+- Location: `pra/secteurs/[domain]/[category]/`
 
 **Examples**:
-- Sector-specific business patterns (e.g., Booking flow for travel sector)
-- Domain-specific integrations
-- Sectoral workflows
+- Functional: Digital Onboarding (Retail), SAP ERP Integration (Corporate)
+- Technical: Serverless AWS, file transfer, data pipelines (in absence of Bank-Wide pattern)
 
-### 3. Under Promotion
-
-```mermaid
-graph TD
-    A[PRA Under Promotion] --> B[Sectoral to Transversal]
-    B --> C[Under validation]
-    B --> D[Observable by all]
-    B --> E[Governance Table decision]
-```
-
-**Characteristics**:
-- Sectoral pattern proposed to become transversal
-- Under **review** by the Governance Table
-- **Observable** by all sectors
-- Can return to Sectoral or become Transversal
-- Location: `pra/en-promotion/[sector]-[pattern]/`
-
-**Purpose**:
-- See emerging patterns
-- Participate in promotion discussions
-- Anticipate future transversal standards
+**Note on promotion**: When a Domain PRA is proposed to become Bank-Wide, it receives the **"in promotion"** status in its metadata. This status is visible to all domains during the review period by the Expert Architects Committee.
 
 ## PRA Statuses
 
@@ -229,22 +209,21 @@ graph LR
 
 ```mermaid
 graph TD
-    A[I have a need] --> B{Transversal PRA exists?}
+    A[I have a need] --> B{Bank-Wide PRA exists?}
     B -->|Yes| C[Check application context]
-    B -->|No| D{Sectoral PRA exists?}
+    B -->|No| D{Domain PRA exists?}
 
-    C -->|Applicable| E[Use Transversal PRA]
+    C -->|Applicable| E[Use Bank-Wide PRA]
     C -->|Not applicable| D
 
     D -->|Yes| F[Check context]
-    D -->|No| G[Check Under Promotion]
+    D -->|No| G[Create new PRA?]
 
-    F -->|Applicable| H[Use Sectoral PRA]
+    F -->|Applicable| H[Use Domain PRA]
     F -->|Not applicable| G
-
-    G -->|Found| I[Evaluate emerging pattern]
-    G -->|Not found| J[Create new PRA?]
 ```
+
+**Note**: PRAs with **"in promotion"** status are visible in Domain PRA metadata and can be consulted to see emerging patterns.
 
 ### Questions to Ask Yourself
 
