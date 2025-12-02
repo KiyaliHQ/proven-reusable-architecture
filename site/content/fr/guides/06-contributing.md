@@ -16,6 +16,29 @@ Avant de soumettre un PRA, assurez-vous que :
 -  La solution est **réutilisable** et **généralisable** à d'autres contextes
 -  Vous pouvez **documenter** le contexte, les décisions et les exemples
 
+## Choisir le Scope de Votre PRA
+
+Avant de commencer, déterminez quel scope s'applique :
+
+### PRA Domaine
+Soumettez un **PRA Domaine** si votre patron :
+- Est spécifique à un domaine (Particuliers, Entreprises, Gestion de Patrimoine)
+- Contient des patterns fonctionnels ou techniques pour votre domaine
+- A au moins **1 proven-in-use dans votre domaine**
+- Sera reviewé par votre **Comité de Gouvernance du Domaine**
+
+### PRA Bank-Wide
+Soumettez un **PRA Bank-Wide** si votre patron :
+- Est applicable à travers **plusieurs domaines**
+- A démontré une **applicabilité multi-domaine**
+- A au moins **1 proven-in-use** (avec potentiel multi-domaine clair)
+- Sera reviewé par le **Comité de Gouvernance Architectes Experts**
+
+**Note** : La plupart des PRAs commencent comme PRAs Domaine. Les PRAs Bank-Wide proviennent typiquement de :
+- Équipes transversales (Software Engineering, Sécurité, etc.) - **Flow 2**
+- PRAs Domaine promus vers Bank-Wide - **Flow 1**
+- Initiative Bootstrap (transitoire) - **Flow 3**
+
 ## Processus de Soumission
 
 ### 1. Fork et Clone
@@ -81,10 +104,24 @@ Créez ensuite une Pull Request sur GitHub avec :
 
 ## Processus de Review
 
+Le processus de review dépend du scope de votre PRA :
+
+### Review PRA Domaine
+
 1. **Validation Automatique** : GitHub Actions vérifie format, liens, métadonnées
-2. **Review par la Table de Gouvernance** : 2-3 architectes reviewent le contenu
+2. **Review par Comité de Gouvernance du Domaine** : 2 approbations requises de votre comité domaine
 3. **Itérations** : Vous recevrez des feedbacks et demandes de clarification
-4. **Approbation** : Une fois approuvé, le PRA est mergé en tant que **Candidate**
+4. **Approbation** : Une fois approuvé, le PRA est mergé en tant que **Domaine Candidate**
+5. **Timeline** : 5-10 jours ouvrés
+
+### Review PRA Bank-Wide
+
+1. **Validation Automatique** : GitHub Actions vérifie format, liens, métadonnées
+2. **Review par Comité de Gouvernance Architectes Experts** : 2 approbations requises des architectes experts
+3. **Validation Multi-domaine** : Vérification de l'applicabilité à travers les domaines
+4. **Itérations** : Vous recevrez des feedbacks et demandes de clarification
+5. **Approbation** : Une fois approuvé, le PRA est mergé en tant que **Bank-Wide Candidate**
+6. **Timeline** : 2-4 semaines
 
 ## Critères de Qualité
 
@@ -98,11 +135,27 @@ Votre PRA sera évalué sur :
 
 ## Passage de Candidate à Approved
 
-Pour qu'un PRA candidate devienne **approved**, il doit :
+Les exigences diffèrent selon le scope :
 
--  Avoir **3+ implémentations prouvées** en production
--  Retours positifs des équipes ayant implémenté
--  Documentation mise à jour avec learnings
+### PRA Domaine : Candidate → Approved
+
+Pour qu'un PRA Domaine Candidate devienne **Domaine Approved**, il doit :
+
+-  Avoir **1+ implémentation prouvée dans le domaine** (déjà satisfait pour Candidate)
+-  Retours positifs des équipes du domaine (satisfaction > 7/10)
+-  Documentation enrichie avec learnings spécifiques au domaine
+-  Réutilisabilité confirmée au sein du domaine
+-  Review et approbation par le **Comité de Gouvernance du Domaine**
+
+### PRA Bank-Wide : Candidate → Approved
+
+Pour qu'un PRA Bank-Wide Candidate devienne **Bank-Wide Approved**, il doit :
+
+-  Avoir **3+ implémentations prouvées de différents domaines/équipes**
+-  Retours positifs multi-domaine (satisfaction > 7/10)
+-  Documentation enrichie avec learnings multi-contextes
+-  Applicabilité multi-domaine validée
+-  Review et approbation par le **Comité de Gouvernance Architectes Experts**
 
 ## Questions ?
 
