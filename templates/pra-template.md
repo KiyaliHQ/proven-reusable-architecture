@@ -1,13 +1,20 @@
 <!--
-🌐 MULTILINGUAL SUPPORT
+🌐 MULTILINGUAL SUPPORT (French ↔ English)
 
-After creating your PRA in French, translate it to English using this prompt with your LLM:
+This PRA must be available in both French and English.
 
-"Translate this PRA document from French to English. Preserve all Markdown formatting,
-keep technical terms unchanged, translate only human-readable text in frontmatter and content.
-Update internal links from /registre/ to /en/registre/. See templates/TRANSLATION_PROMPT.md for details."
+📝 If you write in FRENCH first:
+   Use PROMPT A (French → English) from templates/TRANSLATION_PROMPT.md
+   Save English version to: content/en/registre/[same-path]/[same-filename].md
 
-Save the English version to: content/en/registre/[same-path]/[same-filename].md
+📝 If you write in ENGLISH first:
+   Use PROMPT B (English → French) from templates/TRANSLATION_PROMPT.md
+   Save French version to: content/fr/registre/[same-path]/[same-filename].md
+
+Quick prompt for your LLM:
+"Translate this PRA document from [French/English] to [English/French].
+Preserve all Markdown formatting, keep technical terms unchanged,
+update internal links. See templates/TRANSLATION_PROMPT.md for full instructions."
 -->
 
 ---
