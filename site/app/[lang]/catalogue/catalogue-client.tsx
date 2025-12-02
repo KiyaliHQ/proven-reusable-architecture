@@ -216,7 +216,9 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
     let result = [...pras];
 
     // Filtre par recherche Orama
-    if (searchQuery && searchResults.length > 0) {
+    if (searchQuery.trim()) {
+      // Si on a une requête de recherche, filtrer les résultats
+      // Si searchResults est vide, aucun PRA ne matchera (comportement attendu)
       result = result.filter((pra) => searchResults.includes(pra.slug));
     }
 
