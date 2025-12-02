@@ -33,8 +33,6 @@ export const translations: Record<Language, Record<string, string>> = {
     'stats.approved.desc': 'Validated in production (3+ implementations)',
     'stats.candidates': 'Candidate PRAs',
     'stats.candidates.desc': 'Under validation (1+ implementation)',
-    'stats.validated': 'Validated PRAs',
-    'stats.validated.desc': 'Proven patterns in production',
   },
   fr: {
     'nav.home': 'Accueil',
@@ -56,8 +54,6 @@ export const translations: Record<Language, Record<string, string>> = {
     'stats.approved.desc': 'Validés en production (3+ implémentations)',
     'stats.candidates': 'PRAs Candidats',
     'stats.candidates.desc': 'En cours de validation (1+ implémentation)',
-    'stats.validated': 'PRAs Validés',
-    'stats.validated.desc': 'Patterns éprouvés en production',
   },
 };
 

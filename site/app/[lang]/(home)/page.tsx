@@ -60,7 +60,7 @@ export default async function HomePage({
       {/* Stats Section */}
       <div className="bg-gray-50 py-12 border-b border-gray-200">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-center max-w-3xl mx-auto">
             <div className="bg-white rounded border border-gray-300 p-6">
               <div className="text-3xl font-semibold mb-2 text-gray-900">{stats.approved}</div>
               <div className="text-gray-700 font-medium text-sm">{t(lang, 'stats.approved')}</div>
@@ -70,11 +70,6 @@ export default async function HomePage({
               <div className="text-3xl font-semibold mb-2 text-gray-900">{stats.candidates}</div>
               <div className="text-gray-700 font-medium text-sm">{t(lang, 'stats.candidates')}</div>
               <div className="text-gray-500 text-xs mt-1">{t(lang, 'stats.candidates.desc')}</div>
-            </div>
-            <div className="bg-white rounded border border-gray-300 p-6">
-              <div className="text-3xl font-semibold mb-2 text-gray-900">40+</div>
-              <div className="text-gray-700 font-medium text-sm">{t(lang, 'stats.validated')}</div>
-              <div className="text-gray-500 text-xs mt-1">{t(lang, 'stats.validated.desc')}</div>
             </div>
           </div>
         </div>
