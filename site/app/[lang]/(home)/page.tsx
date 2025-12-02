@@ -75,6 +75,141 @@ export default async function HomePage({
         </div>
       </div>
 
+      {/* How PRAs Are Created Section */}
+      <div className="bg-white py-16 border-b border-gray-200">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-semibold mb-3 text-center text-gray-900">
+              {lang === 'fr' ? 'Comment les PRAs sont-ils créés ?' : 'How Are PRAs Created?'}
+            </h2>
+            <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+              {lang === 'fr'
+                ? 'Les PRAs émergent de trois sources complémentaires, tous validés par une gouvernance à deux niveaux'
+                : 'PRAs emerge from three complementary sources, all validated by a two-tier governance structure'}
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              {/* Flow 1 */}
+              <div className="bg-gray-50 rounded border border-gray-300 p-6">
+                <div className="text-2xl font-semibold mb-2 text-blue-600">Flow 1</div>
+                <h3 className="text-lg font-semibold mb-3 text-gray-900">
+                  {lang === 'fr' ? 'Organique (Domaine → Bank-Wide)' : 'Organic (Domain → Bank-Wide)'}
+                </h3>
+                <p className="text-sm text-gray-600 mb-4">
+                  {lang === 'fr'
+                    ? 'Les architectes de domaine identifient des patterns réutilisables dans leurs projets. Les meilleurs sont promus au niveau Bank-Wide.'
+                    : 'Domain architects identify reusable patterns in their projects. The best ones are promoted to Bank-Wide level.'}
+                </p>
+                <div className="text-xs text-gray-500 space-y-1">
+                  <div>
+                    {lang === 'fr' ? '✓ Émergence bottom-up' : '✓ Bottom-up emergence'}
+                  </div>
+                  <div>
+                    {lang === 'fr' ? '✓ Validé par Comité Domaine' : '✓ Validated by Domain Committee'}
+                  </div>
+                  <div>
+                    {lang === 'fr' ? '✓ Promotion au niveau Bank-Wide' : '✓ Promotion to Bank-Wide level'}
+                  </div>
+                </div>
+              </div>
+
+              {/* Flow 2 */}
+              <div className="bg-gray-50 rounded border border-gray-300 p-6">
+                <div className="text-2xl font-semibold mb-2 text-purple-600">Flow 2</div>
+                <h3 className="text-lg font-semibold mb-3 text-gray-900">
+                  {lang === 'fr' ? 'Top-Down (Équipes Transversales)' : 'Top-Down (Cross-cutting Teams)'}
+                </h3>
+                <p className="text-sm text-gray-600 mb-4">
+                  {lang === 'fr'
+                    ? "Les équipes transversales (Software Engineering, Sécurité) créent des standards d'entreprise directement au niveau Bank-Wide."
+                    : 'Cross-cutting teams (Software Engineering, Security) create enterprise standards directly at Bank-Wide level.'}
+                </p>
+                <div className="text-xs text-gray-500 space-y-1">
+                  <div>
+                    {lang === 'fr' ? '✓ Standards d\'entreprise' : '✓ Enterprise standards'}
+                  </div>
+                  <div>
+                    {lang === 'fr' ? '✓ Créés directement Bank-Wide' : '✓ Created directly Bank-Wide'}
+                  </div>
+                  <div>
+                    {lang === 'fr' ? '✓ Gouvernance centralisée' : '✓ Centralized governance'}
+                  </div>
+                </div>
+              </div>
+
+              {/* Flow 3 */}
+              <div className="bg-gray-50 rounded border border-gray-300 p-6">
+                <div className="text-2xl font-semibold mb-2 text-amber-600">Flow 3</div>
+                <h3 className="text-lg font-semibold mb-3 text-gray-900">
+                  {lang === 'fr' ? 'Bootstrap (Transitoire)' : 'Bootstrap (Transitional)'}
+                </h3>
+                <p className="text-sm text-gray-600 mb-4">
+                  {lang === 'fr'
+                    ? "Identification et documentation des patterns existants critiques pour démarrer rapidement le registre."
+                    : 'Identification and documentation of existing critical patterns to quickly bootstrap the registry.'}
+                </p>
+                <div className="text-xs text-gray-500 space-y-1">
+                  <div>
+                    {lang === 'fr' ? '✓ Démarrage rapide' : '✓ Quick start'}
+                  </div>
+                  <div>
+                    {lang === 'fr' ? '✓ Patterns existants critiques' : '✓ Existing critical patterns'}
+                  </div>
+                  <div>
+                    {lang === 'fr' ? '✓ Phase transitoire' : '✓ Transitional phase'}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Governance */}
+            <div className="bg-blue-50 rounded border border-blue-200 p-6">
+              <h3 className="text-lg font-semibold mb-4 text-gray-900 text-center">
+                {lang === 'fr' ? 'Gouvernance à Deux Niveaux' : 'Two-Tier Governance'}
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-2">
+                    {lang === 'fr' ? '🔵 Comités de Gouvernance par Domaine' : '🔵 Domain Governance Committees'}
+                  </h4>
+                  <p className="text-sm text-gray-600 mb-2">
+                    {lang === 'fr'
+                      ? '3-5 architectes par domaine (Particuliers, Entreprises, Gestion de Patrimoine)'
+                      : '3-5 architects per domain (Retail, Corporate, Wealth Management)'}
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    {lang === 'fr'
+                      ? 'Valident les PRAs Domaine avec 1+ proven-in-use'
+                      : 'Validate Domain PRAs with 1+ proven-in-use'}
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-2">
+                    {lang === 'fr' ? '🟣 Comité de Gouvernance Architectes Experts' : '🟣 Expert Architects Governance Committee'}
+                  </h4>
+                  <p className="text-sm text-gray-600 mb-2">
+                    {lang === 'fr' ? '5-7 architectes experts' : '5-7 expert architects'}
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    {lang === 'fr'
+                      ? 'Valident les PRAs Bank-Wide avec 3+ proven-in-use multi-domaines'
+                      : 'Validate Bank-Wide PRAs with 3+ multi-domain proven-in-use'}
+                  </p>
+                </div>
+              </div>
+              <div className="mt-4 text-center">
+                <Link
+                  href={`/${lang}/guides/08-governance`}
+                  className="text-sm text-blue-700 hover:text-blue-900 font-medium underline"
+                >
+                  {lang === 'fr' ? 'En savoir plus sur la gouvernance →' : 'Learn more about governance →'}
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* CTA Section */}
       <div className="bg-gray-900 py-16">
         <div className="container mx-auto px-4 text-center">
