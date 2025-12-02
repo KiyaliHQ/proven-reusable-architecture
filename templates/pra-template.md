@@ -1,3 +1,15 @@
+<!--
+🌐 MULTILINGUAL SUPPORT
+
+After creating your PRA in French, translate it to English using this prompt with your LLM:
+
+"Translate this PRA document from French to English. Preserve all Markdown formatting,
+keep technical terms unchanged, translate only human-readable text in frontmatter and content.
+Update internal links from /registre/ to /en/registre/. See templates/TRANSLATION_PROMPT.md for details."
+
+Save the English version to: content/en/registre/[same-path]/[same-filename].md
+-->
+
 ---
 # === MÉTADONNÉES YAML (obligatoires) ===
 id: pra-XXX
