@@ -22,7 +22,7 @@ export default async function Layout({
         // Hide nav.children in sidebar by setting banner to null
         banner: null,
         footer: (
-          <div className="p-4 border-t border-gray-200">
+          <div className="flex justify-center py-3 border-t border-gray-200">
             <LanguageSwitcher currentLang={lang} />
           </div>
         ),
