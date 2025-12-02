@@ -1,5 +1,5 @@
 ---
-title: PRA Registry - Banque Nationale
+title: PRA Registry - National Bank
 description: Library of proven architectures to accelerate your projects with quality and consistency
 ---
 
@@ -9,159 +9,159 @@ description: Library of proven architectures to accelerate your projects with qu
 
 Starting a new project? Looking for the best way to implement authentication, CI/CD, or Salesforce integration? **The PRA Registry is your library of production-validated architectures.**
 
-## What is a PRA?
+##  What is a PRA?
 
-A **PRA (Proven Reusable Architecture)** is a **proven solution** that has already demonstrated its value in real Banque Nationale projects.
+A **PRA (Proven Reusable Architecture)** is a **proven solution** that has already been validated in real projects at the National Bank.
 
 ```mermaid
 graph LR
     A[Recurring problem] --> B[Documented solution]
-    B --> C[Validated in prod]
+    B --> C[Production validated]
     C --> D[Reusable]
     D --> E[PRA]
 ```
 
-### 4 Key Points
+### In 4 key points
 
-✅ **Proven in production**: Validated in at least 3 real implementations at BNC
-✅ **Reusable**: Generalizable to different contexts and projects
-✅ **Documented**: With context, architectural decisions (ADRs), code examples and feedback
-✅ **Maintained**: Versioned and supported by the BNC architecture community
+ **Production proven**: Validated in at least 3 real implementations at BNC
+ **Reusable**: Generalizable across different contexts and projects
+ **Documented**: With context, architectural decisions (ADRs), code examples, and feedback from experience
+ **Maintained**: Versioned and supported by the BNC architecture community
 
-### Simple Analogy
+### Simple analogy
 
-Think of PRAs as **proven recipes**:
+Think of PRAs as **proven cooking recipes**:
 
 - The recipe (the PRA) has been tested multiple times
 - It works in different kitchens (contexts)
-- It documents ingredients (tech stack), steps (implementation) and pitfalls to avoid
+- It documents the ingredients (tech stack), steps (implementation), and pitfalls to avoid
 - You can adapt it to your taste (your context)
 
-## Quick Start
+##  Quick Start
 
 ### Are you a developer?
 
 **Need: "I need to implement authentication"**
 
-1. ➡️ Go to [Transversal > Security](/en/registre/transversal)
-2. 🔍 Find the "Authentication & SSO" PRA
-3. ✅ Check if your context matches
-4. 📖 Follow the implementation guide
-5. 📝 Document your feedback
+1.  Go to [Transversal > Security](/registre/transversal)
+2.  Find the "Authentication & SSO" PRA
+3.  Check if your context matches
+4.  Follow the implementation guide
+5.  Document your feedback
 
 ### Are you an architect?
 
 **Need: "I want to contribute a validated architecture"**
 
-1. 📋 Review the [Quality Standards](/en/registre/05-standards)
-2. 📝 Prepare your documentation (ADRs, examples, proven-in-use)
-3. 📤 Follow the [Contribution Guide](/en/registre/06-contributing)
-4. ✅ Submit your PRA to the Governance Board
+1.  Review the [Quality Standards](/registre/05-standards)
+2.  Prepare your documentation (ADRs, examples, proven-in-use)
+3.  Follow the [Contribution Guide](/registre/06-contributing)
+4.  Submit your PRA to the Governance Table
 
-### New to PRAs?
+### Are you discovering PRAs?
 
 **Need: "I want to understand the PRA system"**
 
-Follow our **8-step guided path**:
+Follow our **8-step guided journey**:
 
-1. [Getting Started with PRAs](/en/registre/01-getting-started) - Introduction and first steps
-2. [Understanding PRAs](/en/registre/02-understanding-pra) - Detailed anatomy
-3. [Roles & Responsibilities](/en/registre/03-roles-responsibilities) - Who does what
-4. [Lifecycle](/en/registre/04-lifecycle) - From Candidate to Approved
-5. [Quality Standards](/en/registre/05-standards) - Excellence criteria
-6. [Contributing a PRA](/en/registre/06-contributing) - Submission process
-7. [Promotion Process](/en/registre/07-promotion-process) - Sectoral → Transversal
-8. [Governance](/en/registre/08-governance) - Structure and decisions
+1. [Getting Started with PRAs](/registre/01-getting-started) - Introduction and first steps
+2. [Understanding PRAs](/registre/02-understanding-pra) - Detailed anatomy
+3. [Roles and Responsibilities](/registre/03-roles-responsibilities) - Who does what
+4. [Lifecycle](/registre/04-lifecycle) - From Candidate to Approved
+5. [Quality Standards](/registre/05-standards) - Criteria for excellence
+6. [Contributing a PRA](/registre/06-contributing) - Submission process
+7. [Promotion Process](/registre/07-promotion-process) - Sectoral  Transversal
+8. [Governance](/registre/08-governance) - Structure and decisions
 
-## Registry Organization
+##  Registry Organization
 
 The registry is organized into **3 scopes** based on their reach:
 
-### 🌐 Transversal
+###  Transversal
 
-**For whom?** All Banque Nationale sectors
-**Maturity**: Validated by the Transversal Governance Board
-**Examples**: SSO Authentication, CI/CD GitOps, API Gateway, RBAC/ABAC
+**For whom?** All sectors of the National Bank
+**Maturity**: Validated by the Transversal Governance Table
+**Examples**: SSO Authentication, GitOps CI/CD, API Gateway, RBAC/ABAC
 
-➡️ [Explore Transversal PRAs](/en/registre/transversal)
+ [Explore Transversal PRAs](/registre/transversal)
 
-### 🏢 Sectors
+###  Sectors
 
-**For whom?** Teams from a specific sector (Retail, Business, Wealth Management)
-**Maturity**: Validated in their sector, awaiting transversal promotion
-**Examples**: Digital Onboarding (Retail), ERP SAP Integration (Business)
+**For whom?** Teams from a specific sector (Retail, Corporate, Wealth Management)
+**Maturity**: Validated within their sector, awaiting transversal promotion
+**Examples**: Digital Onboarding (Retail), SAP ERP Integration (Corporate)
 
-➡️ [Explore Sectoral PRAs](/en/registre/secteurs)
+ [Explore Sectoral PRAs](/registre/secteurs)
 
-### 🚀 In Promotion
+###  In Promotion
 
 **For whom?** Everyone (under observation)
 **Status**: Sectoral patterns proposed to become transversal
-**Utility**: See emerging patterns before their generalization
+**Purpose**: See emerging patterns before their generalization
 
-➡️ [Explore PRAs in Promotion](/en/registre/en-promotion)
+ [Explore PRAs in Promotion](/registre/en-promotion)
 
-## PRA Categories
+##  PRA Categories
 
 Regardless of scope, PRAs are organized into 4 categories:
 
-### 🔧 Tech
+###  Tech
 
 Infrastructure and platform patterns
 
 **Examples**: CI/CD, Observability (Prometheus/Grafana), Infrastructure as Code (Terraform), Orchestration (Kubernetes)
 
-### 🔗 Integration
+###  Integration
 
 Inter-system integration patterns
 
 **Examples**: API Gateway, Message Broker (Kafka/RabbitMQ), Event-Driven Architecture, Data Synchronization
 
-### 🔒 Security
+###  Security
 
 Security and compliance patterns
 
 **Examples**: RBAC/ABAC, Secrets Management (Vault), Network Security (Zero Trust), Audit & Compliance
 
-### 💼 Business
+###  Business
 
 Reusable business patterns
 
 **Examples**: Customer Onboarding, Payment Processing, Notification System, Workflow Orchestration
 
-## Why Use PRAs?
+##  Why use PRAs?
 
-### ⏱️ Time Savings
+###  Time Savings
 
 - No need to reinvent the wheel
 - Ready-to-use solutions with code examples
-- Documented feedback = fewer trial-and-error
+- Documented feedback = fewer trial-and-error iterations
 
-**Concrete example**: Implement a CI/CD GitOps with ArgoCD in 2 days instead of 2 weeks of research and POC.
+**Concrete example**: Implementing GitOps CI/CD with ArgoCD takes 2 days instead of 2 weeks of research and POCs.
 
-### ✅ Quality
+###  Quality
 
 - Solutions validated in real production
-- Integrated best practices
+- Built-in best practices
 - Common pitfalls documented and avoided
 
-**Concrete example**: The "RBAC with CASL" PRA includes permission management edge cases you would have discovered after several bugs.
+**Concrete example**: The "RBAC with CASL" PRA includes edge cases for permission management that you would have discovered after several bugs.
 
-### 🎯 Consistency
+###  Consistency
 
-- Architectural alignment between teams
+- Architectural alignment across teams
 - Common vocabulary (fewer misunderstandings)
 - Shared standards (easier to maintain)
 
-**Concrete example**: All projects use the same observability stack → a new architect can quickly understand any project.
+**Concrete example**: All projects use the same observability stack  a new architect can quickly understand any project.
 
-### 📊 Measurable ROI
+###  Measurable ROI
 
 - **40-60% reduction** in architecture design time
 - **+30%** code and component reuse
 - **-50%** production incidents (thanks to documented learnings)
 
-## Frequently Asked Questions
+##  Frequently Asked Questions
 
 ### Must I use a PRA?
 
@@ -175,52 +175,52 @@ Reusable business patterns
 
 **Important**: Document your adaptations and share your learnings to enrich the PRA.
 
-### How many PRAs are currently available?
+### How many PRAs are there currently?
 
 The registry currently contains:
 - **~15 Transversal PRAs** (validated for everyone)
-- **~20 Sectoral PRAs** (sector-specific)
-- **~5 PRAs in Promotion** (under transversal validation)
+- **~20 Sectoral PRAs** (specific to a sector)
+- **~5 PRAs in Promotion** (undergoing transversal validation)
 
 ### How are PRAs validated?
 
 Each PRA goes through a rigorous process:
 
-1. **Submission** → Technical review by Governance Board
-2. **Candidate** → Validated with 1+ proven-in-use
-3. **Approved** → Validated with 3+ proven-in-use from different teams
+1. **Submission**  Technical review by the Governance Table
+2. **Candidate**  Validated with 1+ proven-in-use
+3. **Approved**  Validated with 3+ proven-in-use from different teams
 
-[Learn more about the Lifecycle](/en/registre/04-lifecycle)
+[Learn more about the Lifecycle](/registre/04-lifecycle)
 
 ### Who decides if a sectoral PRA becomes transversal?
 
-The **Transversal Governance Board** (5-7 senior cross-team architects).
+The **Transversal Governance Table** (5-7 senior cross-team architects).
 
-[Learn more about Governance](/en/registre/08-governance)
+[Learn more about Governance](/registre/08-governance)
 
-## Next Steps
+##  Next Steps
 
-### In a hurry?
+### Are you in a hurry?
 
-➡️ [Explore the Transversal catalogue](/en/registre/transversal) and find a PRA for your need
+ [Explore the Transversal catalog](/registre/transversal) and find a PRA for your needs
 
-### Have 15 minutes?
+### Do you have 15 minutes?
 
-➡️ Follow the [Getting Started Guide](/en/registre/01-getting-started) for a complete introduction
+ Follow the [Getting Started Guide](/registre/01-getting-started) for a complete introduction
 
-### Want to understand everything?
+### Do you want to understand everything?
 
-➡️ Go through the [8 numbered guides](/en/registre/01-getting-started) in order
+ Go through the [8 numbered guides](/registre/01-getting-started) in order
 
-## Need Help?
+##  Need Help?
 
 - **Teams Channel**: `#pra-registry`
 - **Email**: pra-support@company.com
 - **GitHub Issues**: [Open an issue](https://github.com/org/pra-registry/issues)
-- **Governance Board**: pra-governance@company.com
+- **Governance Table**: pra-governance@company.com
 
 ---
 
-**Last updated**: 2025-12-02
+**Last updated**: 2025-11-28
 **Active contributors**: 45+ BNC architects
 **Validated PRAs**: 40+ proven patterns

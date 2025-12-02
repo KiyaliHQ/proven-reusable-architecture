@@ -1,0 +1,133 @@
+---
+title: 06. Contribution Guide
+description: How to contribute to the PRA registry
+---
+
+# Contribution Guide
+
+Would you like to submit a new PRA? Follow this step-by-step guide.
+
+## Prerequisites
+
+Before submitting a PRA, ensure that:
+
+- Your architecture has been **validated in production** in at least **1 real project**
+- You have **concrete feedback** (metrics, learnings, feedback)
+- The solution is **reusable** and **generalizable** to other contexts
+- You can **document** the context, decisions, and examples
+
+## Submission Process
+
+### 1. Fork and Clone
+
+```bash
+git clone https://github.com/your-org/pra-registry.git
+cd pra-registry
+```
+
+### 2. Create a Branch
+
+```bash
+git checkout -b pra/your-pra-name
+```
+
+### 3. Use the Template
+
+Copy the PRA template:
+
+```bash
+cp templates/pra-template.md pra/candidates/pra-XXX-pra-name.md
+```
+
+### 4. Complete the PRA
+
+Fill out all sections of the template:
+
+- **Metadata** (YAML frontmatter)
+- **Overview**
+- **Context**
+- **Architecture** (diagrams, components)
+- **ADR** (Architecture Decision Records)
+- **Examples** (code, configurations)
+- **Proven-in-use** (real implementations with feedback)
+
+### 5. Local Validation
+
+Before submitting, verify:
+
+```bash
+# Validate metadata
+pnpm validate:metadata
+
+# Validate links
+pnpm validate:links
+
+# Preview the site
+pnpm dev
+```
+
+### 6. Create a Pull Request
+
+```bash
+git add .
+git commit -m "feat: add PRA-XXX - PRA Name"
+git push origin pra/your-pra-name
+```
+
+Then create a Pull Request on GitHub with:
+
+- **Title**: `[PRA] PRA Name`
+- **Description**: Summary of the PRA and submission context
+
+## Review Process
+
+1. **Automated Validation**: GitHub Actions checks format, links, metadata
+2. **Review by Governance Table**: 2-3 architects review the content
+3. **Iterations**: You will receive feedback and requests for clarification
+4. **Approval**: Once approved, the PRA is merged as a **Candidate**
+
+## Quality Criteria
+
+Your PRA will be evaluated on:
+
+- **Proven-in-use**: At least 1 documented implementation
+- **Reusability**: Generalizable to other contexts
+- **Clarity**: Clear and complete documentation
+- **ADR**: Justified architectural decisions
+- **Examples**: Concrete code and configurations
+
+## Transition from Candidate to Approved
+
+For a candidate PRA to become **approved**, it must:
+
+- Have **3+ proven implementations** in production
+- Positive feedback from teams that have implemented it
+- Documentation updated with learnings
+
+## Questions?
+
+Consult:
+
+- [Governance](/registre/08-governance)
+- [Lifecycle](/registre/04-lifecycle)
+- [Standards](/registre/05-standards)
+
+---
+
+**Recommended Path**:
+1. [Getting Started with PRAs](/registre/01-getting-started)
+2. [Understanding PRAs](/registre/02-understanding-pra)
+3. [Roles and Responsibilities](/registre/03-roles-responsibilities)
+4. [Lifecycle](/registre/04-lifecycle)
+5. [Quality Standards](/registre/05-standards)
+6. **Contributing a PRA** (you are here)
+7. [Promotion Process](/registre/07-promotion-process)
+8. [Governance](/registre/08-governance)
+
+---
+
+**Navigation**:
+- **Previous**: [Quality Standards](/registre/05-standards)
+- **Next**: [Promotion Process](/registre/07-promotion-process)
+
+Or open an issue on GitHub.
