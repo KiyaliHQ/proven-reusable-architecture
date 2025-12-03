@@ -27,62 +27,66 @@ A **PRA (Proven Reusable Architecture)** is a proven solution validated in real 
 proven-reusable-architecture/
 ├── site/                           # 📱 FUMADOCS SITE (Main Application)
 │   ├── app/                        # Next.js App Router
-│   │   ├── (home)/                 # Home page route group
-│   │   │   ├── page.tsx           # Homepage with stats & quick start
-│   │   │   └── layout.tsx         # Home layout
-│   │   ├── catalogue/             # Catalogue page (interactive PRA browser)
-│   │   │   ├── page.tsx           # Server component (data fetching)
-│   │   │   ├── catalogue-client.tsx  # Client component (search, filters, table)
-│   │   │   └── layout.tsx         # Catalogue layout
-│   │   ├── registre/              # Registry documentation
-│   │   │   ├── [[...slug]]/page.tsx  # Dynamic doc pages
-│   │   │   └── layout.tsx         # Registry layout with sidebar
-│   │   ├── api/                   # API routes
-│   │   │   └── search/route.ts    # Search API endpoint
-│   │   ├── layout.tsx             # Root layout
-│   │   └── global.css             # Global styles
-│   ├── content/                   # 📝 CONTENT (MDX Documentation)
-│   │   └── registre/              # Registry content
-│   │       ├── index.md           # Registry homepage
-│   │       ├── 01-getting-started.md     # Guide 1
-│   │       ├── 02-understanding-pra.md   # Guide 2
-│   │       ├── 03-roles-responsibilities.md  # Guide 3
-│   │       ├── 04-lifecycle.md           # Guide 4
-│   │       ├── 05-standards.md           # Guide 5
-│   │       ├── 06-contributing.md        # Guide 6
-│   │       ├── 07-promotion-process.md   # Guide 7
-│   │       ├── 08-governance.md          # Guide 8
-│   │       ├── transversal/       # Cross-cutting PRAs (all sectors)
-│   │       │   ├── tech/          # Infrastructure patterns
-│   │       │   ├── integration/   # Integration patterns
-│   │       │   ├── security/      # Security patterns
-│   │       │   └── business/      # Business patterns
-│   │       ├── secteurs/          # Sector-specific PRAs
-│   │       │   ├── particuliers/  # Retail banking
-│   │       │   ├── entreprises/   # Corporate banking
-│   │       │   └── gestion-patrimoine/  # Wealth management
-│   │       └── en-promotion/      # PRAs being promoted to transversal
-│   ├── lib/                       # Utilities
-│   │   ├── source.ts              # Fumadocs source configuration
-│   │   ├── search.ts              # Orama search setup
-│   │   └── layout.shared.tsx      # Shared layout configuration
-│   ├── components/                # React components
-│   ├── public/                    # Static assets (logos, images)
-│   ├── package.json               # Site dependencies
-│   └── next.config.mjs            # Next.js configuration
-├── docs/                          # 📖 DOCUMENTATION
-│   ├── CONTRIBUTING.md            # Contribution guidelines
-│   ├── GOVERNANCE.md              # Governance structure
-│   ├── LIFECYCLE.md               # PRA lifecycle documentation
-│   └── STANDARDS.md               # Quality standards
-├── templates/                     # 📋 TEMPLATES
-│   ├── pra-template.md            # PRA documentation template
-│   ├── adr-template.md            # ADR (Architecture Decision Record) template
-│   └── metadata-template.yml      # PRA metadata template
-├── scripts/                       # 🛠️ UTILITY SCRIPTS
-├── package.json                   # Root package.json (workspace)
-├── pnpm-workspace.yaml            # PNPM workspace configuration
-└── README.md                      # Project README
+│   │   ├── [lang]/                 # Language-based routes (fr/en)
+│   │   │   ├── guides/             # Documentation guides
+│   │   │   │   └── [[...slug]]/page.tsx
+│   │   │   └── registre/           # Registry (PRA catalogue)
+│   │   │       └── [[...slug]]/page.tsx
+│   │   ├── layout.tsx              # Root layout
+│   │   └── global.css              # Global styles
+│   ├── lib/                        # Utilities
+│   │   ├── source.ts               # Fumadocs source loaders
+│   │   └── layout.shared.tsx       # Shared layout configuration
+│   ├── components/                 # React components
+│   ├── public/                     # Static assets (logos, images)
+│   ├── source.config.ts            # Fumadocs collections definition
+│   ├── package.json                # Site dependencies
+│   └── next.config.mjs             # Next.js configuration
+├── content/                        # 📝 CONTENT (MDX Documentation)
+│   ├── guides/                     # User guides
+│   │   ├── fr/                     # French guides
+│   │   └── en/                     # English guides
+│   ├── pras-fr/                    # French PRAs (physically separated)
+│   │   ├── bank-wide/              # Cross-cutting (all sectors)
+│   │   │   ├── approved/           # Approved PRAs
+│   │   │   │   ├── tech/
+│   │   │   │   ├── integration/
+│   │   │   │   ├── security/
+│   │   │   │   └── business/
+│   │   │   └── candidate/          # Candidate PRAs
+│   │   │       ├── tech/
+│   │   │       ├── integration/
+│   │   │       ├── security/
+│   │   │       └── business/
+│   │   └── domain-wide/            # Domain-specific
+│   │       ├── particuliers/       # Retail banking
+│   │       ├── entreprises/        # Corporate banking
+│   │       └── gestion-patrimoine/ # Wealth management
+│   └── pras-en/                    # English PRAs (same structure)
+│       ├── bank-wide/
+│       └── domain-wide/
+├── docs/                           # 📖 DOCUMENTATION
+│   ├── DEVELOPER_GUIDE.md          # Comprehensive developer guide
+│   ├── QUICK_START.md              # 5-minute quick start
+│   ├── CONTRIBUTING.md             # Contribution guidelines
+│   ├── GOVERNANCE.md               # Governance structure
+│   ├── LIFECYCLE.md                # PRA lifecycle
+│   └── STANDARDS.md                # Quality standards
+├── templates/                      # 📋 TEMPLATES
+│   ├── pra-template.md             # PRA documentation template
+│   ├── adr-template.md             # ADR template
+│   └── metadata-template.yml       # PRA metadata template
+├── scripts/                        # 🛠️ UTILITY SCRIPTS
+│   └── migration/                  # Migration scripts (archived)
+│       ├── README.md               # Migration documentation
+│       ├── split_pras_by_lang_fixed.py
+│       └── flatten_pra_files.py
+├── .github/                        # GitHub configuration
+│   └── workflows/                  # CI/CD workflows
+├── CHANGELOG.md                    # Project changelog
+├── package.json                    # Root package.json (workspace)
+├── pnpm-workspace.yaml             # PNPM workspace configuration
+└── README.md                       # Project README
 ```
 
 ---
@@ -125,9 +129,9 @@ The catalogue is the heart of the application, featuring:
 - Search index built client-side with Orama SDK
 - Filtering logic combines search results + active filters
 
-### 2. Registry Documentation (`/registre`)
+### 2. Registry Documentation (`/[lang]/registre`)
 
-Comprehensive guides organized in 8 sections:
+Bilingual documentation (FR/EN) with comprehensive guides:
 
 1. **Getting Started** - Introduction and first steps
 2. **Understanding PRAs** - Detailed anatomy
@@ -135,13 +139,17 @@ Comprehensive guides organized in 8 sections:
 4. **Lifecycle** - From Candidate to Approved
 5. **Standards** - Quality criteria
 6. **Contributing** - Submission process
-7. **Promotion Process** - Sectorial → Transversal
+7. **Promotion Process** - Domain → Bank-Wide
 8. **Governance** - Decision-making structure
 
 **PRA Scopes**:
-- **Transversal**: Validated for all sectors (by Governance Table)
-- **Secteurs**: Sector-specific (Particuliers, Entreprises, Gestion de Patrimoine)
-- **En Promotion**: Sectorial PRAs proposed for transversal promotion
+- **Bank-Wide** (`bank-wide/`): Cross-cutting, validated for all sectors
+- **Domain-Wide** (`domain-wide/`): Domain-specific (Particuliers, Entreprises, Gestion de Patrimoine)
+
+**PRA Status**:
+- **Candidate**: 1+ proven-in-use implementation
+- **Approved**: 3+ proven-in-use for Bank-Wide, 1+ for Domain-Wide
+- **Deprecated**: Obsolete, archived
 
 ### 3. Homepage (`/`)
 
@@ -245,20 +253,31 @@ pnpm type-check       # TypeScript type checking
 
 ### Adding a New PRA
 
-1. **Choose the correct scope and category**:
+1. **Choose the correct scope, status, and category**:
    ```
-   site/content/registre/
-   ├── transversal/        # Cross-cutting (all sectors)
-   │   ├── tech/
-   │   ├── integration/
-   │   ├── security/
-   │   └── business/
-   ├── secteurs/           # Sector-specific
-   │   ├── particuliers/
-   │   ├── entreprises/
-   │   └── gestion-patrimoine/
-   └── en-promotion/       # Being promoted to transversal
+   content/
+   ├── pras-fr/                    # French PRAs
+   │   ├── bank-wide/              # Cross-cutting (all sectors)
+   │   │   ├── approved/           # 3+ proven-in-use
+   │   │   │   ├── tech/
+   │   │   │   ├── integration/
+   │   │   │   ├── security/
+   │   │   │   └── business/
+   │   │   └── candidate/          # 1+ proven-in-use
+   │   │       ├── tech/
+   │   │       ├── integration/
+   │   │       ├── security/
+   │   │       └── business/
+   │   └── domain-wide/            # Domain-specific
+   │       ├── particuliers/       # Retail banking
+   │       ├── entreprises/        # Corporate banking
+   │       └── gestion-patrimoine/ # Wealth management
+   └── pras-en/                    # English PRAs (same structure)
    ```
+
+   **IMPORTANT**: Use flat file structure
+   - ✅ Correct: `pras-fr/bank-wide/candidate/tech/my-pra.md`
+   - ❌ Incorrect: `pras-fr/bank-wide/candidate/tech/my-pra/page.md`
 
 2. **Create MDX file** with frontmatter:
    ```mdx
@@ -284,18 +303,14 @@ pnpm type-check       # TypeScript type checking
    [Your detailed documentation in Markdown/MDX]
    ```
 
-3. **Update meta.json** in the directory:
-   ```json
-   {
-     "title": "Category Name",
-     "pages": ["file-slug", "another-file-slug"]
-   }
-   ```
+3. **Create bilingual versions** (FR and EN):
+   - `content/pras-fr/bank-wide/candidate/tech/api-gateway.md`
+   - `content/pras-en/bank-wide/candidate/tech/api-gateway.md`
 
 4. **The PRA will automatically appear** in:
-   - Catalogue table (with search/filter)
-   - Registry documentation navigation
-   - Homepage statistics (if approved/candidate)
+   - Fumadocs navigation sidebar
+   - Search results (if indexed)
+   - Both `/fr/registre/` and `/en/registre/` routes
 
 ### PRA Metadata Schema
 
@@ -560,11 +575,15 @@ pnpm build
 
 ### Internal Resources
 
+- `/docs/DEVELOPER_GUIDE.md` - Comprehensive developer guide (architecture, ADRs, best practices)
+- `/docs/QUICK_START.md` - 5-minute quick start guide
 - `/docs/CONTRIBUTING.md` - Contribution guidelines
 - `/docs/GOVERNANCE.md` - Governance structure
 - `/docs/LIFECYCLE.md` - PRA lifecycle
 - `/docs/STANDARDS.md` - Quality standards
 - `/templates/` - Templates for PRAs and ADRs
+- `/CHANGELOG.md` - Project changelog and version history
+- `/scripts/migration/README.md` - Migration scripts documentation
 
 ---
 
@@ -575,13 +594,18 @@ pnpm build
 1. **Always check current content structure** before making changes
 2. **Preserve existing PRA metadata** when updating
 3. **Update `updated_at`** when modifying PRAs
-4. **Test search** after adding new PRAs
-5. **Verify badge styling** (whitespace-nowrap on all badges)
-6. **Follow Fumadocs conventions** for MDX content
+4. **Follow Fumadocs conventions** for MDX content
+5. **Use flat file structure** (`pra-name.md`, NOT `pra-name/page.md`)
+6. **Physical FR/EN separation** (pras-fr/, pras-en/, NOT fr/ and en/ subdirectories)
 7. **Git workflow**:
    - Always work on feature branches
    - Never commit directly to `main`
    - Use descriptive commit messages
+8. **Consult ADRs** in `/docs/DEVELOPER_GUIDE.md` for architectural decisions
+9. **Refer to documentation** before making structural changes:
+   - `/docs/DEVELOPER_GUIDE.md` for architecture
+   - `/docs/QUICK_START.md` for quick reference
+   - `/CHANGELOG.md` for version history
 
 ### Content Rules
 
@@ -589,6 +613,28 @@ pnpm build
 - **Always document status changes** (e.g., Approved → Deprecated)
 - **Keep ADRs immutable** (add new ones instead of modifying)
 - **Tag PRAs accurately** for better search results
+- **Create bilingual content** (FR and EN) for new PRAs
+- **Respect scope hierarchy**: Bank-Wide vs Domain-Wide
+
+### Architecture Rules (ADRs)
+
+**ADR-001: Physical FR/EN Separation**
+- Content MUST be in separate `pras-fr/` and `pras-en/` directories
+- NO glob patterns like `**/fr/**` or `**/en/**`
+
+**ADR-002: Simplified Collections**
+- 2 PRA collections total: `pras_fr` and `pras_en`
+- Each collection covers ALL scopes, statuses, categories
+- NO map() operations on collections
+
+**ADR-003: Flat File Structure**
+- Files MUST be `pra-name.md` at category level
+- NOT nested in `pra-name/page.md` subdirectories
+
+**ADR-004: Bank-Wide vs Domain-Wide**
+- `bank-wide/`: Cross-cutting (all sectors)
+- `domain-wide/`: Domain-specific (particuliers, entreprises, gestion-patrimoine)
+- Promotion = moving file from domain-wide/ to bank-wide/
 
 ---
 
@@ -621,6 +667,20 @@ pnpm build
 
 ---
 
-**Last Updated**: 2024-12-02
+**Last Updated**: 2025-12-03
+**Version**: 1.0.0 (MVP)
 **Maintained By**: Architecture Team, Banque Nationale du Canada
-**Repository**: https://github.com/FofanaAmara/proven-reusable-architecture
+**Repository**: https://github.com/KiyaliHQ/proven-reusable-architecture
+
+---
+
+## 📋 Architecture Decision Records (ADRs)
+
+For complete ADR documentation with context, rationale, and consequences, see `/docs/DEVELOPER_GUIDE.md`.
+
+### ADR Summary
+
+1. **ADR-001: Physical FR/EN Separation** - Separate `pras-fr/` and `pras-en/` directories
+2. **ADR-002: Simplified Collections** - 2 PRA collections instead of 24
+3. **ADR-003: Flat File Structure** - `pra-name.md` instead of `pra-name/page.md`
+4. **ADR-004: Bank-Wide vs Domain-Wide** - Scope-based organization reflecting governance
