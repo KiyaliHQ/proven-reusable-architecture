@@ -1,0 +1,627 @@
+name: PRA Validation
+
+# Consolidated workflow for PRA validation
+# Combines: validate-pra, auto-label, status-transition, promotion-check
+#
+# Runs on: pull_request (opened, synchronize, reopened)
+#
+# Jobs run in parallel:
+# 1. validate-metadata-structure: Technical validation (metadata + structure)
+# 2. auto-label: Automatic PR labeling
+# 3. check-status-transition: Status transition validation
+# 4. check-promotion: Promotion validation
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'site/content/**/registre/**/*.md'
+      - 'site/content/**/registre/**/*.mdx'
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  statuses: write
+
+jobs:
+  # Job 1: Validate PRA metadata and structure
+  validate-metadata-structure:
+    name: Validate Metadata & Structure
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install gray-matter
+
+      - name: Get changed PRA files
+        id: changed-files
+        uses: tj-actions/changed-files@v41
+        with:
+          files: |
+            site/content/**/registre/**/*.md
+            site/content/**/registre/**/*.mdx
+          files_ignore: |
+            site/content/**/registre/index.md
+            site/content/**/registre/guides/**
+
+      - name: Validate PRA files
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          echo "Changed PRA files:"
+          echo "${{ steps.changed-files.outputs.all_changed_files }}"
+
+          # Initialize error counter
+          ERROR_COUNT=0
+
+          # Validate each changed file
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo ""
+            echo "========================================="
+            echo "Validating: $file"
+            echo "========================================="
+
+            # Skip if file doesn't exist (deleted)
+            if [ ! -f "$file" ]; then
+              echo "⚠️  File deleted, skipping validation"
+              continue
+            fi
+
+            # Validate metadata
+            echo ""
+            echo "📋 Checking metadata..."
+            if node scripts/validate-pra-metadata.js "$file"; then
+              echo "✅ Metadata validation passed"
+            else
+              echo "❌ Metadata validation failed"
+              ERROR_COUNT=$((ERROR_COUNT + 1))
+            fi
+
+            # Validate structure
+            echo ""
+            echo "📐 Checking structure..."
+            if node scripts/validate-pra-structure.js "$file"; then
+              echo "✅ Structure validation passed"
+            else
+              echo "❌ Structure validation failed"
+              ERROR_COUNT=$((ERROR_COUNT + 1))
+            fi
+          done
+
+          # Summary
+          echo ""
+          echo "========================================="
+          echo "Validation Summary"
+          echo "========================================="
+          echo "Files checked: ${{ steps.changed-files.outputs.all_changed_files_count }}"
+          echo "Errors found: $ERROR_COUNT"
+
+          # Fail if any errors
+          if [ $ERROR_COUNT -gt 0 ]; then
+            echo ""
+            echo "❌ Validation failed with $ERROR_COUNT error(s)"
+            exit 1
+          else
+            echo ""
+            echo "✅ All validations passed!"
+            exit 0
+          fi
+
+      - name: No PRA files changed
+        if: steps.changed-files.outputs.any_changed == 'false'
+        run: |
+          echo "ℹ️  No PRA files were changed in this PR"
+          echo "Validation skipped"
+
+  # Job 2: Auto-label PRs based on changes
+  auto-label:
+    name: Auto Label
+    runs-on: ubuntu-latest
+    if: github.event.action == 'opened' || github.event.action == 'reopened'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install gray-matter
+
+      - name: Get changed PRA files
+        id: changed-files
+        uses: tj-actions/changed-files@v41
+        with:
+          files: |
+            site/content/**/registre/**/*.md
+            site/content/**/registre/**/*.mdx
+          files_ignore: |
+            site/content/**/registre/index.md
+            site/content/**/registre/guides/**
+
+      - name: Detect changes and generate labels
+        if: steps.changed-files.outputs.any_changed == 'true'
+        id: detect
+        run: |
+          echo "Analyzing changed files..."
+
+          ALL_LABELS=""
+
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo ""
+            echo "Analyzing: $file"
+
+            # Check if file exists (not deleted)
+            if [ -f "$file" ]; then
+              # Get base file path (for comparison)
+              BASE_FILE=""
+              if git show origin/${{ github.base_ref }}:$file > /dev/null 2>&1; then
+                BASE_FILE="/tmp/base_$(basename "$file")"
+                git show origin/${{ github.base_ref }}:$file > "$BASE_FILE"
+              fi
+
+              # Detect changes
+              if [ -n "$BASE_FILE" ]; then
+                DETECTION=$(node scripts/detect-pra-changes.js "$file" "$BASE_FILE")
+              else
+                DETECTION=$(node scripts/detect-pra-changes.js "$file")
+              fi
+
+              echo "Detection result:"
+              echo "$DETECTION"
+
+              # Extract labels from JSON
+              LABELS=$(echo "$DETECTION" | jq -r '.labels[]' 2>/dev/null || echo "")
+
+              # Append to all labels
+              if [ -n "$LABELS" ]; then
+                ALL_LABELS="$ALL_LABELS $LABELS"
+              fi
+
+              # Cleanup
+              [ -f "$BASE_FILE" ] && rm "$BASE_FILE"
+            fi
+          done
+
+          # Remove duplicates and format
+          UNIQUE_LABELS=$(echo "$ALL_LABELS" | tr ' ' '\n' | sort -u | tr '\n' ' ')
+          echo "labels=$UNIQUE_LABELS" >> $GITHUB_OUTPUT
+
+          echo ""
+          echo "Labels to apply: $UNIQUE_LABELS"
+
+      - name: Apply labels
+        if: steps.changed-files.outputs.any_changed == 'true' && steps.detect.outputs.labels != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const labels = '${{ steps.detect.outputs.labels }}'.trim().split(/\s+/).filter(Boolean);
+
+            if (labels.length > 0) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                labels: labels
+              });
+
+              console.log(`✅ Applied ${labels.length} label(s): ${labels.join(', ')}`);
+            }
+
+      - name: Add informative comment
+        if: steps.changed-files.outputs.any_changed == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const labels = '${{ steps.detect.outputs.labels }}'.trim().split(/\s+/).filter(Boolean);
+
+            let message = '## 🏷️ PRA Analysis\n\n';
+            message += `Detected ${labels.length} label(s): ${labels.map(l => `\`${l}\``).join(', ')}\n\n`;
+
+            // Extract scope and category
+            const scope = labels.find(l => l.startsWith('scope:'));
+            const category = labels.find(l => l.startsWith('category:'));
+            const type = labels.find(l => l.startsWith('type:'));
+            const domaine = labels.find(l => l.startsWith('domaine:'));
+
+            message += '### Review Information\n\n';
+
+            if (scope === 'scope:bank-wide') {
+              message += '- **Reviewers required**: @KiyaliHQ/comite-architectes-experts\n';
+              message += '- **Approvals needed**: 2\n';
+            } else if (scope === 'scope:domaine') {
+              if (domaine === 'domaine:particuliers') {
+                message += '- **Reviewers required**: @KiyaliHQ/comite-gov-particuliers\n';
+              } else if (domaine === 'domaine:entreprises') {
+                message += '- **Reviewers required**: @KiyaliHQ/comite-gov-entreprises\n';
+              } else if (domaine === 'domaine:gestion-patrimoine') {
+                message += '- **Reviewers required**: @KiyaliHQ/comite-gov-patrimoine\n';
+              }
+              message += '- **Approvals needed**: 2\n';
+            }
+
+            message += '\n---\n';
+            message += '*This comment was automatically generated by the PRA Validation workflow.*';
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: message
+            });
+
+      - name: No PRA files changed
+        if: steps.changed-files.outputs.any_changed == 'false'
+        run: |
+          echo "ℹ️  No PRA files changed - skipping labeling"
+
+  # Job 3: Check status transitions
+  check-status-transition:
+    name: Check Status Transitions
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install gray-matter
+
+      - name: Get changed PRA files
+        id: changed-files
+        uses: tj-actions/changed-files@v41
+        with:
+          files: |
+            site/content/**/registre/**/*.md
+            site/content/**/registre/**/*.mdx
+          files_ignore: |
+            site/content/**/registre/index.md
+            site/content/**/registre/guides/**
+
+      - name: Validate status transitions
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          echo "Checking status transitions..."
+
+          VALIDATION_ERRORS=0
+
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            if [ ! -f "$file" ]; then
+              continue
+            fi
+
+            echo ""
+            echo "Checking: $file"
+
+            # Get current and base status
+            CURRENT_STATUS=$(node -e "
+              const fs = require('fs');
+              const matter = require('gray-matter');
+              const content = fs.readFileSync('$file', 'utf-8');
+              const { data } = matter(content);
+              console.log(data.pra?.status || '');
+            ")
+
+            BASE_STATUS=""
+            if git show origin/${{ github.base_ref }}:$file > /dev/null 2>&1; then
+              BASE_STATUS=$(git show origin/${{ github.base_ref }}:$file | node -e "
+                const matter = require('gray-matter');
+                let input = '';
+                process.stdin.on('data', chunk => input += chunk);
+                process.stdin.on('end', () => {
+                  try {
+                    const { data } = matter(input);
+                    console.log(data.pra?.status || '');
+                  } catch(e) {
+                    console.log('');
+                  }
+                });
+              ")
+            fi
+
+            # Check if status changed
+            if [ -n "$BASE_STATUS" ] && [ "$CURRENT_STATUS" != "$BASE_STATUS" ]; then
+              echo "Status transition detected: $BASE_STATUS → $CURRENT_STATUS"
+
+              # Validate transition
+              if [ "$CURRENT_STATUS" = "approved" ]; then
+                # Count proven-in-use
+                PROVEN_COUNT=$(node -e "
+                  const fs = require('fs');
+                  const matter = require('gray-matter');
+                  const content = fs.readFileSync('$file', 'utf-8');
+                  const { data } = matter(content);
+                  console.log(data.pra?.proven_in_use?.length || 0);
+                ")
+
+                # Check if bank-wide or domain
+                if echo "$file" | grep -q "transversal/"; then
+                  if [ "$PROVEN_COUNT" -lt 3 ]; then
+                    echo "❌ Bank-wide PRA requires 3+ proven-in-use (found: $PROVEN_COUNT)"
+                    VALIDATION_ERRORS=$((VALIDATION_ERRORS + 1))
+                  else
+                    echo "✅ Sufficient proven-in-use for bank-wide approval ($PROVEN_COUNT)"
+                  fi
+                else
+                  if [ "$PROVEN_COUNT" -lt 1 ]; then
+                    echo "❌ Domain PRA requires 1+ proven-in-use (found: $PROVEN_COUNT)"
+                    VALIDATION_ERRORS=$((VALIDATION_ERRORS + 1))
+                  else
+                    echo "✅ Sufficient proven-in-use for domain approval ($PROVEN_COUNT)"
+                  fi
+                fi
+              fi
+            else
+              echo "No status change detected"
+            fi
+          done
+
+          if [ $VALIDATION_ERRORS -gt 0 ]; then
+            echo ""
+            echo "❌ Status transition validation failed with $VALIDATION_ERRORS error(s)"
+            exit 1
+          else
+            echo ""
+            echo "✅ All status transitions are valid"
+            exit 0
+          fi
+
+      - name: Update commit status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const state = '${{ job.status }}' === 'success' ? 'success' : 'failure';
+            const description = state === 'success'
+              ? 'All status transitions are valid'
+              : 'Status transition validation failed';
+
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.payload.pull_request.head.sha,
+              state: state,
+              context: 'PRA Status Transition Check',
+              description: description
+            });
+
+      - name: No PRA files changed
+        if: steps.changed-files.outputs.any_changed == 'false'
+        run: |
+          echo "ℹ️  No PRA files changed - skipping status transition check"
+
+  # Job 4: Check promotions (domain → bank-wide)
+  check-promotion:
+    name: Check Promotions
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install gray-matter
+
+      - name: Detect file movements (promotions)
+        id: detect
+        run: |
+          echo "Detecting potential promotions..."
+
+          # Get all changed files
+          CHANGED_FILES=$(git diff --name-status origin/${{ github.base_ref }}...HEAD | grep -E "\\.mdx?$" || true)
+
+          PROMOTIONS=""
+          PROMOTION_COUNT=0
+
+          echo "$CHANGED_FILES" | while read -r line; do
+            STATUS=$(echo "$line" | awk '{print $1}')
+            FILE=$(echo "$line" | awk '{print $2}')
+
+            # Check for renames (R) or moves
+            if [ "$STATUS" = "R" ] || [ "$STATUS" = "R100" ]; then
+              OLD_FILE=$(echo "$line" | awk '{print $2}')
+              NEW_FILE=$(echo "$line" | awk '{print $3}')
+
+              # Check if moved from secteurs/ to transversal/
+              if echo "$OLD_FILE" | grep -q "secteurs/" && echo "$NEW_FILE" | grep -q "transversal/"; then
+                echo "🚀 Promotion detected: $OLD_FILE → $NEW_FILE"
+                PROMOTIONS="${PROMOTIONS}\n${NEW_FILE}"
+                PROMOTION_COUNT=$((PROMOTION_COUNT + 1))
+              fi
+            fi
+          done
+
+          echo "promotions<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$PROMOTIONS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+          echo "promotion_count=$PROMOTION_COUNT" >> $GITHUB_OUTPUT
+
+          echo "Found $PROMOTION_COUNT promotion(s)"
+
+      - name: Validate promotions
+        if: steps.detect.outputs.promotion_count > 0
+        id: validate
+        run: |
+          echo "Validating promotions..."
+
+          PROMOTIONS="${{ steps.detect.outputs.promotions }}"
+          VALIDATION_ERRORS=0
+          VALIDATION_WARNINGS=""
+
+          echo "$PROMOTIONS" | while read -r file; do
+            if [ -z "$file" ]; then
+              continue
+            fi
+
+            echo ""
+            echo "========================================="
+            echo "Validating promotion: $file"
+            echo "========================================="
+
+            # Check file exists
+            if [ ! -f "$file" ]; then
+              echo "⚠️  File not found, skipping"
+              continue
+            fi
+
+            # Get proven-in-use count
+            PROVEN_COUNT=$(node -e "
+              const fs = require('fs');
+              const matter = require('gray-matter');
+              const content = fs.readFileSync('$file', 'utf-8');
+              const { data } = matter(content);
+              const count = data.pra?.proven_in_use?.length || 0;
+              console.log(count);
+            ")
+
+            echo "Proven-in-use count: $PROVEN_COUNT"
+
+            # Validate: requires 3+ proven-in-use
+            if [ "$PROVEN_COUNT" -lt 3 ]; then
+              echo "❌ ERROR: Promotion requires 3+ proven-in-use from different domains (found: $PROVEN_COUNT)"
+              VALIDATION_WARNINGS="${VALIDATION_WARNINGS}\n- ❌ \`$file\`: Requires 3+ proven-in-use (found: $PROVEN_COUNT)"
+              VALIDATION_ERRORS=$((VALIDATION_ERRORS + 1))
+            else
+              echo "✅ Sufficient proven-in-use ($PROVEN_COUNT)"
+
+              # Check if from different domains (optional validation)
+              DOMAINS=$(node -e "
+                const fs = require('fs');
+                const matter = require('gray-matter');
+                const content = fs.readFileSync('$file', 'utf-8');
+                const { data } = matter(content);
+                const proven = data.pra?.proven_in_use || [];
+                const teams = proven.map(p => p.team).filter(Boolean);
+                const uniqueTeams = [...new Set(teams)];
+                console.log(uniqueTeams.length);
+              ")
+
+              if [ "$DOMAINS" -lt 2 ]; then
+                echo "⚠️  WARNING: All proven-in-use from same team - consider multi-domain validation"
+                VALIDATION_WARNINGS="${VALIDATION_WARNINGS}\n- ⚠️  \`$file\`: All implementations from same team (recommend multi-domain)"
+              else
+                echo "✅ Multi-domain implementations detected"
+              fi
+            fi
+          done
+
+          echo "warnings<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$VALIDATION_WARNINGS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+          echo "validation_errors=$VALIDATION_ERRORS" >> $GITHUB_OUTPUT
+
+          echo ""
+          echo "Validation complete: $VALIDATION_ERRORS error(s)"
+
+          if [ $VALIDATION_ERRORS -gt 0 ]; then
+            exit 1
+          fi
+
+      - name: Apply promotion label
+        if: steps.detect.outputs.promotion_count > 0
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['type:promotion']
+            });
+
+            console.log('✅ Applied label: type:promotion');
+
+      - name: Add promotion guidance comment
+        if: steps.detect.outputs.promotion_count > 0
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const promotionCount = parseInt('${{ steps.detect.outputs.promotion_count }}');
+            const validationErrors = parseInt('${{ steps.validate.outputs.validation_errors }}') || 0;
+            const warnings = `${{ steps.validate.outputs.warnings }}`;
+
+            let message = `## 🚀 PRA Promotion Detected\n\n`;
+            message += `This PR promotes **${promotionCount}** PRA(s) from domain-specific to bank-wide.\n\n`;
+
+            if (validationErrors > 0) {
+              message += '### ❌ Validation Failed\n\n';
+              message += warnings;
+              message += '\n\n**Action required:** Please address the errors above before this PR can be approved.\n\n';
+            } else {
+              message += '### ✅ Validation Passed\n\n';
+              if (warnings.trim()) {
+                message += warnings + '\n\n';
+              }
+            }
+
+            message += '---\n\n';
+            message += '### 📋 Promotion Checklist\n\n';
+            message += 'Please ensure:\n\n';
+            message += '- [ ] **3+ proven-in-use** documented from **different domains/teams**\n';
+            message += '- [ ] **Multi-domain applicability** clearly demonstrated in content\n';
+            message += '- [ ] **Documentation enriched** with learnings from multiple contexts\n';
+            message += '- [ ] **Original domain committee** has approved this promotion\n';
+            message += '- [ ] **Positive feedback** from teams (satisfaction > 7/10)\n\n';
+
+            message += '### ⏱️ Timeline\n\n';
+            message += '**Expected review time:** 4-8 weeks\n\n';
+            message += 'Promotions require thorough review by the Expert Architects Committee to ensure:\n';
+            message += '- Cross-domain reusability\n';
+            message += '- No domain-specific assumptions\n';
+            message += '- Alignment with bank-wide standards\n\n';
+
+            message += '### 👥 Reviewers\n\n';
+            message += 'This PR will be automatically assigned to: **@KiyaliHQ/comite-architectes-experts**\n\n';
+
+            message += '---\n\n';
+            message += 'For more information, see:\n';
+            message += '- [Promotion Process](/site/content/en/guides/07-promotion-process.md)\n';
+            message += '- [Governance](/site/content/en/guides/08-governance.md)';
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: message
+            });
+
+      - name: No promotions detected
+        if: steps.detect.outputs.promotion_count == 0
+        run: |
+          echo "ℹ️  No promotions detected in this PR"
+          echo "Check skipped"
+
+      - name: Fail if validation errors
+        if: steps.detect.outputs.promotion_count > 0 && steps.validate.outputs.validation_errors > 0
+        run: |
+          echo "❌ Promotion validation failed"
+          exit 1
