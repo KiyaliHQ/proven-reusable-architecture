@@ -1,4 +1,10 @@
-import { guides_fr, guides_en, registre_fr, registre_en } from 'fumadocs-mdx:collections/server';
+import {
+  guides_fr,
+  guides_en,
+  pras_fr,
+  pras_en,
+} from 'fumadocs-mdx:collections/server';
+
 import { type InferPageType, loader } from 'fumadocs-core/source';
 import { lucideIconsPlugin } from 'fumadocs-core/source/lucide-icons';
 import type { Language } from './i18n';
@@ -21,12 +27,12 @@ const guideSources = {
 const registreSources = {
   en: loader({
     baseUrl: '/en/registre',
-    source: registre_en.toFumadocsSource(),
+    source: pras_en.toFumadocsSource(),
     plugins: [lucideIconsPlugin()],
   }),
   fr: loader({
     baseUrl: '/fr/registre',
-    source: registre_fr.toFumadocsSource(),
+    source: pras_fr.toFumadocsSource(),
     plugins: [lucideIconsPlugin()],
   }),
 };
