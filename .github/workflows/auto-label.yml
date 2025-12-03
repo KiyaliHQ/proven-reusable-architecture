@@ -66,7 +66,7 @@ jobs:
               # Get base file path (for comparison)
               BASE_FILE=""
               if git show origin/${{ github.base_ref }}:$file > /dev/null 2>&1; then
-                BASE_FILE="base_$file"
+                BASE_FILE="/tmp/base_$(basename "$file")"
                 git show origin/${{ github.base_ref }}:$file > "$BASE_FILE"
               fi
 
