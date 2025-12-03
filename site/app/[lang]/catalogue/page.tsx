@@ -13,8 +13,8 @@ export interface PRARow {
   provenCount: number;
   updated: string;
   url: string;
-  scope: 'transversal' | 'secteurs' | 'en-promotion';
-  secteur?: string;
+  scope: 'bank-wide' | 'domaines';
+  domaine?: string;
 }
 
 // Fonction serveur pour récupérer les PRAs
@@ -41,22 +41,23 @@ async function getAllPRAs(lang: Language): Promise<PRARow[]> {
       const metadata = getPRAMetadata(page);
       if (!metadata) return null;
 
-      // Extraire le scope et le secteur depuis le slug
+      // Extraire le scope et le domaine depuis le slug
       const slugParts = page.slugs;
-      let scope: 'transversal' | 'secteurs' | 'en-promotion' = 'transversal';
-      let secteur: string | undefined;
+      let scope: 'bank-wide' | 'domaines' = 'bank-wide';
+      let domaine: string | undefined;
 
       if (slugParts.includes('transversal')) {
-        scope = 'transversal';
+        scope = 'bank-wide';
       } else if (slugParts.includes('secteurs')) {
-        scope = 'secteurs';
-        // Le secteur est juste après 'secteurs' dans le slug
-        const secteurIndex = slugParts.indexOf('secteurs') + 1;
-        if (secteurIndex < slugParts.length) {
-          secteur = slugParts[secteurIndex];
+        scope = 'domaines';
+        // Le domaine est juste après 'secteurs' dans le slug
+        const domaineIndex = slugParts.indexOf('secteurs') + 1;
+        if (domaineIndex < slugParts.length) {
+          domaine = slugParts[domaineIndex];
         }
       } else if (slugParts.includes('en-promotion')) {
-        scope = 'en-promotion';
+        // "en-promotion" est maintenant traité comme bank-wide
+        scope = 'bank-wide';
       }
 
       return {
@@ -70,7 +71,7 @@ async function getAllPRAs(lang: Language): Promise<PRARow[]> {
         updated: metadata.updated_at || metadata.created_at || '',
         url: page.url,
         scope,
-        secteur,
+        domaine,
       };
     })
     .filter((pra): pra is PRARow => pra !== null);

@@ -141,3 +141,10 @@ aside {
 aside > div > div:first-child .fd-not-sidebar {
   display: none !important;
 }
+
+/* Active navigation link in BNC red */
+nav a[aria-current="page"],
+nav a[data-active="true"] {
+  color: theme('colors.bnc-red') !important;
+  font-weight: 600;
+}

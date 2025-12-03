@@ -13,15 +13,15 @@ const translations = {
     searchPlaceholder: 'Rechercher par nom, description, tags...',
     showFilters: 'Afficher les filtres',
     hideFilters: 'Masquer les filtres',
+    resetFilters: 'Réinitialiser',
     scope: 'Scope',
-    secteur: 'Secteur',
+    domaine: 'Domaine',
     category: 'Catégorie',
     status: 'Statut',
     all: 'Tous',
     allFeminine: 'Toutes',
-    transversal: 'Transversal',
-    secteurs: 'Secteurs',
-    enPromotion: 'En Promotion',
+    bankWide: 'Bank-Wide',
+    domaines: 'Domaines',
     particuliers: 'Particuliers',
     entreprises: 'Entreprises',
     gestionPatrimoine: 'Gestion de Patrimoine',
@@ -35,6 +35,7 @@ const translations = {
     name: 'Nom',
     description: 'Description',
     proven: 'Proven',
+    updated: 'Mis à jour',
     noResults: 'Aucun PRA trouvé avec ces critères',
     page: 'Page',
     of: 'sur',
@@ -42,7 +43,7 @@ const translations = {
     previous: 'Précédent',
     next: 'Suivant',
     helpTitle: 'Aide',
-    helpFilter: 'Utilisez les filtres pour affiner votre recherche par scope, secteur, catégorie ou statut',
+    helpFilter: 'Utilisez les filtres pour affiner votre recherche par scope, domaine, catégorie ou statut',
     helpSort: 'Cliquez sur les en-têtes de colonnes pour trier les résultats',
     helpClick: 'Cliquez sur une ligne pour accéder à la documentation complète du PRA',
   },
@@ -52,15 +53,15 @@ const translations = {
     searchPlaceholder: 'Search by name, description, tags...',
     showFilters: 'Show filters',
     hideFilters: 'Hide filters',
+    resetFilters: 'Reset',
     scope: 'Scope',
-    secteur: 'Sector',
+    domaine: 'Domain',
     category: 'Category',
     status: 'Status',
     all: 'All',
     allFeminine: 'All',
-    transversal: 'Transversal',
-    secteurs: 'Sectors',
-    enPromotion: 'In Promotion',
+    bankWide: 'Bank-Wide',
+    domaines: 'Domains',
     particuliers: 'Retail',
     entreprises: 'Corporate',
     gestionPatrimoine: 'Wealth Management',
@@ -74,6 +75,7 @@ const translations = {
     name: 'Name',
     description: 'Description',
     proven: 'Proven',
+    updated: 'Updated',
     noResults: 'No PRA found with these criteria',
     page: 'Page',
     of: 'of',
@@ -81,7 +83,7 @@ const translations = {
     previous: 'Previous',
     next: 'Next',
     helpTitle: 'Help',
-    helpFilter: 'Use filters to refine your search by scope, sector, category or status',
+    helpFilter: 'Use filters to refine your search by scope, domain, category or status',
     helpSort: 'Click on column headers to sort results',
     helpClick: 'Click on a row to access the complete PRA documentation',
   },
@@ -97,14 +99,14 @@ interface PRARow {
   provenCount: number;
   updated: string;
   url: string;
-  scope: 'transversal' | 'secteurs' | 'en-promotion';
-  secteur?: string;
+  scope: 'bank-wide' | 'domaines';
+  domaine?: string;
 }
 
 type Category = 'all' | 'tech' | 'integration' | 'security' | 'business';
 type Status = 'all' | 'approved' | 'candidate' | 'deprecated';
-type Scope = 'all' | 'transversal' | 'secteurs' | 'en-promotion';
-type Secteur = 'all' | 'particuliers' | 'entreprises' | 'gestion-patrimoine';
+type Scope = 'all' | 'bank-wide' | 'domaines';
+type Domaine = 'all' | 'particuliers' | 'entreprises' | 'gestion-patrimoine';
 type SortKey = 'name' | 'category' | 'status' | 'updated' | 'scope';
 type SortDirection = 'asc' | 'desc';
 
@@ -124,12 +126,11 @@ const STATUS_LABELS: Record<Exclude<Status, 'all'>, string> = {
 };
 
 const SCOPE_LABELS: Record<Exclude<Scope, 'all'>, string> = {
-  transversal: 'Transversal',
-  secteurs: 'Secteurs',
-  'en-promotion': 'En Promotion',
+  'bank-wide': 'Bank-Wide',
+  domaines: 'Domaines',
 };
 
-const SECTEUR_LABELS: Record<Exclude<Secteur, 'all'>, string> = {
+const DOMAINE_LABELS: Record<Exclude<Domaine, 'all'>, string> = {
   particuliers: 'Particuliers',
   entreprises: 'Entreprises',
   'gestion-patrimoine': 'Gestion de Patrimoine',
@@ -141,7 +142,7 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
   const [categoryFilter, setCategoryFilter] = useState<Category>('all');
   const [statusFilter, setStatusFilter] = useState<Status>('all');
   const [scopeFilter, setScopeFilter] = useState<Scope>('all');
-  const [secteurFilter, setSecteurFilter] = useState<Secteur>('all');
+  const [domaineFilter, setDomaineFilter] = useState<Domaine>('all');
   const [sortKey, setSortKey] = useState<SortKey>('name');
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
   const [currentPage, setCurrentPage] = useState(1);
@@ -202,13 +203,13 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
     performSearch();
   }, [searchQuery, oramaDB]);
 
-  // Extraire les secteurs uniques des données
-  const availableSecteurs = useMemo(() => {
-    const secteurs = new Set<string>();
+  // Extraire les domaines uniques des données
+  const availableDomaines = useMemo(() => {
+    const domaines = new Set<string>();
     pras.forEach((pra) => {
-      if (pra.secteur) secteurs.add(pra.secteur);
+      if (pra.domaine) domaines.add(pra.domaine);
     });
-    return Array.from(secteurs).sort();
+    return Array.from(domaines).sort();
   }, [pras]);
 
   // Filtrage et tri
@@ -227,9 +228,9 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
       result = result.filter((pra) => pra.scope === scopeFilter);
     }
 
-    // Filtre par secteur (seulement si scope = secteurs)
-    if (secteurFilter !== 'all' && scopeFilter === 'secteurs') {
-      result = result.filter((pra) => pra.secteur === secteurFilter);
+    // Filtre par domaine (seulement si scope = domaines)
+    if (domaineFilter !== 'all' && scopeFilter === 'domaines') {
+      result = result.filter((pra) => pra.domaine === domaineFilter);
     }
 
     // Filtre par catégorie
@@ -266,7 +267,7 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
     });
 
     return result;
-  }, [pras, searchQuery, searchResults, categoryFilter, statusFilter, scopeFilter, secteurFilter, sortKey, sortDirection]);
+  }, [pras, searchQuery, searchResults, categoryFilter, statusFilter, scopeFilter, domaineFilter, sortKey, sortDirection]);
 
   // Pagination
   const totalPages = Math.ceil(filteredAndSortedPRAs.length / ITEMS_PER_PAGE);
@@ -320,11 +321,11 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
     );
   };
 
-  const getSecteurBadge = (secteur?: string) => {
-    if (!secteur) return <span className="text-xs text-gray-400">-</span>;
+  const getDomaineBadge = (domaine?: string) => {
+    if (!domaine) return <span className="text-xs text-gray-400">-</span>;
     return (
       <span className="px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-50 rounded-full shadow-sm whitespace-nowrap">
-        {SECTEUR_LABELS[secteur as Exclude<Secteur, 'all'>] || secteur}
+        {DOMAINE_LABELS[domaine as Exclude<Domaine, 'all'>] || domaine}
       </span>
     );
   };
@@ -368,7 +369,7 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
         {/* Collapsible Filters */}
         {showFilters && (
           <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
               {/* Scope Filter */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">{t.scope}</label>
@@ -376,34 +377,33 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
                 value={scopeFilter}
                 onChange={(e) => {
                   setScopeFilter(e.target.value as Scope);
-                  setSecteurFilter('all'); // Reset secteur quand on change de scope
+                  setDomaineFilter('all'); // Reset domaine quand on change de scope
                   handleFilterChange();
                 }}
                 className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#de161d]/20 focus:border-[#de161d]/50 transition-all duration-300"
               >
                 <option value="all">{t.all}</option>
-                <option value="transversal">{t.transversal}</option>
-                <option value="secteurs">{t.secteurs}</option>
-                <option value="en-promotion">{t.enPromotion}</option>
+                <option value="bank-wide">{t.bankWide}</option>
+                <option value="domaines">{t.domaines}</option>
               </select>
             </div>
 
-            {/* Secteur Filter (only if scope = secteurs) */}
-            {scopeFilter === 'secteurs' && (
+            {/* Domaine Filter (only if scope = domaines) */}
+            {scopeFilter === 'domaines' && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">{t.secteur}</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">{t.domaine}</label>
                 <select
-                  value={secteurFilter}
+                  value={domaineFilter}
                   onChange={(e) => {
-                    setSecteurFilter(e.target.value as Secteur);
+                    setDomaineFilter(e.target.value as Domaine);
                     handleFilterChange();
                   }}
                   className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#de161d]/20 focus:border-[#de161d]/50 transition-all duration-300"
                 >
                   <option value="all">{t.all}</option>
-                  {availableSecteurs.map((secteur) => (
-                    <option key={secteur} value={secteur}>
-                      {t[secteur as keyof typeof t] || secteur}
+                  {availableDomaines.map((domaine) => (
+                    <option key={domaine} value={domaine}>
+                      {t[domaine as keyof typeof t] || domaine}
                     </option>
                   ))}
                 </select>
@@ -446,6 +446,23 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
                 <option value="deprecated">{t.deprecated}</option>
               </select>
             </div>
+
+            {/* Reset Filters Button */}
+            <div className="flex items-end">
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setScopeFilter('all');
+                  setDomaineFilter('all');
+                  setCategoryFilter('all');
+                  setStatusFilter('all');
+                  setCurrentPage(1);
+                }}
+                className="px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-all duration-300 whitespace-nowrap"
+              >
+                {t.resetFilters}
+              </button>
+            </div>
             </div>
           </div>
         )}
@@ -478,7 +495,7 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
                     </div>
                   </th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                    {t.secteur}
+                    {t.domaine}
                   </th>
                   <th
                     className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-colors duration-200"
@@ -501,12 +518,21 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
                   <th className="px-6 py-4 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     {t.proven}
                   </th>
+                  <th
+                    className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200 transition-colors duration-200"
+                    onClick={() => handleSort('updated')}
+                  >
+                    <div className="flex items-center gap-1">
+                      {t.updated}
+                      {sortKey === 'updated' && <span className="text-[#de161d]">{sortDirection === 'asc' ? '↑' : '↓'}</span>}
+                    </div>
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100 bg-white">
                 {paginatedPRAs.length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="px-6 py-12 text-center text-gray-500 text-sm">
+                    <td colSpan={8} className="px-6 py-12 text-center text-gray-500 text-sm">
                       {t.noResults}
                     </td>
                   </tr>
@@ -524,12 +550,13 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-600 max-w-md truncate">{pra.description}</td>
                       <td className="px-6 py-4">{getScopeBadge(pra.scope)}</td>
-                      <td className="px-6 py-4">{getSecteurBadge(pra.secteur)}</td>
+                      <td className="px-6 py-4">{getDomaineBadge(pra.domaine)}</td>
                       <td className="px-6 py-4">{getCategoryBadge(pra.category)}</td>
                       <td className="px-6 py-4">{getStatusBadge(pra.status)}</td>
                       <td className="px-6 py-4 text-center">
                         <span className="text-sm font-semibold text-[#de161d]">{pra.provenCount}</span>
                       </td>
+                      <td className="px-6 py-4 text-sm text-gray-600 whitespace-nowrap">{pra.updated}</td>
                     </tr>
                   ))
                 )}
