@@ -225,12 +225,36 @@ jobs:
 
             console.log('Assigning reviewers: @KiyaliHQ/' + team);
 
-            await github.rest.pulls.requestReviewers({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.payload.pull_request.number,
-              team_reviewers: [team]
-            });
+            try {
+              await github.rest.pulls.requestReviewers({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.payload.pull_request.number,
+                team_reviewers: [team]
+              });
+              console.log('✅ Successfully assigned team reviewers');
+            } catch (error) {
+              // If reviewers already assigned or team cannot be resolved, check if they're already requested
+              if (error.status === 422) {
+                const pr = await github.rest.pulls.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: context.payload.pull_request.number
+                });
+
+                const requestedTeams = pr.data.requested_teams || [];
+                const alreadyRequested = requestedTeams.some(t => t.slug === team);
+
+                if (alreadyRequested) {
+                  console.log('✅ Team reviewers already requested - no action needed');
+                } else {
+                  console.error('❌ Failed to assign team reviewers:', error.message);
+                  throw error;
+                }
+              } else {
+                throw error;
+              }
+            }
 
   post-comment:
     name: Post Validation Result
