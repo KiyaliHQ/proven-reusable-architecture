@@ -309,10 +309,11 @@ jobs:
           script: |
             const nonContentFiles = JSON.parse('${{ needs.check-framework-protection.outputs.non_content_files }}');
             const fileList = nonContentFiles.map(f => `- \`${f}\``).join('\n');
+            const team = '@' + 'KiyaliHQ/pra-development-team';
 
             const comment = `## 🚫 Framework Modification Blocked
 
-Your PR contains modifications to files outside the \`content/\` directory. Only members of the **\`@KiyaliHQ/pra-development-team\`** can modify framework files.
+Your PR contains modifications to files outside the \`content/\` directory. Only members of the **${team}** can modify framework files.
 
 ### ❌ Blocked Files
 ${fileList}
@@ -333,7 +334,7 @@ The following directories are restricted to the PRA Development Team:
 
 ### 💡 Need to Modify Framework?
 If you have a legitimate reason to modify framework files:
-1. Contact **\`@KiyaliHQ/pra-development-team\`** on Teams (#pra-registry)
+1. Contact **${team}** on Teams (#pra-registry)
 2. Explain your use case
 3. They will either make the change or grant temporary access
 
