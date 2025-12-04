@@ -19,8 +19,7 @@ on:
   pull_request:
     types: [opened, synchronize]
     paths:
-      - 'site/content/**/registre/**/*.md'
-      - 'site/content/**/registre/**/*.mdx'
+      - 'content/pras/**/*.md'
 
 permissions:
   contents: read

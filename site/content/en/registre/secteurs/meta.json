@@ -1,9 +1,0 @@
-{
-  "title": "PRAs by Domain",
-  "description": "Proven Reusable Architectures specific to business domains",
-  "pages": [
-    "gestion-patrimoine",
-    "particuliers",
-    "entreprises"
-  ]
-}

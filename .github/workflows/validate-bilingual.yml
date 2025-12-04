@@ -1,0 +1,134 @@
+name: Validate Bilingual PRAs
+
+# Workflow for validating that every PRA has both en.md and fr.md versions
+#
+# Trigger: On pull_request for any changes in content/pras/
+#
+# Validation:
+# - Every PRA folder must contain both en.md and fr.md files
+# - Blocks merge if any PRA is missing a language version
+#
+# Result: ✅ All PRAs are bilingual or ❌ Missing translations detected
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - 'content/pras/**/*.md'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  validate-bilingual:
+    name: Validate Bilingual PRA Requirement
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate bilingual requirement
+        id: validate
+        run: |
+          echo "🔍 Checking that all PRAs have both en.md and fr.md versions..."
+
+          ERROR_COUNT=0
+          MISSING_TRANSLATIONS=""
+
+          # Find all PRA folders (excluding categories folders)
+          # PRA folders are at: content/pras/[scope]/[status]/[category]/[pra-name]/
+          PRA_FOLDERS=$(find content/pras -type d -mindepth 5 -maxdepth 5)
+
+          for pra_folder in $PRA_FOLDERS; do
+            # Skip if not a directory
+            if [ ! -d "$pra_folder" ]; then
+              continue
+            fi
+
+            # Check for en.md
+            if [ ! -f "$pra_folder/en.md" ]; then
+              echo "❌ Missing English version: $pra_folder/en.md"
+              MISSING_TRANSLATIONS+="- ❌ **Missing English**: \`$pra_folder/en.md\`\n"
+              ERROR_COUNT=$((ERROR_COUNT + 1))
+            fi
+
+            # Check for fr.md
+            if [ ! -f "$pra_folder/fr.md" ]; then
+              echo "❌ Missing French version: $pra_folder/fr.md"
+              MISSING_TRANSLATIONS+="- ❌ **Missing French**: \`$pra_folder/fr.md\`\n"
+              ERROR_COUNT=$((ERROR_COUNT + 1))
+            fi
+
+            # If both exist, log success
+            if [ -f "$pra_folder/en.md" ] && [ -f "$pra_folder/fr.md" ]; then
+              echo "✅ Bilingual PRA: $pra_folder"
+            fi
+          done
+
+          if [ $ERROR_COUNT -gt 0 ]; then
+            echo "error_count=$ERROR_COUNT" >> $GITHUB_OUTPUT
+            echo "missing_translations<<EOF" >> $GITHUB_OUTPUT
+            echo -e "$MISSING_TRANSLATIONS" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+            echo ""
+            echo "❌ Validation failed: $ERROR_COUNT missing translation(s)"
+            exit 1
+          else
+            echo "error_count=0" >> $GITHUB_OUTPUT
+            echo ""
+            echo "✅ All PRAs are bilingual!"
+          fi
+
+      - name: Post validation comment
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const errorCount = '${{ steps.validate.outputs.error_count }}';
+            const missingTranslations = `${{ steps.validate.outputs.missing_translations }}`;
+
+            const comment = `## ❌ Bilingual Validation Failed
+
+**Error**: ${errorCount} PRA(s) are missing language versions.
+
+### Missing Translations
+
+${missingTranslations}
+
+### 📚 Requirement
+
+**Every PRA must have both English and French versions:**
+- \`content/pras/[scope]/[status]/[category]/[pra-name]/en.md\`
+- \`content/pras/[scope]/[status]/[category]/[pra-name]/fr.md\`
+
+### ✅ How to Fix
+
+1. Create the missing translation files in the appropriate PRA folders
+2. Translate the content or use a placeholder for now
+3. Push your changes
+
+### 💡 Tip
+
+You can use the following command to find missing translations:
+
+\`\`\`bash
+# Find PRA folders missing en.md
+find content/pras -type d -mindepth 5 -maxdepth 5 ! -exec test -f "{}/en.md" \\; -print
+
+# Find PRA folders missing fr.md
+find content/pras -type d -mindepth 5 -maxdepth 5 ! -exec test -f "{}/fr.md" \\; -print
+\`\`\`
+
+---
+
+📖 [Read more about bilingual requirements](https://github.com/${{ github.repository }}/blob/main/docs/CONTRIBUTING.md#bilingual-requirement)
+`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

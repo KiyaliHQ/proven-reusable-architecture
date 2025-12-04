@@ -6,9 +6,12 @@ import {
 } from 'fumadocs-mdx/config';
 import { remarkMdxMermaid } from 'fumadocs-core/mdx-plugins';
 
-// French guides
+// =========================================
+// GUIDES (French and English)
+// =========================================
+
 export const guides_fr = defineDocs({
-  dir: 'content/fr/guides',
+  dir: '../content/guides/fr',
   docs: {
     schema: frontmatterSchema,
     postprocess: {
@@ -20,9 +23,8 @@ export const guides_fr = defineDocs({
   },
 });
 
-// English guides
 export const guides_en = defineDocs({
-  dir: 'content/en/guides',
+  dir: '../content/guides/en',
   docs: {
     schema: frontmatterSchema,
     postprocess: {
@@ -34,9 +36,13 @@ export const guides_en = defineDocs({
   },
 });
 
-// French registry (PRAs only)
-export const registre_fr = defineDocs({
-  dir: 'content/fr/registre',
+// =========================================
+// PRAs (All scopes and statuses)
+// =========================================
+
+// All PRAs - French
+export const pras_fr = defineDocs({
+  dir: '../content/pras-fr',
   docs: {
     schema: frontmatterSchema,
     postprocess: {
@@ -48,9 +54,9 @@ export const registre_fr = defineDocs({
   },
 });
 
-// English registry (PRAs only)
-export const registre_en = defineDocs({
-  dir: 'content/en/registre',
+// All PRAs - English
+export const pras_en = defineDocs({
+  dir: '../content/pras-en',
   docs: {
     schema: frontmatterSchema,
     postprocess: {
@@ -62,10 +68,17 @@ export const registre_en = defineDocs({
   },
 });
 
-// Backward compatibility aliases
-export const docs_fr = registre_fr;
-export const docs_en = registre_en;
+// =========================================
+// BACKWARD COMPATIBILITY ALIASES
+// =========================================
+
+export const docs_fr = guides_fr;
+export const docs_en = guides_en;
 export const docs = docs_fr;
+
+// Main registre aliases (pointing to PRAs)
+export const registre_fr = pras_fr;
+export const registre_en = pras_en;
 
 export default defineConfig({
   mdxOptions: {

@@ -89,23 +89,34 @@ Un **Proven Reusable Architecture (PRA)** est :
 ## 📂 Structure du Repository
 
 ```
-pra-registry/
+proven-reusable-architecture/
+├── site/                      # Application Next.js Fumadocs
+│   ├── app/                   # Next.js App Router
+│   ├── lib/                   # Configuration Fumadocs
+│   ├── components/            # Composants React
+│   ├── public/                # Assets statiques
+│   └── source.config.ts       # Définition collections Fumadocs
+├── content/                   # Contenu MDX (séparé par langue)
+│   ├── guides/                # Guides utilisateur
+│   │   ├── fr/                # Guides français
+│   │   └── en/                # Guides anglais
+│   ├── pras-fr/               # PRAs français
+│   │   ├── bank-wide/         # PRAs transversaux (tous secteurs)
+│   │   │   ├── approved/      # 3+ proven-in-use
+│   │   │   └── candidate/     # 1+ proven-in-use
+│   │   └── domain-wide/       # PRAs spécifiques à un domaine
+│   │       ├── particuliers/  # Retail banking
+│   │       ├── entreprises/   # Corporate banking
+│   │       └── gestion-patrimoine/ # Wealth management
+│   └── pras-en/               # PRAs anglais (même structure)
 ├── templates/                 # Templates PRA & ADR
-├── docs/                      # Documentation
+├── docs/                      # Documentation projet
+│   ├── DEVELOPER_GUIDE.md     # Guide développeur complet
 │   ├── GOVERNANCE.md          # Processus de gouvernance
 │   ├── CONTRIBUTING.md        # Guide de contribution
 │   ├── LIFECYCLE.md           # Cycle de vie des PRA
 │   └── STANDARDS.md           # Standards de qualité
-├── pra/                       # PRA eux-mêmes
-│   ├── approved/              # PRA recommandés (3+ proven-in-use)
-│   │   ├── tech/              # Patterns techniques
-│   │   ├── integration/       # Patterns d'intégration
-│   │   ├── security/          # Patterns de sécurité
-│   │   └── business/          # Patterns métier
-│   └── candidates/            # PRA en validation (1-2 proven-in-use)
-│       └── [même structure]
-├── site/                      # Site Fumadocs (à venir)
-├── scripts/                   # Scripts de validation
+├── scripts/                   # Scripts utilitaires Python
 └── .github/                   # Workflows CI/CD
 ```
 
@@ -113,7 +124,17 @@ pra-registry/
 
 ## 📖 Documentation
 
-### Pour Commencer
+### Pour Développeurs
+
+- 🛠️ **[Guide Développeur](./docs/DEVELOPER_GUIDE.md)** - Guide complet pour développer sur le projet
+  - Architecture détaillée
+  - Configuration Fumadocs
+  - Gestion du contenu
+  - Bonnes pratiques
+  - Résolution de problèmes
+  - ADRs (Architecture Decision Records)
+
+### Pour Contributeurs
 
 - 📘 [Guide de Contribution](./docs/CONTRIBUTING.md) - Comment soumettre un PRA
 - 📙 [Gouvernance](./docs/GOVERNANCE.md) - Processus et rôles
@@ -327,5 +348,6 @@ Merci à tous les contributeurs qui font vivre ce registre :
 
 ---
 
-**Dernière mise à jour** : 28 novembre 2025
+**Dernière mise à jour** : 3 décembre 2025
 **Version du registre** : 1.0.0 (MVP)
+**Site** : http://localhost:3000 (développement)

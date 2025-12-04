@@ -1,7 +1,0 @@
-{
-  "title": "🔒 Security",
-  "pages": [
-    "rbac-pattern",
-    "secrets-management"
-  ]
-}
