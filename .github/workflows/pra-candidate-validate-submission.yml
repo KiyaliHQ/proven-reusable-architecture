@@ -77,13 +77,13 @@ jobs:
               });
 
               if (membership.data.state === 'active') {
-                console.log(`✅ User ${author} is member of pra-development-team`);
+                console.log('✅ User ' + author + ' is member of pra-development-team');
                 core.setOutput('passed', 'true');
                 return;
               }
             } catch (error) {
               if (error.status === 404) {
-                console.log(`❌ User ${author} is NOT member of pra-development-team`);
+                console.log('❌ User ' + author + ' is NOT member of pra-development-team');
               } else {
                 console.error('Error checking membership:', error);
               }
@@ -286,7 +286,7 @@ jobs:
               }
             }
 
-            console.log(`Assigning reviewers: @KiyaliHQ/${team}`);
+            console.log('Assigning reviewers: @KiyaliHQ/' + team);
 
             await github.rest.pulls.requestReviewers({
               owner: context.repo.owner,
@@ -308,40 +308,33 @@ jobs:
         with:
           script: |
             const nonContentFiles = JSON.parse('${{ needs.check-framework-protection.outputs.non_content_files }}');
-            const fileList = nonContentFiles.map(f => `- \`${f}\``).join('\n');
+            const fileList = nonContentFiles.map(f => '- `' + f + '`').join('\n');
             const team = '@' + 'KiyaliHQ/pra-development-team';
 
-            const comment = `## 🚫 Framework Modification Blocked
-
-Your PR contains modifications to files outside the \`content/\` directory. Only members of the **${team}** can modify framework files.
-
-### ❌ Blocked Files
-${fileList}
-
-### 📂 Allowed Modifications
-Contributors can only modify files in:
-- \`content/pras-fr/\` - French PRAs
-- \`content/pras-en/\` - English PRAs
-- \`content/guides/\` - Registry guides
-
-### 🔧 Framework Files (Restricted)
-The following directories are restricted to the PRA Development Team:
-- \`site/\` - Next.js application
-- \`.github/workflows/\` - GitHub workflows
-- \`docs/\` - Root documentation
-- \`scripts/\` - Utility scripts
-- \`templates/\` - PRA templates
-
-### 💡 Need to Modify Framework?
-If you have a legitimate reason to modify framework files:
-1. Contact **${team}** on Teams (#pra-registry)
-2. Explain your use case
-3. They will either make the change or grant temporary access
-
-### ✅ Next Steps
-1. Remove modifications to framework files from this PR
-2. Keep only changes to files in \`content/\`
-3. Push your changes - the validation will re-run automatically`;
+            const comment = '## 🚫 Framework Modification Blocked\n\n' +
+              'Your PR contains modifications to files outside the `content/` directory. Only members of the **' + team + '** can modify framework files.\n\n' +
+              '### ❌ Blocked Files\n' + fileList + '\n\n' +
+              '### 📂 Allowed Modifications\n' +
+              'Contributors can only modify files in:\n' +
+              '- `content/pras-fr/` - French PRAs\n' +
+              '- `content/pras-en/` - English PRAs\n' +
+              '- `content/guides/` - Registry guides\n\n' +
+              '### 🔧 Framework Files (Restricted)\n' +
+              'The following directories are restricted to the PRA Development Team:\n' +
+              '- `site/` - Next.js application\n' +
+              '- `.github/workflows/` - GitHub workflows\n' +
+              '- `docs/` - Root documentation\n' +
+              '- `scripts/` - Utility scripts\n' +
+              '- `templates/` - PRA templates\n\n' +
+              '### 💡 Need to Modify Framework?\n' +
+              'If you have a legitimate reason to modify framework files:\n' +
+              '1. Contact **' + team + '** on Teams (#pra-registry)\n' +
+              '2. Explain your use case\n' +
+              '3. They will either make the change or grant temporary access\n\n' +
+              '### ✅ Next Steps\n' +
+              '1. Remove modifications to framework files from this PR\n' +
+              '2. Keep only changes to files in `content/`\n' +
+              '3. Push your changes - the validation will re-run automatically';
 
             await github.rest.issues.createComment({
               issue_number: context.issue.number,
@@ -360,58 +353,53 @@ If you have a legitimate reason to modify framework files:
             const praTitle = '${{ needs.detect-and-validate-pra.outputs.pra_title }}';
             const provenCount = '${{ needs.detect-and-validate-pra.outputs.proven_count }}';
 
+            const scopeCapitalized = scope.charAt(0).toUpperCase() + scope.slice(1);
+            const categoryCapitalized = category.charAt(0).toUpperCase() + category.slice(1);
+
             let teamName = '';
             if (scope === 'bank-wide') {
               teamName = 'Expert Architects Committee';
             } else {
-              teamName = `${scope.charAt(0).toUpperCase() + scope.slice(1)} Governance Committee`;
+              teamName = scopeCapitalized + ' Governance Committee';
             }
 
-            const comment = `## 🎉 New PRA Candidate Submission
-
-Your PRA has been successfully submitted for approval!
-
-### 📋 Details Detected
-- **Scope**: ${scope.charAt(0).toUpperCase() + scope.slice(1)}
-- **Category**: ${category.charAt(0).toUpperCase() + category.slice(1)}
-- **Status**: Candidate
-- **Title**: ${praTitle}
-- **Proven-in-use**: ${provenCount} implementation(s) documented
-
-### ✅ Automatic Validation
-- [x] Complete metadata (YAML frontmatter)
-- [x] All required sections present (Overview, Context, Architecture, ADRs, Examples)
-- [x] ${provenCount}+ proven-in-use documented
-- [x] Bilingual (FR + EN files found)
-
-### 👥 Governance Review Process
-Your PRA will be reviewed by the **${teamName}**.
-- **Approvals required**: 2 members
-- **Timeline**: 2-4 weeks
-
-### 📊 Current Status
-- [ ] Awaiting committee meeting (0/2) ⏳
-
-### 📚 Next Steps
-1. **Committee Meeting** 📅 - You will be invited to present your PRA to the governance committee
-2. **Presentation** 🎤 - Present the context, architecture, benefits, and trade-offs
-3. **Discussion** 💬 - Committee members will ask questions and provide feedback
-4. **Validation** ✅ - Committee validates or requests changes
-5. **GitHub Reviews** - After the meeting, reviewers will approve on GitHub (2 approvals needed)
-6. **Merge** - Once 2 approvals received, your PR will be merged
-7. **Publication** - Your PRA will be published with **Candidate** status
-
-### 🔔 What to Expect
-- You will receive a calendar invite for the committee meeting
-- Prepare a short presentation (10-15 minutes) covering:
-  - Problem statement and context
-  - Proposed architecture
-  - Proven implementations (proven-in-use)
-  - Trade-offs and alternatives considered
-- The committee will provide constructive feedback
-- After the meeting, reviewers will update this PR with their decision
-
-Thank you for your contribution! 🚀`;
+            const comment = '## 🎉 New PRA Candidate Submission\n\n' +
+              'Your PRA has been successfully submitted for approval!\n\n' +
+              '### 📋 Details Detected\n' +
+              '- **Scope**: ' + scopeCapitalized + '\n' +
+              '- **Category**: ' + categoryCapitalized + '\n' +
+              '- **Status**: Candidate\n' +
+              '- **Title**: ' + praTitle + '\n' +
+              '- **Proven-in-use**: ' + provenCount + ' implementation(s) documented\n\n' +
+              '### ✅ Automatic Validation\n' +
+              '- [x] Complete metadata (YAML frontmatter)\n' +
+              '- [x] All required sections present (Overview, Context, Architecture, ADRs, Examples)\n' +
+              '- [x] ' + provenCount + '+ proven-in-use documented\n' +
+              '- [x] Bilingual (FR + EN files found)\n\n' +
+              '### 👥 Governance Review Process\n' +
+              'Your PRA will be reviewed by the **' + teamName + '**.\n' +
+              '- **Approvals required**: 2 members\n' +
+              '- **Timeline**: 2-4 weeks\n\n' +
+              '### 📊 Current Status\n' +
+              '- [ ] Awaiting committee meeting (0/2) ⏳\n\n' +
+              '### 📚 Next Steps\n' +
+              '1. **Committee Meeting** 📅 - You will be invited to present your PRA to the governance committee\n' +
+              '2. **Presentation** 🎤 - Present the context, architecture, benefits, and trade-offs\n' +
+              '3. **Discussion** 💬 - Committee members will ask questions and provide feedback\n' +
+              '4. **Validation** ✅ - Committee validates or requests changes\n' +
+              '5. **GitHub Reviews** - After the meeting, reviewers will approve on GitHub (2 approvals needed)\n' +
+              '6. **Merge** - Once 2 approvals received, your PR will be merged\n' +
+              '7. **Publication** - Your PRA will be published with **Candidate** status\n\n' +
+              '### 🔔 What to Expect\n' +
+              '- You will receive a calendar invite for the committee meeting\n' +
+              '- Prepare a short presentation (10-15 minutes) covering:\n' +
+              '  - Problem statement and context\n' +
+              '  - Proposed architecture\n' +
+              '  - Proven implementations (proven-in-use)\n' +
+              '  - Trade-offs and alternatives considered\n' +
+              '- The committee will provide constructive feedback\n' +
+              '- After the meeting, reviewers will update this PR with their decision\n\n' +
+              'Thank you for your contribution! 🚀';
 
             await github.rest.issues.createComment({
               issue_number: context.issue.number,
@@ -426,26 +414,21 @@ Thank you for your contribution! 🚀`;
         with:
           script: |
             const errors = JSON.parse('${{ needs.detect-and-validate-pra.outputs.validation_errors }}');
-            const errorList = errors.map(e => `- [ ] ${e}`).join('\n');
+            const errorList = errors.map(e => '- [ ] ' + e).join('\n');
 
-            const comment = `## ❌ PRA Validation Failed
-
-Your PRA submission has some issues that need to be fixed.
-
-### 🔍 Validation Errors
-${errorList}
-
-### 🛠️ How to Fix
-Please address the validation errors listed above. Common fixes:
-1. Add at least 1 proven-in-use implementation in the \`pra.proven_in_use\` array
-2. Add any missing sections (Overview, Context, Architecture, ADRs, Examples)
-3. Create the translation version (FR or EN) if missing
-
-### 📚 Resources
-- [PRA Template](../../templates/pra-template.md)
-- [Contributing Guide](../content/guides/en/06-contributing.md)
-
-Once fixed, push your changes and the validation will re-run automatically.`;
+            const comment = '## ❌ PRA Validation Failed\n\n' +
+              'Your PRA submission has some issues that need to be fixed.\n\n' +
+              '### 🔍 Validation Errors\n' +
+              errorList + '\n\n' +
+              '### 🛠️ How to Fix\n' +
+              'Please address the validation errors listed above. Common fixes:\n' +
+              '1. Add at least 1 proven-in-use implementation in the `pra.proven_in_use` array\n' +
+              '2. Add any missing sections (Overview, Context, Architecture, ADRs, Examples)\n' +
+              '3. Create the translation version (FR or EN) if missing\n\n' +
+              '### 📚 Resources\n' +
+              '- [PRA Template](../../templates/pra-template.md)\n' +
+              '- [Contributing Guide](../content/guides/en/06-contributing.md)\n\n' +
+              'Once fixed, push your changes and the validation will re-run automatically.';
 
             await github.rest.issues.createComment({
               issue_number: context.issue.number,
