@@ -69,8 +69,22 @@ jobs:
             const author = context.payload.pull_request.user.login;
             console.log('🔍 Checking membership for user: ' + author);
 
+            // Hardcoded list of pra-development-team members (temporary workaround for API permissions)
+            // TODO: Replace with proper PAT-based team membership check
+            const allowedMembers = [
+              'FofanaAmara',
+              // Add other team members here
+            ];
+
+            // Check hardcoded list first
+            if (allowedMembers.includes(author)) {
+              console.log('✅ User ' + author + ' is in allowed members list');
+              core.setOutput('passed', 'true');
+              return;
+            }
+
+            // Try API check as fallback (requires PAT with read:org scope)
             try {
-              // Check if author is member of pra-development-team
               console.log('📡 Calling GitHub API to check team membership...');
               const membership = await github.rest.teams.getMembershipForUserInOrg({
                 org: 'KiyaliHQ',
@@ -81,23 +95,18 @@ jobs:
               console.log('📊 Membership response:', JSON.stringify(membership.data, null, 2));
 
               if (membership.data.state === 'active') {
-                console.log('✅ User ' + author + ' is member of pra-development-team');
+                console.log('✅ User ' + author + ' is member of pra-development-team (API check)');
                 core.setOutput('passed', 'true');
                 return;
               } else {
                 console.log('⚠️ User ' + author + ' membership state is: ' + membership.data.state);
               }
             } catch (error) {
-              console.error('❌ Error checking membership:', error);
-              if (error.status === 404) {
-                console.log('❌ User ' + author + ' is NOT member of pra-development-team (404)');
-              } else {
-                console.error('❌ Unexpected error status:', error.status);
-                console.error('❌ Error message:', error.message);
-              }
+              console.error('⚠️ API check failed (expected if using default GITHUB_TOKEN):', error.message);
             }
 
             // Not a member - fail the check
+            console.log('❌ User ' + author + ' is not authorized to modify framework files');
             core.setOutput('passed', 'false');
             core.setFailed('Framework modifications are restricted to pra-development-team members');
 
