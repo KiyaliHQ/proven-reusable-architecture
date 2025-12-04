@@ -1,0 +1,376 @@
+name: Review PRA Candidate for Approval
+
+on:
+  pull_request_review:
+    types: [submitted, dismissed]
+  pull_request:
+    types: [review_requested, review_request_removed]
+
+permissions:
+  contents: read
+  pull-requests: write
+  statuses: write
+
+jobs:
+  count-approvals:
+    name: Count Governance Approvals
+    runs-on: ubuntu-latest
+    outputs:
+      approval_count: ${{ steps.count.outputs.approval_count }}
+      required_count: ${{ steps.count.outputs.required_count }}
+      changes_requested: ${{ steps.count.outputs.changes_requested }}
+      scope: ${{ steps.detect-scope.outputs.scope }}
+      domain: ${{ steps.detect-scope.outputs.domain }}
+      team: ${{ steps.detect-scope.outputs.team }}
+      pra_detected: ${{ steps.detect-scope.outputs.pra_detected }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install -g gray-matter js-yaml
+
+      - name: Detect PRA scope and determine team
+        id: detect-scope
+        run: |
+          # Get modified files in content/pras-*
+          MODIFIED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep "content/pras-.*\.md$" || true)
+
+          if [ -z "$MODIFIED_FILES" ]; then
+            echo "No PRA files detected in this PR"
+            echo "pra_detected=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "pra_detected=true" >> $GITHUB_OUTPUT
+
+          # Get first PRA file for scope detection
+          FIRST_PRA=$(echo "$MODIFIED_FILES" | head -n 1)
+          echo "Analyzing PRA file: $FIRST_PRA"
+
+          # Extract path components
+          # Format: content/pras-{lang}/{scope}/{status}/{category}/pra-name.md
+          # OR:     content/pras-{lang}/domain-wide/{domain}/{status}/{category}/pra-name.md
+          IFS='/' read -ra PATH_PARTS <<< "$FIRST_PRA"
+
+          SCOPE="${PATH_PARTS[2]}" # bank-wide or domain-wide
+
+          DOMAIN=""
+          if [ "$SCOPE" == "domain-wide" ]; then
+            DOMAIN="${PATH_PARTS[3]}" # particuliers, entreprises, gestion-patrimoine
+          fi
+
+          echo "Detected scope: $SCOPE"
+          echo "Detected domain: $DOMAIN"
+
+          # Determine governance team
+          TEAM=""
+          if [ "$SCOPE" == "bank-wide" ]; then
+            TEAM="comite-architectes-experts"
+          elif [ "$SCOPE" == "domain-wide" ]; then
+            case "$DOMAIN" in
+              particuliers)
+                TEAM="comite-gov-particuliers"
+                ;;
+              entreprises)
+                TEAM="comite-gov-entreprises"
+                ;;
+              gestion-patrimoine)
+                TEAM="comite-gov-patrimoine"
+                ;;
+            esac
+          fi
+
+          echo "Determined team: $TEAM"
+
+          # Output results
+          echo "scope=$SCOPE" >> $GITHUB_OUTPUT
+          echo "domain=$DOMAIN" >> $GITHUB_OUTPUT
+          echo "team=$TEAM" >> $GITHUB_OUTPUT
+
+      - name: Get reviews and count approvals
+        id: count
+        if: steps.detect-scope.outputs.pra_detected == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const team = '${{ steps.detect-scope.outputs.team }}';
+
+            if (!team) {
+              core.setOutput('approval_count', 0);
+              core.setOutput('required_count', 2);
+              core.setOutput('changes_requested', false);
+              return;
+            }
+
+            // Get all reviews for this PR
+            const reviews = await github.rest.pulls.listReviews({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+
+            console.log(`Found ${reviews.data.length} total reviews`);
+
+            // Get team members
+            let teamMembers = [];
+            try {
+              const teamMembersResponse = await github.rest.teams.listMembersInOrg({
+                org: 'KiyaliHQ',
+                team_slug: team
+              });
+              teamMembers = teamMembersResponse.data.map(m => m.login);
+              console.log(`Team ${team} has ${teamMembers.length} members: ${teamMembers.join(', ')}`);
+            } catch (error) {
+              console.log(`Warning: Could not fetch team members for ${team}: ${error.message}`);
+              // If we can't fetch team members, we'll count all reviews
+              teamMembers = reviews.data.map(r => r.user.login);
+            }
+
+            // Count approvals and check for changes requested
+            let approvalCount = 0;
+            let changesRequested = false;
+            const uniqueApprovers = new Set();
+
+            // Process reviews from newest to oldest for each user (latest state wins)
+            const reviewsByUser = {};
+            reviews.data.forEach(review => {
+              const user = review.user.login;
+              if (!reviewsByUser[user] || new Date(review.submitted_at) > new Date(reviewsByUser[user].submitted_at)) {
+                reviewsByUser[user] = review;
+              }
+            });
+
+            // Count approvals from team members only
+            Object.values(reviewsByUser).forEach(review => {
+              const user = review.user.login;
+              const isTeamMember = teamMembers.includes(user);
+
+              if (isTeamMember) {
+                console.log(`Review from ${user} (team member): ${review.state}`);
+                if (review.state === 'APPROVED') {
+                  uniqueApprovers.add(user);
+                  approvalCount++;
+                } else if (review.state === 'CHANGES_REQUESTED') {
+                  changesRequested = true;
+                }
+              } else {
+                console.log(`Ignoring review from ${user} (not a team member)`);
+              }
+            });
+
+            console.log(`Final count: ${approvalCount} approvals from ${uniqueApprovers.size} unique team members`);
+            console.log(`Changes requested: ${changesRequested}`);
+
+            core.setOutput('approval_count', approvalCount);
+            core.setOutput('required_count', 2);
+            core.setOutput('changes_requested', changesRequested);
+
+  update-status-comment:
+    name: Update Status Comment
+    needs: count-approvals
+    if: needs.count-approvals.outputs.pra_detected == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Find and update status comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const approvalCount = parseInt('${{ needs.count-approvals.outputs.approval_count }}');
+            const requiredCount = parseInt('${{ needs.count-approvals.outputs.required_count }}');
+            const changesRequested = '${{ needs.count-approvals.outputs.changes_requested }}' === 'true';
+            const scope = '${{ needs.count-approvals.outputs.scope }}';
+            const domain = '${{ needs.count-approvals.outputs.domain }}';
+            const team = '${{ needs.count-approvals.outputs.team }}';
+
+            console.log(`Approval status: ${approvalCount}/${requiredCount} approvals`);
+            console.log(`Changes requested: ${changesRequested}`);
+            console.log(`Team: @KiyaliHQ/${team}`);
+
+            // Find the original status comment from validate-pra-candidate-submission workflow
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number
+            });
+
+            // Look for comment containing our marker
+            const statusComment = comments.data.find(comment =>
+              comment.body.includes('## 🎉 New PRA Candidate Submission') ||
+              comment.body.includes('## ⏳ Awaiting Approval') ||
+              comment.body.includes('## ✅ PRA Approved!') ||
+              comment.body.includes('## 🔄 Changes Requested')
+            );
+
+            // Prepare the new comment based on status
+            let newComment = '';
+
+            if (changesRequested) {
+              // Changes requested scenario
+              newComment = `## 🔄 Changes Requested
+
+            The governance committee has requested changes to your PRA submission.
+
+            ### 📊 Current Status
+            - ❌ **Changes Requested** - Please address the feedback below
+
+            ### 💬 Reviewer Feedback
+            Please review the feedback in the "Files changed" tab or the individual review comments below.
+
+            ### 🛠️ Next Steps
+            1. Review the feedback from the governance committee
+            2. Make the requested changes to your PRA
+            3. Push your changes to this PR
+            4. The validation will re-run automatically
+            5. Request re-review from the committee members
+
+            Once you address the feedback, the committee will review again.
+
+            ---
+
+            **Team reviewing**: @KiyaliHQ/${team}`;
+
+            } else if (approvalCount >= requiredCount) {
+              // Fully approved scenario
+              newComment = `## ✅ PRA Approved!
+
+            Congratulations! Your PRA has been approved by the governance committee.
+
+            ### 📊 Current Status
+            - ✅ **APPROVED** - Ready to merge!
+
+            ### 👥 Governance Review Complete
+            - **Reviewers assigned**: @KiyaliHQ/${team}
+            - **Approvals received**: ${approvalCount}/${requiredCount} ✅✅
+
+            ### 🎉 Next Steps
+            1. Your PR is now approved and can be merged
+            2. Once merged, your PRA will be published on the registry
+            3. It will be available at the appropriate registry location based on scope
+
+            Thank you for your contribution to the PRA Registry! 🚀
+
+            ---
+
+            **Approved by**: @KiyaliHQ/${team}`;
+
+            } else {
+              // Awaiting approvals scenario
+              const remainingApprovals = requiredCount - approvalCount;
+              const checkmarks = '✅'.repeat(approvalCount) + '⏳'.repeat(remainingApprovals);
+
+              let statusMessage = '';
+              if (approvalCount === 0) {
+                statusMessage = `- The committee meeting has been scheduled or will be scheduled soon
+            - You will receive a calendar invite to present your PRA
+            - After the meeting, reviewers will approve or request changes on GitHub`;
+              } else if (approvalCount === 1) {
+                statusMessage = `- ✅ First reviewer has approved (likely after committee meeting)
+            - ⏳ Waiting for second reviewer approval`;
+              }
+
+              newComment = `## ⏳ Awaiting Approval
+
+            Your PRA is currently under review by the governance committee.
+
+            ### 📊 Current Status
+            - ⏳ **In Review** - Waiting for GitHub approvals (after committee meeting)
+
+            ### 👥 Governance Review Progress
+            - **Reviewers assigned**: @KiyaliHQ/${team}
+            - **Approvals received**: ${approvalCount}/${requiredCount} ${checkmarks}
+            - **Still needed**: ${remainingApprovals} approval(s)
+
+            ### 📅 Review Timeline
+            - **Submitted**: ${new Date(context.payload.pull_request.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            - **Expected review time**: 2-4 weeks
+
+            ### 🔔 Review Process
+            Your PRA follows this process:
+            1. ✅ **Automatic Validation** - Completed
+            2. 📅 **Committee Meeting** - You will present your PRA to the committee
+            3. 💬 **Discussion** - Committee provides feedback
+            4. ⏳ **GitHub Reviews** - Reviewers approve on GitHub (currently at ${approvalCount}/${requiredCount})
+            5. ✅ **Merge** - Once ${requiredCount} approvals received
+
+            ### What's Happening Now
+            ${statusMessage}
+
+            You will be notified automatically when:
+            - A reviewer approves your PRA
+            - A reviewer requests changes
+            - Your PRA is ready to merge (${requiredCount}/${requiredCount} approvals)
+
+            ---
+
+            **Team reviewing**: @KiyaliHQ/${team}`;
+            }
+
+            if (statusComment) {
+              // Update existing comment
+              console.log(`Updating existing status comment (ID: ${statusComment.id})`);
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: statusComment.id,
+                body: newComment
+              });
+            } else {
+              // Create new status comment if original not found
+              console.log('Original status comment not found, creating new one');
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: newComment
+              });
+            }
+
+  block-merge-if-not-approved:
+    name: Block Merge if Not Approved
+    needs: count-approvals
+    if: needs.count-approvals.outputs.pra_detected == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set status check
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const approvalCount = parseInt('${{ needs.count-approvals.outputs.approval_count }}');
+            const requiredCount = parseInt('${{ needs.count-approvals.outputs.required_count }}');
+            const changesRequested = '${{ needs.count-approvals.outputs.changes_requested }}' === 'true';
+
+            let state, description;
+
+            if (changesRequested) {
+              state = 'failure';
+              description = 'Changes requested by governance committee';
+            } else if (approvalCount >= requiredCount) {
+              state = 'success';
+              description = `${approvalCount}/${requiredCount} approvals received - Ready to merge`;
+            } else {
+              state = 'failure';
+              description = `${approvalCount}/${requiredCount} approvals received - ${requiredCount - approvalCount} more needed`;
+            }
+
+            console.log(`Setting status check: ${state} - ${description}`);
+
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.payload.pull_request.head.sha,
+              state: state,
+              context: 'PRA Governance Approval',
+              description: description,
+              target_url: context.payload.pull_request.html_url
+            });
