@@ -1,4 +1,4 @@
-name: Review PRA Candidate for Approval
+name: PRA Candidate - Review For Approval
 
 on:
   pull_request_review:

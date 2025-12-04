@@ -1,4 +1,4 @@
-name: Validate PRA Candidate Submission
+name: PRA Candidate - Validate Submission
 
 on:
   pull_request:
