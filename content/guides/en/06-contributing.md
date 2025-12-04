@@ -44,84 +44,179 @@ Submit a **Bank-Wide PRA** if your pattern:
 ### 1. Fork and Clone
 
 ```bash
-git clone https://github.com/your-org/pra-registry.git
-cd pra-registry
+git clone https://github.com/KiyaliHQ/proven-reusable-architecture.git
+cd proven-reusable-architecture
 ```
 
 ### 2. Create a Branch
 
 ```bash
-git checkout -b pra/your-pra-name
+git checkout -b feature/pra-your-pra-name
 ```
 
-### 3. Use the Template
+### 3. Create Your PRA (Bilingual)
 
-Copy the PRA template:
+**IMPORTANT**: You must create **two versions** of your PRA (French AND English).
+
+#### Directory Structure
+
+- **Bank-Wide PRA**: `content/pras-{lang}/bank-wide/candidate/{category}/pra-name.md`
+- **Domain-Wide PRA**: `content/pras-{lang}/domain-wide/{domain}/candidate/{category}/pra-name.md`
+
+Where:
+- `{lang}` = `fr` or `en`
+- `{category}` = `tech`, `integration`, `security`, or `business`
+- `{domain}` = `particuliers`, `entreprises`, or `gestion-patrimoine` (if domain-wide)
+
+#### Examples
+
+**Bank-Wide Tech PRA** (applicable to all sectors):
+```bash
+content/pras-fr/bank-wide/candidate/tech/api-gateway-pattern.md
+content/pras-en/bank-wide/candidate/tech/api-gateway-pattern.md
+```
+
+**Domain-Wide Security PRA** (Retail):
+```bash
+content/pras-fr/domain-wide/particuliers/candidate/security/kyc-verification.md
+content/pras-en/domain-wide/particuliers/candidate/security/kyc-verification.md
+```
+
+### 4. Use the Template
+
+Copy the PRA template and fill out all sections:
+
+```yaml
+---
+title: Your PRA Name
+description: Concise description of the PRA
+pra:
+  name: Your PRA Name
+  category: tech|integration|security|business
+  status: candidate
+  tags: [tag1, tag2, tag3]
+  created_at: "YYYY-MM-DD"
+  updated_at: "YYYY-MM-DD"
+  proven_in_use:
+    - project: Project Name
+      team: Team Name
+      date: "YYYY-MM-DD"
+      feedback: "Concrete feedback from experience"
+---
+
+## Overview
+[Your documentation...]
+
+## Context
+[The problem and solution...]
+
+## Architecture
+[Diagrams and components...]
+
+## Architecture Decision Records (ADRs)
+[Documented architectural decisions...]
+
+## Examples
+[Concrete code and configurations...]
+
+## Production Feedback
+[Real implementation feedback...]
+```
+
+**Required sections**:
+- Overview
+- Context
+- Architecture
+- ADRs (Architecture Decision Records)
+- Examples
+- At least **1 proven-in-use** documented
+
+### 5. Create a Pull Request
 
 ```bash
-cp templates/pra-template.md pra/candidates/pra-XXX-pra-name.md
+git add content/pras-fr/ content/pras-en/
+git commit -m "feat: add PRA - PRA Name (Bank-Wide Tech Candidate)"
+git push origin feature/pra-your-pra-name
 ```
 
-### 4. Complete the PRA
+Then create a Pull Request on GitHub.
 
-Fill out all sections of the template:
+### 6. Automated Validation ✨
 
-- **Metadata** (YAML frontmatter)
-- **Overview**
-- **Context**
-- **Architecture** (diagrams, components)
-- **ADR** (Architecture Decision Records)
-- **Examples** (code, configurations)
-- **Proven-in-use** (real implementations with feedback)
+**As soon as your PR is opened**, the automated system will:
 
-### 5. Local Validation
+1. ✅ **Validate structure**
+   - Complete metadata
+   - Required sections present
+   - At least 1 proven-in-use documented
+   - FR and EN versions present
 
-Before submitting, verify:
+2. ✅ **Assign reviewers**
+   - **Bank-Wide** → `@KiyaliHQ/comite-architectes-experts`
+   - **Domain-Wide Particuliers** → `@KiyaliHQ/comite-gov-particuliers`
+   - **Domain-Wide Entreprises** → `@KiyaliHQ/comite-gov-entreprises`
+   - **Domain-Wide Patrimoine** → `@KiyaliHQ/comite-gov-patrimoine`
 
-```bash
-# Validate metadata
-pnpm validate:metadata
+3. ✅ **Post status comment**
+   - Validation checklist
+   - Next steps
+   - Timeline (2-4 weeks for Bank-Wide, 5-10 days for Domain-Wide)
 
-# Validate links
-pnpm validate:links
-
-# Preview the site
-pnpm dev
-```
-
-### 6. Create a Pull Request
-
-```bash
-git add .
-git commit -m "feat: add PRA-XXX - PRA Name"
-git push origin pra/your-pra-name
-```
-
-Then create a Pull Request on GitHub with:
-
-- **Title**: `[PRA] PRA Name`
-- **Description**: Summary of the PRA and submission context
+**⚠️ Framework Protection**: You can only modify files in `content/`. Any modifications outside this directory (`site/`, `.github/`, `docs/`, etc.) will be automatically blocked.
 
 ## Review Process
 
-The review process depends on your PRA scope:
+The review process follows these steps:
 
-### Domain PRA Review
+### 1. Automated Validation (Immediate)
 
-1. **Automated Validation**: GitHub Actions checks format, links, metadata
-2. **Review by Domain Governance Committee**: 2 approvals required from your domain committee
-3. **Iterations**: You will receive feedback and requests for clarification
-4. **Approval**: Once approved, the PRA is merged as a **Domain Candidate**
-5. **Timeline**: 5-10 business days
+GitHub Actions automatically checks:
+- Format and metadata
+- Required sections
+- Proven-in-use requirement (1+ for Candidate)
+- Bilingual requirement (FR + EN)
 
-### Bank-Wide PRA Review
+### 2. Governance Committee Review
 
-1. **Automated Validation**: GitHub Actions checks format, links, metadata
-2. **Review by Expert Architects Governance Committee**: 2 approvals required from expert architects
-3. **Multi-domain Validation**: Verification of applicability across domains
-4. **Iterations**: You will receive feedback and requests for clarification
-5. **Approval**: Once approved, the PRA is merged as a **Bank-Wide Candidate**
-6. **Timeline**: 2-4 weeks
+**For Domain-Wide PRAs** (Retail, Corporate, Wealth Management):
+- 📅 **Committee meeting**: You will be invited to present your PRA
+- 🎤 **Presentation**: Explain the context, architecture, and benefits
+- 💬 **Discussion**: Committee asks questions and provides feedback
+- ✅ **Validation**: Committee validates or requests changes
+- 👥 **GitHub Approvals**: 2 approvals required from `@KiyaliHQ/comite-gov-{domain}`
+- ⏱️ **Timeline**: 5-10 business days
+
+**For Bank-Wide PRAs** (Cross-cutting):
+- 📅 **Expert committee meeting**: You will be invited to present your PRA
+- 🎤 **Presentation**: Explain the context, architecture, and benefits
+- 💬 **Discussion**: Committee asks questions and validates multi-domain applicability
+- ✅ **Validation**: Committee validates or requests changes
+- 👥 **GitHub Approvals**: 2 approvals required from `@KiyaliHQ/comite-architectes-experts`
+- ⏱️ **Timeline**: 2-4 weeks
+
+### 3. Real-Time Tracking
+
+You will receive automatic notifications at each step:
+- ⏳ **0/2 approvals**: Waiting for committee meeting
+- ✅ **1/2 approvals**: First approval received (after meeting)
+- ✅✅ **2/2 approvals**: PRA approved, ready to merge
+- 🔄 **Changes Requested**: Modifications are requested
+
+### 4. Iterations (If Necessary)
+
+If the committee requests changes:
+1. You will receive a detailed comment with feedback
+2. Make the modifications on your branch
+3. Push your changes (`git push`)
+4. Validation re-runs automatically
+5. Request re-review from the committee
+
+### 5. Merge and Publication
+
+Once **2/2 approvals** received:
+- ✅ Your PR can be merged
+- 🚀 Your PRA is published on the registry with **Candidate** status
+- 📊 It appears in the catalogue and documentation
 
 ## Quality Criteria
 
