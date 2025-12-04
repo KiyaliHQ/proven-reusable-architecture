@@ -1,0 +1,358 @@
+name: PRA Candidate - Validate Submission
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - '**/*'  # Monitor ALL files to detect framework modifications
+
+permissions:
+  contents: read
+  pull-requests: write
+  statuses: write
+
+jobs:
+  detect-and-validate-pra:
+    name: Detect & Validate PRA Candidate
+    
+    runs-on: ubuntu-latest
+    outputs:
+      validation_passed: ${{ steps.validate.outputs.validation_passed }}
+      scope: ${{ steps.extract-meta.outputs.scope }}
+      domain: ${{ steps.extract-meta.outputs.domain }}
+      category: ${{ steps.extract-meta.outputs.category }}
+      proven_count: ${{ steps.extract-meta.outputs.proven_count }}
+      pra_title: ${{ steps.extract-meta.outputs.pra_title }}
+      new_pra_candidates: ${{ steps.detect.outputs.new_pra_candidates }}
+      validation_errors: ${{ steps.validate.outputs.errors }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect new PRA candidate files
+        id: detect
+        run: |
+          # Get all modified .md files in content/pras-*/
+          git fetch origin ${{ github.base_ref }}
+          MODIFIED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep "content/pras-.*\.md$" || true)
+
+          NEW_PRA_CANDIDATES=()
+
+          while IFS= read -r file; do
+            # Skip if empty
+            [ -z "$file" ] && continue
+
+            # Check if file is in /candidate/ path
+            if [[ "$file" == */candidate/* ]]; then
+              # Check if file exists in base branch (new file)
+              if ! git cat-file -e origin/${{ github.base_ref }}:"$file" 2>/dev/null; then
+                echo "✅ NEW PRA Candidate detected: $file"
+                NEW_PRA_CANDIDATES+=("$file")
+              fi
+            fi
+          done <<< "$MODIFIED_FILES"
+
+          # Output as JSON array
+          if [ ${#NEW_PRA_CANDIDATES[@]} -gt 0 ]; then
+            NEW_PRA_JSON=$(printf '%s\n' "${NEW_PRA_CANDIDATES[@]}" | jq -R -s -c 'split("\n") | map(select(length > 0))')
+            echo "new_pra_candidates=$NEW_PRA_JSON" >> $GITHUB_OUTPUT
+            echo "has_new_candidates=true" >> $GITHUB_OUTPUT
+          else
+            echo "new_pra_candidates=[]" >> $GITHUB_OUTPUT
+            echo "has_new_candidates=false" >> $GITHUB_OUTPUT
+            echo "ℹ️  No new PRA candidates detected in this PR"
+          fi
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install gray-matter js-yaml
+
+      - name: Extract metadata
+        if: steps.detect.outputs.has_new_candidates == 'true'
+        id: extract-meta
+        run: |
+          # Get first PRA candidate file (for now, process only first one)
+          NEW_PRA_CANDIDATES='${{ steps.detect.outputs.new_pra_candidates }}'
+          FIRST_PRA=$(echo "$NEW_PRA_CANDIDATES" | jq -r '.[0]')
+
+          echo "Processing: $FIRST_PRA"
+
+          # Extract scope/status/category from path
+          # Example: content/pras-fr/bank-wide/candidate/tech/api-gateway.md
+          IFS='/' read -ra PATH_PARTS <<< "$FIRST_PRA"
+
+          LANG=$(echo "${PATH_PARTS[1]}" | cut -d'-' -f2)  # fr or en
+          SCOPE="${PATH_PARTS[2]}"  # bank-wide or domain-wide
+
+          if [ "$SCOPE" == "domain-wide" ]; then
+            DOMAIN="${PATH_PARTS[3]}"  # particuliers, entreprises, gestion-patrimoine
+            STATUS="${PATH_PARTS[4]}"  # candidate
+            CATEGORY="${PATH_PARTS[5]}"  # tech, integration, etc.
+          else
+            DOMAIN=""
+            STATUS="${PATH_PARTS[3]}"  # candidate
+            CATEGORY="${PATH_PARTS[4]}"  # tech, integration, etc.
+          fi
+
+          echo "scope=$SCOPE" >> $GITHUB_OUTPUT
+          echo "domain=$DOMAIN" >> $GITHUB_OUTPUT
+          echo "status=$STATUS" >> $GITHUB_OUTPUT
+          echo "category=$CATEGORY" >> $GITHUB_OUTPUT
+
+          # Extract metadata using gray-matter
+          NODE_PATH="$(npm root)" node -e "
+            const fs = require('fs');
+            const matter = require('gray-matter');
+
+            const content = fs.readFileSync('$FIRST_PRA', 'utf8');
+            const { data } = matter(content);
+
+            const praData = data.pra || {};
+            const provenCount = (praData.proven_in_use || []).length;
+            const praTitle = praData.name || data.title || 'Unknown';
+
+            console.log('pra_title=' + praTitle);
+            console.log('proven_count=' + provenCount);
+          " >> $GITHUB_OUTPUT
+
+      - name: Validate PRA structure
+        if: steps.detect.outputs.has_new_candidates == 'true'
+        id: validate
+        run: |
+          NEW_PRA_CANDIDATES='${{ steps.detect.outputs.new_pra_candidates }}'
+          FIRST_PRA=$(echo "$NEW_PRA_CANDIDATES" | jq -r '.[0]')
+
+          ERRORS=()
+
+          # 1. Validate proven-in-use count (1+ for candidate)
+          PROVEN_COUNT='${{ steps.extract-meta.outputs.proven_count }}'
+          if [ "$PROVEN_COUNT" -lt 1 ]; then
+            ERRORS+=("Missing proven-in-use: At least 1 proven-in-use required for candidate status")
+          fi
+
+          # 2. Validate required sections
+          ERRORS_SECTIONS=()
+
+          # Check Overview
+          if ! grep -qi "^##\s*Overview" "$FIRST_PRA"; then
+            ERRORS_SECTIONS+=("Overview")
+          fi
+
+          # Check Context
+          if ! grep -qi "^##\s*Context" "$FIRST_PRA"; then
+            ERRORS_SECTIONS+=("Context")
+          fi
+
+          # Check Architecture
+          if ! grep -qi "^##\s*Architecture" "$FIRST_PRA"; then
+            ERRORS_SECTIONS+=("Architecture")
+          fi
+
+          # Check ADR (match both "ADR" and "Architecture Decision Records")
+          if ! grep -qiE "^##\s*(ADR|Architecture Decision Records)" "$FIRST_PRA"; then
+            ERRORS_SECTIONS+=("ADRs")
+          fi
+
+          # Check Example
+          if ! grep -qiE "^##\s*(Example|Code Example)" "$FIRST_PRA"; then
+            ERRORS_SECTIONS+=("Examples")
+          fi
+
+          # Add section errors if any
+          for missing_section in "${ERRORS_SECTIONS[@]}"; do
+            ERRORS+=("Missing section: '$missing_section' section not found")
+          done
+
+          # 3. Validate bilingual (FR + EN)
+          # Convert pras-fr to pras-en or vice versa
+          if [[ "$FIRST_PRA" == *"pras-fr"* ]]; then
+            COUNTERPART=$(echo "$FIRST_PRA" | sed 's/pras-fr/pras-en/')
+          else
+            COUNTERPART=$(echo "$FIRST_PRA" | sed 's/pras-en/pras-fr/')
+          fi
+
+          if [ ! -f "$COUNTERPART" ]; then
+            ERRORS+=("Bilingual requirement: Missing translation at $COUNTERPART")
+          fi
+
+          # Set validation result
+          if [ ${#ERRORS[@]} -eq 0 ]; then
+            echo "validation_passed=true" >> $GITHUB_OUTPUT
+            echo "errors=[]" >> $GITHUB_OUTPUT
+            echo "✅ Validation passed"
+          else
+            echo "validation_passed=false" >> $GITHUB_OUTPUT
+            ERRORS_JSON=$(printf '%s\n' "${ERRORS[@]}" | jq -R -s -c 'split("\n") | map(select(length > 0))')
+            echo "errors=$ERRORS_JSON" >> $GITHUB_OUTPUT
+            echo "❌ Validation failed"
+            printf '%s\n' "${ERRORS[@]}"
+            exit 1
+          fi
+
+  assign-reviewers:
+    name: Assign Governance Reviewers
+    needs: detect-and-validate-pra
+    if: needs.detect-and-validate-pra.outputs.validation_passed == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Assign reviewers based on scope
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const scope = '${{ needs.detect-and-validate-pra.outputs.scope }}';
+            const domain = '${{ needs.detect-and-validate-pra.outputs.domain }}';
+
+            let team;
+            if (scope === 'bank-wide') {
+              team = 'comite-architectes-experts';
+            } else if (scope === 'domain-wide') {
+              if (domain === 'particuliers') {
+                team = 'comite-gov-particuliers';
+              } else if (domain === 'entreprises') {
+                team = 'comite-gov-entreprises';
+              } else if (domain === 'gestion-patrimoine') {
+                team = 'comite-gov-patrimoine';
+              }
+            }
+
+            console.log('Assigning reviewers: @KiyaliHQ/' + team);
+
+            try {
+              await github.rest.pulls.requestReviewers({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.payload.pull_request.number,
+                team_reviewers: [team]
+              });
+              console.log('✅ Successfully assigned team reviewers');
+            } catch (error) {
+              // If reviewers already assigned or team cannot be resolved, check if they're already requested
+              if (error.status === 422) {
+                const pr = await github.rest.pulls.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: context.payload.pull_request.number
+                });
+
+                const requestedTeams = pr.data.requested_teams || [];
+                const alreadyRequested = requestedTeams.some(t => t.slug === team);
+
+                if (alreadyRequested) {
+                  console.log('✅ Team reviewers already requested - no action needed');
+                } else {
+                  console.error('❌ Failed to assign team reviewers:', error.message);
+                  throw error;
+                }
+              } else {
+                throw error;
+              }
+            }
+
+  post-comment:
+    name: Post Validation Result
+    needs: detect-and-validate-pra
+    if: always()
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Post validation success
+        if: needs.detect-and-validate-pra.outputs.validation_passed == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const scope = '${{ needs.detect-and-validate-pra.outputs.scope }}';
+            const category = '${{ needs.detect-and-validate-pra.outputs.category }}';
+            const praTitle = '${{ needs.detect-and-validate-pra.outputs.pra_title }}';
+            const provenCount = '${{ needs.detect-and-validate-pra.outputs.proven_count }}';
+
+            const scopeCapitalized = scope.charAt(0).toUpperCase() + scope.slice(1);
+            const categoryCapitalized = category.charAt(0).toUpperCase() + category.slice(1);
+
+            let teamName = '';
+            if (scope === 'bank-wide') {
+              teamName = 'Expert Architects Committee';
+            } else {
+              teamName = scopeCapitalized + ' Governance Committee';
+            }
+
+            const comment = '## 🎉 New PRA Candidate Submission\n\n' +
+              'Your PRA has been successfully submitted for approval!\n\n' +
+              '### 📋 Details Detected\n' +
+              '- **Scope**: ' + scopeCapitalized + '\n' +
+              '- **Category**: ' + categoryCapitalized + '\n' +
+              '- **Status**: Candidate\n' +
+              '- **Title**: ' + praTitle + '\n' +
+              '- **Proven-in-use**: ' + provenCount + ' implementation(s) documented\n\n' +
+              '### ✅ Automatic Validation\n' +
+              '- [x] Complete metadata (YAML frontmatter)\n' +
+              '- [x] All required sections present (Overview, Context, Architecture, ADRs, Examples)\n' +
+              '- [x] ' + provenCount + '+ proven-in-use documented\n' +
+              '- [x] Bilingual (FR + EN files found)\n\n' +
+              '### 👥 Governance Review Process\n' +
+              'Your PRA will be reviewed by the **' + teamName + '**.\n' +
+              '- **Approvals required**: 2 members\n' +
+              '- **Timeline**: 2-4 weeks\n\n' +
+              '### 📊 Current Status\n' +
+              '- [ ] Awaiting committee meeting (0/2) ⏳\n\n' +
+              '### 📚 Next Steps\n' +
+              '1. **Committee Meeting** 📅 - You will be invited to present your PRA to the governance committee\n' +
+              '2. **Presentation** 🎤 - Present the context, architecture, benefits, and trade-offs\n' +
+              '3. **Discussion** 💬 - Committee members will ask questions and provide feedback\n' +
+              '4. **Validation** ✅ - Committee validates or requests changes\n' +
+              '5. **GitHub Reviews** - After the meeting, reviewers will approve on GitHub (2 approvals needed)\n' +
+              '6. **Merge** - Once 2 approvals received, your PR will be merged\n' +
+              '7. **Publication** - Your PRA will be published with **Candidate** status\n\n' +
+              '### 🔔 What to Expect\n' +
+              '- You will receive a calendar invite for the committee meeting\n' +
+              '- Prepare a short presentation (10-15 minutes) covering:\n' +
+              '  - Problem statement and context\n' +
+              '  - Proposed architecture\n' +
+              '  - Proven implementations (proven-in-use)\n' +
+              '  - Trade-offs and alternatives considered\n' +
+              '- The committee will provide constructive feedback\n' +
+              '- After the meeting, reviewers will update this PR with their decision\n\n' +
+              'Thank you for your contribution! 🚀';
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+      - name: Post validation failure
+        if: needs.detect-and-validate-pra.result == 'success' && needs.detect-and-validate-pra.outputs.validation_passed == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const errors = JSON.parse('${{ needs.detect-and-validate-pra.outputs.validation_errors }}');
+            const errorList = errors.map(e => '- [ ] ' + e).join('\n');
+
+            const comment = '## ❌ PRA Validation Failed\n\n' +
+              'Your PRA submission has some issues that need to be fixed.\n\n' +
+              '### 🔍 Validation Errors\n' +
+              errorList + '\n\n' +
+              '### 🛠️ How to Fix\n' +
+              'Please address the validation errors listed above. Common fixes:\n' +
+              '1. Add at least 1 proven-in-use implementation in the `pra.proven_in_use` array\n' +
+              '2. Add any missing sections (Overview, Context, Architecture, ADRs, Examples)\n' +
+              '3. Create the translation version (FR or EN) if missing\n\n' +
+              '### 📚 Resources\n' +
+              '- [PRA Template](../../templates/pra-template.md)\n' +
+              '- [Contributing Guide](../content/guides/en/06-contributing.md)\n\n' +
+              'Once fixed, push your changes and the validation will re-run automatically.';
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

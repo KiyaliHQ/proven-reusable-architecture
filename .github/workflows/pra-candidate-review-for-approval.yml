@@ -42,7 +42,13 @@ jobs:
         id: detect-scope
         run: |
           # Get modified files in content/pras-*
-          MODIFIED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep "content/pras-.*\.md$" || true)
+          # For pull_request_review events, base_ref is empty, so use main as fallback
+          BASE_REF="${{ github.base_ref }}"
+          if [ -z "$BASE_REF" ]; then
+            BASE_REF="main"
+          fi
+
+          MODIFIED_FILES=$(git diff --name-only origin/$BASE_REF...HEAD | grep "content/pras-.*\.md$" || true)
 
           if [ -z "$MODIFIED_FILES" ]; then
             echo "No PRA files detected in this PR"
