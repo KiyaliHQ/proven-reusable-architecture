@@ -1,31 +1,32 @@
-# CODEOWNERS for PRA Registry
-# This file defines which teams are responsible for reviewing PRs in different areas
+# CODEOWNERS - Defines who must review changes to specific parts of the codebase
+# Learn more: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 
-# PRAs Domaine Particuliers
-/site/content/fr/registre/secteurs/particuliers/ @KiyaliHQ/comite-gov-particuliers
-/site/content/en/registre/secteurs/particuliers/ @KiyaliHQ/comite-gov-particuliers
+# ==============================================================================
+# FRAMEWORK FILES - Require approval from PRA Development Team
+# ==============================================================================
+# Only members of @KiyaliHQ/pra-development-team can approve changes to these files
 
-# PRAs Domaine Entreprises
-/site/content/fr/registre/secteurs/entreprises/ @KiyaliHQ/comite-gov-entreprises
-/site/content/en/registre/secteurs/entreprises/ @KiyaliHQ/comite-gov-entreprises
+# GitHub workflows and configuration
+/.github/                   @KiyaliHQ/pra-development-team
 
-# PRAs Domaine Gestion de Patrimoine
-/site/content/fr/registre/secteurs/gestion-patrimoine/ @KiyaliHQ/comite-gov-patrimoine
-/site/content/en/registre/secteurs/gestion-patrimoine/ @KiyaliHQ/comite-gov-patrimoine
+# Site/Application code (Fumadocs + Next.js)
+/site/                      @KiyaliHQ/pra-development-team
 
-# PRAs Bank-Wide (Transversal)
-/site/content/fr/registre/transversal/ @KiyaliHQ/comite-architectes-experts
-/site/content/en/registre/transversal/ @KiyaliHQ/comite-architectes-experts
+# Root documentation and configuration
+/docs/                      @KiyaliHQ/pra-development-team
+/scripts/                   @KiyaliHQ/pra-development-team
+/templates/                 @KiyaliHQ/pra-development-team
+/package.json               @KiyaliHQ/pra-development-team
+/pnpm-workspace.yaml        @KiyaliHQ/pra-development-team
+/CLAUDE.md                  @KiyaliHQ/pra-development-team
+/README.md                  @KiyaliHQ/pra-development-team
+/CHANGELOG.md               @KiyaliHQ/pra-development-team
 
-# PRAs En Promotion (requires Expert Architects review)
-/site/content/fr/registre/en-promotion/ @KiyaliHQ/comite-architectes-experts
-/site/content/en/registre/en-promotion/ @KiyaliHQ/comite-architectes-experts
+# ==============================================================================
+# CONTENT FILES - Can be modified by any contributor
+# ==============================================================================
+# PRA content and guides can be submitted by anyone
+# Will still require governance committee approval (handled by separate workflow)
 
-# Templates and Guides (Expert Architects can review)
-/templates/ @KiyaliHQ/comite-architectes-experts
-/site/content/fr/guides/ @KiyaliHQ/comite-architectes-experts
-/site/content/en/guides/ @KiyaliHQ/comite-architectes-experts
-
-# GitHub Workflows and Scripts (Expert Architects maintain)
-/.github/ @KiyaliHQ/comite-architectes-experts
-/scripts/ @KiyaliHQ/comite-architectes-experts
+# No specific owners - allows any contributor to modify
+/content/

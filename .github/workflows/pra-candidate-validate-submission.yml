@@ -12,113 +12,9 @@ permissions:
   statuses: write
 
 jobs:
-  check-framework-protection:
-    name: Check Framework Protection
-    runs-on: ubuntu-latest
-    outputs:
-      framework_protection_passed: ${{ steps.check-membership.outputs.passed }}
-      non_content_files: ${{ steps.detect-files.outputs.non_content_files }}
-      has_non_content_changes: ${{ steps.detect-files.outputs.has_non_content_changes }}
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Detect modified files
-        id: detect-files
-        run: |
-          # Get all modified files
-          git fetch origin ${{ github.base_ref }}
-          MODIFIED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
-
-          # Separate content/ vs non-content/ files
-          NON_CONTENT_FILES=()
-          CONTENT_FILES=()
-
-          while IFS= read -r file; do
-            if [[ "$file" == content/* ]]; then
-              CONTENT_FILES+=("$file")
-            else
-              NON_CONTENT_FILES+=("$file")
-            fi
-          done <<< "$MODIFIED_FILES"
-
-          # Check if there are non-content modifications
-          if [ ${#NON_CONTENT_FILES[@]} -gt 0 ]; then
-            echo "has_non_content_changes=true" >> $GITHUB_OUTPUT
-            # Convert array to JSON
-            NON_CONTENT_JSON=$(printf '%s\n' "${NON_CONTENT_FILES[@]}" | jq -R -s -c 'split("\n") | map(select(length > 0))')
-            echo "non_content_files=$NON_CONTENT_JSON" >> $GITHUB_OUTPUT
-
-            echo "❌ Non-content files modified:"
-            printf '%s\n' "${NON_CONTENT_FILES[@]}"
-          else
-            echo "has_non_content_changes=false" >> $GITHUB_OUTPUT
-            echo "non_content_files=[]" >> $GITHUB_OUTPUT
-            echo "✅ Only content/ files modified"
-          fi
-
-      - name: Check PR author membership in pra-development-team
-        id: check-membership
-        if: steps.detect-files.outputs.has_non_content_changes == 'true'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const author = context.payload.pull_request.user.login;
-            console.log('🔍 Checking membership for user: ' + author);
-
-            // Hardcoded list of pra-development-team members (temporary workaround for API permissions)
-            // TODO: Replace with proper PAT-based team membership check
-            const allowedMembers = [
-              'FofanaAmara',
-              // Add other team members here
-            ];
-
-            // Check hardcoded list first
-            if (allowedMembers.includes(author)) {
-              console.log('✅ User ' + author + ' is in allowed members list');
-              core.setOutput('passed', 'true');
-              return;
-            }
-
-            // Try API check as fallback (requires PAT with read:org scope)
-            try {
-              console.log('📡 Calling GitHub API to check team membership...');
-              const membership = await github.rest.teams.getMembershipForUserInOrg({
-                org: 'KiyaliHQ',
-                team_slug: 'pra-development-team',
-                username: author
-              });
-
-              console.log('📊 Membership response:', JSON.stringify(membership.data, null, 2));
-
-              if (membership.data.state === 'active') {
-                console.log('✅ User ' + author + ' is member of pra-development-team (API check)');
-                core.setOutput('passed', 'true');
-                return;
-              } else {
-                console.log('⚠️ User ' + author + ' membership state is: ' + membership.data.state);
-              }
-            } catch (error) {
-              console.error('⚠️ API check failed (expected if using default GITHUB_TOKEN):', error.message);
-            }
-
-            // Not a member - fail the check
-            console.log('❌ User ' + author + ' is not authorized to modify framework files');
-            core.setOutput('passed', 'false');
-            core.setFailed('Framework modifications are restricted to pra-development-team members');
-
-      - name: Set success if no non-content changes
-        if: steps.detect-files.outputs.has_non_content_changes == 'false'
-        run: |
-          echo "passed=true" >> $GITHUB_OUTPUT
-
   detect-and-validate-pra:
     name: Detect & Validate PRA Candidate
-    needs: check-framework-protection
-    if: needs.check-framework-protection.outputs.framework_protection_passed == 'true'
+    
     runs-on: ubuntu-latest
     outputs:
       validation_passed: ${{ steps.validate.outputs.validation_passed }}
@@ -320,7 +216,6 @@ jobs:
 
     steps:
       - name: Post framework protection error
-        if: needs.check-framework-protection.outputs.framework_protection_passed == 'false'
         uses: actions/github-script@v7
         with:
           script: |
