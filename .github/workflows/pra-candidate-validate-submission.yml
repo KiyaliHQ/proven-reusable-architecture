@@ -72,7 +72,7 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm install -g gray-matter js-yaml
+        run: npm install gray-matter js-yaml
 
       - name: Extract metadata
         if: steps.detect.outputs.has_new_candidates == 'true'
@@ -107,7 +107,7 @@ jobs:
           echo "category=$CATEGORY" >> $GITHUB_OUTPUT
 
           # Extract metadata using gray-matter
-          node -e "
+          NODE_PATH="$(npm root)" node -e "
             const fs = require('fs');
             const matter = require('gray-matter');
 
