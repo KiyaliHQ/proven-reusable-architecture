@@ -225,6 +225,9 @@ jobs:
 
             console.log('Assigning reviewers: @KiyaliHQ/' + team);
 
+            // Note: CODEOWNERS file automatically assigns reviewers based on file paths
+            // This workflow step is kept as a fallback but may fail due to GITHUB_TOKEN permissions
+            // If it fails, CODEOWNERS will handle the assignment
             try {
               await github.rest.pulls.requestReviewers({
                 owner: context.repo.owner,
@@ -232,7 +235,7 @@ jobs:
                 pull_number: context.payload.pull_request.number,
                 team_reviewers: [team]
               });
-              console.log('✅ Successfully assigned team reviewers');
+              console.log('✅ Successfully assigned team reviewers via workflow');
             } catch (error) {
               // If reviewers already assigned or team cannot be resolved, check if they're already requested
               if (error.status === 422) {
@@ -246,13 +249,15 @@ jobs:
                 const alreadyRequested = requestedTeams.some(t => t.slug === team);
 
                 if (alreadyRequested) {
-                  console.log('✅ Team reviewers already requested - no action needed');
+                  console.log('✅ Team reviewers already assigned (likely via CODEOWNERS)');
                 } else {
-                  console.error('❌ Failed to assign team reviewers:', error.message);
-                  throw error;
+                  console.warn('⚠️  Workflow cannot assign reviewers (permission limitation)');
+                  console.warn('⚠️  CODEOWNERS will handle reviewer assignment automatically');
+                  // Don't throw - CODEOWNERS handles this
                 }
               } else {
-                throw error;
+                console.error('❌ Unexpected error:', error.message);
+                // Still don't throw - CODEOWNERS is the primary mechanism
               }
             }
 

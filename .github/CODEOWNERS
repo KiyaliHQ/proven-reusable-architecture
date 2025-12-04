@@ -23,10 +23,26 @@
 /CHANGELOG.md               @KiyaliHQ/pra-development-team
 
 # ==============================================================================
-# CONTENT FILES - Can be modified by any contributor
+# CONTENT FILES - Governance Review by Domain
 # ==============================================================================
-# PRA content and guides can be submitted by anyone
-# Will still require governance committee approval (handled by separate workflow)
+# PRA content can be submitted by anyone, but requires governance committee review
+# based on scope and domain. These rules automatically assign the correct reviewers.
 
-# No specific owners - allows any contributor to modify
-/content/
+# Domain-Wide PRAs: Gestion de Patrimoine (Wealth Management)
+/content/pras-fr/domain-wide/gestion-patrimoine/** @KiyaliHQ/comite-gov-patrimoine
+/content/pras-en/domain-wide/gestion-patrimoine/** @KiyaliHQ/comite-gov-patrimoine
+
+# Domain-Wide PRAs: Particuliers (Retail Banking)
+/content/pras-fr/domain-wide/particuliers/** @KiyaliHQ/comite-gov-particuliers
+/content/pras-en/domain-wide/particuliers/** @KiyaliHQ/comite-gov-particuliers
+
+# Domain-Wide PRAs: Entreprises (Corporate Banking)
+/content/pras-fr/domain-wide/entreprises/** @KiyaliHQ/comite-gov-entreprises
+/content/pras-en/domain-wide/entreprises/** @KiyaliHQ/comite-gov-entreprises
+
+# Bank-Wide PRAs (Transversal) - Expert Architects Committee
+/content/pras-fr/bank-wide/** @KiyaliHQ/comite-architectes-experts
+/content/pras-en/bank-wide/** @KiyaliHQ/comite-architectes-experts
+
+# Guides and documentation - No specific owner (community contributions welcome)
+/content/guides/
