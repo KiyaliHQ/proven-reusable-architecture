@@ -26,7 +26,37 @@ The `.github/CODEOWNERS` file defines which team must approve changes to specifi
 /content/
 ```
 
-## Required Branch Protection Rules
+## Quick Setup (Automated Script)
+
+**⚡ Fastest way to set up branch protection:**
+
+```bash
+# Run the automated setup script
+./scripts/setup-branch-protection.sh
+
+# Or for a different repository:
+./scripts/setup-branch-protection.sh YourOrg/your-repo
+```
+
+The script will:
+1. ✅ Verify GitHub CLI is installed and authenticated
+2. ✅ Show the configuration that will be applied
+3. ✅ Ask for confirmation
+4. ✅ Apply all branch protection rules automatically
+5. ✅ Verify the setup was successful
+
+**Prerequisites:**
+- GitHub CLI (`gh`) installed: https://cli.github.com/
+- Authenticated: `gh auth login`
+- Admin permissions on the repository
+
+---
+
+## Manual Setup (Step-by-Step)
+
+If you prefer to configure manually or the automated script doesn't work:
+
+### Required Branch Protection Rules
 
 To enforce CODEOWNERS, you must configure Branch Protection Rules on the `main` branch.
 
