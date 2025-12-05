@@ -35,9 +35,9 @@ jobs:
       - name: Detect new PRA candidate files
         id: detect
         run: |
-          # Get all modified .md files in content/pras-*/
+          # Get all modified .md files in content/pras/
           git fetch origin ${{ github.base_ref }}
-          MODIFIED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep "content/pras-.*\.md$" || true)
+          MODIFIED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep "content/pras/.*\.md$" || true)
 
           NEW_PRA_CANDIDATES=()
 
@@ -85,20 +85,20 @@ jobs:
           echo "Processing: $FIRST_PRA"
 
           # Extract scope/status/category from path
-          # Example: content/pras-fr/bank-wide/candidate/tech/api-gateway.md
+          # Example: content/pras/fr/bank-wide/candidate/tech/api-gateway.md
           IFS='/' read -ra PATH_PARTS <<< "$FIRST_PRA"
 
-          LANG=$(echo "${PATH_PARTS[1]}" | cut -d'-' -f2)  # fr or en
-          SCOPE="${PATH_PARTS[2]}"  # bank-wide or domain-wide
+          LANG="${PATH_PARTS[2]}"  # fr or en
+          SCOPE="${PATH_PARTS[3]}"  # bank-wide or domain-wide
 
           if [ "$SCOPE" == "domain-wide" ]; then
-            DOMAIN="${PATH_PARTS[3]}"  # particuliers, entreprises, gestion-patrimoine
-            STATUS="${PATH_PARTS[4]}"  # candidate
-            CATEGORY="${PATH_PARTS[5]}"  # tech, integration, etc.
+            DOMAIN="${PATH_PARTS[4]}"  # particuliers, entreprises, gestion-patrimoine
+            STATUS="${PATH_PARTS[5]}"  # candidate
+            CATEGORY="${PATH_PARTS[6]}"  # tech, integration, etc.
           else
             DOMAIN=""
-            STATUS="${PATH_PARTS[3]}"  # candidate
-            CATEGORY="${PATH_PARTS[4]}"  # tech, integration, etc.
+            STATUS="${PATH_PARTS[4]}"  # candidate
+            CATEGORY="${PATH_PARTS[5]}"  # tech, integration, etc.
           fi
 
           echo "scope=$SCOPE" >> $GITHUB_OUTPUT
@@ -171,11 +171,11 @@ jobs:
           done
 
           # 3. Validate bilingual (FR + EN)
-          # Convert pras-fr to pras-en or vice versa
-          if [[ "$FIRST_PRA" == *"pras-fr"* ]]; then
-            COUNTERPART=$(echo "$FIRST_PRA" | sed 's/pras-fr/pras-en/')
+          # Convert pras/fr to pras/en or vice versa
+          if [[ "$FIRST_PRA" == *"pras/fr/"* ]]; then
+            COUNTERPART=$(echo "$FIRST_PRA" | sed 's/pras\/fr\//pras\/en\//')
           else
-            COUNTERPART=$(echo "$FIRST_PRA" | sed 's/pras-en/pras-fr/')
+            COUNTERPART=$(echo "$FIRST_PRA" | sed 's/pras\/en\//pras\/fr\//')
           fi
 
           if [ ! -f "$COUNTERPART" ]; then
