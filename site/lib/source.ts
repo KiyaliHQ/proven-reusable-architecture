@@ -101,7 +101,7 @@ ${processed}`;
 export interface PRAMetadata {
   id: string;
   name: string;
-  category: 'business' | 'application' | 'data' | 'technology' | 'security' | 'integration';
+  category: 'business' | 'application' | 'data' | 'technology' | 'security' | 'integration' | 'ctp' | 'software-engineering' | 'pratique-architecture';
   tags: string[];
   status: 'candidate' | 'approved' | 'deprecated';
   version: string;
@@ -170,7 +170,7 @@ export function getAllTags(): string[] {
 
 // Helper pour obtenir toutes les catégories
 export function getAllCategories() {
-  return ['business', 'application', 'data', 'technology', 'security', 'integration'] as const;
+  return ['business', 'application', 'data', 'technology', 'security', 'integration', 'ctp', 'software-engineering', 'pratique-architecture'] as const;
 }
 
 // Helper pour compter les PRAs par statut

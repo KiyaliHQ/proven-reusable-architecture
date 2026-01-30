@@ -31,6 +31,9 @@ const translations = {
     technology: 'Technology',
     security: 'Security',
     integration: 'Integration',
+    ctp: 'CTP',
+    softwareEngineering: 'Software Engineering',
+    pratiqueArchitecture: 'Pratique Architecture',
     approved: 'Approved',
     candidate: 'Candidate',
     deprecated: 'Deprecated',
@@ -73,6 +76,9 @@ const translations = {
     technology: 'Technology',
     security: 'Security',
     integration: 'Integration',
+    ctp: 'CTP',
+    softwareEngineering: 'Software Engineering',
+    pratiqueArchitecture: 'Architecture Practices',
     approved: 'Approved',
     candidate: 'Candidate',
     deprecated: 'Deprecated',
@@ -107,7 +113,7 @@ interface PRARow {
   domaine?: string;
 }
 
-type Category = 'all' | 'business' | 'application' | 'data' | 'technology' | 'security' | 'integration';
+type Category = 'all' | 'business' | 'application' | 'data' | 'technology' | 'security' | 'integration' | 'ctp' | 'software-engineering' | 'pratique-architecture';
 type Status = 'all' | 'approved' | 'candidate' | 'deprecated';
 type Scope = 'all' | 'bank-wide' | 'domaines';
 type Domaine = 'all' | 'particuliers' | 'entreprises' | 'gestion-patrimoine';
@@ -123,6 +129,9 @@ const CATEGORY_LABELS: Record<Exclude<Category, 'all'>, string> = {
   technology: 'Technology',
   security: 'Security',
   integration: 'Integration',
+  ctp: 'CTP',
+  'software-engineering': 'Software Engineering',
+  'pratique-architecture': 'Pratique Architecture',
 };
 
 const STATUS_LABELS: Record<Exclude<Status, 'all'>, string> = {
@@ -434,6 +443,9 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
                 <option value="technology">{t.technology}</option>
                 <option value="security">{t.security}</option>
                 <option value="integration">{t.integration}</option>
+                <option value="ctp">{t.ctp}</option>
+                <option value="software-engineering">{t.softwareEngineering}</option>
+                <option value="pratique-architecture">{t.pratiqueArchitecture}</option>
               </select>
             </div>
 

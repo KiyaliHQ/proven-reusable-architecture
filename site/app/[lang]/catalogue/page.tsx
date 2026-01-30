@@ -41,30 +41,44 @@ async function getAllPRAs(lang: Language): Promise<PRARow[]> {
       const metadata = getPRAMetadata(page);
       if (!metadata) return null;
 
-      // Extraire le scope et le domaine depuis le slug
+      // Extraire le scope, le domaine et la catégorie depuis le slug
+      // Structure: bank-wide/candidate/<category>/<pra-name>
+      // ou: domain-wide/<domain>/candidate/<category>/<pra-name>
       const slugParts = page.slugs;
       let scope: 'bank-wide' | 'domaines' = 'bank-wide';
       let domaine: string | undefined;
+      let categoryFromPath: string | undefined;
 
-      if (slugParts.includes('transversal')) {
+      if (slugParts.includes('bank-wide')) {
         scope = 'bank-wide';
-      } else if (slugParts.includes('secteurs')) {
-        scope = 'domaines';
-        // Le domaine est juste après 'secteurs' dans le slug
-        const domaineIndex = slugParts.indexOf('secteurs') + 1;
-        if (domaineIndex < slugParts.length) {
-          domaine = slugParts[domaineIndex];
+        // Extraire la catégorie: bank-wide/candidate/<category>/...
+        const bankWideIndex = slugParts.indexOf('bank-wide');
+        // La catégorie est 2 positions après 'bank-wide' (après candidate/approved)
+        if (bankWideIndex + 2 < slugParts.length) {
+          categoryFromPath = slugParts[bankWideIndex + 2];
         }
-      } else if (slugParts.includes('en-promotion')) {
-        // "en-promotion" est maintenant traité comme bank-wide
-        scope = 'bank-wide';
+      } else if (slugParts.includes('domain-wide')) {
+        scope = 'domaines';
+        // Le domaine est juste après 'domain-wide' dans le slug
+        const domainWideIndex = slugParts.indexOf('domain-wide');
+        if (domainWideIndex + 1 < slugParts.length) {
+          domaine = slugParts[domainWideIndex + 1];
+        }
+        // La catégorie est 3 positions après 'domain-wide' (après <domain>/candidate)
+        if (domainWideIndex + 3 < slugParts.length) {
+          categoryFromPath = slugParts[domainWideIndex + 3];
+        }
       }
+
+      // Utiliser categoryFromPath si disponible (plus fiable car extrait du chemin)
+      // sinon utiliser metadata.category (du frontmatter)
+      const finalCategory = categoryFromPath || metadata.category || 'technology';
 
       return {
         slug: page.slugs.join('/'),
         name: metadata.name || page.data.title || 'Sans titre',
         description: page.data.description || '',
-        category: metadata.category || 'technology',
+        category: finalCategory,
         status: metadata.status || 'candidate',
         tags: metadata.tags || [],
         provenCount: metadata.proven_in_use?.length || 0,
