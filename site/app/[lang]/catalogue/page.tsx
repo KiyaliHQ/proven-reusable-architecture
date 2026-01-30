@@ -41,45 +41,56 @@ async function getAllPRAs(lang: Language): Promise<PRARow[]> {
       const metadata = getPRAMetadata(page);
       if (!metadata) return null;
 
-      // Extraire le scope, le domaine et la catégorie depuis le slug
-      // Structure: bank-wide/candidate/<category>/<pra-name>
-      // ou: domain-wide/<domain>/candidate/<category>/<pra-name>
+      // Extraire le scope, le domaine, la catégorie et le statut depuis le slug
+      // Nouvelle structure: bank-wide/<category>/<status>/<pra-name>
+      // ou: domain-wide/<domain>/<category>/<status>/<pra-name>
       const slugParts = page.slugs;
       let scope: 'bank-wide' | 'domaines' = 'bank-wide';
       let domaine: string | undefined;
       let categoryFromPath: string | undefined;
+      let statusFromPath: string | undefined;
 
       if (slugParts.includes('bank-wide')) {
         scope = 'bank-wide';
-        // Extraire la catégorie: bank-wide/candidate/<category>/...
         const bankWideIndex = slugParts.indexOf('bank-wide');
-        // La catégorie est 2 positions après 'bank-wide' (après candidate/approved)
+        // Nouvelle structure: bank-wide/<category>/<status>/<pra>
+        // La catégorie est 1 position après 'bank-wide'
+        if (bankWideIndex + 1 < slugParts.length) {
+          categoryFromPath = slugParts[bankWideIndex + 1];
+        }
+        // Le statut est 2 positions après 'bank-wide'
         if (bankWideIndex + 2 < slugParts.length) {
-          categoryFromPath = slugParts[bankWideIndex + 2];
+          statusFromPath = slugParts[bankWideIndex + 2];
         }
       } else if (slugParts.includes('domain-wide')) {
         scope = 'domaines';
-        // Le domaine est juste après 'domain-wide' dans le slug
         const domainWideIndex = slugParts.indexOf('domain-wide');
+        // Nouvelle structure: domain-wide/<domain>/<category>/<status>/<pra>
+        // Le domaine est 1 position après 'domain-wide'
         if (domainWideIndex + 1 < slugParts.length) {
           domaine = slugParts[domainWideIndex + 1];
         }
-        // La catégorie est 3 positions après 'domain-wide' (après <domain>/candidate)
+        // La catégorie est 2 positions après 'domain-wide'
+        if (domainWideIndex + 2 < slugParts.length) {
+          categoryFromPath = slugParts[domainWideIndex + 2];
+        }
+        // Le statut est 3 positions après 'domain-wide'
         if (domainWideIndex + 3 < slugParts.length) {
-          categoryFromPath = slugParts[domainWideIndex + 3];
+          statusFromPath = slugParts[domainWideIndex + 3];
         }
       }
 
-      // Utiliser categoryFromPath si disponible (plus fiable car extrait du chemin)
-      // sinon utiliser metadata.category (du frontmatter)
+      // Utiliser les valeurs extraites du chemin si disponibles (plus fiables)
+      // sinon utiliser les métadonnées du frontmatter
       const finalCategory = categoryFromPath || metadata.category || 'technology';
+      const finalStatus = statusFromPath || metadata.status || 'candidate';
 
       return {
         slug: page.slugs.join('/'),
         name: metadata.name || page.data.title || 'Sans titre',
         description: page.data.description || '',
         category: finalCategory,
-        status: metadata.status || 'candidate',
+        status: finalStatus,
         tags: metadata.tags || [],
         provenCount: metadata.proven_in_use?.length || 0,
         updated: metadata.updated_at || metadata.created_at || '',
