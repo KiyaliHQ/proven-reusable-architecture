@@ -34,9 +34,9 @@ const translations = {
     ctp: 'CTP',
     softwareEngineering: 'Software Engineering',
     pratiqueArchitecture: 'Pratique Architecture',
-    approved: 'Approved',
-    candidate: 'Candidate',
-    deprecated: 'Deprecated',
+    operationalized: 'Opérationnalisé',
+    operationalizing: "En cours d'opérationnalisation",
+    deprecated: 'Obsolète',
     name: 'Nom',
     description: 'Description',
     proven: 'Proven',
@@ -79,8 +79,8 @@ const translations = {
     ctp: 'CTP',
     softwareEngineering: 'Software Engineering',
     pratiqueArchitecture: 'Architecture Practices',
-    approved: 'Approved',
-    candidate: 'Candidate',
+    operationalized: 'Operationalized',
+    operationalizing: 'Being Operationalized',
     deprecated: 'Deprecated',
     name: 'Name',
     description: 'Description',
@@ -114,7 +114,7 @@ interface PRARow {
 }
 
 type Category = 'all' | 'business' | 'application' | 'data' | 'technology' | 'security' | 'integration' | 'ctp' | 'software-engineering' | 'pratique-architecture';
-type Status = 'all' | 'approved' | 'candidate' | 'deprecated';
+type Status = 'all' | 'operationalized' | 'operationalizing' | 'deprecated';
 type Scope = 'all' | 'bank-wide' | 'domaines';
 type Domaine = 'all' | 'particuliers' | 'entreprises' | 'gestion-patrimoine';
 type SortKey = 'name' | 'category' | 'status' | 'updated' | 'scope';
@@ -135,8 +135,8 @@ const CATEGORY_LABELS: Record<Exclude<Category, 'all'>, string> = {
 };
 
 const STATUS_LABELS: Record<Exclude<Status, 'all'>, string> = {
-  approved: 'Approved',
-  candidate: 'Candidate',
+  operationalized: 'Operationalized',
+  operationalizing: 'Operationalizing',
   deprecated: 'Deprecated',
 };
 
@@ -317,8 +317,8 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
 
   const getStatusBadge = (status: string) => {
     const styles: Record<string, string> = {
-      approved: 'text-green-700 bg-green-50 shadow-green-200/50',
-      candidate: 'text-blue-700 bg-blue-50 shadow-blue-200/50',
+      operationalized: 'text-green-700 bg-green-50 shadow-green-200/50',
+      operationalizing: 'text-blue-700 bg-blue-50 shadow-blue-200/50',
       deprecated: 'text-red-700 bg-red-50 shadow-red-200/50',
     };
     return (
@@ -461,8 +461,8 @@ export default function CatalogueClient({ pras, lang }: { pras: PRARow[]; lang: 
                 className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#de161d]/20 focus:border-[#de161d]/50 transition-all duration-300"
               >
                 <option value="all">{t.all}</option>
-                <option value="approved">{t.approved}</option>
-                <option value="candidate">{t.candidate}</option>
+                <option value="operationalized">{t.operationalized}</option>
+                <option value="operationalizing">{t.operationalizing}</option>
                 <option value="deprecated">{t.deprecated}</option>
               </select>
             </div>

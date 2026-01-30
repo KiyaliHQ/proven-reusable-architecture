@@ -83,7 +83,7 @@ async function getAllPRAs(lang: Language): Promise<PRARow[]> {
       // Utiliser les valeurs extraites du chemin si disponibles (plus fiables)
       // sinon utiliser les métadonnées du frontmatter
       const finalCategory = categoryFromPath || metadata.category || 'technology';
-      const finalStatus = statusFromPath || metadata.status || 'candidate';
+      const finalStatus = statusFromPath || metadata.status || 'operationalizing';
 
       return {
         slug: page.slugs.join('/'),

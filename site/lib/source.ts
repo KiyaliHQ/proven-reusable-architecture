@@ -103,7 +103,7 @@ export interface PRAMetadata {
   name: string;
   category: 'business' | 'application' | 'data' | 'technology' | 'security' | 'integration' | 'ctp' | 'software-engineering' | 'pratique-architecture';
   tags: string[];
-  status: 'candidate' | 'approved' | 'deprecated';
+  status: 'operationalizing' | 'operationalized' | 'deprecated';
   version: string;
   proven_in_use: ProvenInUse[];
   created_at?: string;
@@ -129,7 +129,7 @@ export function getPRAMetadata(page: any): PRAMetadata | null {
     name: pra.name || page.data.title || '',
     category: pra.category || 'technology',
     tags: pra.tags || [],
-    status: pra.status || 'candidate',
+    status: pra.status || 'operationalizing',
     version: pra.version || '1.0.0',
     proven_in_use: pra.proven_in_use || [],
     created_at: pra.created_at,
@@ -177,15 +177,15 @@ export function getAllCategories() {
 export function getPRAStats() {
   const pages = source.getPages();
   const stats = {
-    approved: 0,
-    candidates: 0,
+    operationalized: 0,
+    operationalizing: 0,
     total: pages.length,
   };
 
   pages.forEach((page) => {
     const metadata = getPRAMetadata(page);
-    if (metadata?.status === 'approved') stats.approved++;
-    if (metadata?.status === 'candidate') stats.candidates++;
+    if (metadata?.status === 'operationalized') stats.operationalized++;
+    if (metadata?.status === 'operationalizing') stats.operationalizing++;
   });
 
   return stats;
