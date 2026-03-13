@@ -110,7 +110,7 @@ When a contributor submits a PR with only `/content/` changes:
 4. ✅ Requires 2 approvals from appropriate governance team
 5. ✅ PR can be merged after approvals
 
-**Example PR**: Adding a new PRA in `/content/pras-fr/bank-wide/candidate/tech/`
+**Example PR**: Adding a new PRA in `/content/pras/fr/bank-wide/tech/operationalizing/`
 - No framework files touched
 - Workflow assigns `@KiyaliHQ/comite-architectes-experts`
 - Committee approves via GitHub reviews
@@ -154,7 +154,7 @@ Create a test PR with only `/content/` changes:
 ```bash
 # Create test branch
 git checkout -b test/content-only
-echo "test" >> content/pras-fr/test.md
+echo "test" >> content/pras/fr/test.md
 git add content/
 git commit -m "test: content-only change"
 git push origin test/content-only
@@ -190,7 +190,7 @@ Create a test PR with both content and framework changes:
 ```bash
 # Create test branch
 git checkout -b test/mixed
-echo "test" >> content/pras-fr/test.md
+echo "test" >> content/pras/fr/test.md
 echo "# comment" >> .github/workflows/test.yml
 git add .
 git commit -m "test: mixed changes"
@@ -230,7 +230,7 @@ git push origin test/mixed
 
 **Solutions**:
 1. Check workflow is running: `pra-candidate-validate-submission.yml`
-2. Verify modified files are in `/content/pras-*/` paths
+2. Verify modified files are in `/content/pras/` paths
 3. Check GitHub Actions logs for errors
 4. Ensure governance teams exist:
    - `@KiyaliHQ/comite-architectes-experts`

@@ -31,8 +31,9 @@ proven-reusable-architecture/
 ├── site/                    # Application Next.js Fumadocs
 ├── content/                 # Contenu MDX (séparé par langue)
 │   ├── guides/              # Guides utilisateur (FR/EN)
-│   ├── pras-fr/             # PRAs français
-│   └── pras-en/             # PRAs anglais
+│   └── pras/                # PRAs (séparé par langue)
+│       ├── fr/              # PRAs français
+│       └── en/              # PRAs anglais
 ├── docs/                    # Documentation projet
 └── scripts/                 # Scripts utilitaires
 ```
@@ -42,10 +43,10 @@ proven-reusable-architecture/
 ```bash
 # 1. Créer le fichier (flat structure, pas de sous-dossier)
 # ✅ Correct
-content/pras-fr/bank-wide/candidate/tech/mon-pra.md
+content/pras/fr/bank-wide/tech/operationalizing/mon-pra.md
 
 # ❌ Incorrect
-content/pras-fr/bank-wide/candidate/tech/mon-pra/page.md
+content/pras/fr/bank-wide/tech/operationalizing/mon-pra/page.md
 ```
 
 ```yaml
@@ -92,8 +93,8 @@ Naviguer vers :
 
 | Scope | Chemin | Description |
 |-------|--------|-------------|
-| **Bank-Wide** | `pras-fr/bank-wide/` | Transversal (tous secteurs) |
-| **Domain-Wide** | `pras-fr/domain-wide/[domaine]/` | Spécifique à un domaine |
+| **Bank-Wide** | `pras/fr/bank-wide/` | Transversal (tous secteurs) |
+| **Domain-Wide** | `pras/fr/domain-wide/[domaine]/` | Spécifique à un domaine |
 
 ### Catégories
 
@@ -153,8 +154,8 @@ export const guides_fr = defineDocs({ dir: '../content/guides/fr' });
 export const guides_en = defineDocs({ dir: '../content/guides/en' });
 
 // 2 collections de PRAs (FR/EN)
-export const pras_fr = defineDocs({ dir: '../content/pras-fr' });
-export const pras_en = defineDocs({ dir: '../content/pras-en' });
+export const pras_fr = defineDocs({ dir: '../content/pras/fr' });
+export const pras_en = defineDocs({ dir: '../content/pras/en' });
 ```
 
 **Chaque collection PRA couvre tous les scopes, statuses et catégories.**
@@ -187,8 +188,8 @@ const registreSources = {
 **Solution** :
 ```bash
 # Déplacer et renommer
-mv content/pras-fr/bank-wide/candidate/tech/mon-pra/page.md \
-   content/pras-fr/bank-wide/candidate/tech/mon-pra.md
+mv content/pras/fr/bank-wide/tech/operationalizing/mon-pra/page.md \
+   content/pras/fr/bank-wide/tech/operationalizing/mon-pra.md
 ```
 
 ### Erreur "source.files is not iterable"
@@ -201,7 +202,7 @@ mv content/pras-fr/bank-wide/candidate/tech/mon-pra/page.md \
 
 **Cause** : Glob patterns incorrects ou répertoires non séparés
 
-**Solution** : Séparer physiquement `pras-fr/` et `pras-en/` (pas de sous-dossiers `fr/` et `en/`)
+**Solution** : Séparer physiquement `pras/fr/` et `pras/en/` (répertoires dédiés par langue)
 
 ### Clear Cache
 
@@ -233,14 +234,14 @@ pnpm dev
 
 ### 1. Structure des Fichiers
 
-✅ **Correct** : `pras-fr/bank-wide/candidate/tech/api-gateway.md`
-❌ **Incorrect** : `pras-fr/bank-wide/candidate/tech/api-gateway/page.md`
+✅ **Correct** : `pras/fr/bank-wide/tech/operationalizing/api-gateway.md`
+❌ **Incorrect** : `pras/fr/bank-wide/tech/operationalizing/api-gateway/page.md`
 
 ### 2. Bilingue Toujours
 
 Créer **FR et EN** en même temps avec chemins cohérents :
-- `pras-fr/bank-wide/candidate/tech/api-gateway.md`
-- `pras-en/bank-wide/candidate/tech/api-gateway.md`
+- `pras/fr/bank-wide/tech/operationalizing/api-gateway.md`
+- `pras/en/bank-wide/tech/operationalizing/api-gateway.md`
 
 ### 3. Frontmatter Complet
 
@@ -284,7 +285,7 @@ git commit -m "feat(pra): Add API Gateway pattern (Bank-Wide Tech Candidate)"
 
 ## 🚀 Prochaines Étapes
 
-1. **Explorer** : Naviguer dans `/content/pras-fr/` pour voir exemples
+1. **Explorer** : Naviguer dans `/content/pras/fr/` pour voir exemples
 2. **Lire** : [Guide Développeur](./DEVELOPER_GUIDE.md) pour détails architecture
 3. **Créer** : Ajouter votre premier PRA
 4. **Contribuer** : Soumettre une PR avec le template approprié

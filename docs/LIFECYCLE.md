@@ -252,7 +252,7 @@ replaced_by: pra-150  # Si remplacé par un nouveau PRA
 **Description** : PRA retiré du registre actif
 
 **Caractéristiques** :
-- 📦 Déplacé vers `pra/archived/`
+- 📦 Marqué `status: deprecated` dans le frontmatter (reste dans son emplacement)
 - ❌ Retiré du site Fumadocs
 - ❌ Plus visible dans la navigation
 - ✅ Conservé dans Git (historique)
@@ -265,7 +265,9 @@ replaced_by: pra-150  # Si remplacé par un nouveau PRA
 
 **Actions** :
 ```bash
-git mv pra/deprecated/[category]/[pra-name] pra/archived/[category]/[pra-name]
+# Archivage = mise à jour du status dans le frontmatter
+# Le fichier reste dans content/pras/fr/bank-wide/[category]/operationalized/[pra-name].md
+# Mettre à jour: status: deprecated
 ```
 
 **Durée** : Indéfinie (historique)
@@ -327,7 +329,7 @@ git mv pra/deprecated/[category]/[pra-name] pra/archived/[category]/[pra-name]
 
 **Processus** :
 1. Table de Gouvernance initie
-2. Déplacement vers `pra/archived/`
+2. Mise à jour `status: deprecated` dans le frontmatter
 3. Retrait du site Fumadocs
 4. Communication finale
 

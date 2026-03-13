@@ -28,7 +28,7 @@ Un **Proven Reusable Architecture (PRA)** est :
 |----|-----|-----------|------|---------------|
 | - | *En cours de création* | - | - | - |
 
-**Voir tous les PRA approved** : [`pra/approved/`](./pra/approved/)
+**Voir tous les PRA approved** : [`content/pras/fr/`](./content/pras/fr/)
 
 ### 🟡 PRA Candidates (En Validation)
 
@@ -38,7 +38,7 @@ Un **Proven Reusable Architecture (PRA)** est :
 |----|-----|-----------|------|---------------|
 | - | *En cours de création* | - | - | - |
 
-**Voir tous les PRA candidates** : [`pra/candidates/`](./pra/candidates/)
+**Voir tous les PRA candidates** : [`content/pras/fr/`](./content/pras/fr/)
 
 ---
 
@@ -48,7 +48,7 @@ Un **Proven Reusable Architecture (PRA)** est :
 
 1. **Rechercher** un patron pertinent :
    - 🔍 [Site Fumadocs](https://pra-registry.example.com) (à venir)
-   - 📁 Parcourir [`pra/approved/`](./pra/approved/)
+   - 📁 Parcourir [`content/pras/fr/`](./content/pras/fr/)
 
 2. **Consulter** la documentation :
    - Architecture & stack tech
@@ -76,7 +76,7 @@ Un **Proven Reusable Architecture (PRA)** est :
 3. **Soumettre** via Pull Request :
    ```bash
    git checkout -b pra/nouveau-[category]-[nom]
-   cp templates/pra-template.md pra/candidates/[category]/[nom]/README.md
+   cp templates/pra-template.md content/pras/fr/bank-wide/[category]/operationalizing/[nom].md
    # Remplir le template
    git commit -m "feat(pra): Add PRA-XXX - [Nom]"
    git push origin pra/nouveau-[category]-[nom]
@@ -100,15 +100,15 @@ proven-reusable-architecture/
 │   ├── guides/                # Guides utilisateur
 │   │   ├── fr/                # Guides français
 │   │   └── en/                # Guides anglais
-│   ├── pras-fr/               # PRAs français
-│   │   ├── bank-wide/         # PRAs transversaux (tous secteurs)
-│   │   │   ├── approved/      # 3+ proven-in-use
-│   │   │   └── candidate/     # 1+ proven-in-use
-│   │   └── domain-wide/       # PRAs spécifiques à un domaine
-│   │       ├── particuliers/  # Retail banking
-│   │       ├── entreprises/   # Corporate banking
-│   │       └── gestion-patrimoine/ # Wealth management
-│   └── pras-en/               # PRAs anglais (même structure)
+│   └── pras/                  # PRAs (séparé par langue)
+│       ├── fr/                # PRAs français
+│       │   ├── bank-wide/     # PRAs transversaux (tous secteurs)
+│       │   │   └── [category]/{operationalized,operationalizing}/
+│       │   └── domain-wide/   # PRAs spécifiques à un domaine
+│       │       ├── particuliers/  # Retail banking
+│       │       ├── entreprises/   # Corporate banking
+│       │       └── gestion-patrimoine/ # Wealth management
+│       └── en/                # PRAs anglais (même structure)
 ├── templates/                 # Templates PRA & ADR
 ├── docs/                      # Documentation projet
 │   ├── DEVELOPER_GUIDE.md     # Guide développeur complet

@@ -27,7 +27,7 @@ Mettre en place une infrastructure complète de workflows GitHub pour automatise
 - Vérifier métadonnées complètes (name, category, status, tags, proven_in_use, etc.)
 - Valider sections obligatoires (Overview, Context, Architecture, ADR, Examples, Proven-in-use)
 - Vérifier liens internes/externes (pas de 404)
-- Valider cohérence scope/path (secteurs/* vs transversal/*)
+- Valider cohérence scope/path (domain-wide/* vs bank-wide/*)
 - Vérifier images/diagrammes référencés existent
 - Valider cohérence status/proven-in-use count
 
@@ -41,15 +41,15 @@ Mettre en place une infrastructure complète de workflows GitHub pour automatise
 **Trigger** : `pull_request` (opened)
 **Responsabilités** :
 - Détecter scope automatiquement :
-  * `secteurs/particuliers/` → labels: `scope:domaine`, `domaine:particuliers`
-  * `secteurs/entreprises/` → labels: `scope:domaine`, `domaine:entreprises`
-  * `secteurs/gestion-patrimoine/` → labels: `scope:domaine`, `domaine:gestion-patrimoine`
-  * `transversal/` → label: `scope:bank-wide`
+  * `domain-wide/particuliers/` → labels: `scope:domaine`, `domaine:particuliers`
+  * `domain-wide/entreprises/` → labels: `scope:domaine`, `domaine:entreprises`
+  * `domain-wide/gestion-patrimoine/` → labels: `scope:domaine`, `domaine:gestion-patrimoine`
+  * `bank-wide/` → label: `scope:bank-wide`
 - Détecter catégorie : `category:tech`, `category:integration`, `category:security`, `category:business`
 - Détecter type de changement :
   * Nouveau fichier → `type:nouveau-pra`
   * Modification status → `type:status-change`
-  * Déplacement secteurs→transversal → `type:promotion`
+  * Déplacement domain-wide→bank-wide → `type:promotion`
   * Status→deprecated → `type:deprecation`
 
 **Scripts utilisés** :
@@ -116,7 +116,7 @@ Mettre en place une infrastructure complète de workflows GitHub pour automatise
 ---
 
 #### 7. `promotion-check.yml` - Validation Promotions
-**Trigger** : `pull_request` when files moved from `secteurs/*` to `transversal/*`
+**Trigger** : `pull_request` when files moved from `domain-wide/*` to `bank-wide/*`
 **Responsabilités** :
 - Appliquer label `type:promotion`
 - Vérifier 3+ proven-in-use multi-domaines
@@ -214,16 +214,20 @@ Mettre en place une infrastructure complète de workflows GitHub pour automatise
 ### 1. Fichier `.github/CODEOWNERS`
 ```plaintext
 # PRAs Domaine Particuliers
-/site/content/registre/secteurs/particuliers/ @bnc/comite-gov-particuliers
+/content/pras/fr/domain-wide/particuliers/ @bnc/comite-gov-particuliers
+/content/pras/en/domain-wide/particuliers/ @bnc/comite-gov-particuliers
 
 # PRAs Domaine Entreprises
-/site/content/registre/secteurs/entreprises/ @bnc/comite-gov-entreprises
+/content/pras/fr/domain-wide/entreprises/ @bnc/comite-gov-entreprises
+/content/pras/en/domain-wide/entreprises/ @bnc/comite-gov-entreprises
 
 # PRAs Domaine Gestion de Patrimoine
-/site/content/registre/secteurs/gestion-patrimoine/ @bnc/comite-gov-patrimoine
+/content/pras/fr/domain-wide/gestion-patrimoine/ @bnc/comite-gov-patrimoine
+/content/pras/en/domain-wide/gestion-patrimoine/ @bnc/comite-gov-patrimoine
 
 # PRAs Bank-Wide
-/site/content/registre/transversal/ @bnc/comite-architectes-experts
+/content/pras/fr/bank-wide/ @bnc/comite-architectes-experts
+/content/pras/en/bank-wide/ @bnc/comite-architectes-experts
 
 # Templates et guides (tous peuvent contribuer)
 /templates/ @bnc/comite-architectes-experts
@@ -340,7 +344,7 @@ Tous les scripts dans `/scripts/` ou `/.github/scripts/`
 ### Informations
 - **PRA actuel** : [lien vers PRA domaine]
 - **Domaine d'origine** :
-- **Nouveau path** : `transversal/[category]/`
+- **Nouveau path** : `bank-wide/[category]/`
 
 ### Checklist Promotion
 - [ ] 3+ proven-in-use documentés de **différents domaines/équipes**

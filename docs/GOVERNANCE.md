@@ -155,13 +155,10 @@ git checkout -b pra/nouveau-pra-nom-descriptif
 
 ```bash
 # Pour un PRA candidat
-cp templates/pra-template.md pra/candidates/[category]/[pra-name]/README.md
+cp templates/pra-template.md content/pras/fr/bank-wide/[category]/operationalizing/[pra-name].md
 
-# Créer le dossier ADR
-mkdir -p pra/candidates/[category]/[pra-name]/adr
-
-# Créer le dossier examples
-mkdir -p pra/candidates/[category]/[pra-name]/examples
+# Créer la version anglaise
+cp templates/pra-template.md content/pras/en/bank-wide/[category]/operationalizing/[pra-name].md
 ```
 
 ### Étape 4 : Remplissage
@@ -175,7 +172,7 @@ mkdir -p pra/candidates/[category]/[pra-name]/examples
 
 ```bash
 # Validation métadonnées YAML
-./scripts/validate-metadata.sh pra/candidates/[category]/[pra-name]/README.md
+./scripts/validate-metadata.sh content/pras/fr/bank-wide/[category]/operationalizing/[pra-name].md
 
 # Validation liens Markdown
 # (manuel ou via outil)
@@ -263,7 +260,7 @@ Une fois approuvé :
 1. **Initiation** : Mainteneur ou contributeur crée une PR
    ```bash
    git checkout -b pra/promote-pra-xxx-to-approved
-   git mv pra/candidates/[category]/[pra-name] pra/approved/[category]/[pra-name]
+   git mv content/pras/fr/bank-wide/[category]/operationalizing/[pra-name].md content/pras/fr/bank-wide/[category]/operationalized/[pra-name].md
    ```
 
 2. **Mise à jour métadonnées**
@@ -381,7 +378,7 @@ Une fois approuvé :
 - ❌ Rejeté définitivement
 
 **Processus** :
-1. Déplacement vers `pra/archived/`
+1. Mise à jour `status: deprecated` dans le frontmatter
 2. Suppression du site Fumadocs
 3. Maintien dans Git (historique)
 

@@ -57,8 +57,9 @@ proven-reusable-architecture/
 │   ├── guides/              # Guides utilisateur
 │   │   ├── fr/              # Guides français
 │   │   └── en/              # Guides anglais
-│   ├── pras-fr/             # PRAs français
-│   └── pras-en/             # PRAs anglais
+│   └── pras/                # PRAs (séparé par langue)
+│       ├── fr/              # PRAs français
+│       └── en/              # PRAs anglais
 ├── templates/               # Templates pour PRAs
 ├── scripts/                 # Scripts utilitaires
 ├── docs/                    # Documentation projet
@@ -89,16 +90,17 @@ content/pras/
 **Après (✅ Actuel)** :
 ```
 content/
-  ├── pras-fr/              # Base FR séparée
-  │   └── bank-wide/
-  │       └── candidate/
-  │           └── tech/
-  │               └── test-workflow.md
-  ├── pras-en/              # Base EN séparée
-  │   └── bank-wide/
-  │       └── candidate/
-  │           └── tech/
-  │               └── test-workflow.md
+  └── pras/
+      ├── fr/               # Base FR séparée
+      │   └── bank-wide/
+      │       └── operationalizing/
+      │           └── tech/
+      │               └── test-workflow.md
+      └── en/               # Base EN séparée
+          └── bank-wide/
+              └── operationalizing/
+                  └── tech/
+                      └── test-workflow.md
 ```
 
 ### Convention de Nommage des Fichiers
@@ -110,9 +112,9 @@ content/
 
 **Exemple** :
 ```
-pras-fr/
+pras/fr/
   └── bank-wide/
-      └── candidate/
+      └── operationalizing/
           └── tech/
               ├── test-workflow.md      ✅ Correct
               ├── api-gateway.md        ✅ Correct
@@ -165,21 +167,19 @@ content/
 │   └── en/                       # Guides anglais
 │       ├── 01-getting-started.md
 │       └── ...
-├── pras-fr/                      # PRAs français
-│   ├── bank-wide/                # PRAs transversaux (tous secteurs)
-│   │   ├── approved/             # Status: Approved (3+ proven)
-│   │   │   ├── tech/
-│   │   │   ├── integration/
-│   │   │   ├── security/
-│   │   │   └── business/
-│   │   └── candidate/            # Status: Candidate (1+ proven)
-│   │       └── [same structure]
-│   └── domain-wide/              # PRAs spécifiques à un domaine
-│       ├── particuliers/         # Retail banking
-│       ├── entreprises/          # Corporate banking
-│       └── gestion-patrimoine/   # Wealth management
-└── pras-en/                      # PRAs anglais
-    └── [same structure as pras-fr]
+└── pras/                         # PRAs (séparé par langue)
+    ├── fr/                       # PRAs français
+    │   ├── bank-wide/            # PRAs transversaux (tous secteurs)
+    │   │   ├── [category]/       # ctp, software-engineering, pratique-architecture
+    │   │   │   ├── operationalized/   # Status: Operationalized (3+ proven)
+    │   │   │   └── operationalizing/  # Status: Operationalizing (1+ proven)
+    │   │   └── ...
+    │   └── domain-wide/          # PRAs spécifiques à un domaine
+    │       ├── particuliers/     # Retail banking
+    │       ├── entreprises/      # Corporate banking
+    │       └── gestion-patrimoine/ # Wealth management
+    └── en/                       # PRAs anglais
+        └── [same structure as fr/]
 ```
 
 ### Scopes des PRAs
@@ -260,7 +260,7 @@ export const guides_en = defineDocs({
 // =========================================
 
 export const pras_fr = defineDocs({
-  dir: '../content/pras-fr',
+  dir: '../content/pras/fr',
   docs: {
     schema: frontmatterSchema,
     postprocess: {
@@ -273,7 +273,7 @@ export const pras_fr = defineDocs({
 });
 
 export const pras_en = defineDocs({
-  dir: '../content/pras-en',
+  dir: '../content/pras/en',
   docs: {
     schema: frontmatterSchema,
     postprocess: {
@@ -384,20 +384,20 @@ export function getRegistreSource(lang: 'en' | 'fr') {
 - `tech/`, `integration/`, `security/`, `business/`
 
 **Status** :
-- `candidate/` : 1+ proven-in-use (début)
-- `approved/` : 3+ proven-in-use (Bank-Wide) ou 1+ (Domain-Wide)
+- `operationalizing/` : 1+ proven-in-use (début)
+- `operationalized/` : 3+ proven-in-use (Bank-Wide) ou 1+ (Domain-Wide)
 
 **Exemple de chemin** :
 ```
-content/pras-fr/bank-wide/candidate/tech/mon-nouveau-pra.md
-content/pras-en/bank-wide/candidate/tech/my-new-pra.md
+content/pras/fr/bank-wide/[category]/operationalizing/mon-nouveau-pra.md
+content/pras/en/bank-wide/[category]/operationalizing/my-new-pra.md
 ```
 
 #### 2. Créer le Fichier MDX
 
 **Utiliser le template** :
 ```bash
-cp templates/pra-template.md content/pras-fr/bank-wide/candidate/tech/mon-pra.md
+cp templates/pra-template.md content/pras/fr/bank-wide/tech/operationalizing/mon-pra.md
 ```
 
 **Structure du Frontmatter** :
@@ -495,18 +495,18 @@ Naviguer vers :
    - Domain-Wide : 1+ proven-in-use dans le domaine
 2. Déplacer fichier :
    ```bash
-   mv content/pras-fr/bank-wide/candidate/tech/mon-pra.md \
-      content/pras-fr/bank-wide/approved/tech/mon-pra.md
+   mv content/pras/fr/bank-wide/tech/operationalizing/mon-pra.md \
+      content/pras/fr/bank-wide/tech/operationalized/mon-pra.md
    ```
-3. Mettre à jour `status: approved` dans frontmatter
+3. Mettre à jour `status: operationalized` dans frontmatter
 4. Mettre à jour `meta.json` dans les deux répertoires
 
 **Domain-Wide → Bank-Wide** :
 1. Vérifier critères : 3+ proven-in-use multi-domaines
 2. Déplacer fichier :
    ```bash
-   mv content/pras-fr/domain-wide/particuliers/candidate/tech/mon-pra.md \
-      content/pras-fr/bank-wide/candidate/tech/mon-pra.md
+   mv content/pras/fr/domain-wide/particuliers/tech/operationalizing/mon-pra.md \
+      content/pras/fr/bank-wide/tech/operationalizing/mon-pra.md
    ```
 3. Mettre à jour documentation avec justification applicabilité
 4. Soumettre pour approbation Comité Architectes Experts
@@ -594,8 +594,8 @@ pnpm dev
 
 1. **Toujours créer les deux versions linguistiques** (FR et EN) en même temps
 2. **Maintenir la cohérence des chemins** entre FR et EN
-   - ✅ `pras-fr/bank-wide/candidate/tech/api-gateway.md`
-   - ✅ `pras-en/bank-wide/candidate/tech/api-gateway.md`
+   - ✅ `pras/fr/bank-wide/tech/operationalizing/api-gateway.md`
+   - ✅ `pras/en/bank-wide/tech/operationalizing/api-gateway.md`
 3. **Utiliser des slugs descriptifs** en kebab-case
    - ✅ `digital-onboarding-pattern.md`
    - ❌ `dop.md`
@@ -676,7 +676,7 @@ pnpm dev
 - Fumadocs `defineDocs` ne supporte pas `exclude`
 
 **Solution** :
-- Séparation physique des répertoires (`pras-fr/` vs `pras-en/`)
+- Séparation physique des répertoires (`pras/fr/` vs `pras/en/`)
 - Pas de pattern glob complexe nécessaire
 
 ### Build Errors
@@ -719,7 +719,7 @@ pnpm dev -- --port 3001
 - `defineDocs` ne supporte pas l'option `exclude`
 
 **Décision** :
-- Créer deux bases de répertoires séparées : `pras-fr/` et `pras-en/`
+- Créer deux bases de répertoires séparées : `pras/fr/` et `pras/en/`
 - Dupliquer la structure complète dans chaque base
 - Chaque collection pointe directement vers sa base
 
@@ -805,20 +805,22 @@ for page_md in pras_dir.rglob('page.md'):
 
 **Structure** :
 ```
-pras-fr/
+pras/fr/
   ├── bank-wide/
-  │   ├── approved/
-  │   │   ├── tech/
-  │   │   ├── integration/
-  │   │   ├── security/
-  │   │   └── business/
-  │   └── candidate/
-  │       └── [same]
+  │   ├── ctp/
+  │   │   ├── operationalized/
+  │   │   └── operationalizing/
+  │   ├── software-engineering/
+  │   │   ├── operationalized/
+  │   │   └── operationalizing/
+  │   └── pratique-architecture/
+  │       ├── operationalized/
+  │       └── operationalizing/
   └── domain-wide/
       ├── particuliers/
       ├── entreprises/
       └── gestion-patrimoine/
-          └── [same structure as bank-wide]
+          └── [category]/{operationalized,operationalizing}/
 ```
 
 **Conséquences** :

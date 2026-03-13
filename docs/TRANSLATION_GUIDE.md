@@ -18,12 +18,12 @@ All PRAs in the registry should be available in both French and English:
 
 Create your PRA documentation in French at:
 ```
-content/fr/registre/[scope]/[category]/[your-pra].md
+content/pras/fr/[scope]/[category]/operationalizing/[your-pra].md
 ```
 
 **Example:**
 ```
-content/fr/registre/transversal/tech/kubernetes-deployment.md
+content/pras/fr/bank-wide/tech/operationalizing/kubernetes-deployment.md
 ```
 
 ### Step 2: Translate to English
@@ -43,12 +43,12 @@ Update internal links from /registre/ to /en/registre/.
 
 Save the translated content to the same path under `/en/`:
 ```
-content/en/registre/[scope]/[category]/[your-pra].md
+content/pras/en/[scope]/[category]/operationalizing/[your-pra].md
 ```
 
 **Example:**
 ```
-content/en/registre/transversal/tech/kubernetes-deployment.md
+content/pras/en/bank-wide/tech/operationalizing/kubernetes-deployment.md
 ```
 
 ---
@@ -107,7 +107,7 @@ See: [`templates/TRANSLATION_PROMPT.md`](../templates/TRANSLATION_PROMPT.md)
 
 ## 🔄 Example Translation
 
-### French Version (`content/fr/registre/transversal/tech/cicd-gitops.md`)
+### French Version (`content/pras/fr/bank-wide/tech/operationalized/cicd-gitops.md`)
 
 ```markdown
 ---
@@ -132,7 +132,7 @@ pra:
 Ce PRA décrit l'implémentation d'un pipeline CI/CD moderne...
 ```
 
-### English Version (`content/en/registre/transversal/tech/cicd-gitops.md`)
+### English Version (`content/pras/en/bank-wide/tech/operationalized/cicd-gitops.md`)
 
 ```markdown
 ---

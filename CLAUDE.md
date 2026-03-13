@@ -46,25 +46,21 @@ proven-reusable-architecture/
 │   ├── guides/                     # User guides
 │   │   ├── fr/                     # French guides
 │   │   └── en/                     # English guides
-│   ├── pras-fr/                    # French PRAs (physically separated)
-│   │   ├── bank-wide/              # Cross-cutting (all sectors)
-│   │   │   ├── approved/           # Approved PRAs
-│   │   │   │   ├── tech/
-│   │   │   │   ├── integration/
-│   │   │   │   ├── security/
-│   │   │   │   └── business/
-│   │   │   └── candidate/          # Candidate PRAs
-│   │   │       ├── tech/
-│   │   │       ├── integration/
-│   │   │       ├── security/
-│   │   │       └── business/
-│   │   └── domain-wide/            # Domain-specific
-│   │       ├── particuliers/       # Retail banking
-│   │       ├── entreprises/        # Corporate banking
-│   │       └── gestion-patrimoine/ # Wealth management
-│   └── pras-en/                    # English PRAs (same structure)
-│       ├── bank-wide/
-│       └── domain-wide/
+│   └── pras/                       # PRAs (physically separated by language)
+│       ├── fr/                     # French PRAs
+│       │   ├── bank-wide/          # Cross-cutting (all sectors)
+│       │   │   ├── ctp/
+│       │   │   │   ├── operationalized/
+│       │   │   │   └── operationalizing/
+│       │   │   ├── software-engineering/
+│       │   │   └── pratique-architecture/
+│       │   └── domain-wide/        # Domain-specific
+│       │       ├── particuliers/   # Retail banking
+│       │       ├── entreprises/    # Corporate banking
+│       │       └── gestion-patrimoine/ # Wealth management
+│       └── en/                     # English PRAs (same structure)
+│           ├── bank-wide/
+│           └── domain-wide/
 ├── docs/                           # 📖 DOCUMENTATION
 │   ├── DEVELOPER_GUIDE.md          # Comprehensive developer guide
 │   ├── QUICK_START.md              # 5-minute quick start
@@ -256,28 +252,22 @@ pnpm type-check       # TypeScript type checking
 1. **Choose the correct scope, status, and category**:
    ```
    content/
-   ├── pras-fr/                    # French PRAs
-   │   ├── bank-wide/              # Cross-cutting (all sectors)
-   │   │   ├── approved/           # 3+ proven-in-use
-   │   │   │   ├── tech/
-   │   │   │   ├── integration/
-   │   │   │   ├── security/
-   │   │   │   └── business/
-   │   │   └── candidate/          # 1+ proven-in-use
-   │   │       ├── tech/
-   │   │       ├── integration/
-   │   │       ├── security/
-   │   │       └── business/
-   │   └── domain-wide/            # Domain-specific
-   │       ├── particuliers/       # Retail banking
-   │       ├── entreprises/        # Corporate banking
-   │       └── gestion-patrimoine/ # Wealth management
-   └── pras-en/                    # English PRAs (same structure)
+   └── pras/                       # PRAs (separated by language)
+       ├── fr/                     # French PRAs
+       │   ├── bank-wide/          # Cross-cutting (all sectors)
+       │   │   └── [category]/     # ctp, software-engineering, pratique-architecture
+       │   │       ├── operationalized/   # 3+ proven-in-use
+       │   │       └── operationalizing/  # 1+ proven-in-use
+       │   └── domain-wide/        # Domain-specific
+       │       ├── particuliers/   # Retail banking
+       │       ├── entreprises/    # Corporate banking
+       │       └── gestion-patrimoine/ # Wealth management
+       └── en/                     # English PRAs (same structure)
    ```
 
    **IMPORTANT**: Use flat file structure
-   - ✅ Correct: `pras-fr/bank-wide/candidate/tech/my-pra.md`
-   - ❌ Incorrect: `pras-fr/bank-wide/candidate/tech/my-pra/page.md`
+   - ✅ Correct: `pras/fr/bank-wide/tech/operationalizing/my-pra.md`
+   - ❌ Incorrect: `pras/fr/bank-wide/tech/operationalizing/my-pra/page.md`
 
 2. **Create MDX file** with frontmatter:
    ```mdx
@@ -304,8 +294,8 @@ pnpm type-check       # TypeScript type checking
    ```
 
 3. **Create bilingual versions** (FR and EN):
-   - `content/pras-fr/bank-wide/candidate/tech/api-gateway.md`
-   - `content/pras-en/bank-wide/candidate/tech/api-gateway.md`
+   - `content/pras/fr/bank-wide/tech/operationalizing/api-gateway.md`
+   - `content/pras/en/bank-wide/tech/operationalizing/api-gateway.md`
 
 4. **The PRA will automatically appear** in:
    - Fumadocs navigation sidebar
@@ -596,7 +586,7 @@ pnpm build
 3. **Update `updated_at`** when modifying PRAs
 4. **Follow Fumadocs conventions** for MDX content
 5. **Use flat file structure** (`pra-name.md`, NOT `pra-name/page.md`)
-6. **Physical FR/EN separation** (pras-fr/, pras-en/, NOT fr/ and en/ subdirectories)
+6. **Physical FR/EN separation** (pras/fr/, pras/en/)
 7. **Git workflow**:
    - Always work on feature branches
    - Never commit directly to `main`
@@ -619,7 +609,7 @@ pnpm build
 ### Architecture Rules (ADRs)
 
 **ADR-001: Physical FR/EN Separation**
-- Content MUST be in separate `pras-fr/` and `pras-en/` directories
+- Content MUST be in separate `pras/fr/` and `pras/en/` directories
 - NO glob patterns like `**/fr/**` or `**/en/**`
 
 **ADR-002: Simplified Collections**
@@ -680,7 +670,7 @@ For complete ADR documentation with context, rationale, and consequences, see `/
 
 ### ADR Summary
 
-1. **ADR-001: Physical FR/EN Separation** - Separate `pras-fr/` and `pras-en/` directories
+1. **ADR-001: Physical FR/EN Separation** - Separate `pras/fr/` and `pras/en/` directories
 2. **ADR-002: Simplified Collections** - 2 PRA collections instead of 24
 3. **ADR-003: Flat File Structure** - `pra-name.md` instead of `pra-name/page.md`
 4. **ADR-004: Bank-Wide vs Domain-Wide** - Scope-based organization reflecting governance
