@@ -471,8 +471,8 @@ pnpm dev
 ```
 
 Naviguer vers :
-- FR : `http://localhost:3000/fr/registre/bank-wide/candidate/tech/mon-nouveau-pra`
-- EN : `http://localhost:3000/en/registre/bank-wide/candidate/tech/my-new-pra`
+- FR : `http://localhost:3000/fr/registre/bank-wide/tech/operationalizing/mon-nouveau-pra`
+- EN : `http://localhost:3000/en/registre/bank-wide/tech/operationalizing/my-new-pra`
 
 ### Mettre à Jour un PRA Existant
 

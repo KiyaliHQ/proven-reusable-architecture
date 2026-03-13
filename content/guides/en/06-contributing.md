@@ -60,26 +60,26 @@ git checkout -b feature/pra-your-pra-name
 
 #### Directory Structure
 
-- **Bank-Wide PRA**: `content/pras-{lang}/bank-wide/candidate/{category}/pra-name.md`
-- **Domain-Wide PRA**: `content/pras-{lang}/domain-wide/{domain}/candidate/{category}/pra-name.md`
+- **Bank-Wide PRA**: `content/pras/{lang}/bank-wide/{category}/operationalizing/pra-name.md`
+- **Domain-Wide PRA**: `content/pras/{lang}/domain-wide/{domain}/{category}/operationalizing/pra-name.md`
 
 Where:
 - `{lang}` = `fr` or `en`
-- `{category}` = `tech`, `integration`, `security`, or `business`
+- `{category}` = PRA category (e.g., `ctp`, `software-engineering`, `pratique-architecture` for Bank-Wide; plus `application`, `business`, `data`, `integration`, `security`, `technology` for Domain-Wide)
 - `{domain}` = `particuliers`, `entreprises`, or `gestion-patrimoine` (if domain-wide)
 
 #### Examples
 
-**Bank-Wide Tech PRA** (applicable to all sectors):
+**Bank-Wide CTP PRA** (applicable to all sectors):
 ```bash
-content/pras-fr/bank-wide/candidate/tech/api-gateway-pattern.md
-content/pras-en/bank-wide/candidate/tech/api-gateway-pattern.md
+content/pras/fr/bank-wide/ctp/operationalizing/api-gateway-pattern.md
+content/pras/en/bank-wide/ctp/operationalizing/api-gateway-pattern.md
 ```
 
 **Domain-Wide Security PRA** (Retail):
 ```bash
-content/pras-fr/domain-wide/particuliers/candidate/security/kyc-verification.md
-content/pras-en/domain-wide/particuliers/candidate/security/kyc-verification.md
+content/pras/fr/domain-wide/particuliers/security/operationalizing/kyc-verification.md
+content/pras/en/domain-wide/particuliers/security/operationalizing/kyc-verification.md
 ```
 
 ### 4. Use the Template
@@ -134,7 +134,7 @@ pra:
 ### 5. Create a Pull Request
 
 ```bash
-git add content/pras-fr/ content/pras-en/
+git add content/pras/fr/ content/pras/en/
 git commit -m "feat: add PRA - PRA Name (Bank-Wide Tech Candidate)"
 git push origin feature/pra-your-pra-name
 ```

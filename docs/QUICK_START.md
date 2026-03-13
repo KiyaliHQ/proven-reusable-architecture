@@ -82,8 +82,8 @@ pra:
 ### 4. Tester
 
 Naviguer vers :
-- FR : `http://localhost:3000/fr/registre/bank-wide/candidate/tech/mon-pra`
-- EN : `http://localhost:3000/en/registre/bank-wide/candidate/tech/my-pra`
+- FR : `http://localhost:3000/fr/registre/bank-wide/tech/operationalizing/mon-pra`
+- EN : `http://localhost:3000/en/registre/bank-wide/tech/operationalizing/my-pra`
 
 ---
 
