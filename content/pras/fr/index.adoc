@@ -8,13 +8,13 @@ Tableau de bord des Proven Reusable Architectures du registre.
 |===
 | Nom | Archétype | Sous-catégorie | Statut | Scope | Proven | Dernière MAJ
 
-| link:bank-wide/application/adr-process.adoc[Processus ADR] | application | pratique-architecture | operationalizing | bank-wide | 0 | 2025-01-30
-| link:bank-wide/devops/code-review-standards.adoc[Standards de Code Review] | devops | software-engineering | operationalizing | bank-wide | 0 | 2025-01-30
-| link:bank-wide/technology/ctp-framework.adoc[CTP Framework] | technology | ctp | operationalizing | bank-wide | 0 | 2025-01-30
-| link:domain-wide/entreprises/erp-sap.adoc[ERP SAP S/4HANA Integration] | integration | erp | operationalizing | domain-wide | 1 | 2025-01-30
-| link:domain-wide/gestion-patrimoine/api-client-onboarding.adoc[Patron d'Onboarding Client via API] | business | onboarding | operationalizing | domain-wide | 1 | 2025-12-04
-| link:domain-wide/gestion-patrimoine/salesforce-fsc.adoc[Salesforce Financial Services Cloud] | integration | crm | operationalizing | domain-wide | 1 | 2025-01-30
-| link:domain-wide/particuliers/onboarding-digital.adoc[Onboarding Client Digital] | business | onboarding | operationalizing | domain-wide | 1 | 2025-01-30
-| link:domain-wide/particuliers/test-api-gateway.adoc[API Gateway Test Pattern] | technology | api-gateway | operationalizing | domain-wide | 1 | 2025-12-03
+| link:bank-wide/application/adr-process.html[Processus ADR] | application | pratique-architecture | operationalizing | bank-wide | 0 | 2025-01-30
+| link:bank-wide/devops/code-review-standards.html[Standards de Code Review] | devops | software-engineering | operationalizing | bank-wide | 0 | 2025-01-30
+| link:bank-wide/technology/ctp-framework.html[CTP Framework] | technology | ctp | operationalizing | bank-wide | 0 | 2025-01-30
+| link:domain-wide/entreprises/erp-sap.html[ERP SAP S/4HANA Integration] | integration | erp | operationalizing | domain-wide | 1 | 2025-01-30
+| link:domain-wide/gestion-patrimoine/api-client-onboarding.html[Patron d'Onboarding Client via API] | business | onboarding | operationalizing | domain-wide | 1 | 2025-12-04
+| link:domain-wide/gestion-patrimoine/salesforce-fsc.html[Salesforce Financial Services Cloud] | integration | crm | operationalizing | domain-wide | 1 | 2025-01-30
+| link:domain-wide/particuliers/onboarding-digital.html[Onboarding Client Digital] | business | onboarding | operationalizing | domain-wide | 1 | 2025-01-30
+| link:domain-wide/particuliers/test-api-gateway.html[API Gateway Test Pattern] | technology | api-gateway | operationalizing | domain-wide | 1 | 2025-12-03
 |===
 

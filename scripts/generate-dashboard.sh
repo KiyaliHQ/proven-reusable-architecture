@@ -96,8 +96,9 @@ EOF
         local rel_path
         rel_path="${file#$lang_dir/}"
 
-        # Write table row
-        echo "| link:${rel_path}[${name}] | ${archetype} | ${subcategory} | ${status} | ${scope} | ${proven_count} | ${updated}" >> "$index_file"
+        # Write table row (use .html extension for GitHub Pages links)
+        local html_path="${rel_path%.adoc}.html"
+        echo "| link:${html_path}[${name}] | ${archetype} | ${subcategory} | ${status} | ${scope} | ${proven_count} | ${updated}" >> "$index_file"
         count=$((count + 1))
     done
 
