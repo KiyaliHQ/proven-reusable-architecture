@@ -7,13 +7,8 @@ node_modules/
 coverage/
 .playwright-mcp/
 
-# Next.js
-site/.next/
-site/out/
-site/.source/
-
-# Production
-build/
+# Build output
+_site/
 dist/
 
 # Misc

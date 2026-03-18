@@ -1,0 +1,321 @@
+= Comprendre les PRA
+:page-title: Comprendre les PRA
+:keywords: pra, guide, understanding, anatomy
+
+Maintenant que vous connaissez les bases, plongeons dans la structure et l'organisation des Proven Reusable Architecture.
+
+== Anatomie d'un PRA
+
+Chaque PRA suit une structure standardisee pour garantir clarte et reutilisabilite.
+
+=== Structure Obligatoire
+
+[source,markdown]
+----
+# PRA-XXX : [Nom du Patron]
+
+##  Résumé
+Description concise en 2-3 phrases
+
+##  Contexte d'application
+### Quand utiliser ce PRA ?
+### Quand NE PAS utiliser ce PRA ?
+
+##  Problème résolu
+Description du problème avec symptômes typiques
+
+##  Solution
+Architecture, stack technologique, diagrammes
+
+##  Architecture Decision Records (ADR)
+Décisions clés et justifications
+
+##  Prérequis
+Techniques et organisationnels
+
+##  Implémentation
+Guide pas à pas
+
+##  Exemples
+Code et configurations réels
+
+##  Retours d'Expérience
+Proven-in-use documentés
+
+##  Limitations & Pièges
+À connaître avant d'implémenter
+
+##  Maintenance
+Comment maintenir et faire évoluer
+
+##  Références
+Documentation, contacts
+----
+
+=== Metadonnees (Frontmatter)
+
+Chaque PRA contient des metadonnees au format YAML :
+
+[source,yaml]
+----
+---
+id: pra-XXX
+name: "Nom du Patron"
+category: tech | integration | security | business
+tags:
+  - tag1
+  - tag2
+status: candidate | approved | deprecated
+version: X.Y.Z
+author:
+  name: "Prénom Nom"
+  email: "email@company.com"
+maintainer:
+  name: "Prénom Nom"
+  email: "email@company.com"
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+proven_in_use:
+  - project: "Nom Projet"
+    team: "Nom Équipe"
+    date: "YYYY-MM-DD"
+    feedback: "Résultats concrets"
+dependencies: []
+replaces: null
+---
+----
+
+== Les 2 Scopes d'un PRA
+
+=== 1. Bank-Wide (Transversal)
+
+[source,mermaid]
+----
+graph TD
+    A[PRA Bank-Wide] --> B[Validé pour TOUS les domaines]
+    B --> C[3+ proven-in-use multi-domaines]
+    B --> D[Approuvé Comité Architectes Experts]
+    B --> E[Documentation enrichie]
+----
+
+*Caracteristiques* :
+
+* Applicable a *tous les domaines*
+* Valide par le *Comite de Gouvernance Architectes Experts*
+* Au moins *3 proven-in-use* de differents domaines/equipes
+* *Recommande* pour nouveaux projets
+* Localisation : `pra/transversal/[category]/`
+
+*Exemples* :
+
+* Authentication & Authorization
+* Observabilite (Logs, Metrics, Traces)
+* CI/CD Pipelines
+* API Design Standards
+
+=== 2. Domaine
+
+[source,mermaid]
+----
+graph TD
+    A[PRA Domaine] --> B[Spécifique à un domaine]
+    B --> C[1+ proven-in-use dans le domaine]
+    B --> D[Approuvé Comité Domaine]
+    B --> E[Peut être promu Bank-Wide]
+----
+
+*Caracteristiques* :
+
+* Applicable a *un domaine specifique* (Particuliers, Entreprises, Gestion de Patrimoine)
+* Valide par le *Comite de Gouvernance du Domaine*
+* Au moins *1 proven-in-use* dans le domaine
+* *Tout type de pattern* (fonctionnel ET technique)
+* Peut etre promu vers Bank-Wide si reutilisable hors domaine (statut *"en promotion"*)
+* Localisation : `pra/secteurs/[domaine]/[category]/`
+
+*Exemples* :
+
+* Fonctionnels : Onboarding Digital (Particuliers), Integration ERP SAP (Entreprises)
+* Techniques : Serverless AWS, file transfer, data pipelines (en l'absence de pattern Bank-Wide)
+
+NOTE: Quand un PRA Domaine est propose pour devenir Bank-Wide, il recoit le statut *"en promotion"* dans ses metadonnees. Ce statut est visible par tous les domaines pendant la periode de revue par le Comite Architectes Experts.
+
+== Les Statuts d'un PRA
+
+=== Candidate
+
+[source,mermaid]
+----
+graph LR
+    A[1 proven-in-use] --> B[Documentation complète]
+    B --> C[Review Table Gouvernance]
+    C --> D[PRA Candidate]
+----
+
+*Criteres* :
+
+* *1+ proven-in-use* documente en production
+* Documentation complete (toutes sections obligatoires)
+* Reutilisabilite demontree
+* Qualite technique validee
+
+*Utilisation* :
+
+* Peut etre utilise avec *prudence*
+* *Retour d'experience requis*
+* Aide a atteindre 3 proven-in-use pour promotion
+
+*Badge* : Candidate
+
+=== Approved
+
+[source,mermaid]
+----
+graph LR
+    A[3+ proven-in-use] --> B[Feedback positif]
+    B --> C[Maintenance active]
+    C --> D[PRA Approved]
+----
+
+*Criteres* :
+
+* *3+ proven-in-use* documentes
+* Retours *positifs* (satisfaction > 7/10)
+* Documentation *enrichie* avec learnings
+* Mainteneur *actif* (< 6 mois depuis update)
+
+*Utilisation* :
+
+* *Recommande* pour tous projets applicables
+* Support garanti
+* Maintenance reguliere
+
+*Badge* : Approved
+
+=== Deprecated
+
+[source,mermaid]
+----
+graph LR
+    A[Technologie obsolète] --> D[PRA Deprecated]
+    B[Meilleure alternative] --> D
+    C[Feedback négatif répété] --> D
+----
+
+*Raisons* :
+
+* Technologies obsoletes
+* Meilleures alternatives disponibles
+* Retours negatifs repetes
+* Non maintenance (12+ mois)
+
+*Utilisation* :
+
+* *Non recommande* pour nouveaux projets
+* Maintenance uniquement pour existants
+* Alternative recommandee documentee
+
+*Badge* : Deprecated
+
+== Comment choisir le bon PRA ?
+
+=== Workflow de Selection
+
+[source,mermaid]
+----
+graph TD
+    A[J'ai un besoin] --> B{PRA Bank-Wide existe ?}
+    B -->|Oui| C[Vérifier contexte d'application]
+    B -->|Non| D{PRA Domaine existe ?}
+
+    C -->|Applicable| E[Utiliser PRA Bank-Wide]
+    C -->|Non applicable| D
+
+    D -->|Oui| F[Vérifier contexte]
+    D -->|Non| G[Créer nouveau PRA ?]
+
+    F -->|Applicable| H[Utiliser PRA Domaine]
+    F -->|Non applicable| G
+----
+
+NOTE: Les PRAs avec statut *"en promotion"* sont visibles dans les metadonnees des PRAs Domaine et peuvent etre consultes pour voir les patterns emergents.
+
+=== Questions a se poser
+
+==== 1. Le PRA resout-il mon probleme ?
+
+* Lire section *"Probleme resolu"*
+* Verifier *symptomes typiques*
+
+==== 2. Mon contexte est-il compatible ?
+
+* Lire section *"Quand utiliser ce PRA ?"*
+* Verifier *"Quand NE PAS utiliser ce PRA ?"*
+
+==== 3. Ai-je les prerequis ?
+
+* Stack technologique compatible
+* Competences equipe
+* Infrastructure disponible
+
+==== 4. Le PRA est-il mature ?
+
+* *Approved* : Go direct
+* *Candidate* : Evaluer risque
+* *Deprecated* : Eviter
+
+== Categories de PRA
+
+=== Tech
+
+Patterns techniques et infrastructures
+
+* CI/CD, Deployment, Monitoring, Testing
+
+=== Integration
+
+Integrations entre systemes
+
+* API Design, Event-Driven, Message Queues
+
+=== Security
+
+Securite et conformite
+
+* Authentication, Authorization, Data Protection
+
+=== Business
+
+Patterns metier
+
+* Workflows, Business Rules, Domain Models
+
+== Prochaines Etapes
+
+Vous comprenez maintenant la structure des PRA. Continuez votre apprentissage :
+
+*Suivant* : link:/guides/03-roles-responsibilities[Roles et Responsabilites] - Qui fait quoi dans l'ecosysteme PRA
+
+'''
+
+*Parcours recommande* :
+
+. link:/guides/01-getting-started[Demarrer avec les PRA]
+. *Comprendre les PRA* (vous etes ici)
+. link:/guides/03-roles-responsibilities[Roles et Responsabilites]
+. link:/guides/04-lifecycle[Cycle de Vie]
+. link:/guides/05-standards[Standards de Qualite]
+. link:/guides/06-contributing[Contribuer un PRA]
+. link:/guides/07-promotion-process[Processus de Promotion]
+. link:/guides/08-governance[Gouvernance]
+
+'''
+
+*Navigation* :
+
+* *Precedent* : link:/guides/01-getting-started[Demarrer avec les PRA]
+* *Suivant* : link:/guides/03-roles-responsibilities[Roles et Responsabilites]
+
+'''
+
+*Derniere mise a jour* : 2025-12-02

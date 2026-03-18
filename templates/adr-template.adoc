@@ -1,0 +1,47 @@
+= ADR-NNN : [Titre de la décision]
+:adr-date: YYYY-MM-DD
+:adr-status: Proposé | Approuvé | Remplacé par ADR-XXX | Déprécié
+
+== Contexte
+
+[Quelle situation nécessite cette décision ? Quel problème résout-on ?]
+
+== Options considérées
+
+=== Option A — [Nom]
+
+*Avantages* :
+
+* [...]
+
+*Inconvénients* :
+
+* [...]
+
+=== Option B — [Nom]
+
+*Avantages* :
+
+* [...]
+
+*Inconvénients* :
+
+* [...]
+
+== Décision
+
+[Option choisie et pourquoi. Justification claire.]
+
+== Conséquences
+
+*Positif* :
+
+* [...]
+
+*Négatif* :
+
+* [...]
+
+*Neutre* :
+
+* [...]

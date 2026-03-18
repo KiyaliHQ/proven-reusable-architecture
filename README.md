@@ -6,203 +6,227 @@ Bienvenue dans le registre des Proven Reusable Architecture (PRA). Ce repository
 
 ---
 
-## 🎯 Qu'est-ce qu'un PRA ?
+## Qu'est-ce qu'un PRA ?
 
 Un **Proven Reusable Architecture (PRA)** est :
 
-- ✅ **Éprouvé** : Validé dans au moins 3 projets en production
-- ✅ **Documenté** : Architecture, ADR, exemples, retours d'expérience
-- ✅ **Réutilisable** : Applicable dans différents contextes
-- ✅ **Maintenu** : Suivi par la communauté et la gouvernance
-- ✅ **AI-Friendly** : Exploitable par les agents IA pour recommandations
+- **Éprouvé** : Validé dans au moins 3 projets en production
+- **Documenté** : Architecture, ADR, exemples, retours d'expérience
+- **Réutilisable** : Applicable dans différents contextes
+- **Maintenu** : Suivi par la communauté et la gouvernance
+- **AI-Friendly** : Exploitable par les agents IA pour recommandations
 
 ---
 
-## 📚 Catalogue
+## Catalogue
 
-### 🟢 PRA Approved (Recommandés)
+Le catalogue des PRA est généré automatiquement à partir des métadonnées AsciiDoc :
 
-> PRA validés avec 3+ implémentations réussies
+- **[Catalogue FR](./content/pras/fr/index.adoc)** — Tableau de bord des PRA en français
+- **[Catalogue EN](./content/pras/en/index.adoc)** — PRA dashboard in English
 
-| ID | Nom | Catégorie | Tags | Proven-in-Use |
-|----|-----|-----------|------|---------------|
-| - | *En cours de création* | - | - | - |
+Chaque PRA est un fichier `.adoc` avec des attributs structurés (`:pra-name:`, `:pra-archetype:`, `:pra-status:`, etc.).
 
-**Voir tous les PRA approved** : [`content/pras/fr/`](./content/pras/fr/)
+### Scopes
 
-### 🟡 PRA Candidates (En Validation)
+| Scope | Description |
+|-------|-------------|
+| **bank-wide** | Transversal — validé pour tous les secteurs |
+| **domain-wide** | Spécifique à un domaine (particuliers, entreprises, gestion-patrimoine) |
 
-> PRA avec 1-2 implémentations, en cours de validation
+### Archétypes
 
-| ID | Nom | Catégorie | Tags | Proven-in-Use |
-|----|-----|-----------|------|---------------|
-| - | *En cours de création* | - | - | - |
+| Archétype | Description |
+|-----------|-------------|
+| **integration** | Intégration inter-systèmes |
+| **application** | Patterns applicatifs |
+| **data** | Architecture de données |
+| **security** | Sécurité et conformité |
+| **technology** | Infrastructure et plateformes |
+| **devops** | CI/CD, observabilité, automation |
+| **business** | Patterns métier réutilisables |
 
-**Voir tous les PRA candidates** : [`content/pras/fr/`](./content/pras/fr/)
+### Statuts
+
+| Statut | Description |
+|--------|-------------|
+| **operationalizing** | En cours de validation (1+ proven-in-use) |
+| **operationalized** | Validé et recommandé (3+ proven-in-use bank-wide, 1+ domain-wide) |
+| **deprecated** | Obsolète, non recommandé |
 
 ---
 
-## 🚀 Démarrage Rapide
+## Démarrage Rapide
 
-### Pour Utiliser un PRA
+### Utiliser un PRA
 
-1. **Rechercher** un patron pertinent :
-   - 🔍 [Site Fumadocs](https://pra-registry.example.com) (à venir)
-   - 📁 Parcourir [`content/pras/fr/`](./content/pras/fr/)
+1. **Rechercher** un patron dans le [catalogue FR](./content/pras/fr/index.adoc) ou [EN](./content/pras/en/index.adoc)
+2. **Consulter** le fichier `.adoc` : architecture, ADR, exemples, retours d'expérience
+3. **Implémenter** dans votre projet en suivant le guide
+4. **Partager** votre retour (proven-in-use)
 
-2. **Consulter** la documentation :
-   - Architecture & stack tech
-   - ADR (décisions architecturales)
-   - Exemples concrets
-   - Retours d'expérience
-
-3. **Implémenter** dans votre projet :
-   - Suivre le guide d'implémentation
-   - Adapter à votre contexte
-   - S'inspirer des exemples
-
-4. **Partager** votre retour :
-   - Contribuer votre proven-in-use
-   - Proposer améliorations
-
-### Pour Contribuer un PRA
+### Contribuer un PRA
 
 1. **Vérifier** qu'aucun PRA similaire n'existe
-2. **Préparer** votre documentation :
-   - Au moins 1 implémentation en production
-   - ADR documentées
-   - Exemples fonctionnels
-
+2. **Préparer** votre documentation (1+ implémentation production, ADR, exemples)
 3. **Soumettre** via Pull Request :
    ```bash
-   git checkout -b pra/nouveau-[category]-[nom]
-   cp templates/pra-template.md content/pras/fr/bank-wide/[category]/operationalizing/[nom].md
+   git checkout -b pra/nouveau-[archetype]-[nom]
+   cp templates/pra-template-fr.adoc content/pras/fr/[scope]/[archetype-ou-domaine]/[nom].adoc
    # Remplir le template
-   git commit -m "feat(pra): Add PRA-XXX - [Nom]"
-   git push origin pra/nouveau-[category]-[nom]
+   git commit -m "feat(pra): Add [Nom du PRA]"
+   git push origin pra/nouveau-[archetype]-[nom]
    ```
-
-4. **Suivre** : [Guide de Contribution](./docs/CONTRIBUTING.md)
+4. **Suivre** le [Guide de Contribution](./docs/CONTRIBUTING.md)
 
 ---
 
-## 📂 Structure du Repository
+## Structure du Repository
 
 ```
 proven-reusable-architecture/
-├── site/                      # Application Next.js Fumadocs
-│   ├── app/                   # Next.js App Router
-│   ├── lib/                   # Configuration Fumadocs
-│   ├── components/            # Composants React
-│   ├── public/                # Assets statiques
-│   └── source.config.ts       # Définition collections Fumadocs
-├── content/                   # Contenu MDX (séparé par langue)
-│   ├── guides/                # Guides utilisateur
-│   │   ├── fr/                # Guides français
-│   │   └── en/                # Guides anglais
-│   └── pras/                  # PRAs (séparé par langue)
-│       ├── fr/                # PRAs français
-│       │   ├── bank-wide/     # PRAs transversaux (tous secteurs)
-│       │   │   └── [category]/{operationalized,operationalizing}/
-│       │   └── domain-wide/   # PRAs spécifiques à un domaine
-│       │       ├── particuliers/  # Retail banking
-│       │       ├── entreprises/   # Corporate banking
-│       │       └── gestion-patrimoine/ # Wealth management
-│       └── en/                # PRAs anglais (même structure)
-├── templates/                 # Templates PRA & ADR
-├── docs/                      # Documentation projet
-│   ├── DEVELOPER_GUIDE.md     # Guide développeur complet
-│   ├── GOVERNANCE.md          # Processus de gouvernance
-│   ├── CONTRIBUTING.md        # Guide de contribution
-│   ├── LIFECYCLE.md           # Cycle de vie des PRA
-│   └── STANDARDS.md           # Standards de qualité
-├── scripts/                   # Scripts utilitaires Python
-└── .github/                   # Workflows CI/CD
+├── content/                        # Contenu AsciiDoc
+│   ├── guides/                     # Guides utilisateur
+│   │   ├── fr/                     # Guides français (.adoc)
+│   │   └── en/                     # Guides anglais (.adoc)
+│   └── pras/                       # PRAs (séparé par langue)
+│       ├── fr/                     # PRAs français
+│       │   ├── index.adoc          # Dashboard auto-généré
+│       │   ├── bank-wide/          # PRAs transversaux
+│       │   │   ├── integration/
+│       │   │   ├── application/
+│       │   │   ├── technology/
+│       │   │   ├── devops/
+│       │   │   └── ...
+│       │   └── domain-wide/        # PRAs spécifiques domaine
+│       │       ├── particuliers/
+│       │       ├── entreprises/
+│       │       └── gestion-patrimoine/
+│       └── en/                     # PRAs anglais (même structure)
+├── templates/                      # Templates AsciiDoc
+│   ├── pra-template-fr.adoc        # Template PRA français
+│   ├── pra-template-en.adoc        # Template PRA anglais
+│   ├── adr-template.adoc           # Template ADR français
+│   └── adr-template-en.adoc        # Template ADR anglais
+├── scripts/                        # Scripts utilitaires
+│   └── generate-dashboard.sh       # Génère les index.adoc
+├── build/                          # Pipelines de publication
+│   ├── confluence/                 # Publication Confluence
+│   │   ├── publish.sh              # Publie une langue
+│   │   └── publish-all.sh          # Publie FR + EN
+│   └── ghpages/                    # Publication GitHub Pages
+│       └── build.sh                # Génère le site statique
+├── docs/                           # Documentation projet
+│   ├── DEVELOPER_GUIDE.md
+│   ├── CONTRIBUTING.md
+│   ├── GOVERNANCE.md
+│   ├── LIFECYCLE.md
+│   └── STANDARDS.md
+├── .github/                        # GitHub configuration
+│   ├── agents/                     # Agents Copilot (PRA Explorer, PRA Guide)
+│   └── workflows/                  # CI/CD workflows
+├── pra-registry.config.yml         # Configuration centrale du registre
+└── README.md
 ```
 
 ---
 
-## 📖 Documentation
+## Publication
 
-### Pour Développeurs
+Le registre est publié via deux canaux :
 
-- 🛠️ **[Guide Développeur](./docs/DEVELOPER_GUIDE.md)** - Guide complet pour développer sur le projet
-  - Architecture détaillée
-  - Configuration Fumadocs
-  - Gestion du contenu
-  - Bonnes pratiques
-  - Résolution de problèmes
-  - ADRs (Architecture Decision Records)
+### GitHub Pages
+
+Site statique avec DataTables.js pour le filtrage interactif.
+
+```bash
+./build/ghpages/build.sh
+# Génère _site/ avec HTML convertis depuis AsciiDoc
+```
+
+Prérequis : `asciidoctor` (gem install asciidoctor) ou Docker.
+
+### Confluence
+
+Publication directe depuis AsciiDoc via Confluence Publisher (Docker).
+
+```bash
+# Configurer les variables d'environnement
+export CONFLUENCE_URL=https://mycompany.atlassian.net/wiki
+export CONFLUENCE_SPACE_KEY=PRA
+export CONFLUENCE_USER=user@company.com
+export CONFLUENCE_TOKEN=your-api-token
+export CONFLUENCE_ANCESTOR_FR=123456
+export CONFLUENCE_ANCESTOR_EN=789012
+
+# Publier
+./build/confluence/publish-all.sh
+```
+
+### Génération du dashboard
+
+```bash
+./scripts/generate-dashboard.sh
+# Génère content/pras/{fr,en}/index.adoc depuis les attributs :pra-*:
+```
+
+---
+
+## Documentation
 
 ### Pour Contributeurs
 
-- 📘 [Guide de Contribution](./docs/CONTRIBUTING.md) - Comment soumettre un PRA
-- 📙 [Gouvernance](./docs/GOVERNANCE.md) - Processus et rôles
-- 📗 [Cycle de Vie](./docs/LIFECYCLE.md) - États des PRA
-- 📕 [Standards](./docs/STANDARDS.md) - Critères de qualité
+- [Guide de Contribution](./docs/CONTRIBUTING.md) — Comment soumettre un PRA
+- [Gouvernance](./docs/GOVERNANCE.md) — Processus et rôles
+- [Cycle de Vie](./docs/LIFECYCLE.md) — États des PRA
+- [Standards](./docs/STANDARDS.md) — Critères de qualité
+
+### Guides intégrés (AsciiDoc)
+
+- [Guides FR](./content/guides/fr/) — Guides en français
+- [Guides EN](./content/guides/en/) — Guides in English
 
 ### Templates
 
-- 📄 [Template PRA](./templates/pra-template.md) - Structure complète
-- 📄 [Template ADR](./templates/adr-template.md) - Architecture Decision Record
-- 📄 [Template Metadata](./templates/metadata-template.yml) - YAML frontmatter
+- [Template PRA FR](./templates/pra-template-fr.adoc) — Structure PRA complète
+- [Template PRA EN](./templates/pra-template-en.adoc) — Full PRA template
+- [Template ADR FR](./templates/adr-template.adoc) — Architecture Decision Record
+- [Template ADR EN](./templates/adr-template-en.adoc) — ADR template
 
 ---
 
-## 🎯 Catégories de PRA
+## Technologies
 
-### Tech (Techniques)
+### Core
 
-Patterns d'infrastructure et plateformes
+- **Git** : Source de vérité
+- **GitHub** : Collaboration & CI/CD
+- **AsciiDoc** : Format documentation (`.adoc`)
+- **Asciidoctor** : Moteur de conversion
 
-**Exemples** :
-- CI/CD & GitOps
-- Observabilité & Monitoring
-- Infrastructure as Code
-- Container Orchestration
+### Publication
 
-### Integration (Intégration)
+- **GitHub Pages** : Site statique avec DataTables.js
+- **Confluence Publisher** : Publication Docker vers Confluence
+- **DataTables.js** : Filtrage interactif des tableaux
 
-Patterns d'intégration inter-systèmes
+### Agents IA
 
-**Exemples** :
-- API Gateway
-- Message Broker
-- Event-Driven Architecture
-- Data Synchronisation
-
-### Security (Sécurité)
-
-Patterns de sécurité et conformité
-
-**Exemples** :
-- Authentication & Authorization (RBAC, ABAC)
-- Secrets Management
-- Network Security
-- Audit & Compliance
-
-### Business (Métier)
-
-Patterns métier réutilisables
-
-**Exemples** :
-- Onboarding Client
-- Payment Processing
-- Notification System
-- Workflow Management
+- **PRA Explorer** : Recherche et recommandation de PRA
+- **PRA Guide** : Aide sur les processus et la gouvernance
 
 ---
 
-## 🏛️ Gouvernance
+## Gouvernance
 
 ### Rôles
 
-| Rôle | Responsabilité | Qui |
-|------|---------------|-----|
-| **Contributeur** | Soumettre & maintenir PRA | Tous architectes |
-| **Mainteneur** | Maintenir PRA assignés | Architecte désigné |
-| **Table de Gouvernance** | Approuver & arbitrer | 5-7 architectes seniors |
-| **Équipe Initiative** | Infrastructure & support | 2-3 personnes dédiées |
+| Rôle | Responsabilité |
+|------|---------------|
+| **Contributeur** | Soumettre & maintenir PRA |
+| **Mainteneur** | Maintenir PRA assignés |
+| **Table de Gouvernance** | Approuver & arbitrer |
+| **Équipe Initiative** | Infrastructure & support |
 
 ### Processus d'Approbation
 
@@ -213,141 +237,37 @@ Patterns métier réutilisables
    ↓
 3. Review humaine (Table de Gouvernance - 2 approvals)
    ↓
-4. Merge → PRA candidat créé
+4. Merge → PRA operationalizing
    ↓
-5. Collecte proven-in-use (3+)
+5. Collecte proven-in-use (3+ bank-wide)
    ↓
-6. Promotion → PRA approved
+6. Promotion → PRA operationalized
 ```
 
-**Délai de review** : < 5 jours ouvrés
-
-**Voir détails** : [GOVERNANCE.md](./docs/GOVERNANCE.md)
-
 ---
 
-## 🔄 Cycle de Vie
-
-```
-CANDIDATE (1+ proven)
-   ↓ (3+ proven, 6 mois)
-APPROVED
-   ↓ (obsolète)
-DEPRECATED
-   ↓ (6 mois)
-ARCHIVED
-```
-
-**Voir détails** : [LIFECYCLE.md](./docs/LIFECYCLE.md)
-
----
-
-## 📊 Métriques
-
-> *À venir : Dashboard métriques*
-
-**Objectifs** :
-- 🎯 10+ PRA approved en 3 mois
-- 🎯 50%+ architectes utilisateurs actifs
-- 🎯 80%+ satisfaction (survey)
-- 🎯 < 5 jours délai de review
-
----
-
-## 💡 Principes
-
-### 1. Proven-in-Use (Éprouvé)
-
-Tout PRA doit être basé sur une **expérience réelle en production**, pas théorique.
-
-### 2. Réutilisabilité
-
-Les patrons doivent être **généralisables** et applicables dans différents contextes.
-
-### 3. Qualité
-
-Documentation **complète** avec ADR, exemples et retours d'expérience quantifiés.
-
-### 4. Communauté
-
-Maintien **collaboratif** par la communauté d'architectes.
-
-### 5. Évolution
-
-Amélioration **continue** basée sur les feedbacks et nouvelles technologies.
-
----
-
-## 🛠️ Technologies
-
-### Core
-
-- **Git** : Source de vérité
-- **GitHub** : Collaboration & CI/CD
-- **Markdown** : Format documentation (`.md`)
-
-### Site Documentation
-
-- **Fumadocs** : Framework documentation (Next.js)
-- **Orama** : Search engine (opensource, client-side)
-- **TypeScript** : Type safety
-- **Tailwind CSS** : Styling
-
-### Infrastructure
-
-- **PNPM** : Package manager
-- **GitHub Actions** : CI/CD
-- **Confluence** : Publication permanente
-
----
-
-## 🤝 Contribuer
+## Contribuer
 
 Nous encourageons **tous les architectes** à contribuer !
 
-**Types de contributions** :
-- 🆕 Nouveau PRA candidat
-- 📝 Mise à jour PRA existant
-- 📊 Retour d'expérience (proven-in-use)
-- 📚 Amélioration documentation
-- 🐛 Correction erreurs
+- Nouveau PRA candidat
+- Mise à jour PRA existant
+- Retour d'expérience (proven-in-use)
+- Amélioration documentation
 
-**Voir** : [Guide de Contribution](./docs/CONTRIBUTING.md)
+Voir : [Guide de Contribution](./docs/CONTRIBUTING.md)
 
 ---
 
-## 📞 Contact & Support
+## Contact & Support
 
-### Canaux
-
-- **Teams** : [#pra-registry](https://teams.microsoft.com/...)
-- **GitHub Issues** : [Questions](https://github.com/org/pra-registry/issues)
+- **Teams** : #pra-registry
+- **GitHub Issues** : Questions et suggestions
 - **Email** : pra-initiative@example.com
 
-### Équipe Initiative PRA
-
-- **Lead** : [Nom] ([email@example.com](mailto:email@example.com))
-- **Support** : [Nom] ([email@example.com](mailto:email@example.com))
-
 ---
 
-## 📜 License
-
-[À définir - ex: MIT, Apache 2.0, ou Internal Use Only]
-
----
-
-## 🙏 Remerciements
-
-Merci à tous les contributeurs qui font vivre ce registre :
-
-- **Architectes** : Pour vos contributions et retours
-- **Équipes de développement** : Pour vos implémentations
-- **Table de Gouvernance** : Pour votre review rigoureuse
-- **Leadership** : Pour votre soutien à l'initiative
-
----
-
-**Dernière mise à jour** : 3 décembre 2025
-**Version du registre** : 1.0.0 (MVP)
-**Site** : http://localhost:3000 (développement)
+**Dernière mise à jour** : 18 mars 2026
+**Version du registre** : 2.0.0 (AsciiDoc)
+**Format** : AsciiDoc (`.adoc`)
+**Configuration** : [`pra-registry.config.yml`](./pra-registry.config.yml)

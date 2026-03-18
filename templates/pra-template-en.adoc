@@ -1,0 +1,120 @@
+= [PRA Title]
+// === PRA METADATA ===
+:pra-name: [Name]
+:pra-archetype: [integration | application | data | security | technology | devops | business]
+:pra-subcategory: [free-form, kebab-case, optional]
+:pra-status: [operationalizing | operationalized | deprecated]
+:pra-scope: [bank-wide | domain-wide]
+:pra-domain: [if domain-wide: domain name]
+:pra-tags: [tag1, tag2, tag3]
+:pra-created: [YYYY-MM-DD]
+:pra-updated: [YYYY-MM-DD]
+:pra-version: 1.0.0
+:pra-proven-count: [number]
+:pra-author: [First Last]
+:pra-maintainer: [First Last]
+// === CONFLUENCE ===
+:page-title: [Title for Confluence]
+:keywords: pra, archetype-[value], status-[value], scope-[value]
+
+// =============================================
+// FACT SHEET
+// =============================================
+[sidebar]
+****
+.Fact Sheet
+[cols="1,3"]
+|===
+| *Archetype*       | {pra-archetype}
+| *Subcategory*     | {pra-subcategory}
+| *Status*          | {pra-status}
+| *Scope*           | {pra-scope}
+| *Proven-in-use*   | {pra-proven-count}
+| *Tags*            | {pra-tags}
+| *Version*         | {pra-version}
+| *Author*          | {pra-author}
+| *Maintainer*      | {pra-maintainer}
+| *Created*         | {pra-created}
+| *Last updated*    | {pra-updated}
+|===
+****
+
+== Summary
+
+[2-3 sentences: what this PRA does and why it exists]
+
+== Application Context
+
+=== When to use
+
+* [Condition 1]
+* [Condition 2]
+
+=== When NOT to use
+
+* [Condition 1]
+* [Condition 2]
+
+== Problem Solved
+
+[Description of the problem and its symptoms]
+
+== Solution
+
+=== Architecture
+
+[PlantUML diagram, image, or textual description]
+
+=== Technology Stack
+
+[cols="1,1,1,1"]
+|===
+| Component | Technology | Version | Role
+
+| [...]
+| [...]
+| [...]
+| [...]
+|===
+
+== Architectural Decisions (ADR)
+
+=== ADR-001: [Decision Title]
+
+*Date*: YYYY-MM-DD +
+*Status*: Approved
+
+*Context*: [Why this decision was needed]
+
+*Options considered*:
+
+. [Option A] — [Pros / Cons]
+. [Option B] — [Pros / Cons]
+
+*Decision*: [What was chosen and why]
+
+*Consequences*: [Positive and negative impact]
+
+== Implementation
+
+=== Step 1: [Title]
+
+[source,bash]
+----
+# commands or instructions
+----
+
+== Production Feedback (Proven-in-use)
+
+=== [Project Name] — [Team Name]
+*Date*: YYYY-MM-DD +
+*Feedback*: [Quantified and measurable feedback]
+
+== Limitations and Pitfalls
+
+* [Limitation 1]
+* [Limitation 2]
+
+== References
+
+* [Link]

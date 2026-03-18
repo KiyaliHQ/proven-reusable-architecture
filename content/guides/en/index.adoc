@@ -1,0 +1,16 @@
+= PRA Registry Guides
+:page-title: PRA Registry Guides
+:keywords: pra, guide, registry, documentation
+
+This directory contains the user guides for Banque Nationale du Canada's PRA Registry.
+
+== Table of Contents
+
+. link:getting-started.adoc[Getting Started] — Introduction and first steps with the PRA registry
+. link:understanding-pra.adoc[Understanding PRAs] — Detailed PRA anatomy
+. link:roles-responsibilities.adoc[Roles & Responsibilities] — Who does what in the registry
+. link:lifecycle.adoc[Lifecycle] — From candidate to operationalized
+. link:standards.adoc[Quality Standards] — Criteria and scoring
+. link:contributing.adoc[Contributing] — Submission process
+. link:promotion-process.adoc[Promotion Process] — Domain → Bank-Wide
+. link:governance.adoc[Governance] — Decision-making structure

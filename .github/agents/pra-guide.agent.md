@@ -35,10 +35,10 @@ Explorer les chemins de la config pour lister les fichiers disponibles et les la
 - **Cycle de vie** : "promotion", "deprecation" → docs lifecycle + terminologie config
 - **Standards** : "qualité", "critères" → docs standards + scoring config
 - **Rôles** : "mainteneur", "contributeur" → docs rôles + comités config
-- **Technique** : "structure", "Fumadocs" → docs techniques
+- **Technique** : "structure", "AsciiDoc", "Confluence", "GitHub Pages" → docs techniques
 
 ### Step 3 : Lire la documentation pertinente
-Ouvrir les fichiers identifiés. Chercher dans la langue primaire de la config en priorité.
+Ouvrir les fichiers identifiés (format `.adoc`). Pour les guides, chercher dans `content/guides/`. Pour les métadonnées PRA, lire les attributs AsciiDoc (lignes commençant par `:pra-`). Chercher dans la langue primaire de la config en priorité. Pour toute information structurelle (archétypes, scopes, domaines), le filesystem et la config font autorité — JAMAIS la documentation si elle contredit.
 
 ### Step 4 : Répondre avec les données de la config ET de la doc
 - **Seuils config** pour les chiffres précis (proven-in-use, délais, approbations)

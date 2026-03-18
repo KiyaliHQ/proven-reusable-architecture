@@ -1,0 +1,329 @@
+= Processus de Promotion (Domaine -> Bank-Wide)
+:page-title: Processus de Promotion
+:keywords: pra, guide, promotion, domaine, bank-wide
+
+*Ceci represente le Flow 1* des trois flows de creation de PRA decrits dans link:governance.adoc[Gouvernance]. C'est le flow organique, bottom-up ou les PRAs Domaine sont identifies comme ayant une valeur multi-domaine et promus au statut Bank-Wide.
+
+Ce document decrit le processus permettant de promouvoir un patron Domaine au niveau Bank-Wide, le rendant ainsi applicable a tous les domaines de l'organisation.
+
+== Vue d'ensemble
+
+La promotion d'un patron Domaine vers le niveau Bank-Wide suit un processus en 4 phases :
+
+[source,mermaid]
+----
+graph LR
+    A[Phase 1: Proposition] --> B[Phase 2: Revue]
+    B --> C[Phase 3: Migration]
+    C --> D[Phase 4: Adoption]
+----
+
+== Phase 1 : Proposition
+
+=== Declencheur
+
+Un *Comite de Gouvernance du Domaine* identifie un patron Domaine qui pourrait beneficier a d'autres domaines.
+
+=== Actions requises
+
+. *Creer dossier de promotion*
++
+----
+content/registre/en-promotion/[domaine]-[categorie]-[nom-patron]/
+----
+
+. *Documenter la justification*
++
+Creer `justification.md` :
++
+[source,markdown]
+----
+# Justification de Promotion
+
+## Patron Propose
+- **Nom** : [Nom du patron]
+- **Domaine d'origine** : [Domaine]
+- **Categorie** : tech | integration | security | business
+
+## Pourquoi ce patron est d'interet Bank-Wide ?
+- [Raison 1 : Besoin recurrent]
+- [Raison 2 : Applicable multi-domaines]
+- [Raison 3 : Mature et eprouve]
+
+## Proven-in-use dans le domaine
+- **Projet 1** : [Nom projet, date, resultats]
+- **Projet 2** : [Nom projet, date, resultats]
+- **Projet 3** : [Nom projet, date, resultats]
+
+## Benefices attendus
+- [Benefice 1]
+- [Benefice 2]
+----
+
+. *Analyser l'impact multi-domaine*
++
+Creer `impact-analysis.md` :
++
+[source,markdown]
+----
+# Analyse d'Impact Multi-Domaine
+
+## Domaines pouvant beneficier
+
+### Domaine 1 : [Nom]
+- **Cas d'usage** : [Description]
+- **Valeur ajoutee** : [Benefices]
+- **Effort d'adoption** : Faible | Moyen | Eleve
+
+### Domaine 2 : [Nom]
+- **Cas d'usage** : [Description]
+- **Valeur ajoutee** : [Benefices]
+- **Effort d'adoption** : Faible | Moyen | Eleve
+
+## Adaptations necessaires
+- [Modification 1 pour generalisation]
+- [Modification 2 pour generalisation]
+
+## Risques identifies
+- [Risque 1 + mitigation]
+- [Risque 2 + mitigation]
+----
+
+. *Mettre a jour le patron*
++
+Dans le frontmatter du patron domaine :
++
+[source,yaml]
+----
+promotion_status: proposed
+----
+
+. *Soumettre PR*
++
+[source,bash]
+----
+git checkout -b promotion/[domaine]-[patron]
+git add content/registre/en-promotion/[dossier]/
+git add content/registre/domaines/[domaine]/[patron].md
+git commit -m "feat: propose promotion [patron] vers Bank-Wide"
+git push origin promotion/[domaine]-[patron]
+----
+
+== Phase 2 : Revue
+
+=== Assignation
+
+La Pull Request est automatiquement assignee au *Comite de Gouvernance Architectes Experts*.
+
+=== Analyse du Comite
+
+Le comite evalue selon ces criteres :
+
+==== 1. Reutilisabilite Multi-Domaine
+
+* Le patron resout-il un probleme commun a 3+ domaines ?
+* Les adaptations necessaires sont-elles mineures ?
+* Les specificites domaineles peuvent-elles etre parametrees ?
+
+==== 2. Maturite du Patron
+
+* 3+ implementations prouvees dans le domaine d'origine ?
+* Retours positifs des equipes utilisatrices ?
+* Documentation complete et claire ?
+
+==== 3. Conformite aux Standards Transversaux
+
+* Respecte les standards techniques entreprise ?
+* Compatible avec l'architecture cible ?
+* Securite et conformite validees ?
+
+==== 4. Impact sur la Coherence d'Entreprise
+
+* Renforce l'alignement architectural ?
+* Evite la duplication de solutions ?
+* Facilite l'interoperabilite ?
+
+=== Decisions Possibles
+
+. *Approuve* -- Passe en Phase 3 (Migration)
+. *Revisions requises* -- Retour au domaine avec feedback
+. *Refuse* -- Reste domaine avec justification
+
+=== Timeline
+
+* *Review initiale* : 1 semaine
+* *Discussion* : 1-2 semaines si clarifications
+* *Decision finale* : Maximum 4 semaines
+
+== Phase 3 : Migration (si approuve)
+
+=== 7. Nettoyage et Generalisation
+
+Le mainteneur du patron (avec support du comite) :
+
+. *Retire les specificites domaineles*
+* Remplace references specifiques par parametres generiques
+* Documente les points de configuration
+
+. *Enrichit la documentation*
+* Ajoute exemples multi-domaines
+* Documente les variations domaineles
+* Cree guide d'adaptation
+
+=== 8. Migration Technique
+
+[source,bash]
+----
+# Deplacer le patron
+git mv content/registre/domaines/[domaine]/[categorie]/[patron].md \
+       content/registre/Bank-Wide/[categorie]/[patron].md
+
+# Mettre a jour metadata
+# Dans le frontmatter :
+scope: Bank-Wide
+original_sector: [domaine-origine]
+promotion_status: promoted
+promotion_date: YYYY-MM-DD
+----
+
+=== 9. Marquage Historique
+
+Dans le domaine d'origine, creer une redirection :
+
+[source,markdown]
+----
+---
+title: [Nom Patron]
+redirect: /registre/Bank-Wide/[categorie]/[patron]
+---
+
+# [Nom Patron]
+
+Ce patron a ete **promu au niveau Bank-Wide** le [date].
+
+Il est maintenant accessible a tous les domaines :
+[Voir le patron Bank-Wide](/registre/Bank-Wide/[categorie]/[patron])
+----
+
+=== 10. Communication
+
+Email automatique envoye a :
+
+* Tous les architectes
+* Responsables architecture de chaque domaine
+* Liste de diffusion PRA
+
+Template :
+
+----
+Sujet: Nouveau patron Bank-Wide : [Nom Patron]
+
+Le patron "[Nom Patron]" du domaine [Domaine] a ete promu
+au niveau Bank-Wide.
+
+Benefices : [Resume]
+Domaines applicables : [Liste]
+Documentation : [Lien]
+
+Utilisez-le dans vos nouveaux projets !
+----
+
+=== 11. Archive Promotion
+
+[source,bash]
+----
+# Archiver le dossier de promotion
+git mv content/registre/en-promotion/[dossier]/ \
+       content/registre/en-promotion/archive/YYYY-MM-[patron]/
+----
+
+== Phase 4 : Adoption
+
+=== Encouragement Multi-Domaine
+
+Le Comite Architectes Experts :
+
+* Presente le patron en reunion architecture d'entreprise
+* Identifie projets pilotes dans differents domaines
+* Organise sessions de Q&A
+
+=== Feedback et Amelioration
+
+Les equipes adoptantes :
+
+* Documentent leurs implementations (proven-in-use)
+* Remontent feedbacks et suggestions
+* Proposent ameliorations via PR
+
+=== Evolution Continue
+
+Le mainteneur (desormais au niveau Bank-Wide) :
+
+* Integre les learnings multi-domaines
+* Publie updates regulieres
+* Maintient compatibilite entre domaines
+
+== Metriques de Succes
+
+Une promotion est consideree reussie si :
+
+* *3+ domaines* adoptent le patron dans les 6 mois
+* *80%+ satisfaction* des equipes utilisatrices
+* *Reduction duplication* : pas de nouveau patron domaine similaire
+* *Documentation maintenue* : < 3 mois depuis derniere update
+
+== FAQ
+
+=== Combien de temps prend le processus ?
+
+*Minimum* : 6 semaines (2 semaines review + 4 semaines migration) +
+*Typique* : 2-3 mois (avec revisions et communication)
+
+=== Qui decide de la promotion ?
+
+Le *Comite de Gouvernance Architectes Experts*, avec consultation du domaine d'origine.
+
+=== Peut-on proposer plusieurs patrons simultanement ?
+
+Oui, mais max *2 promotions actives* par domaine pour eviter surcharge.
+
+=== Que se passe-t-il si la promotion est refusee ?
+
+Le patron reste domaine. La justification du refus est documentee et peut etre reevaluee apres 6 mois.
+
+=== Un patron Bank-Wide peut-il etre "retrograde" ?
+
+Non. Si un patron Bank-Wide devient obsolete, il passe a `deprecated`, mais ne retourne pas au niveau domaine.
+
+== Support
+
+Pour toute question sur les promotions :
+
+* *Canal Teams* : `#pra-promotions`
+* *Email Comite* : pra-governance@company.com
+* *Issues GitHub* : Tag `promotion` sur vos PRs
+
+'''
+
+*Parcours recommande* :
+
+. link:getting-started.adoc[Demarrer avec les PRA]
+. link:understanding-pra.adoc[Comprendre les PRA]
+. link:roles-responsibilities.adoc[Roles et Responsabilites]
+. link:lifecycle.adoc[Cycle de Vie]
+. link:standards.adoc[Standards de Qualite]
+. link:contributing.adoc[Contribuer un PRA]
+. *Processus de Promotion* (vous etes ici)
+. link:governance.adoc[Gouvernance]
+
+'''
+
+*Navigation* :
+
+* *Precedent* : link:contributing.adoc[Contribuer un PRA]
+* *Suivant* : link:governance.adoc[Gouvernance]
+
+'''
+
+*Derniere mise a jour* : 2025-12-02 +
+*Prochaine review* : 2026-06-02

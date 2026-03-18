@@ -1,0 +1,120 @@
+= [Titre du PRA]
+// === MÉTADONNÉES PRA ===
+:pra-name: [Nom]
+:pra-archetype: [integration | application | data | security | technology | devops | business]
+:pra-subcategory: [libre, kebab-case, optionnel]
+:pra-status: [operationalizing | operationalized | deprecated]
+:pra-scope: [bank-wide | domain-wide]
+:pra-domain: [si domain-wide: nom du domaine]
+:pra-tags: [tag1, tag2, tag3]
+:pra-created: [YYYY-MM-DD]
+:pra-updated: [YYYY-MM-DD]
+:pra-version: 1.0.0
+:pra-proven-count: [nombre]
+:pra-author: [Prénom Nom]
+:pra-maintainer: [Prénom Nom]
+// === CONFLUENCE ===
+:page-title: [Titre pour Confluence]
+:keywords: pra, archetype-[valeur], status-[valeur], scope-[valeur]
+
+// =============================================
+// FICHE SIGNALÉTIQUE
+// =============================================
+[sidebar]
+****
+.Fiche signalétique
+[cols="1,3"]
+|===
+| *Archétype*       | {pra-archetype}
+| *Sous-catégorie*  | {pra-subcategory}
+| *Statut*          | {pra-status}
+| *Scope*           | {pra-scope}
+| *Proven-in-use*   | {pra-proven-count}
+| *Tags*            | {pra-tags}
+| *Version*         | {pra-version}
+| *Auteur*          | {pra-author}
+| *Maintainer*      | {pra-maintainer}
+| *Créé*            | {pra-created}
+| *Dernière MAJ*    | {pra-updated}
+|===
+****
+
+== Résumé
+
+[2-3 phrases : ce que ce PRA fait et pourquoi il existe]
+
+== Contexte d'application
+
+=== Quand utiliser
+
+* [Condition 1]
+* [Condition 2]
+
+=== Quand ne pas utiliser
+
+* [Condition 1]
+* [Condition 2]
+
+== Problème résolu
+
+[Description du problème et ses symptômes]
+
+== Solution
+
+=== Architecture
+
+[Diagramme PlantUML, image, ou description textuelle]
+
+=== Stack technologique
+
+[cols="1,1,1,1"]
+|===
+| Composant | Technologie | Version | Rôle
+
+| [...]
+| [...]
+| [...]
+| [...]
+|===
+
+== Décisions architecturales (ADR)
+
+=== ADR-001 : [Titre de la décision]
+
+*Date* : YYYY-MM-DD +
+*Statut* : Approuvé
+
+*Contexte* : [Pourquoi cette décision]
+
+*Options considérées* :
+
+. [Option A] — [Avantages / Inconvénients]
+. [Option B] — [Avantages / Inconvénients]
+
+*Décision* : [Ce qu'on a choisi et pourquoi]
+
+*Conséquences* : [Impact positif et négatif]
+
+== Implémentation
+
+=== Étape 1 : [Titre]
+
+[source,bash]
+----
+# commandes ou instructions
+----
+
+== Retours d'expérience (Proven-in-use)
+
+=== [Nom du projet] — [Nom de l'équipe]
+*Date* : YYYY-MM-DD +
+*Feedback* : [Feedback quantifié et mesurable]
+
+== Limitations et pièges
+
+* [Limitation 1]
+* [Limitation 2]
+
+== Références
+
+* [Lien]

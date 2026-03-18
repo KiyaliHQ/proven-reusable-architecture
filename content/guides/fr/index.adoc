@@ -1,0 +1,16 @@
+= Guides du Registre PRA
+:page-title: Guides du Registre PRA
+:keywords: pra, guide, registre, documentation
+
+Ce répertoire contient les guides utilisateur du registre PRA de Banque Nationale du Canada.
+
+== Table des matières
+
+. link:getting-started.adoc[Premiers pas] — Introduction et premiers pas avec le registre PRA
+. link:understanding-pra.adoc[Comprendre les PRA] — Anatomie détaillée d'un PRA
+. link:roles-responsibilities.adoc[Rôles et responsabilités] — Qui fait quoi dans le registre
+. link:lifecycle.adoc[Cycle de vie] — De candidat à opérationnalisé
+. link:standards.adoc[Standards de qualité] — Critères et scoring
+. link:contributing.adoc[Contribuer] — Processus de soumission
+. link:promotion-process.adoc[Processus de promotion] — Domaine → Transversal
+. link:governance.adoc[Gouvernance] — Structure décisionnelle

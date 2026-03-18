@@ -1,0 +1,20 @@
+= PRA Catalogue
+:page-title: PRA Catalogue
+:keywords: pra, catalogue, dashboard, registry
+
+Dashboard of Proven Reusable Architectures in the registry.
+
+[cols="3,1,1,1,1,1,1", options="header"]
+|===
+| Name | Archetype | Subcategory | Status | Scope | Proven | Last Updated
+
+| link:bank-wide/application/adr-process.adoc[ADR Process] | application | pratique-architecture | operationalizing | bank-wide | 0 | 2025-01-30
+| link:bank-wide/devops/code-review-standards.adoc[Code Review Standards] | devops | software-engineering | operationalizing | bank-wide | 0 | 2025-01-30
+| link:bank-wide/technology/ctp-framework.adoc[CTP Framework] | technology | ctp | operationalizing | bank-wide | 0 | 2025-01-30
+| link:domain-wide/entreprises/erp-sap.adoc[ERP SAP S/4HANA Integration] | integration | erp | operationalizing | domain-wide | 1 | 2025-01-30
+| link:domain-wide/gestion-patrimoine/api-client-onboarding.adoc[API-Based Client Onboarding Pattern] | business | onboarding | operationalizing | domain-wide | 1 | 2025-12-04
+| link:domain-wide/gestion-patrimoine/salesforce-fsc.adoc[Salesforce Financial Services Cloud] | integration | crm | operationalizing | domain-wide | 1 | 2025-01-30
+| link:domain-wide/particuliers/onboarding-digital.adoc[Digital Client Onboarding] | business | onboarding | operationalizing | domain-wide | 1 | 2025-01-30
+| link:domain-wide/particuliers/test-api-gateway.adoc[API Gateway Test Pattern] | technology | api-gateway | operationalizing | domain-wide | 1 | 2025-12-03
+|===
+

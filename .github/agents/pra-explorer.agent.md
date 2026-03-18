@@ -25,17 +25,18 @@ Si le fichier config n'existe pas, chercher un `*.config.yml` à la racine.
 Lire `pra-registry.config.yml` à la racine du repo. Extraire le chemin racine des PRAs (`paths.pras`), les langues, la terminologie des statuts, et les seuils de gouvernance.
 
 ### Step 1 : Découvrir la structure du registre
-Explorer le chemin des PRAs pour découvrir les scopes, catégories et statuts réels.
+Explorer le chemin des PRAs pour découvrir les scopes, archétypes et statuts réels. La structure est `scope/archetype/fichier.adoc` pour bank-wide et `scope/domaine/fichier.adoc` pour domain-wide. Le statut est uniquement dans l'attribut `:pra-status:` du fichier.
 
 ### Step 2 : Comprendre la demande
 Identifier ce que l'utilisateur cherche : pattern spécifique, recommandation, comparaison, ou retours d'expérience.
 
 ### Step 3 : Rechercher dans le registre
 Fouiller le répertoire des PRAs :
-- Chercher par tags, noms de fichiers, ou contenu Markdown
-- Lire le frontmatter YAML pour extraire les métadonnées
+- Chercher par tags, noms de fichiers, ou contenu AsciiDoc (`.adoc`)
+- Lire les attributs AsciiDoc (lignes commençant par `:pra-`) pour extraire les métadonnées
 - Chercher dans toutes les langues déclarées dans la config
-- Utiliser la terminologie des statuts de la config pour prioriser
+- Utiliser la terminologie des statuts et archétypes de la config pour prioriser
+- Pour toute information structurelle (archétypes, scopes, domaines), le filesystem et la config font autorité — JAMAIS la documentation si elle contredit
 
 ### Step 4 : Analyser et synthétiser
 Pour chaque PRA pertinent : résumé, contexte d'application, ADR clés, proven-in-use, et status avec le label lisible de la config.
@@ -57,5 +58,5 @@ Pour chaque PRA pertinent : résumé, contexte d'application, ADR clés, proven-
 
 - **Config introuvable** : chercher un `*.config.yml` à la racine
 - **Registre vide** : informer que le registre est en cours de peuplement
-- **PRA déprécié** : vérifier le frontmatter pour un remplacement
+- **PRA déprécié** : vérifier l'attribut `:pra-status:` pour un remplacement
 - **Question sur les processus** : rediriger vers l'agent PRA Guide

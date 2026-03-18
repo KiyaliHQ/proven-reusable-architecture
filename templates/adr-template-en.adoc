@@ -1,0 +1,47 @@
+= ADR-NNN: [Decision Title]
+:adr-date: YYYY-MM-DD
+:adr-status: Proposed | Approved | Superseded by ADR-XXX | Deprecated
+
+== Context
+
+[What situation requires this decision? What problem are we solving?]
+
+== Options Considered
+
+=== Option A — [Name]
+
+*Pros*:
+
+* [...]
+
+*Cons*:
+
+* [...]
+
+=== Option B — [Name]
+
+*Pros*:
+
+* [...]
+
+*Cons*:
+
+* [...]
+
+== Decision
+
+[Chosen option and why. Clear justification.]
+
+== Consequences
+
+*Positive*:
+
+* [...]
+
+*Negative*:
+
+* [...]
+
+*Neutral*:
+
+* [...]

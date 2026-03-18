@@ -1,0 +1,296 @@
+= PRA Lifecycle
+:page-title: PRA Lifecycle
+:keywords: pra, guide, lifecycle
+
+This document describes the different stages in the lifecycle of a Proven Reusable Architecture (PRA), from its initial conception to its eventual deprecation.
+
+== Overview
+
+A PRA goes through several statuses during its lifecycle:
+
+[source,mermaid]
+----
+graph LR
+    A[Identification] --> B[Candidate]
+    B --> C[Approved]
+    C --> D[Deprecated]
+    C --> E[Archived]
+----
+
+== PRA Statuses
+
+=== Candidate
+
+*Definition*: PRA under initial validation.
+
+*Criteria by scope*:
+
+*Domain PRA*:
+
+* At least *1 proven implementation* in production within the domain
+* Complete documentation (context, architecture, ADRs, examples)
+* Demonstrated reusability within the domain
+* Technical quality validated by *Domain Governance Committee*
+
+*Bank-Wide PRA*:
+
+* At least *1 proven implementation* in production
+* Complete documentation
+* Demonstrated multi-domain applicability
+* Technical quality validated by *Expert Architects Governance Committee*
+
+*Location*:
+
+* Domain: `pra/secteurs/[domain]/[category]/`
+* Bank-Wide: `pra/transversal/[category]/`
+
+*Usage*: May be used with caution and feedback required
+
+=== Approved
+
+*Definition*: Validated PRA recommended for use.
+
+*Criteria by scope*:
+
+*Domain PRA Approved*:
+
+* At least *1 proven implementation* within the domain
+* Positive feedback from domain teams
+* Documentation enriched with learnings
+* Validated by *Domain Governance Committee*
+
+*Bank-Wide PRA Approved*:
+
+* At least *3 proven implementations* (different domains/teams)
+* Positive multi-domain feedback
+* Documentation enriched with multi-context learnings
+* Validity confirmed across multiple domains
+* Validated by *Expert Architects Governance Committee*
+
+*Location*:
+
+* Domain: `pra/secteurs/[domain]/[category]/`
+* Bank-Wide: `pra/transversal/[category]/`
+
+*Usage*:
+
+* Domain: Recommended for domain projects
+* Bank-Wide: Recommended for all domains
+
+=== Deprecated
+
+*Definition*: Obsolete PRA, not recommended for new implementations.
+
+*Reasons*:
+
+* Obsolete technologies
+* Better alternatives available
+* Repeated negative feedback
+* No maintenance for 12+ months
+
+*Location*: `pra/deprecated/[category]/`
+
+*Usage*: Maintenance only for existing projects
+
+== Status Transitions
+
+=== Domain PRA: From Candidate to Approved
+
+*Trigger*: 1+ documented proven implementation within the domain
+
+*Process*:
+
+. Contributor updates metadata: `status: approved`
+. Automatic validation via GitHub Actions
+. Review by *Domain Governance Committee* (2 approvals required)
+. Merge -> PRA becomes Approved (domain level)
+. Announcement to domain (Teams/email)
+
+*Timeline*: 5-10 business days
+
+=== Bank-Wide PRA: From Candidate to Approved
+
+*Trigger*: 3+ documented proven implementations (different domains/teams)
+
+*Process*:
+
+. Contributor updates metadata: `status: approved`
+. Automatic validation via GitHub Actions
+. Review by *Expert Architects Governance Committee* (2 approvals required)
+. Verification of multi-domain applicability
+. Merge -> PRA becomes Bank-Wide Approved
+. Automatic publication to Confluence
+. Announcement to all domains (Teams/email)
+
+*Timeline*: 2-4 weeks
+
+=== Domain PRA: Promotion to Bank-Wide
+
+*Trigger*: Domain PRA identified as reusable outside the domain
+
+*Process*:
+
+. *Domain Committee* proposes promotion (with justification)
+. Create promotion dossier with multi-domain evidence
+. Review by *Expert Architects Committee*
+. Validation of Bank-Wide criteria (3+ proven-in-use required)
+. If approved -> move to `transversal/`
+. Communication to all domains
+
+*Timeline*: 4-8 weeks
+
+See detailed guide: link:/guides/07-promotion-process[Promotion Process]
+
+=== From Approved to Deprecated
+
+*Trigger*: Proposal from relevant committee or repeated negative feedback
+
+*Process by scope*:
+
+*Domain PRA*:
+
+. Proposal from *Domain Committee* (with justification)
+. Discussion with domain users
+. Domain Committee vote (simple majority)
+. Update metadata: `status: deprecated`
+. Communication to domain teams
+. 3-month transition period
+
+*Bank-Wide PRA*:
+
+. Proposal from *Expert Architects Committee* (with justification)
+. Multi-domain consultation
+. Expert Architects Committee vote (2/3)
+. Update metadata: `status: deprecated`, recommended alternative
+. Communication to all domains
+. 6-month transition period
+
+*Timeline*: 2-4 weeks + transition period
+
+== Ongoing Maintenance
+
+=== Domain PRA Approved
+
+*Responsibilities*:
+
+* *Designated maintainer*: Documentation updates, answering questions
+* *Domain Governance Committee*: Quality monitoring, update validation
+
+*Cadence*:
+
+* *Quarterly review*: Domain relevance, usage, feedback
+* *As-needed updates*: New technology versions, learnings
+
+=== Bank-Wide PRA Approved
+
+*Responsibilities*:
+
+* *Designated maintainer*: Documentation updates, multi-domain support
+* *Expert Architects Committee*: Quality monitoring, update validation
+
+*Cadence*:
+
+* *Annual review*: Multi-domain relevance, adoption, feedback
+* *As-needed updates*: BNC standard evolutions, new learnings
+
+=== Candidate PRA
+
+*Responsibilities*:
+
+* *Original contributor*: Initial documentation, early feedback
+* *Early adopters*: Active feedback, documenting learnings
+
+*Objective*:
+
+* Domain: Reach 1 proven implementation for local Approved
+* Bank-Wide: Reach 3 multi-domain implementations for Approved
+
+== Proven-in-Use Feedback
+
+Each PRA implementation must be documented with:
+
+[source,yaml]
+----
+proven_in_use:
+  - project: "Project name"
+    team: "Team name"
+    date: "YYYY-MM-DD"
+    feedback: "Concrete results and learnings"
+    metrics:
+      - "40% reduction in deployment time"
+      - "100% change traceability"
+----
+
+*Quality criteria*:
+
+* Project in *production* (not dev/staging)
+* *Concrete* and *measurable* feedback
+* Recent implementation date (< 2 years)
+
+== Success Criteria
+
+=== For a Domain PRA Candidate
+
+* 1+ documented proven-in-use within the domain
+* Complete and clear documentation
+* Positive feedback from pilot team
+* No major technical blockers
+* Validated by Domain Committee
+
+=== For a Domain PRA Approved
+
+* 1+ documented proven-in-use within the domain
+* Positive feedback from domain teams
+* Documentation enriched with learnings
+* Confirmed reusability within the domain
+* Regular maintenance (< 6 months since last update)
+
+=== For a Bank-Wide PRA Candidate
+
+* 1+ documented proven-in-use
+* Complete documentation with multi-domain vision
+* Demonstrated multi-domain applicability
+* No major technical blockers
+* Validated by Expert Architects Committee
+
+=== For a Bank-Wide PRA Approved
+
+* 3+ documented proven-in-use (different domains/teams)
+* Positive multi-domain feedback
+* Documentation enriched with multi-context learnings
+* Varied use cases (different domains)
+* User satisfaction > 8/10
+* Regular maintenance (< 6 months since last update)
+
+== Support and Questions
+
+For any questions about the PRA lifecycle:
+
+* *Teams Channel*: `#pra-registry`
+* *Email*: pra-governance@company.com
+* *GitHub Issues*: link:https://github.com/org/pra-registry/issues[Open an issue]
+
+'''
+
+*Recommended path*:
+
+. link:/guides/01-getting-started[Getting Started with PRAs]
+. link:/guides/02-understanding-pra[Understanding PRAs]
+. link:/guides/03-roles-responsibilities[Roles and Responsibilities]
+. *Lifecycle* (you are here)
+. link:/guides/05-standards[Quality Standards]
+. link:/guides/06-contributing[Contributing a PRA]
+. link:/guides/07-promotion-process[Promotion Process]
+. link:/guides/08-governance[Governance]
+
+'''
+
+*Navigation*:
+
+* *Previous*: link:/guides/03-roles-responsibilities[Roles and Responsibilities]
+* *Next*: link:/guides/05-standards[Quality Standards]
+
+'''
+
+*Last updated*: 2025-12-02 +
+*Next review*: 2026-06-02

@@ -1,0 +1,208 @@
+= Demarrer avec les PRA
+:page-title: Demarrer avec les PRA
+:keywords: pra, guide, getting-started
+
+Bienvenue dans le *Registre des Proven Reusable Architecture (PRA)* !
+
+Ce guide vous aidera a comprendre rapidement ce qu'est un PRA et comment l'utiliser dans vos projets.
+
+== Qu'est-ce qu'un PRA ?
+
+Un *Proven Reusable Architecture (PRA)* est une *solution eprouvee* a un probleme recurrent d'architecture logicielle.
+
+=== En 3 points cles
+
+. *Proven-in-use* : Valide en production reelle (pas theorique)
+. *Reutilisable* : Applicable a plusieurs contextes et projets
+. *Bien documente* : Contexte, architecture, exemples, retours d'experience
+
+=== Analogie Simple
+
+Pensez aux PRA comme des *recettes de cuisine eprouvees* :
+
+* La recette (le PRA) a ete testee plusieurs fois
+* Elle fonctionne dans differentes cuisines (contextes)
+* Elle documente les ingredients (stack tech), les etapes (implementation) et les pieges a eviter
+
+== Pourquoi utiliser les PRA ?
+
+=== Gain de Temps
+
+* Eviter de reinventer la roue
+* Solutions pretes a l'emploi
+* Retours d'experience documentes
+
+=== Qualite
+
+* Solutions validees en production
+* Best practices integrees
+* Pieges courants documentes
+
+=== Coherence
+
+* Alignement architectural entre equipes
+* Vocabulaire commun
+* Standards partages
+
+== Comment naviguer dans le registre ?
+
+Le registre PRA est organise en *2 scopes* :
+
+[source,mermaid]
+----
+graph TD
+    A[Registre PRA] --> B[Bank-Wide]
+    A --> C[Domaines]
+
+    B --> B1[Approuvés pour tous]
+    C --> C1[Spécifiques à un domaine]
+----
+
+=== Bank-Wide (Transversal)
+
+* *Pour qui ?* Tous les domaines de l'organisation
+* *Maturite* : Valides par le Comite de Gouvernance Architectes Experts (3+ proven-in-use)
+* *Exemples* : Authentification, Observabilite, CI/CD, File Transfer
+
+=== Domaines
+
+* *Pour qui ?* Equipes d'un domaine specifique (Particuliers, Entreprises, Gestion de Patrimoine)
+* *Maturite* : Valides par le Comite de Gouvernance du Domaine (1+ proven-in-use)
+* *Contenu* : Tous types de patterns (fonctionnels ET techniques)
+* *Exemples* : Onboarding digital, Integration SAP, Serverless AWS, Data pipelines
+* *Note* : Les PRAs en cours de promotion vers Bank-Wide ont un statut specifique visible dans leur metadonnees
+
+== Vos premiers pas
+
+=== 1 Je veux *utiliser* un PRA
+
+[source,mermaid]
+----
+graph LR
+    A[Identifier mon besoin] --> B[Consulter Transversal]
+    B --> C[Lire le PRA]
+    C --> D[Vérifier contexte d'application]
+    D --> E[Implémenter]
+    E --> F[Documenter mon proven-in-use]
+----
+
+*Action* : Parcourez la section link:/registre/transversal[Transversal]
+
+=== 2 Je veux *contribuer* un PRA
+
+[source,mermaid]
+----
+graph LR
+    A[J'ai une solution éprouvée] --> B[Vérifier critères]
+    B --> C[Documenter le PRA]
+    C --> D[Soumettre PR]
+    D --> E[Review Table Gouvernance]
+    E --> F[PRA Candidate]
+----
+
+*Action* : Consultez le guide link:/guides/06-contributing[Contribuer]
+
+=== 3 Je veux *comprendre* la gouvernance
+
+*Action* : Suivez ce parcours dans l'ordre :
+
+. link:/guides/02-understanding-pra[Comprendre les PRA]
+. link:/guides/03-roles-responsibilities[Roles et Responsabilites]
+. link:/guides/04-lifecycle[Cycle de Vie]
+. link:/guides/08-governance[Gouvernance]
+
+== Exemple Concret
+
+=== Scenario : "Je dois implementer de l'authentification"
+
+==== Etape 1 : Rechercher
+
+Allez dans *Transversal > Security* et cherchez "Authentication"
+
+==== Etape 2 : Verifier l'applicabilite
+
+Lisez la section *"Quand utiliser ce PRA ?"*
+
+* Application web avec utilisateurs
+* Besoin de SSO
+* Application interne sans login
+
+==== Etape 3 : Lire la documentation
+
+* Contexte et probleme resolu
+* Architecture proposee
+* Stack technologique (Auth0, Keycloak, etc.)
+* Exemples de code
+
+==== Etape 4 : Implementer
+
+Suivez le guide d'implementation pas a pas
+
+==== Etape 5 : Feedback
+
+Documentez votre implementation dans les *proven-in-use*
+
+== Questions Frequentes
+
+=== Dois-je obligatoirement utiliser un PRA ?
+
+*Non.* Les PRA sont des *recommandations*, pas des obligations.
+
+*Mais* : Si un PRA applicable existe et que vous ne l'utilisez pas, vous devrez justifier pourquoi (lors des revues d'architecture).
+
+=== Puis-je adapter un PRA a mon contexte ?
+
+*Oui, absolument !* Les PRA sont des *patrons*, pas du code fige.
+
+IMPORTANT: Documentez vos adaptations et partagez vos learnings.
+
+=== Combien de temps pour qu'un PRA soit approuve ?
+
+*PRA Domaine* :
+
+* *Candidate* : 5-10 jours (review par Comite Domaine)
+* *Approved* : Quand 1+ proven-in-use documente dans le domaine
+
+*PRA Bank-Wide* :
+
+* *Review initiale* : 2-4 semaines (review par Comite Architectes Experts)
+* *Approved* : Quand 3+ proven-in-use documentes (multi-domaines)
+
+=== Je ne trouve pas de PRA pour mon besoin
+
+*Options* :
+
+. Cherchez dans les *domaines* (peut-etre existe dans un autre domaine)
+. Verifiez les PRAs avec statut *"en promotion"* (peut-etre en cours de validation Bank-Wide)
+. *Contribuez !* Votre solution peut devenir un nouveau PRA
+
+== Prochaines Etapes
+
+Maintenant que vous comprenez les bases, continuez votre apprentissage :
+
+*Suivant* : link:/guides/02-understanding-pra[Comprendre les PRA] - Anatomie detaillee d'un PRA
+
+'''
+
+*Parcours recommande* :
+
+. *Demarrer avec les PRA* (vous etes ici)
+. link:/guides/02-understanding-pra[Comprendre les PRA]
+. link:/guides/03-roles-responsibilities[Roles et Responsabilites]
+. link:/guides/04-lifecycle[Cycle de Vie]
+. link:/guides/05-standards[Standards de Qualite]
+. link:/guides/06-contributing[Contribuer un PRA]
+. link:/guides/07-promotion-process[Processus de Promotion]
+. link:/guides/08-governance[Gouvernance]
+
+'''
+
+*Besoin d'aide ?*
+
+* *Canal Teams* : `#pra-registry`
+* *Email* : pra-support@company.com
+* *Documentation* : Ce site
+
+'''
+
+*Derniere mise a jour* : 2025-12-02

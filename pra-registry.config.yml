@@ -4,13 +4,16 @@
 #
 # Ce fichier centralise toutes les valeurs de configuration du registre PRA.
 # Il est consommé par :
-#   - Les agents IA (Claude Code skills, GitHub Copilot agents)
+#   - Les agents IA (Claude Code agents, GitHub Copilot agents)
 #   - Les workflows GitHub Actions
-#   - Le script de validation de la documentation
+#   - Les scripts de build (dashboard, Confluence Publisher, GitHub Pages)
 #
 # RÈGLE : Si une valeur est référencée à plus d'un endroit, elle doit être ici.
 # Ne jamais hardcoder ces valeurs ailleurs — toujours lire ce fichier.
 # ============================================================================
+
+# --- Format de contenu ---
+content_format: adoc
 
 # --- Chemins du contenu ---
 paths:
@@ -28,6 +31,18 @@ languages:
 scopes:
   - bank-wide                    # PRAs transversaux (tous domaines)
   - domain-wide                  # PRAs spécifiques à un domaine
+
+# --- Archétypes (dossiers de classification principale) ---
+# Ajouter un archétype = ajouter ici + créer le dossier correspondant
+# Les sous-catégories sont libres (attribut :pra-subcategory: dans le fichier)
+archetypes:
+  - integration       # API, messaging, event-driven, ETL
+  - application       # design patterns, microservices, frontend
+  - data              # data management, pipelines, analytics
+  - security          # auth, encryption, network security
+  - technology        # infra, cloud, containers, networking
+  - devops            # CI/CD, observabilité, IaC, platform engineering
+  - business          # processus métier, workflows, patterns domaine
 
 # --- Gouvernance ---
 governance:
@@ -74,20 +89,38 @@ quality:
   review_frequency: annual       # Fréquence de review des PRAs operationalized
 
 # --- Statuts ---
-# Terminologie officielle des statuts PRA
+# Le statut est UNIQUEMENT dans les attributs AsciiDoc (:pra-status:)
+# Il n'y a plus de dossiers de statut dans l'arborescence
 statuses:
   candidate:
-    directory_name: operationalizing
+    name: operationalizing
     label_fr: "En cours d'opérationnalisation"
     label_en: "Operationalizing"
   approved:
-    directory_name: operationalized
+    name: operationalized
     label_fr: "Opérationnalisé"
     label_en: "Operationalized"
   deprecated:
-    directory_name: null          # Pas de répertoire dédié — géré via frontmatter
+    name: deprecated
     label_fr: "Déprécié"
     label_en: "Deprecated"
+
+# --- Publication ---
+confluence:
+  cloud:
+    url: "${CONFLUENCE_URL}"
+    space_key: "${CONFLUENCE_SPACE_KEY}"
+    ancestor_id_fr: "${CONFLUENCE_ANCESTOR_FR}"
+    ancestor_id_en: "${CONFLUENCE_ANCESTOR_EN}"
+  data_center:
+    url: ""
+    space_key: ""
+    ancestor_id_fr: ""
+    ancestor_id_en: ""
+
+github_pages:
+  enabled: true
+  base_url: /proven-reusable-architecture
 
 # --- GitHub ---
 github:
@@ -99,6 +132,6 @@ github:
     domain_prefix: comite-gov     # Ex: comite-gov-particuliers
   labels:
     scope_prefix: "scope:"
-    category_prefix: "category:"
+    archetype_prefix: "archetype:"
     type_prefix: "type:"
-  branch_naming: "pra/{type}-{name}"  # Ex: pra/nouveau-tech-api-gateway
+  branch_naming: "pra/{type}-{name}"  # Ex: pra/nouveau-integration-api-gateway

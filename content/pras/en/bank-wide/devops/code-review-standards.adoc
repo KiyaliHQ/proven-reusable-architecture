@@ -1,0 +1,119 @@
+= Code Review Standards
+// === PRA METADATA ===
+:pra-name: Code Review Standards
+:pra-archetype: devops
+:pra-subcategory: software-engineering
+:pra-status: operationalizing
+:pra-scope: bank-wide
+:pra-tags: code-review, quality, standards, development
+:pra-created: 2025-01-30
+:pra-updated: 2025-01-30
+:pra-version: 1.0.0
+:pra-proven-count: 0
+:pra-author: TBD
+:pra-maintainer: TBD
+// === CONFLUENCE ===
+:page-title: Code Review Standards
+:keywords: pra, archetype-devops, status-operationalizing, scope-bank-wide
+
+// =============================================
+// FACT SHEET
+// =============================================
+[sidebar]
+****
+.Fact Sheet
+[cols="1,3"]
+|===
+| *Archetype*       | {pra-archetype}
+| *Subcategory*     | {pra-subcategory}
+| *Status*          | {pra-status}
+| *Scope*           | {pra-scope}
+| *Proven-in-use*   | {pra-proven-count}
+| *Tags*            | {pra-tags}
+| *Version*         | {pra-version}
+| *Author*          | {pra-author}
+| *Maintainer*      | {pra-maintainer}
+| *Created*         | {pra-created}
+| *Last updated*    | {pra-updated}
+|===
+****
+
+== Summary
+
+*Code Review Standards* define the processes and criteria to ensure code quality across all development teams.
+
+== Application Context
+
+=== When to use
+
+* Any code review in development teams
+* Evaluating contribution quality
+* Onboarding new developers to standards
+
+=== When NOT to use
+
+* Prototyping or exploration code (spike)
+* Throwaway one-shot scripts
+
+== Problem Solved
+
+* Inconsistent code quality
+* Reviews too long or superficial
+* Lack of objective criteria
+
+== Solution
+
+=== Architecture
+
+Code review framework including:
+
+* Standardized checklist
+* Measurable quality criteria
+* Escalation process
+
+=== Key Principles
+
+==== 1. Readability
+
+* Self-documenting code
+* Explicit naming
+* Managed complexity
+
+==== 2. Maintainability
+
+* Unit tests
+* Separation of concerns
+* Error handling
+
+==== 3. Performance
+
+* Appropriate optimization
+* No N+1 queries
+* Strategic caching
+
+== Architectural Decisions (ADR)
+
+_No ADR documented yet._
+
+== Implementation
+
+=== Review Checklist
+
+* Code compiles without warnings
+* Tests pass
+* Test coverage is adequate
+* No dead code
+* Documentation up to date
+
+== Production Feedback (Proven-in-use)
+
+_No production feedback documented yet._
+
+== Limitations and Pitfalls
+
+* Standards under validation
+* Requires progressive adoption by teams
+
+== References
+
+_No references documented yet._
