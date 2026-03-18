@@ -51,7 +51,7 @@ convert_dir() {
     echo "  Converting $label ..."
     find "$src_dir" -name "*.adoc" | while read -r file; do
         local rel_path
-        rel_path=$(realpath --relative-to="$src_dir" "$file")
+        rel_path="${file#$src_dir/}"
         local dest_file="$dest_dir/${rel_path%.adoc}.html"
         local dest_parent
         dest_parent=$(dirname "$dest_file")
