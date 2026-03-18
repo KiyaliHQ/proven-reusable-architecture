@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<meta name="keywords" content="pra, archetype-application, status-operationalizing, scope-bank-wide">
+<title>Processus ADR (Architecture Decision Records)</title>
+<link rel="stylesheet" href="./rouge-github.css">
+<link rel="stylesheet" href="../../../../assets/style.css"></head>
+<body class="article">
+<div id="header">
+<h1>Processus ADR (Architecture Decision Records)</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Fiche signalétique</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Archétype</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Sous-catégorie</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pratique-architecture</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Statut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">operationalizing</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Scope</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bank-wide</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Proven-in-use</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Tags</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">adr, architecture, documentation, décisions</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Version</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Auteur</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TBD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Maintainer</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TBD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Créé</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2025-01-30</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Dernière MAJ</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2025-01-30</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_résumé">Résumé</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Les <strong>ADR (Architecture Decision Records)</strong> sont un moyen structuré de documenter les décisions architecturales importantes et leur contexte. Ce PRA standardise le processus de création et maintenance des ADR.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contexte_dapplication">Contexte d&#8217;application</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_quand_utiliser">Quand utiliser</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Décision architecturale significative à documenter</p>
+</li>
+<li>
+<p>Choix technologique impactant l&#8217;organisation</p>
+</li>
+<li>
+<p>Besoin de traçabilité des décisions passées</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_quand_ne_pas_utiliser">Quand ne pas utiliser</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Décisions triviales ou réversibles sans effort</p>
+</li>
+<li>
+<p>Choix déjà documentés dans un ADR existant</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_problème_résolu">Problème résolu</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Décisions architecturales non documentées</p>
+</li>
+<li>
+<p>Perte de contexte avec le temps</p>
+</li>
+<li>
+<p>Difficultés à comprendre "pourquoi" une décision a été prise</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_solution">Solution</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_architecture">Architecture</h3>
+<div class="paragraph">
+<p>Processus standardisé pour :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Documenter chaque décision significative</p>
+</li>
+<li>
+<p>Capturer le contexte et les alternatives</p>
+</li>
+<li>
+<p>Maintenir un historique des décisions</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_template_adr">Template ADR</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="markdown"><span class="gh"># ADR-XXX: Titre de la Décision</span>
+
+<span class="gu">## Statut</span>
+Proposé | Accepté | Déprécié | Remplacé par ADR-YYY
+
+<span class="gu">## Contexte</span>
+Quel est le problème ou la situation ?
+
+<span class="gu">## Décision</span>
+Quelle est la décision prise ?
+
+<span class="gu">## Conséquences</span>
+Quels sont les impacts positifs et négatifs ?
+
+<span class="gu">## Alternatives Considérées</span>
+Quelles autres options ont été évaluées ?</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_workflow">Workflow</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code>┌──────────┐    ┌──────────┐    ┌──────────┐
+│ Proposé  │ → │ Review   │ → │ Accepté  │
+└──────────┘    └──────────┘    └──────────┘
+                     ↓
+               ┌──────────┐
+               │ Rejeté   │
+               └──────────┘</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_décisions_architecturales_adr">Décisions architecturales (ADR)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Aucun ADR documenté pour le moment.</em></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_implémentation">Implémentation</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_bonnes_pratiques">Bonnes Pratiques</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Un ADR = Une décision</strong> — Garder focalisé</p>
+</li>
+<li>
+<p><strong>Immutable</strong> — Ne pas modifier, créer un nouvel ADR</p>
+</li>
+<li>
+<p><strong>Contexte riche</strong> — Documenter le "pourquoi"</p>
+</li>
+<li>
+<p><strong>Liens</strong> — Référencer les ADRs connexes</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_retours_dexpérience_proven_in_use">Retours d&#8217;expérience (Proven-in-use)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Aucun retour d&#8217;expérience documenté pour le moment.</em></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_limitations_et_pièges">Limitations et pièges</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Processus en cours de validation</p>
+</li>
+<li>
+<p>Nécessite discipline de documentation par les équipes</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_références">Références</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Aucune référence documentée pour le moment.</em></p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-03-18 14:19:08 -0400
+</div>
+</div>
+</body>
+</html>

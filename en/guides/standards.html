@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<meta name="keywords" content="pra, guide, standards, quality">
+<title>PRA Quality Standards</title>
+<link rel="stylesheet" href="./rouge-github.css">
+<link rel="stylesheet" href="../../assets/style.css"></head>
+<body class="article">
+<div id="header">
+<h1>PRA Quality Standards</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document defines the quality standards that all PRAs must meet to be accepted in the registry.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_core_principles">Core Principles</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A quality PRA must be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Proven-in-use</strong>: Validated in real production</p>
+</li>
+<li>
+<p><strong>Reusable</strong>: Applicable to multiple contexts</p>
+</li>
+<li>
+<p><strong>Well documented</strong>: Clear, complete and maintainable</p>
+</li>
+<li>
+<p><strong>Maintainable</strong>: Scalable and supported over time</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_criteria_by_status_and_scope">Criteria by Status and Scope</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_for_a_domain_pra_candidate">For a Domain PRA Candidate</h3>
+<div class="sect3">
+<h4 id="_mandatory_criteria">Mandatory Criteria</h4>
+<div class="paragraph">
+<p><strong>At least 1 documented proven-in-use within the domain</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Production project (not dev/staging)</p>
+</li>
+<li>
+<p>Concrete and measurable feedback from domain context</p>
+</li>
+<li>
+<p>Recent date (&lt; 2 years)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Complete documentation</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Context and problem solved</p>
+</li>
+<li>
+<p>Solution and architecture</p>
+</li>
+<li>
+<p>ADR (Architecture Decision Records)</p>
+</li>
+<li>
+<p>Code/configuration examples</p>
+</li>
+<li>
+<p>Clearly defined prerequisites</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Demonstrated reusability</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Generalizable pattern</p>
+</li>
+<li>
+<p>Not specific to a single project</p>
+</li>
+<li>
+<p>Configurable for different contexts</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Technical quality</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Complies with enterprise technical standards</p>
+</li>
+<li>
+<p>Validated security and compliance</p>
+</li>
+<li>
+<p>Acceptable performance</p>
+</li>
+<li>
+<p>Scalability considered</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_recommended_criteria">Recommended Criteria</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Architecture diagrams</p>
+</li>
+<li>
+<p>Comparison with alternatives</p>
+</li>
+<li>
+<p>Migration guide (if applicable)</p>
+</li>
+<li>
+<p>FAQ based on experience</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_for_a_bank_wide_pra_candidate">For a Bank-Wide PRA Candidate</h3>
+<div class="sect3">
+<h4 id="_mandatory_criteria_2">Mandatory Criteria</h4>
+<div class="paragraph">
+<p><strong>At least 1 documented proven-in-use</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Production project (not dev/staging)</p>
+</li>
+<li>
+<p>Concrete and measurable feedback</p>
+</li>
+<li>
+<p>Recent date (&lt; 2 years)</p>
+</li>
+<li>
+<p>Demonstrated multi-domain applicability</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Complete documentation</strong> (same as Domain PRA)</p>
+</div>
+<div class="paragraph">
+<p><strong>Demonstrated reusability across domains</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Generalizable pattern for multiple domains</p>
+</li>
+<li>
+<p>Not specific to a single domain context</p>
+</li>
+<li>
+<p>Configurable for different domain contexts</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Technical quality</strong> (same as Domain PRA)</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_for_a_domain_pra_approved">For a Domain PRA Approved</h3>
+<div class="sect3">
+<h4 id="_mandatory_criteria_in_addition_to_candidate">Mandatory Criteria (in addition to Candidate)</h4>
+<div class="paragraph">
+<p><strong>At least 1 documented proven-in-use within the domain</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Positive feedback from domain teams (satisfaction &gt; 7/10)</p>
+</li>
+<li>
+<p>Confirmed reusability within domain</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Documentation enriched with domain learnings</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Domain-specific use cases</p>
+</li>
+<li>
+<p>Common pitfalls in domain context</p>
+</li>
+<li>
+<p>Domain-specific troubleshooting guide</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Active maintenance</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Designated and active maintainer</p>
+</li>
+<li>
+<p>Last update &lt; 6 months</p>
+</li>
+<li>
+<p>Responses to questions &lt; 1 week</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Growing adoption within domain</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Positive usage trend in domain</p>
+</li>
+<li>
+<p>No major negative feedback</p>
+</li>
+<li>
+<p>Recommended by domain peers</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_for_a_bank_wide_pra_approved">For a Bank-Wide PRA Approved</h3>
+<div class="sect3">
+<h4 id="_mandatory_criteria_in_addition_to_candidate_2">Mandatory Criteria (in addition to Candidate)</h4>
+<div class="paragraph">
+<p><strong>At least 3 documented proven-in-use from different domains/teams</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Different teams from multiple domains</p>
+</li>
+<li>
+<p>Different application contexts across domains</p>
+</li>
+<li>
+<p>Positive multi-domain feedback (satisfaction &gt; 7/10)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Documentation enriched with multi-domain learnings</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Learnings from implementations across multiple domains</p>
+</li>
+<li>
+<p>Varied use cases from different domain contexts</p>
+</li>
+<li>
+<p>Common pitfalls documented with multi-domain perspective</p>
+</li>
+<li>
+<p>Troubleshooting guide applicable across domains</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Active maintenance</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Designated and active maintainer</p>
+</li>
+<li>
+<p>Last update &lt; 6 months</p>
+</li>
+<li>
+<p>Responses to questions &lt; 1 week</p>
+</li>
+<li>
+<p>Multi-domain support capability</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Growing multi-domain adoption</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Positive usage trend across multiple domains</p>
+</li>
+<li>
+<p>No major negative feedback from any domain</p>
+</li>
+<li>
+<p>Recommended by peers across different domains</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_template_and_structure">Template and Structure</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_mandatory_pra_structure">Mandatory PRA Structure</h3>
+<div class="paragraph">
+<p>Each PRA must contain the following sections:</p>
+</div>
+<div class="sect3">
+<h4 id="_1_frontmatter_yaml_metadata">1. Frontmatter (YAML Metadata)</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="nn">---</span>
+<span class="na">id</span><span class="pi">:</span> <span class="s">pra-XXX</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Pattern</span><span class="nv"> </span><span class="s">Name"</span>
+<span class="na">category</span><span class="pi">:</span> <span class="s">tech | integration | security | business</span>
+<span class="na">tags</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">tag1</span>
+  <span class="pi">-</span> <span class="s">tag2</span>
+<span class="na">status</span><span class="pi">:</span> <span class="s">candidate | approved | deprecated</span>
+<span class="na">version</span><span class="pi">:</span> <span class="s">X.Y.Z</span>
+<span class="na">author</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">First</span><span class="nv"> </span><span class="s">Last"</span>
+  <span class="na">email</span><span class="pi">:</span> <span class="s2">"</span><span class="s">email@company.com"</span>
+<span class="na">maintainer</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">First</span><span class="nv"> </span><span class="s">Last"</span>
+  <span class="na">email</span><span class="pi">:</span> <span class="s2">"</span><span class="s">email@company.com"</span>
+<span class="na">created</span><span class="pi">:</span> <span class="s">YYYY-MM-DD</span>
+<span class="na">updated</span><span class="pi">:</span> <span class="s">YYYY-MM-DD</span>
+<span class="na">proven_in_use</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">project</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Project</span><span class="nv"> </span><span class="s">Name"</span>
+    <span class="na">team</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Team</span><span class="nv"> </span><span class="s">Name"</span>
+    <span class="na">date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">YYYY-MM-DD"</span>
+    <span class="na">feedback</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Concrete</span><span class="nv"> </span><span class="s">results"</span>
+<span class="na">dependencies</span><span class="pi">:</span> <span class="pi">[]</span>  <span class="c1"># IDs of other required PRAs</span>
+<span class="na">replaces</span><span class="pi">:</span> <span class="kc">null</span>    <span class="c1"># ID of replaced PRA</span>
+<span class="nn">---</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_mandatory_markdown_sections">2. Mandatory Markdown Sections</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="markdown"><span class="gh"># PRA-XXX: [Pattern Name]</span>
+
+<span class="gu">##  Summary</span>
+[2-3 sentences describing the pattern]
+
+<span class="gu">##  Application Context</span>
+
+<span class="gu">### When to use this PRA?</span>
+<span class="p">-</span> [Criterion 1]
+<span class="p">-</span> [Criterion 2]
+
+<span class="gu">### When NOT to use this PRA?</span>
+<span class="p">-</span> [Contraindication 1]
+<span class="p">-</span> [Contraindication 2]
+
+<span class="gu">##  Problem Solved</span>
+[Problem description]
+
+<span class="gu">### Typical Symptoms</span>
+<span class="p">-</span> [Symptom 1]
+<span class="p">-</span> [Symptom 2]
+
+<span class="gu">##  Solution</span>
+[Solution description]
+
+<span class="gu">### Architecture</span>
+[Diagram or description]
+
+<span class="gu">### Technology Stack</span>
+[Table of technologies used]
+
+<span class="gu">##  Architecture Decision Records (ADR)</span>
+[Links to ADR or summary of key decisions]
+
+<span class="gu">##  Prerequisites</span>
+<span class="p">-</span> [Technical prerequisite 1]
+<span class="p">-</span> [Organizational prerequisite 1]
+
+<span class="gu">##  Implementation</span>
+[Step-by-step guide]
+
+<span class="gu">##  Examples</span>
+[Code and configurations]
+
+<span class="gu">##  Experience Feedback</span>
+[Learnings from proven-in-use]
+
+<span class="gu">##  Limitations &amp; Pitfalls</span>
+[Known limitations and pitfalls to avoid]
+
+<span class="gu">##  Lifecycle &amp; Maintenance</span>
+[How to maintain and evolve]
+
+<span class="gu">##  References</span>
+[Links to official documentation, contacts]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_optional_but_recommended_sections">Optional but Recommended Sections</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="markdown"><span class="gu">##  Migration</span>
+[Migration guide from previous solution]
+
+<span class="gu">##  Testing</span>
+[Recommended testing strategy]
+
+<span class="gu">##  Metrics</span>
+[KPIs and success metrics]
+
+<span class="gu">##  Multi-environment</span>
+[Dev/staging/prod considerations]
+
+<span class="gu">##  Costs</span>
+[Cost estimation (infrastructure, licenses)]
+
+<span class="gu">##  FAQ</span>
+[Frequently asked questions]</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quality_criteria_by_section">Quality Criteria by Section</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_application_context">Application Context</h3>
+<div class="paragraph">
+<p><strong>Excellent</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Precise and actionable usage criteria</p>
+</li>
+<li>
+<p>Clear contraindications</p>
+</li>
+<li>
+<p>Examples of applicable contexts</p>
+</li>
+<li>
+<p>Explicit trade-offs</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Insufficient</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Vague or generic criteria</p>
+</li>
+<li>
+<p>No contraindications</p>
+</li>
+<li>
+<p>Applicable "everywhere"</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_solution">Solution</h3>
+<div class="paragraph">
+<p><strong>Excellent</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Clear architecture with diagrams</p>
+</li>
+<li>
+<p>Justified technologies</p>
+</li>
+<li>
+<p>Alternatives considered</p>
+</li>
+<li>
+<p>Scalability and performance addressed</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Insufficient</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Text description only</p>
+</li>
+<li>
+<p>No justification for technical choices</p>
+</li>
+<li>
+<p>No alternative considerations</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adr_architecture_decision_records">ADR (Architecture Decision Records)</h3>
+<div class="paragraph">
+<p><strong>Excellent</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Each major decision documented</p>
+</li>
+<li>
+<p>Context, options, decision, consequences</p>
+</li>
+<li>
+<p>Links to detailed ADRs if necessary</p>
+</li>
+<li>
+<p>Revision history</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Insufficient</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>No ADR</p>
+</li>
+<li>
+<p>Incomplete or vague ADRs</p>
+</li>
+<li>
+<p>No decision justification</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_proven_in_use">Proven-in-use</h3>
+<div class="paragraph">
+<p><strong>Excellent</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Named production projects</p>
+</li>
+<li>
+<p>Concrete metrics (time, costs, quality)</p>
+</li>
+<li>
+<p>Specific learnings</p>
+</li>
+<li>
+<p>Team contact available</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Insufficient</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Anonymous or fictitious projects</p>
+</li>
+<li>
+<p>Generic feedback "it works well"</p>
+</li>
+<li>
+<p>No metrics</p>
+</li>
+<li>
+<p>Dev/POC projects</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_examples">Examples</h3>
+<div class="paragraph">
+<p><strong>Excellent</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Complete and executable code</p>
+</li>
+<li>
+<p>Multiple examples (simple + complex cases)</p>
+</li>
+<li>
+<p>Commented configurations</p>
+</li>
+<li>
+<p>Example repository available</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Insufficient</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Incomplete snippets</p>
+</li>
+<li>
+<p>Non-executable pseudo-code</p>
+</li>
+<li>
+<p>No context</p>
+</li>
+<li>
+<p>Trivial examples</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_validation_checklist">Validation Checklist</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before submitting a PRA, verify:</p>
+</div>
+<div class="sect2">
+<h3 id="_documentation">Documentation</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>All mandatory sections are present</p>
+</li>
+<li>
+<p>Valid YAML metadata</p>
+</li>
+<li>
+<p>No major spelling errors</p>
+</li>
+<li>
+<p>Functional links</p>
+</li>
+<li>
+<p>Readable diagrams</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_technical">Technical</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Solution tested in production</p>
+</li>
+<li>
+<p>Compliance with enterprise security standards</p>
+</li>
+<li>
+<p>Validated performance</p>
+</li>
+<li>
+<p>Scalability considered</p>
+</li>
+<li>
+<p>Dependencies identified</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_proven_in_use_2">Proven-in-use</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Required minimum documented:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Domain PRA: 1+ for Candidate and Approved</p>
+</li>
+<li>
+<p>Bank-Wide PRA: 1+ for Candidate, 3+ (multi-domain) for Approved</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Real named projects</p>
+</li>
+<li>
+<p>Feedback with metrics</p>
+</li>
+<li>
+<p>Recent dates (&lt; 2 years)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_reusability">Reusability</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Generalizable pattern</p>
+</li>
+<li>
+<p>Configurable parameters</p>
+</li>
+<li>
+<p>Adapted to multiple contexts</p>
+</li>
+<li>
+<p>No single-project specificities</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quality_metrics">Quality Metrics</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>PRAs are evaluated on:</p>
+</div>
+<div class="sect2">
+<h3 id="_completeness_40">Completeness (40%)</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Complete documentation</p>
+</li>
+<li>
+<p>ADRs provided</p>
+</li>
+<li>
+<p>Examples present</p>
+</li>
+<li>
+<p>Proven-in-use documented</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_clarity_30">Clarity (30%)</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Easily understandable</p>
+</li>
+<li>
+<p>Clear diagrams</p>
+</li>
+<li>
+<p>Actionable instructions</p>
+</li>
+<li>
+<p>Logical structure</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_usefulness_20">Usefulness (20%)</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Solves a real problem</p>
+</li>
+<li>
+<p>Demonstrated time savings</p>
+</li>
+<li>
+<p>Growing adoption</p>
+</li>
+<li>
+<p>Positive feedback</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_maintenance_10">Maintenance (10%)</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Active maintainer</p>
+</li>
+<li>
+<p>Regular updates</p>
+</li>
+<li>
+<p>Responses to questions</p>
+</li>
+<li>
+<p>Continuous evolution</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_reasons_for_rejection">Reasons for Rejection</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A PRA may be rejected for:</p>
+</div>
+<div class="sect2">
+<h3 id="_insufficient_quality">Insufficient Quality</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Incomplete or confusing documentation</p>
+</li>
+<li>
+<p>No credible proven-in-use</p>
+</li>
+<li>
+<p>Solution not tested in production</p>
+</li>
+<li>
+<p>Lack of concrete examples</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_non_reusability">Non-Reusability</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Too specific to a single project</p>
+</li>
+<li>
+<p>Not generalizable</p>
+</li>
+<li>
+<p>Non-recurring problem</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_non_compliance">Non-Compliance</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Violation of security standards</p>
+</li>
+<li>
+<p>Unapproved technologies</p>
+</li>
+<li>
+<p>Non-compliance with enterprise guidelines</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_duplication">Duplication</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Similar PRA already exists</p>
+</li>
+<li>
+<p>No added value vs. existing</p>
+</li>
+<li>
+<p>Merge recommended with existing PRA</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_continuous_improvement">Continuous Improvement</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_annual_review">Annual Review</h3>
+<div class="paragraph">
+<p>All Approved PRAs undergo an annual review:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Technical relevance</p>
+</li>
+<li>
+<p>Adoption level</p>
+</li>
+<li>
+<p>Documentation quality</p>
+</li>
+<li>
+<p>Maintenance activity</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Possible outcomes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Maintain</strong>: PRA remains approved</p>
+</li>
+<li>
+<p><strong>Improve</strong>: Requires updates</p>
+</li>
+<li>
+<p><strong>Deprecate</strong>: Obsolete or superseded</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_community_feedback">Community Feedback</h3>
+<div class="paragraph">
+<p>Users can:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Propose improvements (PR)</p>
+</li>
+<li>
+<p>Report errors (Issues)</p>
+</li>
+<li>
+<p>Suggest clarifications</p>
+</li>
+<li>
+<p>Share new learnings</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quality_support">Quality Support</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For questions about standards:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Teams Channel</strong>: <code>#pra-quality</code></p>
+</li>
+<li>
+<p><strong>Domain Committees</strong>: Contact your domain governance committee</p>
+</li>
+<li>
+<p><strong>Expert Architects Committee Email</strong>: <a href="mailto:pra-governance@company.com">pra-governance@company.com</a></p>
+</li>
+<li>
+<p><strong>Template Documentation</strong>: link to template</p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Recommended path</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>/guides/01-getting-started[Getting Started with PRAs]</p>
+</li>
+<li>
+<p>/guides/02-understanding-pra[Understanding PRAs]</p>
+</li>
+<li>
+<p>/guides/03-roles-responsibilities[Roles and Responsibilities]</p>
+</li>
+<li>
+<p>/guides/04-lifecycle[Lifecycle]</p>
+</li>
+<li>
+<p><strong>Quality Standards</strong> (you are here)</p>
+</li>
+<li>
+<p>/guides/06-contributing[Contributing a PRA]</p>
+</li>
+<li>
+<p>/guides/07-promotion-process[Promotion Process]</p>
+</li>
+<li>
+<p>/guides/08-governance[Governance]</p>
+</li>
+</ol>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Navigation</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Previous</strong>: /guides/04-lifecycle[Lifecycle]</p>
+</li>
+<li>
+<p><strong>Next</strong>: /guides/06-contributing[Contributing a PRA]</p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Last updated</strong>: 2025-12-02<br>
+<strong>Next review</strong>: 2026-06-02</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-03-18 14:27:08 -0400
+</div>
+</div>
+</body>
+</html>

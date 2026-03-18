@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<meta name="keywords" content="pra, guide, understanding, anatomy">
+<title>Understanding PRAs</title>
+<link rel="stylesheet" href="./rouge-github.css">
+<link rel="stylesheet" href="../../assets/style.css"></head>
+<body class="article">
+<div id="header">
+<h1>Understanding PRAs</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that you know the basics, let&#8217;s dive into the structure and organization of Proven Reusable Architectures.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_anatomy_of_a_pra">Anatomy of a PRA</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Each PRA follows a standardized structure to ensure clarity and reusability.</p>
+</div>
+<div class="sect2">
+<h3 id="_required_structure">Required Structure</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="markdown"><span class="gh"># PRA-XXX: [Pattern Name]</span>
+
+<span class="gu">## Summary</span>
+Concise description in 2-3 sentences
+
+<span class="gu">## Application Context</span>
+<span class="gu">### When to use this PRA?</span>
+<span class="gu">### When NOT to use this PRA?</span>
+
+<span class="gu">## Problem Solved</span>
+Description of the problem with typical symptoms
+
+<span class="gu">## Solution</span>
+Architecture, technology stack, diagrams
+
+<span class="gu">## Architecture Decision Records (ADR)</span>
+Key decisions and justifications
+
+<span class="gu">## Prerequisites</span>
+Technical and organizational
+
+<span class="gu">## Implementation</span>
+Step-by-step guide
+
+<span class="gu">## Examples</span>
+Real code and configurations
+
+<span class="gu">## Experience Reports</span>
+Documented proven-in-use
+
+<span class="gu">## Limitations &amp; Pitfalls</span>
+Things to know before implementing
+
+<span class="gu">## Maintenance</span>
+How to maintain and evolve
+
+<span class="gu">## References</span>
+Documentation, contacts</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_metadata_frontmatter">Metadata (Frontmatter)</h3>
+<div class="paragraph">
+<p>Each PRA contains metadata in YAML format:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="nn">---</span>
+<span class="na">id</span><span class="pi">:</span> <span class="s">pra-XXX</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Pattern</span><span class="nv"> </span><span class="s">Name"</span>
+<span class="na">category</span><span class="pi">:</span> <span class="s">tech | integration | security | business</span>
+<span class="na">tags</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">tag1</span>
+  <span class="pi">-</span> <span class="s">tag2</span>
+<span class="na">status</span><span class="pi">:</span> <span class="s">candidate | approved | deprecated</span>
+<span class="na">version</span><span class="pi">:</span> <span class="s">X.Y.Z</span>
+<span class="na">author</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">First</span><span class="nv"> </span><span class="s">Last"</span>
+  <span class="na">email</span><span class="pi">:</span> <span class="s2">"</span><span class="s">email@company.com"</span>
+<span class="na">maintainer</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">First</span><span class="nv"> </span><span class="s">Last"</span>
+  <span class="na">email</span><span class="pi">:</span> <span class="s2">"</span><span class="s">email@company.com"</span>
+<span class="na">created</span><span class="pi">:</span> <span class="s">YYYY-MM-DD</span>
+<span class="na">updated</span><span class="pi">:</span> <span class="s">YYYY-MM-DD</span>
+<span class="na">proven_in_use</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">project</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Project</span><span class="nv"> </span><span class="s">Name"</span>
+    <span class="na">team</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Team</span><span class="nv"> </span><span class="s">Name"</span>
+    <span class="na">date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">YYYY-MM-DD"</span>
+    <span class="na">feedback</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Concrete</span><span class="nv"> </span><span class="s">results"</span>
+<span class="na">dependencies</span><span class="pi">:</span> <span class="pi">[]</span>
+<span class="na">replaces</span><span class="pi">:</span> <span class="kc">null</span>
+<span class="nn">---</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_2_scopes_of_a_pra">The 2 Scopes of a PRA</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_1_bank_wide_transversal">1. Bank-Wide (Transversal)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">graph TD
+    A[Bank-Wide PRA] --&gt; B[Validated for ALL domains]
+    B --&gt; C[3+ multi-domain proven-in-use]
+    B --&gt; D[Approved by Expert Architects Committee]
+    B --&gt; E[Enriched documentation]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Characteristics</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Applicable to <strong>all domains</strong></p>
+</li>
+<li>
+<p>Validated by the <strong>Expert Architects Governance Committee</strong></p>
+</li>
+<li>
+<p>At least <strong>3 proven-in-use</strong> from different domains/teams</p>
+</li>
+<li>
+<p><strong>Recommended</strong> for new projects</p>
+</li>
+<li>
+<p>Location: <code>pra/transversal/[category]/</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Authentication &amp; Authorization</p>
+</li>
+<li>
+<p>Observability (Logs, Metrics, Traces)</p>
+</li>
+<li>
+<p>CI/CD Pipelines</p>
+</li>
+<li>
+<p>API Design Standards</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_domain">2. Domain</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">graph TD
+    A[Domain PRA] --&gt; B[Specific to one domain]
+    B --&gt; C[1+ proven-in-use in the domain]
+    B --&gt; D[Approved by Domain Committee]
+    B --&gt; E[Can be promoted to Bank-Wide]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Characteristics</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Applicable to <strong>a specific domain</strong> (Retail, Corporate, Wealth Management)</p>
+</li>
+<li>
+<p>Validated by the <strong>Domain Governance Committee</strong></p>
+</li>
+<li>
+<p>At least <strong>1 proven-in-use</strong> in the domain</p>
+</li>
+<li>
+<p><strong>All types of patterns</strong> (functional AND technical)</p>
+</li>
+<li>
+<p>Can be promoted to Bank-Wide if reusable outside the domain (<strong>"in promotion"</strong> status)</p>
+</li>
+<li>
+<p>Location: <code>pra/secteurs/[domain]/[category]/</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Functional: Digital Onboarding (Retail), SAP ERP Integration (Corporate)</p>
+</li>
+<li>
+<p>Technical: Serverless AWS, file transfer, data pipelines (in absence of Bank-Wide pattern)</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+When a Domain PRA is proposed to become Bank-Wide, it receives the <strong>"in promotion"</strong> status in its metadata. This status is visible to all domains during the review period by the Expert Architects Committee.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pra_statuses">PRA Statuses</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_candidate">Candidate</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">graph LR
+    A[1 proven-in-use] --&gt; B[Complete documentation]
+    B --&gt; C[Governance Table review]
+    C --&gt; D[Candidate PRA]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Criteria</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>1+ documented proven-in-use</strong> in production</p>
+</li>
+<li>
+<p>Complete documentation (all required sections)</p>
+</li>
+<li>
+<p>Demonstrated reusability</p>
+</li>
+<li>
+<p>Validated technical quality</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Usage</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Can be used with <strong>caution</strong></p>
+</li>
+<li>
+<p><strong>Experience report required</strong></p>
+</li>
+<li>
+<p>Helps reach 3 proven-in-use for promotion</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Badge</strong>: Candidate</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_approved">Approved</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">graph LR
+    A[3+ proven-in-use] --&gt; B[Positive feedback]
+    B --&gt; C[Active maintenance]
+    C --&gt; D[Approved PRA]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Criteria</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>3+ documented proven-in-use</strong></p>
+</li>
+<li>
+<p><strong>Positive</strong> feedback (satisfaction &gt; 7/10)</p>
+</li>
+<li>
+<p><strong>Enriched</strong> documentation with learnings</p>
+</li>
+<li>
+<p><strong>Active</strong> maintainer (&lt; 6 months since update)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Usage</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Recommended</strong> for all applicable projects</p>
+</li>
+<li>
+<p>Guaranteed support</p>
+</li>
+<li>
+<p>Regular maintenance</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Badge</strong>: Approved</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_deprecated">Deprecated</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">graph LR
+    A[Obsolete technology] --&gt; D[Deprecated PRA]
+    B[Better alternative] --&gt; D
+    C[Repeated negative feedback] --&gt; D</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Reasons</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Obsolete technologies</p>
+</li>
+<li>
+<p>Better alternatives available</p>
+</li>
+<li>
+<p>Repeated negative feedback</p>
+</li>
+<li>
+<p>No maintenance (12+ months)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Usage</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Not recommended</strong> for new projects</p>
+</li>
+<li>
+<p>Maintenance only for existing ones</p>
+</li>
+<li>
+<p>Recommended alternative documented</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Badge</strong>: Deprecated</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_to_choose_the_right_pra">How to Choose the Right PRA?</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_selection_workflow">Selection Workflow</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">graph TD
+    A[I have a need] --&gt; B{Bank-Wide PRA exists?}
+    B --&gt;|Yes| C[Check application context]
+    B --&gt;|No| D{Domain PRA exists?}
+
+    C --&gt;|Applicable| E[Use Bank-Wide PRA]
+    C --&gt;|Not applicable| D
+
+    D --&gt;|Yes| F[Check context]
+    D --&gt;|No| G[Create new PRA?]
+
+    F --&gt;|Applicable| H[Use Domain PRA]
+    F --&gt;|Not applicable| G</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+PRAs with <strong>"in promotion"</strong> status are visible in Domain PRA metadata and can be consulted to see emerging patterns.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_questions_to_ask_yourself">Questions to Ask Yourself</h3>
+<div class="sect3">
+<h4 id="_1_does_the_pra_solve_my_problem">1. Does the PRA solve my problem?</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Read the <strong>"Problem Solved"</strong> section</p>
+</li>
+<li>
+<p>Check <strong>typical symptoms</strong></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_is_my_context_compatible">2. Is my context compatible?</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Read the <strong>"When to use this PRA?"</strong> section</p>
+</li>
+<li>
+<p>Check <strong>"When NOT to use this PRA?"</strong></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_do_i_have_the_prerequisites">3. Do I have the prerequisites?</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Compatible technology stack</p>
+</li>
+<li>
+<p>Team skills</p>
+</li>
+<li>
+<p>Available infrastructure</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_is_the_pra_mature">4. Is the PRA mature?</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Approved</strong>: Go ahead</p>
+</li>
+<li>
+<p><strong>Candidate</strong>: Assess risk</p>
+</li>
+<li>
+<p><strong>Deprecated</strong>: Avoid</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pra_categories">PRA Categories</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_tech">Tech</h3>
+<div class="paragraph">
+<p>Technical patterns and infrastructure</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>CI/CD, Deployment, Monitoring, Testing</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_integration">Integration</h3>
+<div class="paragraph">
+<p>Integrations between systems</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>API Design, Event-Driven, Message Queues</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_security">Security</h3>
+<div class="paragraph">
+<p>Security and compliance</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Authentication, Authorization, Data Protection</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_business">Business</h3>
+<div class="paragraph">
+<p>Business patterns</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Workflows, Business Rules, Domain Models</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_next_steps">Next Steps</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You now understand the structure of PRAs. Continue your learning:</p>
+</div>
+<div class="paragraph">
+<p><strong>Next</strong>: <a href="/guides/03-roles-responsibilities">Roles and Responsibilities</a> - Who does what in the PRA ecosystem</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Recommended Path</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="/guides/01-getting-started">Getting Started with PRAs</a></p>
+</li>
+<li>
+<p><strong>Understanding PRAs</strong> (you are here)</p>
+</li>
+<li>
+<p><a href="/guides/03-roles-responsibilities">Roles and Responsibilities</a></p>
+</li>
+<li>
+<p><a href="/guides/04-lifecycle">Lifecycle</a></p>
+</li>
+<li>
+<p><a href="/guides/05-standards">Quality Standards</a></p>
+</li>
+<li>
+<p><a href="/guides/06-contributing">Contributing a PRA</a></p>
+</li>
+<li>
+<p><a href="/guides/07-promotion-process">Promotion Process</a></p>
+</li>
+<li>
+<p><a href="/guides/08-governance">Governance</a></p>
+</li>
+</ol>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Navigation</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Previous</strong>: <a href="/guides/01-getting-started">Getting Started with PRAs</a></p>
+</li>
+<li>
+<p><strong>Next</strong>: <a href="/guides/03-roles-responsibilities">Roles and Responsibilities</a></p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Last Updated</strong>: 2025-11-28</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-03-18 14:27:14 -0400
+</div>
+</div>
+</body>
+</html>

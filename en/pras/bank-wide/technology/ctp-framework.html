@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<meta name="keywords" content="pra, archetype-technology, status-operationalizing, scope-bank-wide">
+<title>CTP Framework</title>
+<link rel="stylesheet" href="./rouge-github.css">
+<link rel="stylesheet" href="../../../../assets/style.css"></head>
+<body class="article">
+<div id="header">
+<h1>CTP Framework</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Fact Sheet</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Archetype</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">technology</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Subcategory</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ctp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Status</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">operationalizing</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Scope</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bank-wide</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Proven-in-use</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Tags</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ctp, framework, components, standardization</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Version</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Author</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TBD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Maintainer</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TBD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Created</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2025-01-30</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Last updated</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2025-01-30</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_summary">Summary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <strong>CTP (Common Technical Platform) Framework</strong> defines standards and best practices for developing reusable components across the organization.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_application_context">Application Context</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_when_to_use">When to use</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Developing shared components across multiple teams</p>
+</li>
+<li>
+<p>Standardizing technical implementations</p>
+</li>
+<li>
+<p>Need for component versioning and publishing</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_when_not_to_use">When NOT to use</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Components specific to a single project</p>
+</li>
+<li>
+<p>Rapid prototyping without reuse needs</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_problem_solved">Problem Solved</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Code duplication between teams</p>
+</li>
+<li>
+<p>Inconsistency in implementations</p>
+</li>
+<li>
+<p>Difficult maintenance of shared components</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_solution">Solution</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_architecture">Architecture</h3>
+<div class="paragraph">
+<p>Standardized framework for:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Creating reusable components</p>
+</li>
+<li>
+<p>Versioning and publishing</p>
+</li>
+<li>
+<p>Documentation and examples</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code>┌─────────────────────────────────────┐
+│         CTP Registry                │
+├─────────────────────────────────────┤
+│  ┌─────────┐  ┌─────────┐          │
+│  │ UI Lib  │  │ Utils   │  ...     │
+│  └─────────┘  └─────────┘          │
+└─────────────────────────────────────┘</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_architectural_decisions_adr">Architectural Decisions (ADR)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>No ADR documented yet.</em></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_implementation">Implementation</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_next_steps">Next Steps</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Define contribution standards</p>
+</li>
+<li>
+<p>Set up internal registry</p>
+</li>
+<li>
+<p>Document first components</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_production_feedback_proven_in_use">Production Feedback (Proven-in-use)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>No production feedback documented yet.</em></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_limitations_and_pitfalls">Limitations and Pitfalls</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Framework under validation</p>
+</li>
+<li>
+<p>Contribution standards still to be defined</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_references">References</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>No references documented yet.</em></p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-03-18 14:18:34 -0400
+</div>
+</div>
+</body>
+</html>

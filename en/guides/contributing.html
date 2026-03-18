@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<meta name="keywords" content="pra, guide, contributing">
+<title>Contribution Guide</title>
+<link rel="stylesheet" href="./rouge-github.css">
+<link rel="stylesheet" href="../../assets/style.css"></head>
+<body class="article">
+<div id="header">
+<h1>Contribution Guide</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Would you like to submit a new PRA? Follow this step-by-step guide.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites">Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before submitting a PRA, ensure that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Your architecture has been <strong>validated in production</strong> in at least <strong>1 real project</strong></p>
+</li>
+<li>
+<p>You have <strong>concrete feedback</strong> (metrics, learnings, feedback)</p>
+</li>
+<li>
+<p>The solution is <strong>reusable</strong> and <strong>generalizable</strong> to other contexts</p>
+</li>
+<li>
+<p>You can <strong>document</strong> the context, decisions, and examples</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_choosing_your_pra_scope">Choosing Your PRA Scope</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before starting, determine which scope applies:</p>
+</div>
+<div class="sect2">
+<h3 id="_domain_pra">Domain PRA</h3>
+<div class="paragraph">
+<p>Submit a <strong>Domain PRA</strong> if your pattern:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Is specific to one domain (Retail, Corporate, Wealth Management)</p>
+</li>
+<li>
+<p>Contains functional or technical patterns for your domain</p>
+</li>
+<li>
+<p>Has at least <strong>1 proven-in-use within your domain</strong></p>
+</li>
+<li>
+<p>Will be reviewed by your <strong>Domain Governance Committee</strong></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bank_wide_pra">Bank-Wide PRA</h3>
+<div class="paragraph">
+<p>Submit a <strong>Bank-Wide PRA</strong> if your pattern:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Is applicable across <strong>multiple domains</strong></p>
+</li>
+<li>
+<p>Has demonstrated <strong>multi-domain applicability</strong></p>
+</li>
+<li>
+<p>Has at least <strong>1 proven-in-use</strong> (with clear multi-domain potential)</p>
+</li>
+<li>
+<p>Will be reviewed by the <strong>Expert Architects Governance Committee</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Note</strong>: Most PRAs start as Domain PRAs. Bank-Wide PRAs typically come from:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Cross-cutting teams (Software Engineering, Security, etc.) - /guides/08-governance#-flow-2-top-down-cross-cutting-teams&#8212;&#8203;bank-wide[<strong>Flow 2</strong>]</p>
+</li>
+<li>
+<p>Domain PRAs promoted to Bank-Wide - /guides/08-governance#-flow-1-organic-domain&#8212;&#8203;bank-wide[<strong>Flow 1</strong>]</p>
+</li>
+<li>
+<p>Bootstrap initiative (transitional) - /guides/08-governance#-flow-3-bootstrap-transitional[<strong>Flow 3</strong>]</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_submission_process">Submission Process</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_1_fork_and_clone">1. Fork and Clone</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git clone https://github.com/KiyaliHQ/proven-reusable-architecture.git
+<span class="nb">cd </span>proven-reusable-architecture</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_create_a_branch">2. Create a Branch</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git checkout <span class="nt">-b</span> feature/pra-your-pra-name</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_create_your_pra_bilingual">3. Create Your PRA (Bilingual)</h3>
+<div class="paragraph">
+<p><strong>IMPORTANT</strong>: You must create <strong>two versions</strong> of your PRA (French AND English).</p>
+</div>
+<div class="sect3">
+<h4 id="_directory_structure">Directory Structure</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Bank-Wide PRA</strong>: <code>content/pras/{lang}/bank-wide/{category}/operationalizing/pra-name.md</code></p>
+</li>
+<li>
+<p><strong>Domain-Wide PRA</strong>: <code>content/pras/{lang}/domain-wide/{domain}/{category}/operationalizing/pra-name.md</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Where:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>{lang}</code> = <code>fr</code> or <code>en</code></p>
+</li>
+<li>
+<p><code>{category}</code> = PRA category (e.g., <code>ctp</code>, <code>software-engineering</code>, <code>pratique-architecture</code> for Bank-Wide; plus <code>application</code>, <code>business</code>, <code>data</code>, <code>integration</code>, <code>security</code>, <code>technology</code> for Domain-Wide)</p>
+</li>
+<li>
+<p><code>{domain}</code> = <code>particuliers</code>, <code>entreprises</code>, or <code>gestion-patrimoine</code> (if domain-wide)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_examples">Examples</h4>
+<div class="paragraph">
+<p><strong>Bank-Wide CTP PRA</strong> (applicable to all sectors):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">content/pras/fr/bank-wide/ctp/operationalizing/api-gateway-pattern.md
+content/pras/en/bank-wide/ctp/operationalizing/api-gateway-pattern.md</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Domain-Wide Security PRA</strong> (Retail):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">content/pras/fr/domain-wide/particuliers/security/operationalizing/kyc-verification.md
+content/pras/en/domain-wide/particuliers/security/operationalizing/kyc-verification.md</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_use_the_template">4. Use the Template</h3>
+<div class="paragraph">
+<p>Copy the PRA template and fill out all sections:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="nn">---</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s">Your PRA Name</span>
+<span class="na">description</span><span class="pi">:</span> <span class="s">Concise description of the PRA</span>
+<span class="na">pra</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">Your PRA Name</span>
+  <span class="na">category</span><span class="pi">:</span> <span class="s">tech|integration|security|business</span>
+  <span class="na">status</span><span class="pi">:</span> <span class="s">candidate</span>
+  <span class="na">tags</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">tag1</span><span class="pi">,</span> <span class="nv">tag2</span><span class="pi">,</span> <span class="nv">tag3</span><span class="pi">]</span>
+  <span class="na">created_at</span><span class="pi">:</span> <span class="s2">"</span><span class="s">YYYY-MM-DD"</span>
+  <span class="na">updated_at</span><span class="pi">:</span> <span class="s2">"</span><span class="s">YYYY-MM-DD"</span>
+  <span class="na">proven_in_use</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">project</span><span class="pi">:</span> <span class="s">Project Name</span>
+      <span class="na">team</span><span class="pi">:</span> <span class="s">Team Name</span>
+      <span class="na">date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">YYYY-MM-DD"</span>
+      <span class="na">feedback</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Concrete</span><span class="nv"> </span><span class="s">feedback</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">experience"</span>
+<span class="nn">---</span>
+
+<span class="c1">## Overview</span>
+<span class="pi">[</span><span class="nv">Your documentation...</span><span class="pi">]</span>
+
+<span class="c1">## Context</span>
+<span class="pi">[</span><span class="nv">The problem and solution...</span><span class="pi">]</span>
+
+<span class="c1">## Architecture</span>
+<span class="pi">[</span><span class="nv">Diagrams and components...</span><span class="pi">]</span>
+
+<span class="c1">## Architecture Decision Records (ADRs)</span>
+<span class="pi">[</span><span class="nv">Documented architectural decisions...</span><span class="pi">]</span>
+
+<span class="c1">## Examples</span>
+<span class="pi">[</span><span class="nv">Concrete code and configurations...</span><span class="pi">]</span>
+
+<span class="c1">## Production Feedback</span>
+<span class="pi">[</span><span class="nv">Real implementation feedback...</span><span class="pi">]</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Required sections</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Overview</p>
+</li>
+<li>
+<p>Context</p>
+</li>
+<li>
+<p>Architecture</p>
+</li>
+<li>
+<p>ADRs (Architecture Decision Records)</p>
+</li>
+<li>
+<p>Examples</p>
+</li>
+<li>
+<p>At least <strong>1 proven-in-use</strong> documented</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_5_create_a_pull_request">5. Create a Pull Request</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git add content/pras/fr/ content/pras/en/
+git commit <span class="nt">-m</span> <span class="s2">"feat: add PRA - PRA Name (Bank-Wide Tech Candidate)"</span>
+git push origin feature/pra-your-pra-name</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then create a Pull Request on GitHub.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_automated_validation">6. Automated Validation</h3>
+<div class="paragraph">
+<p><strong>As soon as your PR is opened</strong>, the automated system will:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Validate structure</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Complete metadata</p>
+</li>
+<li>
+<p>Required sections present</p>
+</li>
+<li>
+<p>At least 1 proven-in-use documented</p>
+</li>
+<li>
+<p>FR and EN versions present</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Assign reviewers</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Bank-Wide</strong> &#8594; <code>@KiyaliHQ/comite-architectes-experts</code></p>
+</li>
+<li>
+<p><strong>Domain-Wide Particuliers</strong> &#8594; <code>@KiyaliHQ/comite-gov-particuliers</code></p>
+</li>
+<li>
+<p><strong>Domain-Wide Entreprises</strong> &#8594; <code>@KiyaliHQ/comite-gov-entreprises</code></p>
+</li>
+<li>
+<p><strong>Domain-Wide Patrimoine</strong> &#8594; <code>@KiyaliHQ/comite-gov-patrimoine</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Post status comment</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Validation checklist</p>
+</li>
+<li>
+<p>Next steps</p>
+</li>
+<li>
+<p>Timeline (2-4 weeks for Bank-Wide, 5-10 days for Domain-Wide)</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+<strong>Framework Protection</strong>: You can only modify files in <code>content/</code>. Any modifications outside this directory (<code>site/</code>, <code>.github/</code>, <code>docs/</code>, etc.) will be automatically blocked.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_review_process">Review Process</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The review process follows these steps:</p>
+</div>
+<div class="sect2">
+<h3 id="_1_automated_validation_immediate">1. Automated Validation (Immediate)</h3>
+<div class="paragraph">
+<p>GitHub Actions automatically checks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Format and metadata</p>
+</li>
+<li>
+<p>Required sections</p>
+</li>
+<li>
+<p>Proven-in-use requirement (1+ for Candidate)</p>
+</li>
+<li>
+<p>Bilingual requirement (FR + EN)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_governance_committee_review">2. Governance Committee Review</h3>
+<div class="paragraph">
+<p><strong>For Domain-Wide PRAs</strong> (Retail, Corporate, Wealth Management):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Committee meeting</strong>: You will be invited to present your PRA</p>
+</li>
+<li>
+<p><strong>Presentation</strong>: Explain the context, architecture, and benefits</p>
+</li>
+<li>
+<p><strong>Discussion</strong>: Committee asks questions and provides feedback</p>
+</li>
+<li>
+<p><strong>Validation</strong>: Committee validates or requests changes</p>
+</li>
+<li>
+<p><strong>GitHub Approvals</strong>: 2 approvals required from <code>@KiyaliHQ/comite-gov-{domain}</code></p>
+</li>
+<li>
+<p><strong>Timeline</strong>: 5-10 business days</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>For Bank-Wide PRAs</strong> (Cross-cutting):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Expert committee meeting</strong>: You will be invited to present your PRA</p>
+</li>
+<li>
+<p><strong>Presentation</strong>: Explain the context, architecture, and benefits</p>
+</li>
+<li>
+<p><strong>Discussion</strong>: Committee asks questions and validates multi-domain applicability</p>
+</li>
+<li>
+<p><strong>Validation</strong>: Committee validates or requests changes</p>
+</li>
+<li>
+<p><strong>GitHub Approvals</strong>: 2 approvals required from <code>@KiyaliHQ/comite-architectes-experts</code></p>
+</li>
+<li>
+<p><strong>Timeline</strong>: 2-4 weeks</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_real_time_tracking">3. Real-Time Tracking</h3>
+<div class="paragraph">
+<p>You will receive automatic notifications at each step:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>0/2 approvals</strong>: Waiting for committee meeting</p>
+</li>
+<li>
+<p><strong>1/2 approvals</strong>: First approval received (after meeting)</p>
+</li>
+<li>
+<p><strong>2/2 approvals</strong>: PRA approved, ready to merge</p>
+</li>
+<li>
+<p><strong>Changes Requested</strong>: Modifications are requested</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_iterations_if_necessary">4. Iterations (If Necessary)</h3>
+<div class="paragraph">
+<p>If the committee requests changes:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>You will receive a detailed comment with feedback</p>
+</li>
+<li>
+<p>Make the modifications on your branch</p>
+</li>
+<li>
+<p>Push your changes (<code>git push</code>)</p>
+</li>
+<li>
+<p>Validation re-runs automatically</p>
+</li>
+<li>
+<p>Request re-review from the committee</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_5_merge_and_publication">5. Merge and Publication</h3>
+<div class="paragraph">
+<p>Once <strong>2/2 approvals</strong> received:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Your PR can be merged</p>
+</li>
+<li>
+<p>Your PRA is published on the registry with <strong>Candidate</strong> status</p>
+</li>
+<li>
+<p>It appears in the catalogue and documentation</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quality_criteria">Quality Criteria</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Your PRA will be evaluated on:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Proven-in-use</strong>: At least 1 documented implementation</p>
+</li>
+<li>
+<p><strong>Reusability</strong>: Generalizable to other contexts</p>
+</li>
+<li>
+<p><strong>Clarity</strong>: Clear and complete documentation</p>
+</li>
+<li>
+<p><strong>ADR</strong>: Justified architectural decisions</p>
+</li>
+<li>
+<p><strong>Examples</strong>: Concrete code and configurations</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_transition_from_candidate_to_approved">Transition from Candidate to Approved</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The requirements differ by scope:</p>
+</div>
+<div class="sect2">
+<h3 id="_domain_pra_candidate_approved">Domain PRA: Candidate &#8594; Approved</h3>
+<div class="paragraph">
+<p>For a Domain Candidate PRA to become <strong>Domain Approved</strong>, it must:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Have <strong>1+ proven implementation within the domain</strong> (already met for Candidate)</p>
+</li>
+<li>
+<p>Positive feedback from domain teams (satisfaction &gt; 7/10)</p>
+</li>
+<li>
+<p>Documentation enriched with domain-specific learnings</p>
+</li>
+<li>
+<p>Confirmed reusability within the domain</p>
+</li>
+<li>
+<p>Review and approval by <strong>Domain Governance Committee</strong></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bank_wide_pra_candidate_approved">Bank-Wide PRA: Candidate &#8594; Approved</h3>
+<div class="paragraph">
+<p>For a Bank-Wide Candidate PRA to become <strong>Bank-Wide Approved</strong>, it must:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Have <strong>3+ proven implementations from different domains/teams</strong></p>
+</li>
+<li>
+<p>Positive multi-domain feedback (satisfaction &gt; 7/10)</p>
+</li>
+<li>
+<p>Documentation enriched with multi-context learnings</p>
+</li>
+<li>
+<p>Validated multi-domain applicability</p>
+</li>
+<li>
+<p>Review and approval by <strong>Expert Architects Governance Committee</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_questions">Questions?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Consult:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>/guides/08-governance[Governance]</p>
+</li>
+<li>
+<p>/guides/04-lifecycle[Lifecycle]</p>
+</li>
+<li>
+<p>/guides/05-standards[Standards]</p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Recommended Path</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>/guides/01-getting-started[Getting Started with PRAs]</p>
+</li>
+<li>
+<p>/guides/02-understanding-pra[Understanding PRAs]</p>
+</li>
+<li>
+<p>/guides/03-roles-responsibilities[Roles and Responsibilities]</p>
+</li>
+<li>
+<p>/guides/04-lifecycle[Lifecycle]</p>
+</li>
+<li>
+<p>/guides/05-standards[Quality Standards]</p>
+</li>
+<li>
+<p><strong>Contributing a PRA</strong> (you are here)</p>
+</li>
+<li>
+<p>/guides/07-promotion-process[Promotion Process]</p>
+</li>
+<li>
+<p>/guides/08-governance[Governance]</p>
+</li>
+</ol>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Navigation</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Previous</strong>: /guides/05-standards[Quality Standards]</p>
+</li>
+<li>
+<p><strong>Next</strong>: /guides/07-promotion-process[Promotion Process]</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Or open an issue on GitHub.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-03-18 14:28:25 -0400
+</div>
+</div>
+</body>
+</html>

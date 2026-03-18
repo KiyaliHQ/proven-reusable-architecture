@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<meta name="keywords" content="pra, archetype-integration, status-operationalizing, scope-domain-wide">
+<title>ERP SAP S/4HANA Integration</title>
+<link rel="stylesheet" href="./rouge-github.css">
+<link rel="stylesheet" href="../../../../assets/style.css"></head>
+<body class="article">
+<div id="header">
+<h1>ERP SAP S/4HANA Integration</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Fact Sheet</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Archetype</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">integration</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Subcategory</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">erp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Status</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">operationalizing</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Scope</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">domain-wide</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Proven-in-use</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Tags</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">erp, sap, s4hana, ebics, iso20022, integration, paiements</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Version</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Author</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Jean-François Morin</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Maintainer</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stéphanie Roy</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Created</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2025-01-30</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Last Updated</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2025-01-30</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview">Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Bidirectional banking integration solution between BNC and SAP S/4HANA, enabling automatic synchronization of transactions, statements, and cash positions.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_context">Context</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Sector</strong> : Corporate<br>
+<strong>Status</strong> : Production (stable)<br>
+<strong>Proven-in-use</strong> : 24 months<br>
+<strong>Clients</strong> : 150+ large enterprises<br>
+<strong>Transactions</strong> : 500,000+ transactions/month</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_architecture">Architecture</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_overview_2">Overview</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">graph LR
+    A[SAP S/4HANA] &lt;--&gt; B[BNC Integration Layer]
+    B &lt;--&gt; C[Core Banking]
+    B --&gt; D[Document Storage]
+    E[Treasury Workstation] --&gt; B</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_components">Components</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">graph TB
+    A[SAP S/4HANA] --&gt; B[SAP PI/PO]
+    B --&gt; C[EBICS Gateway]
+    C --&gt; D[BNC API Gateway]
+    D --&gt; E[Banking Services]
+    E --&gt; F[Core Banking System]
+    E --&gt; G[Statement Generator]
+    E --&gt; H[Payment Processing]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_technology_stack">Technology Stack</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>SAP Side</strong> : SAP S/4HANA 2021+ with Bank Communication Management (BCM)</p>
+</li>
+<li>
+<p><strong>Integration</strong> : SAP PI/PO (Process Integration/Orchestration)</p>
+</li>
+<li>
+<p><strong>Protocol</strong> : EBICS (Electronic Banking Internet Communication Standard)</p>
+</li>
+<li>
+<p><strong>Format</strong> : ISO 20022 (pain.001, pain.002, camt.053, camt.054)</p>
+</li>
+<li>
+<p><strong>BNC Side</strong> : API Gateway (Kong) + Banking Services (Java Spring Boot)</p>
+</li>
+<li>
+<p><strong>Security</strong> : TLS 1.3, X.509 certificates, Message signing</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_data_flows">Data Flows</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_1_payments_outbound">1. Payments (Outbound)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">sequenceDiagram
+    participant SAP as SAP S/4HANA
+    participant PI as SAP PI/PO
+    participant EBICS as EBICS Gateway
+    participant BNC as BNC Banking
+
+    SAP-&gt;&gt;PI: Payment Order (pain.001)
+    PI-&gt;&gt;PI: Validation &amp; Enrichment
+    PI-&gt;&gt;EBICS: EBICS Upload
+    EBICS-&gt;&gt;BNC: Payment Instruction
+    BNC-&gt;&gt;BNC: Process Payment
+    BNC-&gt;&gt;EBICS: Status (pain.002)
+    EBICS-&gt;&gt;PI: Download Status
+    PI-&gt;&gt;SAP: Update Payment Status</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>ISO 20022 Messages</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>pain.001</strong> : Customer Credit Transfer Initiation</p>
+</li>
+<li>
+<p><strong>pain.002</strong> : Customer Payment Status Report</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_bank_statements_inbound">2. Bank Statements (Inbound)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">sequenceDiagram
+    participant BNC as BNC Banking
+    participant EBICS as EBICS Gateway
+    participant PI as SAP PI/PO
+    participant SAP as SAP S/4HANA
+
+    BNC-&gt;&gt;BNC: Generate Daily Statement
+    BNC-&gt;&gt;EBICS: Statement (camt.053)
+    EBICS-&gt;&gt;PI: Download Statement
+    PI-&gt;&gt;PI: Transform to SAP Format
+    PI-&gt;&gt;SAP: Post Bank Statement
+    SAP-&gt;&gt;SAP: Auto-Reconciliation</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>ISO 20022 Messages</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>camt.053</strong> : Bank to Customer Statement</p>
+</li>
+<li>
+<p><strong>camt.054</strong> : Bank to Customer Debit/Credit Notification</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_cash_position_real_time">3. Cash Position (Real-time)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">sequenceDiagram
+    participant SAP as SAP Treasury
+    participant API as BNC API
+    participant CBS as Core Banking
+
+    SAP-&gt;&gt;API: Get Account Balances
+    API-&gt;&gt;CBS: Query Balances
+    CBS-&gt;&gt;API: Return Balances
+    API-&gt;&gt;SAP: Balance Response (JSON)
+    SAP-&gt;&gt;SAP: Update Cash Position</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sap_configuration">SAP Configuration</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_bank_communication_management_bcm">Bank Communication Management (BCM)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="abap"><span class="c1">" BCM Configuration in SAP</span>
+<span class="c1">" Transaction: FBCM_SETUP</span>
+
+<span class="k">DATA</span><span class="p">:</span> <span class="n">ls_bank</span> <span class="k">TYPE</span> <span class="n">bcm_bank_details</span><span class="p">.</span>
+
+<span class="n">ls_bank</span><span class="o">-</span><span class="n">bank_country</span> <span class="o">=</span> <span class="s1">'CA'</span><span class="p">.</span>
+<span class="n">ls_bank</span><span class="o">-</span><span class="n">bank_key</span> <span class="o">=</span> <span class="s1">'123456789'</span><span class="p">.</span> <span class="c1">" BNC institution number</span>
+<span class="n">ls_bank</span><span class="o">-</span><span class="n">bank_account</span> <span class="o">=</span> <span class="s1">'1234567890'</span><span class="p">.</span>
+<span class="n">ls_bank</span><span class="o">-</span><span class="k">currency</span> <span class="o">=</span> <span class="s1">'CAD'</span><span class="p">.</span>
+<span class="n">ls_bank</span><span class="o">-</span><span class="n">comm_method</span> <span class="o">=</span> <span class="s1">'EBICS'</span><span class="p">.</span>
+
+<span class="k">CALL</span> <span class="k">FUNCTION</span> <span class="s1">'BCM_BANK_SETUP'</span>
+  <span class="k">EXPORTING</span>
+    <span class="n">is_bank_details</span> <span class="o">=</span> <span class="n">ls_bank</span><span class="p">.</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_payment_format_configuration">Payment Format Configuration</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="xml"><span class="c">&lt;!-- pain.001.001.03 Configuration --&gt;</span>
+<span class="nt">&lt;Document</span> <span class="na">xmlns=</span><span class="s">"urn:iso:std:iso:20022:tech:xsd:pain.001.001.03"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;CstmrCdtTrfInitn&gt;</span>
+    <span class="nt">&lt;GrpHdr&gt;</span>
+      <span class="nt">&lt;MsgId&gt;</span>SAP-BNC-20241127-001<span class="nt">&lt;/MsgId&gt;</span>
+      <span class="nt">&lt;CreDtTm&gt;</span>2024-11-27T10:30:00<span class="nt">&lt;/CreDtTm&gt;</span>
+      <span class="nt">&lt;NbOfTxs&gt;</span>1<span class="nt">&lt;/NbOfTxs&gt;</span>
+      <span class="nt">&lt;CtrlSum&gt;</span>1000.00<span class="nt">&lt;/CtrlSum&gt;</span>
+      <span class="nt">&lt;InitgPty&gt;</span>
+        <span class="nt">&lt;Nm&gt;</span>Acme Corporation<span class="nt">&lt;/Nm&gt;</span>
+        <span class="nt">&lt;Id&gt;</span>
+          <span class="nt">&lt;OrgId&gt;</span>
+            <span class="nt">&lt;Othr&gt;</span>
+              <span class="nt">&lt;Id&gt;</span>123456789<span class="nt">&lt;/Id&gt;</span>
+            <span class="nt">&lt;/Othr&gt;</span>
+          <span class="nt">&lt;/OrgId&gt;</span>
+        <span class="nt">&lt;/Id&gt;</span>
+      <span class="nt">&lt;/InitgPty&gt;</span>
+    <span class="nt">&lt;/GrpHdr&gt;</span>
+    <span class="c">&lt;!-- Payment Instructions --&gt;</span>
+  <span class="nt">&lt;/CstmrCdtTrfInitn&gt;</span>
+<span class="nt">&lt;/Document&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bnc_configuration">BNC Configuration</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_ebics_gateway">EBICS Gateway</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="c1"># EBICS Server Configuration</span>
+<span class="na">ebics</span><span class="pi">:</span>
+  <span class="na">host</span><span class="pi">:</span> <span class="s">ebics.bnc.ca</span>
+  <span class="na">port</span><span class="pi">:</span> <span class="m">443</span>
+  <span class="na">protocol</span><span class="pi">:</span> <span class="s">H005</span>
+  <span class="na">encryption</span><span class="pi">:</span>
+    <span class="na">algorithm</span><span class="pi">:</span> <span class="s">RSA-4096</span>
+    <span class="na">signing</span><span class="pi">:</span> <span class="s">SHA-256</span>
+  <span class="na">certificates</span><span class="pi">:</span>
+    <span class="na">bank_x002</span><span class="pi">:</span> <span class="s">/certs/bnc_x002.pem</span>
+    <span class="na">bank_e002</span><span class="pi">:</span> <span class="s">/certs/bnc_e002.pem</span>
+  <span class="na">partners</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">partner_id</span><span class="pi">:</span> <span class="s">ACMECORP</span>
+      <span class="na">user_ids</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">ACME_TREAS01</span>
+        <span class="pi">-</span> <span class="s">ACME_TREAS02</span>
+      <span class="na">permissions</span><span class="pi">:</span>
+        <span class="na">upload</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="s">CCT</span>  <span class="c1"># Credit Transfer</span>
+          <span class="pi">-</span> <span class="s">CDD</span>  <span class="c1"># Direct Debit</span>
+        <span class="na">download</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="s">STA</span>  <span class="c1"># Statements</span>
+          <span class="pi">-</span> <span class="s">VMK</span>  <span class="c1"># Payment Status</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_api_endpoints">API Endpoints</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="typescript"><span class="c1">// BNC Banking API</span>
+<span class="p">@</span><span class="nd">Controller</span><span class="p">(</span><span class="dl">'</span><span class="s1">banking/sap</span><span class="dl">'</span><span class="p">)</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nc">SapBankingController</span> <span class="p">{</span>
+  <span class="c1">// Get account balances</span>
+  <span class="p">@</span><span class="nd">Get</span><span class="p">(</span><span class="dl">'</span><span class="s1">accounts/:accountId/balance</span><span class="dl">'</span><span class="p">)</span>
+  <span class="k">async</span> <span class="nf">getBalance</span><span class="p">(@</span><span class="nd">Param</span><span class="p">(</span><span class="dl">'</span><span class="s1">accountId</span><span class="dl">'</span><span class="p">)</span> <span class="nx">accountId</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">bankingService</span><span class="p">.</span><span class="nf">getAccountBalance</span><span class="p">(</span><span class="nx">accountId</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Submit payment</span>
+  <span class="p">@</span><span class="nd">Post</span><span class="p">(</span><span class="dl">'</span><span class="s1">payments</span><span class="dl">'</span><span class="p">)</span>
+  <span class="k">async</span> <span class="nf">submitPayment</span><span class="p">(@</span><span class="nd">Body</span><span class="p">()</span> <span class="nx">payment</span><span class="p">:</span> <span class="nx">Pain001</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">paymentService</span><span class="p">.</span><span class="nf">processPayment</span><span class="p">(</span><span class="nx">payment</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Get statement</span>
+  <span class="p">@</span><span class="nd">Get</span><span class="p">(</span><span class="dl">'</span><span class="s1">accounts/:accountId/statement</span><span class="dl">'</span><span class="p">)</span>
+  <span class="k">async</span> <span class="nf">getStatement</span><span class="p">(</span>
+    <span class="p">@</span><span class="nd">Param</span><span class="p">(</span><span class="dl">'</span><span class="s1">accountId</span><span class="dl">'</span><span class="p">)</span> <span class="nx">accountId</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span>
+    <span class="p">@</span><span class="nd">Query</span><span class="p">(</span><span class="dl">'</span><span class="s1">from</span><span class="dl">'</span><span class="p">)</span> <span class="k">from</span><span class="p">:</span> <span class="nb">Date</span><span class="p">,</span>
+    <span class="p">@</span><span class="nd">Query</span><span class="p">(</span><span class="dl">'</span><span class="s1">to</span><span class="dl">'</span><span class="p">)</span> <span class="nx">to</span><span class="p">:</span> <span class="nb">Date</span><span class="p">,</span>
+  <span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">statementService</span><span class="p">.</span><span class="nf">generateCamt053</span><span class="p">(</span><span class="nx">accountId</span><span class="p">,</span> <span class="k">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_supported_payment_types">Supported Payment Types</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_domestic_transfers_eft">Domestic Transfers (EFT)</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Timing</strong> : Same-day / Next-day</p>
+</li>
+<li>
+<p><strong>Limit</strong> : $25M per transaction</p>
+</li>
+<li>
+<p><strong>Format</strong> : pain.001 (ISO 20022)</p>
+</li>
+<li>
+<p><strong>Volume</strong> : 300k transactions/month</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_international_transfers_swift">International Transfers (SWIFT)</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Timing</strong> : 1-3 business days</p>
+</li>
+<li>
+<p><strong>Currency</strong> : CAD, USD, EUR, GBP (+ 40 others)</p>
+</li>
+<li>
+<p><strong>Format</strong> : MT103 / pain.001</p>
+</li>
+<li>
+<p><strong>Volume</strong> : 50k transactions/month</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_direct_debits">Direct Debits</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Types</strong> : PAD (Pre-Authorized Debit)</p>
+</li>
+<li>
+<p><strong>Frequency</strong> : Daily, Weekly, Monthly</p>
+</li>
+<li>
+<p><strong>Format</strong> : pain.008 (ISO 20022)</p>
+</li>
+<li>
+<p><strong>Volume</strong> : 150k transactions/month</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_automatic_reconciliation">Automatic Reconciliation</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_matching_rules">Matching Rules</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="typescript"><span class="c1">// Auto-reconciliation logic</span>
+<span class="kr">interface</span> <span class="nx">ReconciliationRule</span> <span class="p">{</span>
+  <span class="nl">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">reference</span><span class="dl">'</span> <span class="o">|</span> <span class="dl">'</span><span class="s1">amount</span><span class="dl">'</span> <span class="o">|</span> <span class="dl">'</span><span class="s1">date</span><span class="dl">'</span> <span class="o">|</span> <span class="dl">'</span><span class="s1">account</span><span class="dl">'</span><span class="p">;</span>
+  <span class="nl">tolerance</span><span class="p">?:</span> <span class="kr">number</span><span class="p">;</span> <span class="c1">// For amount matching</span>
+  <span class="nl">priority</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">rules</span><span class="p">:</span> <span class="nx">ReconciliationRule</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">reference</span><span class="dl">'</span><span class="p">,</span> <span class="na">priority</span><span class="p">:</span> <span class="mi">1</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">amount</span><span class="dl">'</span><span class="p">,</span> <span class="na">tolerance</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span> <span class="na">priority</span><span class="p">:</span> <span class="mi">2</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">field</span><span class="p">:</span> <span class="dl">'</span><span class="s1">date</span><span class="dl">'</span><span class="p">,</span> <span class="na">priority</span><span class="p">:</span> <span class="mi">3</span> <span class="p">},</span>
+<span class="p">];</span>
+
+<span class="c1">// Matching algorithm</span>
+<span class="kd">function</span> <span class="nf">autoMatch</span><span class="p">(</span><span class="nx">sapPayment</span><span class="p">,</span> <span class="nx">bankStatement</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">score</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+  <span class="k">if </span><span class="p">(</span><span class="nx">sapPayment</span><span class="p">.</span><span class="nx">reference</span> <span class="o">===</span> <span class="nx">bankStatement</span><span class="p">.</span><span class="nx">reference</span><span class="p">)</span> <span class="nx">score</span> <span class="o">+=</span> <span class="mi">100</span><span class="p">;</span>
+  <span class="k">if </span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">abs</span><span class="p">(</span><span class="nx">sapPayment</span><span class="p">.</span><span class="nx">amount</span> <span class="o">-</span> <span class="nx">bankStatement</span><span class="p">.</span><span class="nx">amount</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mf">0.01</span><span class="p">)</span> <span class="nx">score</span> <span class="o">+=</span> <span class="mi">50</span><span class="p">;</span>
+  <span class="k">if </span><span class="p">(</span><span class="nf">isSameDay</span><span class="p">(</span><span class="nx">sapPayment</span><span class="p">.</span><span class="nx">date</span><span class="p">,</span> <span class="nx">bankStatement</span><span class="p">.</span><span class="nx">date</span><span class="p">))</span> <span class="nx">score</span> <span class="o">+=</span> <span class="mi">25</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="nx">score</span> <span class="o">&gt;=</span> <span class="mi">150</span><span class="p">;</span> <span class="c1">// Threshold for auto-match</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_reconciliation_rate">Reconciliation Rate</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Auto-matching</strong> : 95%</p>
+</li>
+<li>
+<p><strong>Manual review</strong> : 5%</p>
+</li>
+<li>
+<p><strong>Exceptions</strong> : &lt; 0.5%</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_metrics">Metrics</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_performance">Performance</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Transaction volume</strong> : 500k+/month</p>
+</li>
+<li>
+<p><strong>Processing time</strong> : &lt; 2 seconds (p95)</p>
+</li>
+<li>
+<p><strong>Availability</strong> : 99.95%</p>
+</li>
+<li>
+<p><strong>Error rate</strong> : &lt; 0.1%</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adoption">Adoption</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Active clients</strong> : 150+ large enterprises</p>
+</li>
+<li>
+<p><strong>Integrated accounts</strong> : 800+</p>
+</li>
+<li>
+<p><strong>Transaction value</strong> : $2B+/month</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sla">SLA</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Upload acceptance</strong> : &lt; 30 seconds</p>
+</li>
+<li>
+<p><strong>Statement delivery</strong> : Before 8 AM (next business day)</p>
+</li>
+<li>
+<p><strong>Payment execution</strong> : Same-day (if received before 2 PM)</p>
+</li>
+<li>
+<p><strong>Support</strong> : 24/7 for Tier 1 clients</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_security">Security</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_ebics_security">EBICS Security</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code>  EBICS 3-Key Security Model
+
+  Authentication (A006) - RSA 4096
+  Encryption (E002) - RSA 4096
+  Signature (X002) - RSA 4096</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_certificate_management">Certificate Management</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Validity</strong> : 3 years</p>
+</li>
+<li>
+<p><strong>Renewal</strong> : Automatic (90 days before expiration)</p>
+</li>
+<li>
+<p><strong>Revocation</strong> : Support immediate revocation</p>
+</li>
+<li>
+<p><strong>Storage</strong> : HSM (Hardware Security Module)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_message_integrity">Message Integrity</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Digital Signature</strong> : All messages signed</p>
+</li>
+<li>
+<p><strong>Timestamp</strong> : RFC 3161 compliant</p>
+</li>
+<li>
+<p><strong>Non-repudiation</strong> : 7-year archive</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_monitoring">Monitoring</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_dashboards">Dashboards</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="c1"># Prometheus Metrics</span>
+<span class="pi">-</span> <span class="s">sap_payments_total{status="success|failed"}</span>
+<span class="pi">-</span> <span class="s">sap_payment_processing_duration_seconds</span>
+<span class="pi">-</span> <span class="s">sap_statement_generation_duration_seconds</span>
+<span class="pi">-</span> <span class="s">ebics_upload_total{client_id}</span>
+<span class="pi">-</span> <span class="s">ebics_download_total{client_id}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_alerts">Alerts</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="c1"># Alert Rules</span>
+<span class="na">groups</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">sap_integration</span>
+    <span class="na">rules</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">alert</span><span class="pi">:</span> <span class="s">HighPaymentFailureRate</span>
+        <span class="na">expr</span><span class="pi">:</span> <span class="s">rate(sap_payments_total{status="failed"}[5m]) &gt; </span><span class="m">0.05</span>
+        <span class="na">for</span><span class="pi">:</span> <span class="s">10m</span>
+        <span class="na">annotations</span><span class="pi">:</span>
+          <span class="na">summary</span><span class="pi">:</span> <span class="s2">"</span><span class="s">High</span><span class="nv"> </span><span class="s">payment</span><span class="nv"> </span><span class="s">failure</span><span class="nv"> </span><span class="s">rate</span><span class="nv"> </span><span class="s">detected"</span>
+
+      <span class="pi">-</span> <span class="na">alert</span><span class="pi">:</span> <span class="s">EBICSConnectionFailed</span>
+        <span class="na">expr</span><span class="pi">:</span> <span class="s">ebics_connection_errors &gt; </span><span class="m">3</span>
+        <span class="na">for</span><span class="pi">:</span> <span class="s">5m</span>
+        <span class="na">annotations</span><span class="pi">:</span>
+          <span class="na">summary</span><span class="pi">:</span> <span class="s2">"</span><span class="s">EBICS</span><span class="nv"> </span><span class="s">connection</span><span class="nv"> </span><span class="s">failing"</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_costs">Costs</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_infrastructure">Infrastructure</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>EBICS Gateway</strong> : $5,000/month (hosting + licenses)</p>
+</li>
+<li>
+<p><strong>SAP PI/PO</strong> : Client-owned</p>
+</li>
+<li>
+<p><strong>BNC API</strong> : Included in platform costs</p>
+</li>
+<li>
+<p><strong>Monitoring</strong> : $1,000/month</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_transaction_fees">Transaction Fees</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Setup fee</strong> : $5,000 (one-time)</p>
+</li>
+<li>
+<p><strong>Monthly fee</strong> : $500/account</p>
+</li>
+<li>
+<p><strong>Transaction fee</strong> : $0.50 (domestic), $15 (international)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Typical client</strong> : $2,000/month (4 accounts + ~500 transactions)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_documentation">Documentation</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_getting_started">Getting Started</h3>
+<div class="sect3">
+<h4 id="_1_onboarding">1. Onboarding</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="c"># Step 1: Request EBICS access</span>
+<span class="c"># Contact: sap-integration@bnc.ca</span>
+
+<span class="c"># Step 2: Generate certificates</span>
+openssl genrsa <span class="nt">-out</span> client_a006.key 4096
+openssl req <span class="nt">-new</span> <span class="nt">-x509</span> <span class="nt">-key</span> client_a006.key <span class="nt">-out</span> client_a006.crt
+
+<span class="c"># Step 3: Send certificates to BNC</span>
+<span class="c"># Via secure channel</span>
+
+<span class="c"># Step 4: Receive BNC certificates</span>
+<span class="c"># bank_x002.crt, bank_e002.crt</span>
+
+<span class="c"># Step 5: Configure SAP BCM</span>
+<span class="c"># Transaction: FBCM_SETUP</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_testing">2. Testing</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="c"># Test EBICS connection</span>
+ebics-cli <span class="nt">--host</span> ebics.bnc.ca <span class="nt">--partner</span> TESTCORP <span class="nt">--user</span> TEST01 HPB
+
+<span class="c"># Upload test payment</span>
+ebics-cli <span class="nt">--host</span> ebics.bnc.ca <span class="nt">--partner</span> TESTCORP <span class="nt">--user</span> TEST01 CCT test_payment.xml
+
+<span class="c"># Download test statement</span>
+ebics-cli <span class="nt">--host</span> ebics.bnc.ca <span class="nt">--partner</span> TESTCORP <span class="nt">--user</span> TEST01 STA</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_support">Support</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Documentation</strong> : <a href="https://docs.bnc.ca/sap-integration" class="bare">https://docs.bnc.ca/sap-integration</a></p>
+</li>
+<li>
+<p><strong>Technical Support</strong> : <a href="mailto:sap-support@bnc.ca">sap-support@bnc.ca</a></p>
+</li>
+<li>
+<p><strong>Emergency</strong> : 1-800-BNC-SAP1 (24/7)</p>
+</li>
+<li>
+<p><strong>Training</strong> : Monthly SAP integration workshop</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_roadmap">Roadmap</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_q1_2025">Q1 2025</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Support SAP S/4HANA Cloud</p>
+</li>
+<li>
+<p>Real-time payment notifications (webhooks)</p>
+</li>
+<li>
+<p>Enhanced reconciliation AI</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_q2_2025">Q2 2025</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Multi-currency virtual accounts</p>
+</li>
+<li>
+<p>Instant payments (Real-Time Rail)</p>
+</li>
+<li>
+<p>Expanded ISO 20022 message types</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_client_use_cases">Client Use Cases</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_manufacturer_tier_1">Manufacturer (Tier 1)</h3>
+<div class="paragraph">
+<p><strong>Profile</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>4 CAD/USD accounts</p>
+</li>
+<li>
+<p>500 payments/week (suppliers)</p>
+</li>
+<li>
+<p>100 international transfers/month</p>
+</li>
+<li>
+<p>Daily reconciliation</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Benefits</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>95% payment automation</p>
+</li>
+<li>
+<p>80% reduction in reconciliation time</p>
+</li>
+<li>
+<p>Real-time visibility on cash position</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_distributor_tier_2">Distributor (Tier 2)</h3>
+<div class="paragraph">
+<p><strong>Profile</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>2 CAD accounts</p>
+</li>
+<li>
+<p>1,000 direct debits/month (customers)</p>
+</li>
+<li>
+<p>200 payments/month (suppliers)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Benefits</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Centralized payment management</p>
+</li>
+<li>
+<p>Reduced data entry errors</p>
+</li>
+<li>
+<p>Improved cash flow forecasting</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_proven_in_use_feedback">Proven-in-use Feedback</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_150_large_enterprises_bnc_corporate_sector">150+ large enterprises — BNC Corporate Sector</h3>
+<div class="paragraph">
+<p><strong>Date</strong> : 2025-01-30<br>
+<strong>Feedback</strong> : 24 months in production, 500,000+ transactions/month, 99.95% availability, error rate &lt; 0.1%.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_references">References</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.ebics.org/">EBICS Specification</a></p>
+</li>
+<li>
+<p><a href="https://www.iso20022.org/">ISO 20022 Standards</a></p>
+</li>
+<li>
+<p><a href="https://help.sap.com/docs/SAP_S4HANA_ON-PREMISE/86fcaa1673f34f3e8ef74fea814c85b5/4b5dc59b6b0b4e56a37c8eb98fd6d924.html">SAP Bank Communication Management</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contacts">Contacts</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Product Owner</strong> : Jean-François Morin (<a href="mailto:jf.morin@bnc.ca">jf.morin@bnc.ca</a>)</p>
+</li>
+<li>
+<p><strong>Integration Lead</strong> : Stéphanie Roy (<a href="mailto:stephanie.roy@bnc.ca">stephanie.roy@bnc.ca</a>)</p>
+</li>
+<li>
+<p><strong>SAP Architect</strong> : Michel Fortin (<a href="mailto:michel.fortin@bnc.ca">michel.fortin@bnc.ca</a>)</p>
+</li>
+<li>
+<p><strong>Support</strong> : <a href="mailto:sap-integration@bnc.ca">sap-integration@bnc.ca</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-03-18 14:22:20 -0400
+</div>
+</div>
+</body>
+</html>

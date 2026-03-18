@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<meta name="keywords" content="pra, archetype-devops, status-operationalizing, scope-bank-wide">
+<title>Standards de Code Review</title>
+<link rel="stylesheet" href="../../../../assets/style.css"></head>
+<body class="article">
+<div id="header">
+<h1>Standards de Code Review</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Fiche signalétique</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Archétype</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">devops</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Sous-catégorie</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">software-engineering</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Statut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">operationalizing</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Scope</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bank-wide</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Proven-in-use</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Tags</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code-review, qualité, standards, développement</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Version</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Auteur</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TBD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Maintainer</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TBD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Créé</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2025-01-30</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Dernière MAJ</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2025-01-30</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_résumé">Résumé</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Les <strong>Standards de Code Review</strong> définissent les processus et critères pour assurer la qualité du code à travers toutes les équipes de développement.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contexte_dapplication">Contexte d&#8217;application</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_quand_utiliser">Quand utiliser</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Toute revue de code dans les équipes de développement</p>
+</li>
+<li>
+<p>Évaluation de la qualité d&#8217;une contribution</p>
+</li>
+<li>
+<p>Formation de nouveaux développeurs aux standards</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_quand_ne_pas_utiliser">Quand ne pas utiliser</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Code de prototypage ou exploration (spike)</p>
+</li>
+<li>
+<p>Scripts one-shot jetables</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_problème_résolu">Problème résolu</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Qualité de code inconsistante</p>
+</li>
+<li>
+<p>Reviews trop longues ou superficielles</p>
+</li>
+<li>
+<p>Manque de critères objectifs</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_solution">Solution</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_architecture">Architecture</h3>
+<div class="paragraph">
+<p>Framework de code review incluant :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Checklist standardisée</p>
+</li>
+<li>
+<p>Critères de qualité mesurables</p>
+</li>
+<li>
+<p>Processus d&#8217;escalade</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_principes_clés">Principes Clés</h3>
+<div class="sect3">
+<h4 id="_1_lisibilité">1. Lisibilité</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Code auto-documenté</p>
+</li>
+<li>
+<p>Nommage explicite</p>
+</li>
+<li>
+<p>Complexité maîtrisée</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_maintenabilité">2. Maintenabilité</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Tests unitaires</p>
+</li>
+<li>
+<p>Séparation des responsabilités</p>
+</li>
+<li>
+<p>Gestion des erreurs</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_performance">3. Performance</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Optimisation appropriée</p>
+</li>
+<li>
+<p>Pas de N+1 queries</p>
+</li>
+<li>
+<p>Caching stratégique</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_décisions_architecturales_adr">Décisions architecturales (ADR)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Aucun ADR documenté pour le moment.</em></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_implémentation">Implémentation</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_checklist_de_review">Checklist de Review</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Le code compile sans warnings</p>
+</li>
+<li>
+<p>Les tests passent</p>
+</li>
+<li>
+<p>La couverture de test est adéquate</p>
+</li>
+<li>
+<p>Pas de code mort</p>
+</li>
+<li>
+<p>Documentation à jour</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_retours_dexpérience_proven_in_use">Retours d&#8217;expérience (Proven-in-use)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Aucun retour d&#8217;expérience documenté pour le moment.</em></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_limitations_et_pièges">Limitations et pièges</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Standards en cours de validation</p>
+</li>
+<li>
+<p>Nécessite une adoption progressive par les équipes</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_références">Références</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Aucune référence documentée pour le moment.</em></p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-03-18 14:18:47 -0400
+</div>
+</div>
+</body>
+</html>

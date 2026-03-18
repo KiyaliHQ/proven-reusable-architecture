@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<meta name="keywords" content="pra, archetype-business, status-operationalizing, scope-domain-wide">
+<title>Onboarding Client Digital</title>
+<link rel="stylesheet" href="./rouge-github.css">
+<link rel="stylesheet" href="../../../../assets/style.css"></head>
+<body class="article">
+<div id="header">
+<h1>Onboarding Client Digital</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Fiche signalétique</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Archétype</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">business</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Sous-catégorie</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">onboarding</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Statut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">operationalizing</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Scope</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">domain-wide</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Proven-in-use</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Tags</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">onboarding, digital, particuliers, mobile, kyc, retail</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Version</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Auteur</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">François Leblanc</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Maintainer</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amélie Gagnon</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Créé</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2025-01-30</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Dernière MAJ</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2025-01-30</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_vue_densemble">Vue d&#8217;ensemble</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Solution d&#8217;onboarding 100% digital permettant aux nouveaux clients d&#8217;ouvrir un compte bancaire en <strong>moins de 10 minutes</strong>, sans se déplacer en succursale.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contexte">Contexte</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Secteur</strong> : Particuliers<br>
+<strong>Statut</strong> : <strong>EN PROMOTION</strong> vers Transversal<br>
+<strong>Proven-in-use</strong> : 12 mois en production<br>
+<strong>Adoption</strong> : 75% des nouveaux clients (170k+ clients)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_architecture">Architecture</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_workflow">Workflow</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">graph TD
+    A[Visiteur Web/Mobile] --&gt; B[Formulaire Initial]
+    B --&gt; C[Vérification Identité]
+    C --&gt; D[Vérification Crédit]
+    D --&gt; E[Sélection Produits]
+    E --&gt; F[Signature Électronique]
+    F --&gt; G[Création Compte]
+    G --&gt; H[Activation Mobile]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_composants">Composants</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">graph TB
+    A[Frontend Web/Mobile] --&gt; B[API Gateway]
+    B --&gt; C[Onboarding Service]
+    C --&gt; D[Identity Verification]
+    C --&gt; E[Credit Bureau]
+    C --&gt; F[Core Banking]
+    C --&gt; G[Document Management]
+    C --&gt; H[Notification Service]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_stack_technologique">Stack Technologique</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Frontend</strong> : React SPA + React Native (mobile)</p>
+</li>
+<li>
+<p><strong>Backend</strong> : Node.js (NestJS)</p>
+</li>
+<li>
+<p><strong>Database</strong> : PostgreSQL 14</p>
+</li>
+<li>
+<p><strong>Cache</strong> : Redis</p>
+</li>
+<li>
+<p><strong>Queue</strong> : RabbitMQ</p>
+</li>
+<li>
+<p><strong>Storage</strong> : AWS S3 (documents)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_étapes_du_processus">Étapes du Processus</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_1_formulaire_initial_2_minutes">1. Formulaire Initial (2 minutes)</h3>
+<div class="paragraph">
+<p><strong>Informations collectées</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Nom, prénom, date de naissance</p>
+</li>
+<li>
+<p>Adresse résidentielle</p>
+</li>
+<li>
+<p>Contact (email, téléphone)</p>
+</li>
+<li>
+<p>Occupation et revenu</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Validation</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Format email/téléphone</p>
+</li>
+<li>
+<p>Âge minimum (18 ans)</p>
+</li>
+<li>
+<p>Adresse au Canada</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_vérification_didentité_3_minutes">2. Vérification d&#8217;Identité (3 minutes)</h3>
+<div class="paragraph">
+<p><strong>Méthodes</strong> :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Scan de documents</strong> : Permis de conduire ou passeport</p>
+</li>
+<li>
+<p><strong>Selfie vidéo</strong> : Liveness detection</p>
+</li>
+<li>
+<p><strong>Questions de sécurité</strong> : Basées sur historique de crédit</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Technologies</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OCR</strong> : Tesseract + AWS Textract</p>
+</li>
+<li>
+<p><strong>Liveness Detection</strong> : FaceTec</p>
+</li>
+<li>
+<p><strong>Document Verification</strong> : Jumio</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Taux de succès</strong> : 92%</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_vérification_de_crédit_1_minute">3. Vérification de Crédit (1 minute)</h3>
+<div class="paragraph">
+<p><strong>Bureaux de crédit</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Equifax Canada</p>
+</li>
+<li>
+<p>TransUnion Canada</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Informations obtenues</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Credit Score</p>
+</li>
+<li>
+<p>Historique de paiement</p>
+</li>
+<li>
+<p>Dettes en cours</p>
+</li>
+<li>
+<p>Faillites/jugements</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Décision automatique</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Score &gt; 700 : Approbation automatique</p>
+</li>
+<li>
+<p>Score 600-700 : Revue manuelle</p>
+</li>
+<li>
+<p>Score &lt; 600 : Refus avec option produits alternatifs</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_sélection_de_produits_2_minutes">4. Sélection de Produits (2 minutes)</h3>
+<div class="paragraph">
+<p><strong>Produits disponibles</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Compte Chèques (multiple types)</p>
+</li>
+<li>
+<p>Compte Épargne</p>
+</li>
+<li>
+<p>Carte de débit</p>
+</li>
+<li>
+<p>Carte de crédit (si approuvé)</p>
+</li>
+<li>
+<p>Découvert autorisé (si approuvé)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Recommandations personnalisées</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Basées sur profil client</p>
+</li>
+<li>
+<p>Machine Learning (historique similarités)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_5_signature_électronique_1_minute">5. Signature Électronique (1 minute)</h3>
+<div class="paragraph">
+<p><strong>Documents signés</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Convention de compte</p>
+</li>
+<li>
+<p>Conditions générales</p>
+</li>
+<li>
+<p>Autorisation vérification de crédit</p>
+</li>
+<li>
+<p>Consentement PIPEDA</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Technologies</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>eSignature</strong> : DocuSign</p>
+</li>
+<li>
+<p><strong>Horodatage</strong> : RFC 3161 compliant</p>
+</li>
+<li>
+<p><strong>Archivage</strong> : 7 ans (conformité)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_création_de_compte_30_secondes">6. Création de Compte (&lt; 30 secondes)</h3>
+<div class="paragraph">
+<p><strong>Processus</strong> :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Génération numéro de compte</p>
+</li>
+<li>
+<p>Création dans Core Banking</p>
+</li>
+<li>
+<p>Attribution carte de débit (virtuelle immédiate)</p>
+</li>
+<li>
+<p>Setup mobile banking</p>
+</li>
+<li>
+<p>Envoi credentials</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Core Banking Integration</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>API temps réel</p>
+</li>
+<li>
+<p>Rollback automatique en cas d&#8217;échec</p>
+</li>
+<li>
+<p>Idempotence (retry-safe)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_7_activation_mobile_1_minute">7. Activation Mobile (1 minute)</h3>
+<div class="paragraph">
+<p><strong>Steps</strong> :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Download app mobile BNC</p>
+</li>
+<li>
+<p>Login avec credentials temporaires</p>
+</li>
+<li>
+<p>Setup Face ID / Touch ID</p>
+</li>
+<li>
+<p>Activation carte de débit virtuelle</p>
+</li>
+<li>
+<p>Premier virement (optionnel)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>First Time User Experience</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Tutorial interactif</p>
+</li>
+<li>
+<p>Setup notifications push</p>
+</li>
+<li>
+<p>Découverte des fonctionnalités</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_métriques">Métriques</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_adoption">Adoption</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Nouveaux clients/mois</strong> : 12,000+</p>
+</li>
+<li>
+<p><strong>Taux de complétion</strong> : 68%</p>
+</li>
+<li>
+<p><strong>Taux d&#8217;abandon</strong> : 32% (benchmark industrie: 40%)</p>
+</li>
+<li>
+<p><strong>Temps moyen</strong> : 8.5 minutes</p>
+</li>
+<li>
+<p><strong>Utilisation mobile</strong> : 60%</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_performance">Performance</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Availability</strong> : 99.8%</p>
+</li>
+<li>
+<p><strong>Time to account</strong> : &lt; 10 minutes (95th percentile)</p>
+</li>
+<li>
+<p><strong>API response time</strong> : &lt; 500ms (p95)</p>
+</li>
+<li>
+<p><strong>Identity verification success</strong> : 92%</p>
+</li>
+<li>
+<p><strong>Credit check success</strong> : 98%</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_business_impact">Business Impact</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Cost per acquisition</strong> : -60% (vs succursale)</p>
+</li>
+<li>
+<p><strong>Customer satisfaction</strong> : 4.5/5</p>
+</li>
+<li>
+<p><strong>First month activation</strong> : 85%</p>
+</li>
+<li>
+<p><strong>Branch traffic reduction</strong> : -35%</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sécurité">Sécurité</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_protection_des_données">Protection des Données</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Encryption at rest</strong> : AES-256</p>
+</li>
+<li>
+<p><strong>Encryption in transit</strong> : TLS 1.3</p>
+</li>
+<li>
+<p><strong>PII tokenization</strong> : Tous les champs sensibles</p>
+</li>
+<li>
+<p><strong>Data masking</strong> : Logs et monitoring</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_fraud_prevention">Fraud Prevention</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Device fingerprinting</strong> : ThreatMetrix</p>
+</li>
+<li>
+<p><strong>Behavioral analysis</strong> : Pattern detection</p>
+</li>
+<li>
+<p><strong>Velocity checks</strong> : Limite tentatives/IP</p>
+</li>
+<li>
+<p><strong>Geolocation</strong> : Blocage pays à risque</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_compliance">Compliance</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>PIPEDA</strong> : Consentement explicite, droit à l&#8217;oubli</p>
+</li>
+<li>
+<p><strong>FINTRAC</strong> : AML/KYC checks</p>
+</li>
+<li>
+<p><strong>PCI DSS</strong> : Pas de stockage carte</p>
+</li>
+<li>
+<p><strong>SOC 2 Type II</strong> : Audit annuel</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_coûts">Coûts</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_infrastructure">Infrastructure</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Cloud (AWS)</strong> : $8,000/mois</p>
+</li>
+<li>
+<p><strong>Third-party APIs</strong> : $12,000/mois</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Identity verification : $4,000</p>
+</li>
+<li>
+<p>Credit bureau : $6,000</p>
+</li>
+<li>
+<p>eSignature : $2,000</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Support</strong> : $5,000/mois</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Coût par client</strong> : $2.50 (vs $25 en succursale)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_intégrations">Intégrations</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_identity_verification_jumio">Identity Verification (Jumio)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="typescript"><span class="c1">// Example integration</span>
+<span class="kd">const</span> <span class="nx">verifyIdentity</span> <span class="o">=</span> <span class="k">async </span><span class="p">(</span><span class="nx">userId</span><span class="p">:</span> <span class="kr">string</span><span class="p">,</span> <span class="nx">documentImage</span><span class="p">:</span> <span class="nx">Buffer</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">jumio</span><span class="p">.</span><span class="nf">verifyDocument</span><span class="p">({</span>
+    <span class="nx">userId</span><span class="p">,</span>
+    <span class="nx">documentImage</span><span class="p">,</span>
+    <span class="na">documentType</span><span class="p">:</span> <span class="dl">'</span><span class="s1">DRIVER_LICENSE</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">country</span><span class="p">:</span> <span class="dl">'</span><span class="s1">CA</span><span class="dl">'</span><span class="p">,</span>
+  <span class="p">});</span>
+
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">verified</span><span class="p">:</span> <span class="nx">response</span><span class="p">.</span><span class="nx">status</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">APPROVED</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">confidence</span><span class="p">:</span> <span class="nx">response</span><span class="p">.</span><span class="nx">confidence</span><span class="p">,</span>
+    <span class="na">extractedData</span><span class="p">:</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">,</span>
+  <span class="p">};</span>
+<span class="p">};</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_credit_bureau_equifax">Credit Bureau (Equifax)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="typescript"><span class="c1">// Example integration</span>
+<span class="kd">const</span> <span class="nx">checkCredit</span> <span class="o">=</span> <span class="k">async </span><span class="p">(</span><span class="nx">applicant</span><span class="p">:</span> <span class="nx">Applicant</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">equifax</span><span class="p">.</span><span class="nf">getCreditReport</span><span class="p">({</span>
+    <span class="na">firstName</span><span class="p">:</span> <span class="nx">applicant</span><span class="p">.</span><span class="nx">firstName</span><span class="p">,</span>
+    <span class="na">lastName</span><span class="p">:</span> <span class="nx">applicant</span><span class="p">.</span><span class="nx">lastName</span><span class="p">,</span>
+    <span class="na">dateOfBirth</span><span class="p">:</span> <span class="nx">applicant</span><span class="p">.</span><span class="nx">dob</span><span class="p">,</span>
+    <span class="na">ssn</span><span class="p">:</span> <span class="nx">applicant</span><span class="p">.</span><span class="nx">ssn</span><span class="p">,</span>
+  <span class="p">});</span>
+
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">score</span><span class="p">:</span> <span class="nx">response</span><span class="p">.</span><span class="nx">creditScore</span><span class="p">,</span>
+    <span class="na">decision</span><span class="p">:</span> <span class="nx">response</span><span class="p">.</span><span class="nx">creditScore</span> <span class="o">&gt;</span> <span class="mi">700</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">APPROVED</span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">REVIEW</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">report</span><span class="p">:</span> <span class="nx">response</span><span class="p">.</span><span class="nx">fullReport</span><span class="p">,</span>
+  <span class="p">};</span>
+<span class="p">};</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_core_banking">Core Banking</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="typescript"><span class="c1">// Example integration</span>
+<span class="kd">const</span> <span class="nx">createAccount</span> <span class="o">=</span> <span class="k">async </span><span class="p">(</span><span class="nx">customer</span><span class="p">:</span> <span class="nx">Customer</span><span class="p">,</span> <span class="nx">products</span><span class="p">:</span> <span class="nx">Product</span><span class="p">[])</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">transaction</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nf">transaction</span><span class="p">();</span>
+
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="c1">// Create customer</span>
+    <span class="kd">const</span> <span class="nx">customerId</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">coreBank</span><span class="p">.</span><span class="nf">createCustomer</span><span class="p">(</span><span class="nx">customer</span><span class="p">);</span>
+
+    <span class="c1">// Create accounts</span>
+    <span class="kd">const</span> <span class="nx">accounts</span> <span class="o">=</span> <span class="k">await</span> <span class="nb">Promise</span><span class="p">.</span><span class="nf">all</span><span class="p">(</span>
+      <span class="nx">products</span><span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nx">p</span> <span class="o">=&gt;</span> <span class="nx">coreBank</span><span class="p">.</span><span class="nf">createAccount</span><span class="p">({</span>
+        <span class="nx">customerId</span><span class="p">,</span>
+        <span class="na">productCode</span><span class="p">:</span> <span class="nx">p</span><span class="p">.</span><span class="nx">code</span><span class="p">,</span>
+        <span class="na">currency</span><span class="p">:</span> <span class="dl">'</span><span class="s1">CAD</span><span class="dl">'</span><span class="p">,</span>
+      <span class="p">}))</span>
+    <span class="p">);</span>
+
+    <span class="k">await</span> <span class="nx">transaction</span><span class="p">.</span><span class="nf">commit</span><span class="p">();</span>
+    <span class="k">return</span> <span class="p">{</span> <span class="nx">customerId</span><span class="p">,</span> <span class="nx">accounts</span> <span class="p">};</span>
+  <span class="p">}</span> <span class="k">catch </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">await</span> <span class="nx">transaction</span><span class="p">.</span><span class="nf">rollback</span><span class="p">();</span>
+    <span class="k">throw</span> <span class="nx">error</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">};</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abandonment_recovery">Abandonment Recovery</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_triggers">Triggers</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Email</strong> à 1h si abandon au formulaire</p>
+</li>
+<li>
+<p><strong>SMS</strong> à 24h si abandon à vérification identité</p>
+</li>
+<li>
+<p><strong>Push notification</strong> (mobile) si abandon à activation</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ab_testing">A/B Testing</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Test continu sur messaging</p>
+</li>
+<li>
+<p>Optimisation du parcours</p>
+</li>
+<li>
+<p>Simplification formulaires</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Impact</strong> : +12% taux de complétion</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_accessibilité">Accessibilité</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_wcag_2_1_aa_compliance">WCAG 2.1 AA Compliance</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Keyboard navigation</strong> : 100%</p>
+</li>
+<li>
+<p><strong>Screen reader</strong> : Compatible NVDA/JAWS</p>
+</li>
+<li>
+<p><strong>Color contrast</strong> : 4.5:1 minimum</p>
+</li>
+<li>
+<p><strong>Text resize</strong> : Jusqu&#8217;à 200%</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_multilingue">Multilingue</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Français (FR-CA)</p>
+</li>
+<li>
+<p>Anglais (EN-CA)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_promotion_vers_transversal">Promotion vers Transversal</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_dossier_de_promotion">Dossier de Promotion</h3>
+<div class="paragraph">
+<p>Ce patron est <strong>actuellement en promotion</strong> vers le statut Transversal. Voir le dossier complet dans <a href="/registre/en-promotion/onboarding-digital">Promotions - Onboarding Digital</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_justification">Justification</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Proven-in-use</strong> : 12 mois, 170k+ clients</p>
+</li>
+<li>
+<p><strong>Applicabilité</strong> : Potentiel pour Entreprises (PME), Gestion Patrimoine</p>
+</li>
+<li>
+<p><strong>ROI</strong> : -60% coût d&#8217;acquisition</p>
+</li>
+<li>
+<p><strong>Scalabilité</strong> : Peut gérer 50k+ nouveaux clients/mois</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adaptations_nécessaires">Adaptations Nécessaires</h3>
+<div class="paragraph">
+<p><strong>Pour Entreprises</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Validation documents corporatifs</p>
+</li>
+<li>
+<p>Multi-signing (administrateurs)</p>
+</li>
+<li>
+<p>Vérification REQ (Registre des entreprises du Québec)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Pour Gestion Patrimoine</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Enhanced due diligence</p>
+</li>
+<li>
+<p>Source of funds verification</p>
+</li>
+<li>
+<p>Investment profile questionnaire</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_timeline">Timeline</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Phase 1</strong> : Proposition  Complétée (Sep 2024)</p>
+</li>
+<li>
+<p><strong>Phase 2</strong> : Review  En cours (Oct-Nov 2024)</p>
+</li>
+<li>
+<p><strong>Phase 3</strong> : Migration  Planifiée (Q1 2025)</p>
+</li>
+<li>
+<p><strong>Phase 4</strong> : Adoption  Planifiée (Q2 2025)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_roadmap">Roadmap</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_q1_2025">Q1 2025</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Support for joint accounts</p>
+</li>
+<li>
+<p>Enhanced product recommendations (AI)</p>
+</li>
+<li>
+<p>Video KYC option</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_q2_2025">Q2 2025</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Expansion to Business onboarding (si promotion validée)</p>
+</li>
+<li>
+<p>Instant card issuance integration</p>
+</li>
+<li>
+<p>Open Banking integration</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_retours_dexpérience_proven_in_use">Retours d&#8217;expérience (Proven-in-use)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_onboarding_digital_particulierssecteur_particuliers_bnc">Onboarding Digital Particuliers&#8201;&#8212;&#8201;Secteur Particuliers BNC</h3>
+<div class="paragraph">
+<p><strong>Date</strong> : 2025-01-30<br>
+<strong>Feedback</strong> : 12 mois en production, 75% adoption (170k+ clients), temps d&#8217;onboarding &lt; 10 minutes, taux de complétion 68%, coût par client $2.50 (vs $25 en succursale).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_références">Références</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.digital.canada.ca/2019/02/27/the-public-digital-identity-authentication-standards/">Digital Identity Standards</a></p>
+</li>
+<li>
+<p><a href="https://www.fintrac-canafe.gc.ca/guidance-directives/client-clientele/Guide11/11-eng">FINTRAC Guidance</a></p>
+</li>
+<li>
+<p><a href="https://www.priv.gc.ca/en/privacy-topics/privacy-laws-in-canada/the-personal-information-protection-and-electronic-documents-act-pipeda/">PIPEDA Compliance</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contacts">Contacts</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Product Owner</strong> : François Leblanc (<a href="mailto:francois.leblanc@bnc.ca">francois.leblanc@bnc.ca</a>)</p>
+</li>
+<li>
+<p><strong>Tech Lead</strong> : Amélie Gagnon (<a href="mailto:amelie.gagnon@bnc.ca">amelie.gagnon@bnc.ca</a>)</p>
+</li>
+<li>
+<p><strong>Compliance</strong> : Marc Dupuis (<a href="mailto:marc.dupuis@bnc.ca">marc.dupuis@bnc.ca</a>)</p>
+</li>
+<li>
+<p><strong>Support</strong> : <a href="mailto:onboarding-support@bnc.ca">onboarding-support@bnc.ca</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-03-18 14:34:57 -0400
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<meta name="keywords" content="pra, guide, lifecycle">
+<title>PRA Lifecycle</title>
+<link rel="stylesheet" href="./rouge-github.css">
+<link rel="stylesheet" href="../../assets/style.css"></head>
+<body class="article">
+<div id="header">
+<h1>PRA Lifecycle</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document describes the different stages in the lifecycle of a Proven Reusable Architecture (PRA), from its initial conception to its eventual deprecation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview">Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A PRA goes through several statuses during its lifecycle:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">graph LR
+    A[Identification] --&gt; B[Candidate]
+    B --&gt; C[Approved]
+    C --&gt; D[Deprecated]
+    C --&gt; E[Archived]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pra_statuses">PRA Statuses</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_candidate">Candidate</h3>
+<div class="paragraph">
+<p><strong>Definition</strong>: PRA under initial validation.</p>
+</div>
+<div class="paragraph">
+<p><strong>Criteria by scope</strong>:</p>
+</div>
+<div class="paragraph">
+<p><strong>Domain PRA</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>At least <strong>1 proven implementation</strong> in production within the domain</p>
+</li>
+<li>
+<p>Complete documentation (context, architecture, ADRs, examples)</p>
+</li>
+<li>
+<p>Demonstrated reusability within the domain</p>
+</li>
+<li>
+<p>Technical quality validated by <strong>Domain Governance Committee</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Bank-Wide PRA</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>At least <strong>1 proven implementation</strong> in production</p>
+</li>
+<li>
+<p>Complete documentation</p>
+</li>
+<li>
+<p>Demonstrated multi-domain applicability</p>
+</li>
+<li>
+<p>Technical quality validated by <strong>Expert Architects Governance Committee</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Location</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Domain: <code>pra/secteurs/[domain]/[category]/</code></p>
+</li>
+<li>
+<p>Bank-Wide: <code>pra/transversal/[category]/</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Usage</strong>: May be used with caution and feedback required</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_approved">Approved</h3>
+<div class="paragraph">
+<p><strong>Definition</strong>: Validated PRA recommended for use.</p>
+</div>
+<div class="paragraph">
+<p><strong>Criteria by scope</strong>:</p>
+</div>
+<div class="paragraph">
+<p><strong>Domain PRA Approved</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>At least <strong>1 proven implementation</strong> within the domain</p>
+</li>
+<li>
+<p>Positive feedback from domain teams</p>
+</li>
+<li>
+<p>Documentation enriched with learnings</p>
+</li>
+<li>
+<p>Validated by <strong>Domain Governance Committee</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Bank-Wide PRA Approved</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>At least <strong>3 proven implementations</strong> (different domains/teams)</p>
+</li>
+<li>
+<p>Positive multi-domain feedback</p>
+</li>
+<li>
+<p>Documentation enriched with multi-context learnings</p>
+</li>
+<li>
+<p>Validity confirmed across multiple domains</p>
+</li>
+<li>
+<p>Validated by <strong>Expert Architects Governance Committee</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Location</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Domain: <code>pra/secteurs/[domain]/[category]/</code></p>
+</li>
+<li>
+<p>Bank-Wide: <code>pra/transversal/[category]/</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Usage</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Domain: Recommended for domain projects</p>
+</li>
+<li>
+<p>Bank-Wide: Recommended for all domains</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_deprecated">Deprecated</h3>
+<div class="paragraph">
+<p><strong>Definition</strong>: Obsolete PRA, not recommended for new implementations.</p>
+</div>
+<div class="paragraph">
+<p><strong>Reasons</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Obsolete technologies</p>
+</li>
+<li>
+<p>Better alternatives available</p>
+</li>
+<li>
+<p>Repeated negative feedback</p>
+</li>
+<li>
+<p>No maintenance for 12+ months</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Location</strong>: <code>pra/deprecated/[category]/</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Usage</strong>: Maintenance only for existing projects</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_status_transitions">Status Transitions</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_domain_pra_from_candidate_to_approved">Domain PRA: From Candidate to Approved</h3>
+<div class="paragraph">
+<p><strong>Trigger</strong>: 1+ documented proven implementation within the domain</p>
+</div>
+<div class="paragraph">
+<p><strong>Process</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Contributor updates metadata: <code>status: approved</code></p>
+</li>
+<li>
+<p>Automatic validation via GitHub Actions</p>
+</li>
+<li>
+<p>Review by <strong>Domain Governance Committee</strong> (2 approvals required)</p>
+</li>
+<li>
+<p>Merge &#8594; PRA becomes Approved (domain level)</p>
+</li>
+<li>
+<p>Announcement to domain (Teams/email)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Timeline</strong>: 5-10 business days</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bank_wide_pra_from_candidate_to_approved">Bank-Wide PRA: From Candidate to Approved</h3>
+<div class="paragraph">
+<p><strong>Trigger</strong>: 3+ documented proven implementations (different domains/teams)</p>
+</div>
+<div class="paragraph">
+<p><strong>Process</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Contributor updates metadata: <code>status: approved</code></p>
+</li>
+<li>
+<p>Automatic validation via GitHub Actions</p>
+</li>
+<li>
+<p>Review by <strong>Expert Architects Governance Committee</strong> (2 approvals required)</p>
+</li>
+<li>
+<p>Verification of multi-domain applicability</p>
+</li>
+<li>
+<p>Merge &#8594; PRA becomes Bank-Wide Approved</p>
+</li>
+<li>
+<p>Automatic publication to Confluence</p>
+</li>
+<li>
+<p>Announcement to all domains (Teams/email)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Timeline</strong>: 2-4 weeks</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_domain_pra_promotion_to_bank_wide">Domain PRA: Promotion to Bank-Wide</h3>
+<div class="paragraph">
+<p><strong>Trigger</strong>: Domain PRA identified as reusable outside the domain</p>
+</div>
+<div class="paragraph">
+<p><strong>Process</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Domain Committee</strong> proposes promotion (with justification)</p>
+</li>
+<li>
+<p>Create promotion dossier with multi-domain evidence</p>
+</li>
+<li>
+<p>Review by <strong>Expert Architects Committee</strong></p>
+</li>
+<li>
+<p>Validation of Bank-Wide criteria (3+ proven-in-use required)</p>
+</li>
+<li>
+<p>If approved &#8594; move to <code>transversal/</code></p>
+</li>
+<li>
+<p>Communication to all domains</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Timeline</strong>: 4-8 weeks</p>
+</div>
+<div class="paragraph">
+<p>See detailed guide: <a href="/guides/07-promotion-process">Promotion Process</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_from_approved_to_deprecated">From Approved to Deprecated</h3>
+<div class="paragraph">
+<p><strong>Trigger</strong>: Proposal from relevant committee or repeated negative feedback</p>
+</div>
+<div class="paragraph">
+<p><strong>Process by scope</strong>:</p>
+</div>
+<div class="paragraph">
+<p><strong>Domain PRA</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Proposal from <strong>Domain Committee</strong> (with justification)</p>
+</li>
+<li>
+<p>Discussion with domain users</p>
+</li>
+<li>
+<p>Domain Committee vote (simple majority)</p>
+</li>
+<li>
+<p>Update metadata: <code>status: deprecated</code></p>
+</li>
+<li>
+<p>Communication to domain teams</p>
+</li>
+<li>
+<p>3-month transition period</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Bank-Wide PRA</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Proposal from <strong>Expert Architects Committee</strong> (with justification)</p>
+</li>
+<li>
+<p>Multi-domain consultation</p>
+</li>
+<li>
+<p>Expert Architects Committee vote (2/3)</p>
+</li>
+<li>
+<p>Update metadata: <code>status: deprecated</code>, recommended alternative</p>
+</li>
+<li>
+<p>Communication to all domains</p>
+</li>
+<li>
+<p>6-month transition period</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Timeline</strong>: 2-4 weeks + transition period</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ongoing_maintenance">Ongoing Maintenance</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_domain_pra_approved">Domain PRA Approved</h3>
+<div class="paragraph">
+<p><strong>Responsibilities</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Designated maintainer</strong>: Documentation updates, answering questions</p>
+</li>
+<li>
+<p><strong>Domain Governance Committee</strong>: Quality monitoring, update validation</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Cadence</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Quarterly review</strong>: Domain relevance, usage, feedback</p>
+</li>
+<li>
+<p><strong>As-needed updates</strong>: New technology versions, learnings</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bank_wide_pra_approved">Bank-Wide PRA Approved</h3>
+<div class="paragraph">
+<p><strong>Responsibilities</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Designated maintainer</strong>: Documentation updates, multi-domain support</p>
+</li>
+<li>
+<p><strong>Expert Architects Committee</strong>: Quality monitoring, update validation</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Cadence</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Annual review</strong>: Multi-domain relevance, adoption, feedback</p>
+</li>
+<li>
+<p><strong>As-needed updates</strong>: BNC standard evolutions, new learnings</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_candidate_pra">Candidate PRA</h3>
+<div class="paragraph">
+<p><strong>Responsibilities</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Original contributor</strong>: Initial documentation, early feedback</p>
+</li>
+<li>
+<p><strong>Early adopters</strong>: Active feedback, documenting learnings</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Objective</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Domain: Reach 1 proven implementation for local Approved</p>
+</li>
+<li>
+<p>Bank-Wide: Reach 3 multi-domain implementations for Approved</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_proven_in_use_feedback">Proven-in-Use Feedback</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Each PRA implementation must be documented with:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="na">proven_in_use</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">project</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Project</span><span class="nv"> </span><span class="s">name"</span>
+    <span class="na">team</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Team</span><span class="nv"> </span><span class="s">name"</span>
+    <span class="na">date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">YYYY-MM-DD"</span>
+    <span class="na">feedback</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Concrete</span><span class="nv"> </span><span class="s">results</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">learnings"</span>
+    <span class="na">metrics</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">40%</span><span class="nv"> </span><span class="s">reduction</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">deployment</span><span class="nv"> </span><span class="s">time"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">100%</span><span class="nv"> </span><span class="s">change</span><span class="nv"> </span><span class="s">traceability"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Quality criteria</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Project in <strong>production</strong> (not dev/staging)</p>
+</li>
+<li>
+<p><strong>Concrete</strong> and <strong>measurable</strong> feedback</p>
+</li>
+<li>
+<p>Recent implementation date (&lt; 2 years)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_success_criteria">Success Criteria</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_for_a_domain_pra_candidate">For a Domain PRA Candidate</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>1+ documented proven-in-use within the domain</p>
+</li>
+<li>
+<p>Complete and clear documentation</p>
+</li>
+<li>
+<p>Positive feedback from pilot team</p>
+</li>
+<li>
+<p>No major technical blockers</p>
+</li>
+<li>
+<p>Validated by Domain Committee</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_for_a_domain_pra_approved">For a Domain PRA Approved</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>1+ documented proven-in-use within the domain</p>
+</li>
+<li>
+<p>Positive feedback from domain teams</p>
+</li>
+<li>
+<p>Documentation enriched with learnings</p>
+</li>
+<li>
+<p>Confirmed reusability within the domain</p>
+</li>
+<li>
+<p>Regular maintenance (&lt; 6 months since last update)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_for_a_bank_wide_pra_candidate">For a Bank-Wide PRA Candidate</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>1+ documented proven-in-use</p>
+</li>
+<li>
+<p>Complete documentation with multi-domain vision</p>
+</li>
+<li>
+<p>Demonstrated multi-domain applicability</p>
+</li>
+<li>
+<p>No major technical blockers</p>
+</li>
+<li>
+<p>Validated by Expert Architects Committee</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_for_a_bank_wide_pra_approved">For a Bank-Wide PRA Approved</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>3+ documented proven-in-use (different domains/teams)</p>
+</li>
+<li>
+<p>Positive multi-domain feedback</p>
+</li>
+<li>
+<p>Documentation enriched with multi-context learnings</p>
+</li>
+<li>
+<p>Varied use cases (different domains)</p>
+</li>
+<li>
+<p>User satisfaction &gt; 8/10</p>
+</li>
+<li>
+<p>Regular maintenance (&lt; 6 months since last update)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_support_and_questions">Support and Questions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For any questions about the PRA lifecycle:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Teams Channel</strong>: <code>#pra-registry</code></p>
+</li>
+<li>
+<p><strong>Email</strong>: <a href="mailto:pra-governance@company.com">pra-governance@company.com</a></p>
+</li>
+<li>
+<p><strong>GitHub Issues</strong>: <a href="https://github.com/org/pra-registry/issues">Open an issue</a></p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Recommended path</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="/guides/01-getting-started">Getting Started with PRAs</a></p>
+</li>
+<li>
+<p><a href="/guides/02-understanding-pra">Understanding PRAs</a></p>
+</li>
+<li>
+<p><a href="/guides/03-roles-responsibilities">Roles and Responsibilities</a></p>
+</li>
+<li>
+<p><strong>Lifecycle</strong> (you are here)</p>
+</li>
+<li>
+<p><a href="/guides/05-standards">Quality Standards</a></p>
+</li>
+<li>
+<p><a href="/guides/06-contributing">Contributing a PRA</a></p>
+</li>
+<li>
+<p><a href="/guides/07-promotion-process">Promotion Process</a></p>
+</li>
+<li>
+<p><a href="/guides/08-governance">Governance</a></p>
+</li>
+</ol>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Navigation</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Previous</strong>: <a href="/guides/03-roles-responsibilities">Roles and Responsibilities</a></p>
+</li>
+<li>
+<p><strong>Next</strong>: <a href="/guides/05-standards">Quality Standards</a></p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Last updated</strong>: 2025-12-02<br>
+<strong>Next review</strong>: 2026-06-02</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-03-18 14:28:12 -0400
+</div>
+</div>
+</body>
+</html>

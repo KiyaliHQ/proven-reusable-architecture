@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<meta name="keywords" content="pra, guide, roles, responsabilités">
+<title>Rôles et Responsabilités</title>
+<link rel="stylesheet" href="./rouge-github.css">
+<link rel="stylesheet" href="../../assets/style.css"></head>
+<body class="article">
+<div id="header">
+<h1>Rôles et Responsabilités</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ce document définit les rôles clés dans l&#8217;écosystème du registre PRA et leurs responsabilités respectives.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_vue_densemble_des_rôles">Vue d&#8217;ensemble des Rôles</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">graph TD
+    GOV_DOM[Comités Gouvernance Domaine] --&gt; ARCH[Architectes Contributeurs]
+    GOV_BW[Comité Gouvernance Architectes Experts] --&gt; ARCH
+    INIT[Équipe Initiative] --&gt; ARCH
+    ARCH --&gt; MAIN[Mainteneurs PRA]
+    MAIN --&gt; USERS[Utilisateurs PRA]
+
+    GOV_DOM -.-&gt; GOV_BW
+
+    style GOV_DOM fill:#60a5fa,stroke:#2563eb,color:#fff
+    style GOV_BW fill:#8b5cf6,stroke:#7c3aed,color:#fff</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_comités_de_gouvernance_par_domaine">Comités de Gouvernance par Domaine</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_composition">Composition</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Nombre</strong> : 3 à 5 architectes par domaine</p>
+</li>
+<li>
+<p><strong>Profils</strong> : Architectes de solutions du domaine</p>
+</li>
+<li>
+<p><strong>Représentation</strong> : Différentes équipes du domaine (Particuliers, Entreprises, Gestion de Patrimoine)</p>
+</li>
+<li>
+<p><strong>Mandat</strong> : Renouvelable annuellement</p>
+</li>
+<li>
+<p><strong>Décisions</strong> : Par consensus ou vote majoritaire</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_responsabilités">Responsabilités</h3>
+<div class="sect3">
+<h4 id="_1_review_des_pra_domaine">1. Review des PRA Domaine</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Évaluer techniquement et qualitativement les nouveaux PRA du domaine</p>
+</li>
+<li>
+<p>Vérifier conformité aux standards</p>
+</li>
+<li>
+<p>Valider applicabilité dans le domaine</p>
+</li>
+<li>
+<p><strong>Timeline</strong> : Review initiale sous 5 jours ouvrés</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_approbation_des_pra_domaine">2. Approbation des PRA Domaine</h4>
+<div class="paragraph">
+<p><strong>Pour les PRA Domaine Approved</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Valider conformité au template</p>
+</li>
+<li>
+<p>Vérifier 1+ proven-in-use dans le domaine</p>
+</li>
+<li>
+<p>Approuver passage en statut Approved (échelle domaine)</p>
+</li>
+<li>
+<p><strong>Seuil</strong> : 2 approvals requis dans le comité domaine</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_identification_candidats_bank_wide">3. Identification Candidats Bank-Wide</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Identifier PRA domaine réutilisables hors du domaine</p>
+</li>
+<li>
+<p>Proposer promotions Domaine &#8594; Bank-Wide</p>
+</li>
+<li>
+<p>Fournir justification et preuves de réutilisabilité</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_maintenance_locale">4. Maintenance Locale</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Review trimestrielle des PRA domaine</p>
+</li>
+<li>
+<p>Identifier PRA obsolètes dans le domaine</p>
+</li>
+<li>
+<p>Adapter standards Bank-Wide au contexte domaine</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_réunions">Réunions</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Fréquence</strong> : Mensuelle</p>
+</li>
+<li>
+<p><strong>Durée</strong> : 1h maximum</p>
+</li>
+<li>
+<p><strong>Agenda type</strong> :</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Review nouvelles soumissions domaine (30 min)</p>
+</li>
+<li>
+<p>Suivi PRA candidates domaine (15 min)</p>
+</li>
+<li>
+<p>Identification candidats Bank-Wide (10 min)</p>
+</li>
+<li>
+<p>Questions diverses (5 min)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_engagement_attendu">Engagement Attendu</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Temps</strong> : 2-3 heures/mois</p>
+</li>
+<li>
+<p><strong>Disponibilité</strong> : Review PR sous 48h</p>
+</li>
+<li>
+<p><strong>Participation</strong> : 80%+ réunions</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_comité_de_gouvernance_architectes_experts">Comité de Gouvernance Architectes Experts</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_composition_2">Composition</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Nombre</strong> : 5 à 7 architectes experts</p>
+</li>
+<li>
+<p><strong>Profils</strong> : Architectes experts proches de la pratique</p>
+</li>
+<li>
+<p><strong>Représentation</strong> : Cross-domaines et cross-équipes transversales</p>
+</li>
+<li>
+<p><strong>Mandat</strong> : Renouvelable annuellement</p>
+</li>
+<li>
+<p><strong>Décisions</strong> : Par consensus ou vote 2/3</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_responsabilités_2">Responsabilités</h3>
+<div class="sect3">
+<h4 id="_1_review_des_pra_bank_wide">1. Review des PRA Bank-Wide</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Évaluer PRA standards transversaux (Flow 2 : équipes transversales)</p>
+</li>
+<li>
+<p>Évaluer promotions Domaine &#8594; Bank-Wide (Flow 1)</p>
+</li>
+<li>
+<p>Gérer Bootstrap : identifier et valider priorités (Flow 3)</p>
+</li>
+<li>
+<p><strong>Timeline</strong> : Review sous 2 semaines</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_approbation_des_pra_bank_wide">2. Approbation des PRA Bank-Wide</h4>
+<div class="paragraph">
+<p><strong>Pour les PRA Bank-Wide Approved</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Vérifier 3+ proven-in-use (différents domaines/équipes)</p>
+</li>
+<li>
+<p>Valider applicabilité multi-domaine</p>
+</li>
+<li>
+<p>Vérifier conformité architecture cible BNC</p>
+</li>
+<li>
+<p>Approuver passage en statut Approved Bank-Wide</p>
+</li>
+<li>
+<p><strong>Seuil</strong> : 2 approvals requis dans le comité</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_gouvernance_stratégique">3. Gouvernance Stratégique</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Approuver promotions Domaine &#8594; Bank-Wide</p>
+</li>
+<li>
+<p>Approuver dépréciations Bank-Wide (avec consultation multi-domaine)</p>
+</li>
+<li>
+<p>Valider nouveaux standards des équipes transversales</p>
+</li>
+<li>
+<p>Arbitrer conflits inter-domaines</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_bootstrap_et_priorisation">4. Bootstrap et Priorisation</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Identifier sujets prioritaires Bank-Wide</p>
+</li>
+<li>
+<p>Rechercher candidats existants dans domaines</p>
+</li>
+<li>
+<p>Valider promotion directe (bypass Domaine standard)</p>
+</li>
+<li>
+<p><strong>Note</strong> : Flux transitoire, diminuera avec maturité registre</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_réunions_2">Réunions</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Fréquence</strong> : Bimensuelle (toutes les 2 semaines)</p>
+</li>
+<li>
+<p><strong>Durée</strong> : 1h30 maximum</p>
+</li>
+<li>
+<p><strong>Agenda type</strong> :</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Review PRAs Bank-Wide (Flow 2) (30 min)</p>
+</li>
+<li>
+<p>Review promotions Domaine &#8594; Bank-Wide (Flow 1) (30 min)</p>
+</li>
+<li>
+<p>Bootstrap et priorités (Flow 3) (20 min)</p>
+</li>
+<li>
+<p>Points stratégiques (10 min)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_engagement_attendu_2">Engagement Attendu</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Temps</strong> : 3-5 heures/mois</p>
+</li>
+<li>
+<p><strong>Disponibilité</strong> : Review PR sous 72h</p>
+</li>
+<li>
+<p><strong>Participation</strong> : 80%+ réunions</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_équipe_initiative_pra">Équipe Initiative PRA</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_composition_3">Composition</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Nombre</strong> : 2-3 personnes dédiées</p>
+</li>
+<li>
+<p><strong>Profils</strong> :</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1 Architecte Senior (lead)</p>
+</li>
+<li>
+<p>1 DevOps/Platform Engineer</p>
+</li>
+<li>
+<p>1 Developer Experience (DX) Specialist (optionnel)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_responsabilités_3">Responsabilités</h3>
+<div class="sect3">
+<h4 id="_1_infrastructure_outillage">1. Infrastructure &amp; Outillage</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Maintenir repository Git et structure</p>
+</li>
+<li>
+<p>Gérer site Fumadocs et Orama search</p>
+</li>
+<li>
+<p>Maintenir workflows GitHub Actions</p>
+</li>
+<li>
+<p>Gérer sync Confluence</p>
+</li>
+<li>
+<p>Monitoring et alertes</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_support_communauté">2. Support Communauté</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Répondre questions sur <code>#pra-registry</code></p>
+</li>
+<li>
+<p>Aider contributeurs avec templates et processus</p>
+</li>
+<li>
+<p>Organiser sessions de formation</p>
+</li>
+<li>
+<p>Créer documentation et guides</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_évolution_continue">3. Évolution Continue</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Proposer améliorations processus</p>
+</li>
+<li>
+<p>Implémenter nouvelles fonctionnalités</p>
+</li>
+<li>
+<p>Collecter et analyser feedback</p>
+</li>
+<li>
+<p>Roadmap et priorisation</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_communication">4. Communication</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Newsletter mensuelle</p>
+</li>
+<li>
+<p>Annonces nouveaux PRA</p>
+</li>
+<li>
+<p>Promotions secteur &#8594; transversal</p>
+</li>
+<li>
+<p>Stats et métriques d&#8217;adoption</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_engagement_attendu_3">Engagement Attendu</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Temps</strong> : 20-40% temps de travail</p>
+</li>
+<li>
+<p><strong>Disponibilité</strong> : Support actif communauté</p>
+</li>
+<li>
+<p><strong>Proactivité</strong> : Amélioration continue</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_architectes_contributeurs">Architectes Contributeurs</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_qui_sont_ils">Qui sont-ils ?</h3>
+<div class="paragraph">
+<p><strong>Tous les architectes</strong> de l&#8217;organisation peuvent contribuer :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Architectes d&#8217;entreprise</p>
+</li>
+<li>
+<p>Architectes de solution</p>
+</li>
+<li>
+<p>Architectes techniques</p>
+</li>
+<li>
+<p>Architectes de secteur</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_responsabilités_4">Responsabilités</h3>
+<div class="sect3">
+<h4 id="_1_identifier_des_patrons_réutilisables">1. Identifier des Patrons Réutilisables</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Observer patterns récurrents dans projets</p>
+</li>
+<li>
+<p>Identifier solutions éprouvées en production</p>
+</li>
+<li>
+<p>Évaluer réutilisabilité et généralisation</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_documenter_des_pra">2. Documenter des PRA</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Utiliser template officiel</p>
+</li>
+<li>
+<p>Fournir contexte et ADR complets</p>
+</li>
+<li>
+<p>Inclure exemples et proven-in-use</p>
+</li>
+<li>
+<p>Respecter standards de qualité</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_maintenir_leurs_pra">3. Maintenir leurs PRA</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Répondre aux questions utilisateurs</p>
+</li>
+<li>
+<p>Intégrer feedback et learnings</p>
+</li>
+<li>
+<p>Mettre à jour documentation</p>
+</li>
+<li>
+<p>Proposer évolutions</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_reviewer_des_pra">4. Reviewer des PRA</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Participer aux reviews de PRs</p>
+</li>
+<li>
+<p>Fournir feedback constructif</p>
+</li>
+<li>
+<p>Valider applicabilité dans leur contexte</p>
+</li>
+<li>
+<p>Partager expérience similaire</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_droits">Droits</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Libre choix</strong> : Pas d&#8217;obligation d&#8217;utiliser un PRA</p>
+</li>
+<li>
+<p><strong>Accès complet</strong> : Tous les PRA approved et candidates</p>
+</li>
+<li>
+<p><strong>Support</strong> : Assistance équipe Initiative</p>
+</li>
+<li>
+<p><strong>Visibilité</strong> : Reconnaissance contributions</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_devoirs">Devoirs</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Justification</strong> : Expliquer si on n&#8217;utilise pas un PRA applicable</p>
+</li>
+<li>
+<p><strong>Feedback</strong> : Partager retours sur PRA utilisés</p>
+</li>
+<li>
+<p><strong>Documentation</strong> : Documenter proven-in-use</p>
+</li>
+<li>
+<p><strong>Respect</strong> : Suivre processus et standards</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mainteneurs_pra">Mainteneurs PRA</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_qui_sont_ils_2">Qui sont-ils ?</h3>
+<div class="paragraph">
+<p>Architectes désignés comme responsables d&#8217;un ou plusieurs PRA spécifiques.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_responsabilités_5">Responsabilités</h3>
+<div class="sect3">
+<h4 id="_1_ownership_du_pra">1. Ownership du PRA</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Garantir qualité et actualité</p>
+</li>
+<li>
+<p>Décider évolutions et modifications</p>
+</li>
+<li>
+<p>Valider PRs de contributions externes</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_documentation">2. Documentation</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Maintenir documentation à jour</p>
+</li>
+<li>
+<p>Enrichir avec nouveaux learnings</p>
+</li>
+<li>
+<p>Clarifier points ambigus</p>
+</li>
+<li>
+<p>Ajouter exemples</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_support_utilisateurs">3. Support Utilisateurs</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Répondre questions sur le PRA</p>
+</li>
+<li>
+<p>Aider adoption dans nouveaux projets</p>
+</li>
+<li>
+<p>Débloquer problèmes d&#8217;implémentation</p>
+</li>
+<li>
+<p>Collecter feedback</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_évolution">4. Évolution</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Proposer améliorations basées sur feedback</p>
+</li>
+<li>
+<p>Adapter aux nouvelles versions technologiques</p>
+</li>
+<li>
+<p>Identifier besoins de dépréciation</p>
+</li>
+<li>
+<p>Créer versions successeurs si nécessaire</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_durée_engagement">Durée Engagement</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Minimum</strong> : 1 an</p>
+</li>
+<li>
+<p><strong>Transfert</strong> : Possible avec validation Table Gouvernance</p>
+</li>
+<li>
+<p><strong>Rotation</strong> : Encouragée tous les 2-3 ans</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_utilisateurs_pra">Utilisateurs PRA</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_qui_sont_ils_3">Qui sont-ils ?</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Développeurs</strong> : Implémentent les PRA dans le code</p>
+</li>
+<li>
+<p><strong>Architectes</strong> : Utilisent les PRA dans conceptions</p>
+</li>
+<li>
+<p><strong>Product Owners</strong> : Référencent les PRA dans specs</p>
+</li>
+<li>
+<p><strong>Tech Leads</strong> : Recommandent les PRA à leurs équipes</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_responsabilités_6">Responsabilités</h3>
+<div class="sect3">
+<h4 id="_1_utilisation_appropriée">1. Utilisation Appropriée</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Comprendre contexte d&#8217;application du PRA</p>
+</li>
+<li>
+<p>Respecter guidelines et best practices</p>
+</li>
+<li>
+<p>Adapter aux spécificités projet (avec justification)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_feedback">2. Feedback</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Documenter implémentation (proven-in-use)</p>
+</li>
+<li>
+<p>Signaler problèmes ou limitations</p>
+</li>
+<li>
+<p>Proposer améliorations</p>
+</li>
+<li>
+<p>Partager learnings</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_contribution">3. Contribution</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Enrichir exemples et cas d&#8217;usage</p>
+</li>
+<li>
+<p>Corriger erreurs documentation</p>
+</li>
+<li>
+<p>Proposer clarifications</p>
+</li>
+<li>
+<p>Aider autres utilisateurs</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_droits_2">Droits</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Accès libre</strong> : Tous les PRA sans restriction</p>
+</li>
+<li>
+<p><strong>Support</strong> : Aide mainteneurs et communauté</p>
+</li>
+<li>
+<p><strong>Adaptation</strong> : Flexibilité dans implémentation (justifiée)</p>
+</li>
+<li>
+<p><strong>Contribution</strong> : Proposer modifications via PR</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_matrice_raci">Matrice RACI</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2858%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Activité</th>
+<th class="tableblock halign-left valign-top">Comités Domaine</th>
+<th class="tableblock halign-left valign-top">Comité Experts</th>
+<th class="tableblock halign-left valign-top">Équipe Init.</th>
+<th class="tableblock halign-left valign-top">Contributeurs</th>
+<th class="tableblock halign-left valign-top">Mainteneurs</th>
+<th class="tableblock halign-left valign-top">Utilisateurs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Soumettre PRA Domaine</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>R</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Review PRA Domaine</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>R/A</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Approuver PRA Domaine</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>A</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Soumettre PRA Bank-Wide</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>R</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Review PRA Bank-Wide</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>R/A</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Approuver PRA Bank-Wide</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>A</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Proposer promotion Domaine&#8594;BW</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>R</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Approuver promotion Domaine&#8594;BW</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>A</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bootstrap (identifier priorités)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>R/A</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maintenir infrastructure</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>R/A</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maintenir PRA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>R/A</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Utiliser PRA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>R/A</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Déprécier PRA Domaine</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>A</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Déprécier PRA Bank-Wide</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>A</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Former communauté</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>R/A</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Légende</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>R</strong> : Responsable (fait le travail)</p>
+</li>
+<li>
+<p><strong>A</strong> : Approbateur (décide)</p>
+</li>
+<li>
+<p><strong>C</strong> : Consulté (donne input)</p>
+</li>
+<li>
+<p><strong>I</strong> : Informé (reçoit notification)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contacts">Contacts</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_comités_de_gouvernance_domaine">Comités de Gouvernance Domaine</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Particuliers</strong> : <code>#pra-particuliers</code> | <a href="mailto:pra-particuliers@company.com">pra-particuliers@company.com</a></p>
+</li>
+<li>
+<p><strong>Entreprises</strong> : <code>#pra-entreprises</code> | <a href="mailto:pra-entreprises@company.com">pra-entreprises@company.com</a></p>
+</li>
+<li>
+<p><strong>Gestion de Patrimoine</strong> : <code>#pra-gp</code> | <a href="mailto:pra-gp@company.com">pra-gp@company.com</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_comité_de_gouvernance_architectes_experts_2">Comité de Gouvernance Architectes Experts</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Canal Teams</strong> : <code>#pra-governance</code></p>
+</li>
+<li>
+<p><strong>Email</strong> : <a href="mailto:pra-governance@company.com">pra-governance@company.com</a></p>
+</li>
+<li>
+<p><strong>Membres</strong> : Voir <a href="/guides/08-governance">Page Gouvernance</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_équipe_initiative">Équipe Initiative</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Canal Teams</strong> : <code>#pra-initiative</code></p>
+</li>
+<li>
+<p><strong>Email</strong> : <a href="mailto:pra-team@company.com">pra-team@company.com</a></p>
+</li>
+<li>
+<p><strong>Lead</strong> : [Nom Lead Équipe]</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_support_communauté">Support Communauté</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Canal Teams</strong> : <code>#pra-registry</code></p>
+</li>
+<li>
+<p><strong>Email</strong> : <a href="mailto:pra-support@company.com">pra-support@company.com</a></p>
+</li>
+<li>
+<p><strong>GitHub Issues</strong> : [Lien Repository]</p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Parcours recommandé</strong> :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="/guides/01-getting-started">Démarrer avec les PRA</a></p>
+</li>
+<li>
+<p><a href="/guides/02-understanding-pra">Comprendre les PRA</a></p>
+</li>
+<li>
+<p><strong>Rôles et Responsabilités</strong> (vous êtes ici)</p>
+</li>
+<li>
+<p><a href="/guides/04-lifecycle">Cycle de Vie</a></p>
+</li>
+<li>
+<p><a href="/guides/05-standards">Standards de Qualité</a></p>
+</li>
+<li>
+<p><a href="/guides/06-contributing">Contribuer un PRA</a></p>
+</li>
+<li>
+<p><a href="/guides/07-promotion-process">Processus de Promotion</a></p>
+</li>
+<li>
+<p><a href="/guides/08-governance">Gouvernance</a></p>
+</li>
+</ol>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Navigation</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Précédent</strong> : <a href="/guides/02-understanding-pra">Comprendre les PRA</a></p>
+</li>
+<li>
+<p><strong>Suivant</strong> : <a href="/guides/04-lifecycle">Cycle de Vie</a></p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Dernière mise à jour</strong> : 2025-12-02<br>
+<strong>Prochaine review</strong> : 2026-06-02</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-03-18 14:26:44 -0400
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<meta name="keywords" content="pra, archetype-technology, status-operationalizing, scope-domain-wide">
+<title>API Gateway Test Pattern</title>
+<link rel="stylesheet" href="./rouge-github.css">
+<link rel="stylesheet" href="../../../../assets/style.css"></head>
+<body class="article">
+<div id="header">
+<h1>API Gateway Test Pattern</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Fiche signalétique</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Archétype</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">technology</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Sous-catégorie</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">api-gateway</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Statut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">operationalizing</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Scope</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">domain-wide</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Proven-in-use</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Tags</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">api, gateway, microservices, kong</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Version</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Auteur</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TBD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Maintainer</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TBD</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Créé</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2025-12-03</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Dernière MAJ</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2025-12-03</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview">Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ce PRA décrit un pattern d&#8217;API Gateway pour gérer l&#8217;agrégation de microservices dans les applications du domaine Particuliers.</p>
+</div>
+<div class="paragraph">
+<p><strong>Problème résolu</strong> : Complexité excessive côté client lors de l&#8217;interaction avec plusieurs microservices.</p>
+</div>
+<div class="paragraph">
+<p><strong>Solution</strong> : Implémenter une API Gateway centralisée qui agrège les appels vers les microservices backend.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_context">Context</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Problématique</strong> :</p>
+</div>
+<div class="paragraph">
+<p>Dans l&#8217;architecture microservices du domaine Particuliers, les applications clientes (mobile, web) doivent interagir avec de nombreux microservices indépendants. Cela crée plusieurs défis :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Multiplicité des appels réseau</p>
+</li>
+<li>
+<p>Gestion complexe de l&#8217;authentification</p>
+</li>
+<li>
+<p>Couplage fort entre client et services</p>
+</li>
+<li>
+<p>Difficulté de versioning des APIs</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Solution</strong> :</p>
+</div>
+<div class="paragraph">
+<p>Un API Gateway agit comme point d&#8217;entrée unique pour toutes les requêtes clientes. Il offre :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Agrégation de données provenant de multiples services</p>
+</li>
+<li>
+<p>Authentification et autorisation centralisées</p>
+</li>
+<li>
+<p>Transformation et adaptation des réponses</p>
+</li>
+<li>
+<p>Gestion du rate limiting et du caching</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_architecture">Architecture</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_architecture_globale">Architecture Globale</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code>┌─────────────┐
+│   Client    │
+│  (Mobile)   │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────────────────────┐
+│      API Gateway            │
+│  - Authentification         │
+│  - Agrégation              │
+│  - Rate Limiting           │
+│  - Caching                 │
+└──────┬──────────────────────┘
+       │
+       ├──────────┬──────────┬──────────┐
+       ▼          ▼          ▼          ▼
+   ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐
+   │Account │ │Payment │ │Profile │ │Notify  │
+   │Service │ │Service │ │Service │ │Service │
+   └────────┘ └────────┘ └────────┘ └────────┘</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_composants_clés">Composants Clés</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Gateway Layer</strong> : Point d&#8217;entrée unique</p>
+</li>
+<li>
+<p><strong>Aggregation Layer</strong> : Composition de réponses</p>
+</li>
+<li>
+<p><strong>Backend Services</strong> : Microservices métier</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_technologies">Technologies</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Gateway</strong> : Kong, AWS API Gateway, ou custom (Node.js/Express)</p>
+</li>
+<li>
+<p><strong>Auth</strong> : OAuth 2.0 / JWT</p>
+</li>
+<li>
+<p><strong>Cache</strong> : Redis</p>
+</li>
+<li>
+<p><strong>Monitoring</strong> : Prometheus + Grafana</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_adr">ADR</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_adr_001_choix_de_kong_comme_api_gateway">ADR-001: Choix de Kong comme API Gateway</h3>
+<div class="paragraph">
+<p><strong>Contexte</strong> : Besoin d&#8217;un API Gateway robuste et scalable pour le domaine Particuliers.</p>
+</div>
+<div class="paragraph">
+<p><strong>Décision</strong> : Utiliser Kong comme plateforme d&#8217;API Gateway.</p>
+</div>
+<div class="paragraph">
+<p><strong>Raisons</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Open source avec support entreprise</p>
+</li>
+<li>
+<p>Riche écosystème de plugins</p>
+</li>
+<li>
+<p>Performance élevée (basé sur Nginx)</p>
+</li>
+<li>
+<p>Support natif de Kubernetes</p>
+</li>
+<li>
+<p>Communauté active</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Alternatives considérées</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>AWS API Gateway : Vendor lock-in</p>
+</li>
+<li>
+<p>Custom solution : Coût de maintenance élevé</p>
+</li>
+<li>
+<p>Apigee : Coût de licence prohibitif</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Conséquences</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Solution éprouvée et scalable</p>
+</li>
+<li>
+<p>Extensibilité via plugins</p>
+</li>
+<li>
+<p>Courbe d&#8217;apprentissage initiale</p>
+</li>
+<li>
+<p>Nécessite infrastructure dédiée</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adr_002_agrégation_côté_gateway_vs_côté_client">ADR-002: Agrégation côté gateway vs côté client</h3>
+<div class="paragraph">
+<p><strong>Contexte</strong> : Décider où effectuer l&#8217;agrégation de données provenant de multiples services.</p>
+</div>
+<div class="paragraph">
+<p><strong>Décision</strong> : Effectuer l&#8217;agrégation côté gateway (Backend for Frontend pattern).</p>
+</div>
+<div class="paragraph">
+<p><strong>Raisons</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Réduit le nombre d&#8217;appels réseau depuis le client</p>
+</li>
+<li>
+<p>Simplifie le code client</p>
+</li>
+<li>
+<p>Permet l&#8217;optimisation des requêtes backend</p>
+</li>
+<li>
+<p>Facilite le caching</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Conséquences</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Meilleure performance perçue côté client</p>
+</li>
+<li>
+<p>Logique métier centralisée</p>
+</li>
+<li>
+<p>Gateway devient point critique</p>
+</li>
+<li>
+<p>Nécessite gestion de la charge</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_examples">Examples</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_exemple_1_endpoint_dagrégation_de_profil_utilisateur">Exemple 1: Endpoint d&#8217;agrégation de profil utilisateur</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="javascript"><span class="c1">// API Gateway - Aggregation endpoint</span>
+<span class="nx">app</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/api/v1/user/:userId/dashboard</span><span class="dl">'</span><span class="p">,</span> <span class="k">async </span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">userId</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">userId</span><span class="p">;</span>
+
+  <span class="c1">// Appels parallèles aux microservices</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">profile</span><span class="p">,</span> <span class="nx">accounts</span><span class="p">,</span> <span class="nx">transactions</span><span class="p">]</span> <span class="o">=</span> <span class="k">await</span> <span class="nb">Promise</span><span class="p">.</span><span class="nf">all</span><span class="p">([</span>
+    <span class="nx">profileService</span><span class="p">.</span><span class="nf">getProfile</span><span class="p">(</span><span class="nx">userId</span><span class="p">),</span>
+    <span class="nx">accountService</span><span class="p">.</span><span class="nf">getAccounts</span><span class="p">(</span><span class="nx">userId</span><span class="p">),</span>
+    <span class="nx">transactionService</span><span class="p">.</span><span class="nf">getRecentTransactions</span><span class="p">(</span><span class="nx">userId</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+  <span class="p">]);</span>
+
+  <span class="c1">// Agrégation de la réponse</span>
+  <span class="kd">const</span> <span class="nx">dashboard</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">user</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">name</span><span class="p">:</span> <span class="nx">profile</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+      <span class="na">email</span><span class="p">:</span> <span class="nx">profile</span><span class="p">.</span><span class="nx">email</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="na">accounts</span><span class="p">:</span> <span class="nx">accounts</span><span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nx">acc</span> <span class="o">=&gt;</span> <span class="p">({</span>
+      <span class="na">id</span><span class="p">:</span> <span class="nx">acc</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+      <span class="na">type</span><span class="p">:</span> <span class="nx">acc</span><span class="p">.</span><span class="nx">type</span><span class="p">,</span>
+      <span class="na">balance</span><span class="p">:</span> <span class="nx">acc</span><span class="p">.</span><span class="nx">balance</span><span class="p">,</span>
+    <span class="p">})),</span>
+    <span class="na">recentTransactions</span><span class="p">:</span> <span class="nx">transactions</span><span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nx">tx</span> <span class="o">=&gt;</span> <span class="p">({</span>
+      <span class="na">id</span><span class="p">:</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+      <span class="na">amount</span><span class="p">:</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">amount</span><span class="p">,</span>
+      <span class="na">date</span><span class="p">:</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">date</span><span class="p">,</span>
+      <span class="na">description</span><span class="p">:</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">description</span><span class="p">,</span>
+    <span class="p">})),</span>
+  <span class="p">};</span>
+
+  <span class="nx">res</span><span class="p">.</span><span class="nf">json</span><span class="p">(</span><span class="nx">dashboard</span><span class="p">);</span>
+<span class="p">});</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_exemple_2_configuration_kong_yaml">Exemple 2: Configuration Kong (YAML)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="na">_format_version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2.1"</span>
+
+<span class="na">services</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">profile-service</span>
+    <span class="na">url</span><span class="pi">:</span> <span class="s">http://profile-service:8080</span>
+    <span class="na">routes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">profile-route</span>
+        <span class="na">paths</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="s">/api/v1/profile</span>
+
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">account-service</span>
+    <span class="na">url</span><span class="pi">:</span> <span class="s">http://account-service:8080</span>
+    <span class="na">routes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">account-route</span>
+        <span class="na">paths</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="s">/api/v1/accounts</span>
+
+<span class="na">plugins</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">jwt</span>
+    <span class="na">config</span><span class="pi">:</span>
+      <span class="na">key_claim_name</span><span class="pi">:</span> <span class="s">kid</span>
+      <span class="na">secret_is_base64</span><span class="pi">:</span> <span class="kc">false</span>
+
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">rate-limiting</span>
+    <span class="na">config</span><span class="pi">:</span>
+      <span class="na">minute</span><span class="pi">:</span> <span class="m">100</span>
+      <span class="na">policy</span><span class="pi">:</span> <span class="s">local</span>
+
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">cors</span>
+    <span class="na">config</span><span class="pi">:</span>
+      <span class="na">origins</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">https://mobile.bnc.ca</span>
+      <span class="na">methods</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">GET</span>
+        <span class="pi">-</span> <span class="s">POST</span>
+        <span class="pi">-</span> <span class="s">PUT</span>
+        <span class="pi">-</span> <span class="s">DELETE</span>
+      <span class="na">credentials</span><span class="pi">:</span> <span class="kc">true</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_exemple_3_client_side_usage_react_native">Exemple 3: Client-side usage (React Native)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="typescript"><span class="c1">// Client simplifié grâce à l'API Gateway</span>
+<span class="kd">const</span> <span class="nx">DashboardScreen</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">dashboard</span><span class="p">,</span> <span class="nx">setDashboard</span><span class="p">]</span> <span class="o">=</span> <span class="nf">useState</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">userId</span> <span class="p">}</span> <span class="o">=</span> <span class="nf">useAuth</span><span class="p">();</span>
+
+  <span class="nf">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Un seul appel au lieu de 3+</span>
+    <span class="nf">fetch</span><span class="p">(</span><span class="s2">`https://api.bnc.ca/api/v1/user/</span><span class="p">${</span><span class="nx">userId</span><span class="p">}</span><span class="s2">/dashboard`</span><span class="p">,</span> <span class="p">{</span>
+      <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">Authorization</span><span class="p">:</span> <span class="s2">`Bearer </span><span class="p">${</span><span class="nx">token</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+      <span class="p">},</span>
+    <span class="p">})</span>
+      <span class="p">.</span><span class="nf">then</span><span class="p">(</span><span class="nx">res</span> <span class="o">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nf">json</span><span class="p">())</span>
+      <span class="p">.</span><span class="nf">then</span><span class="p">(</span><span class="nx">data</span> <span class="o">=&gt;</span> <span class="nf">setDashboard</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">userId</span><span class="p">]);</span>
+
+  <span class="k">return </span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">View</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">ProfileHeader</span> <span class="nx">user</span><span class="o">=</span><span class="p">{</span><span class="nx">dashboard</span><span class="p">?.</span><span class="nx">user</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">AccountList</span> <span class="nx">accounts</span><span class="o">=</span><span class="p">{</span><span class="nx">dashboard</span><span class="p">?.</span><span class="nx">accounts</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">TransactionList</span> <span class="nx">transactions</span><span class="o">=</span><span class="p">{</span><span class="nx">dashboard</span><span class="p">?.</span><span class="nx">recentTransactions</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">};</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_retours_dexpérience_proven_in_use">Retours d&#8217;expérience (Proven-in-use)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_mobile_banking_app_retail_digital_team">Mobile Banking App — Retail Digital Team</h3>
+<div class="paragraph">
+<p><strong>Date</strong> : 2025-11-15<br>
+<strong>Feedback</strong> : Successfully implemented API gateway for microservices aggregation. Reduced client-side complexity by 60%.</p>
+</div>
+<div class="paragraph">
+<p><strong>Contexte</strong> : Refonte de l&#8217;application mobile banque pour les clients Particuliers.</p>
+</div>
+<div class="paragraph">
+<p><strong>Implémentation</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>API Gateway avec Kong sur Kubernetes</p>
+</li>
+<li>
+<p>Agrégation de 8 microservices backend</p>
+</li>
+<li>
+<p>Support de 500K+ utilisateurs actifs</p>
+</li>
+<li>
+<p>Déploiement sur AWS EKS</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Résultats</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Réduction de 60% de la complexité côté client</strong></p>
+</li>
+<li>
+<p><strong>Performance</strong> : Temps de chargement du dashboard réduit de 2.5s à 0.8s</p>
+</li>
+<li>
+<p><strong>Fiabilité</strong> : Disponibilité de 99.95%</p>
+</li>
+<li>
+<p><strong>Scalabilité</strong> : Support de 10K requêtes/seconde en période de pointe</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Feedback</strong> : "L&#8217;API Gateway a considérablement simplifié notre architecture mobile. L&#8217;équipe frontend peut maintenant se concentrer sur l&#8217;UX plutôt que sur l&#8217;orchestration de microservices."</p>
+</div>
+<div class="paragraph">
+<p><strong>Métriques</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Nombre d&#8217;appels API par page réduit : 12 &#8594; 3</p>
+</li>
+<li>
+<p>Taille des payloads optimisée : -40%</p>
+</li>
+<li>
+<p>Time to First Byte (TTFB) : 250ms en moyenne</p>
+</li>
+<li>
+<p>Taux d&#8217;erreur : &lt; 0.1%</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Learnings</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Importance du monitoring granulaire de la gateway</p>
+</li>
+<li>
+<p>Nécessité de caching agressif pour les données peu volatiles</p>
+</li>
+<li>
+<p>Circuit breaker essentiel pour la résilience</p>
+</li>
+<li>
+<p>Documentation OpenAPI facilitant l&#8217;adoption par les équipes</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-03-18 14:21:37 -0400
+</div>
+</div>
+</body>
+</html>

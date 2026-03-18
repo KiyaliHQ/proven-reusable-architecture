@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<meta name="keywords" content="pra, guide, promotion, domain, bank-wide">
+<title>Promotion Process (Domain &#8594; Bank-Wide)</title>
+<link rel="stylesheet" href="./rouge-github.css">
+<link rel="stylesheet" href="../../assets/style.css"></head>
+<body class="article">
+<div id="header">
+<h1>Promotion Process (Domain &#8594; Bank-Wide)</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>This represents Flow 1</strong> of the three PRA creation flows described in <a href="governance.adoc">Governance</a>. This is the organic, bottom-up flow where Domain PRAs are identified as having multi-domain value and promoted to Bank-Wide status.</p>
+</div>
+<div class="paragraph">
+<p>This document describes the process for promoting a Domain pattern to the Bank-Wide level, making it applicable across all organizational domains.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview">Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The promotion of a Domain pattern to the Bank-Wide level follows a 4-phase process:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">graph LR
+    A[Phase 1: Proposal] --&gt; B[Phase 2: Review]
+    B --&gt; C[Phase 3: Migration]
+    C --&gt; D[Phase 4: Adoption]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_phase_1_proposal">Phase 1: Proposal</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_trigger">Trigger</h3>
+<div class="paragraph">
+<p>A <strong>Domain Governance Committee</strong> identifies a Domain pattern that could benefit other domains.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_required_actions">Required Actions</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Create promotion folder</strong></p>
+<div class="listingblock">
+<div class="content">
+<pre>content/registre/en-promotion/[sector]-[category]-[pattern-name]/</pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Document justification</strong></p>
+<div class="paragraph">
+<p>Create <code>justification.md</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="markdown"><span class="gh"># Promotion Justification</span>
+
+<span class="gu">## Proposed Pattern</span>
+<span class="p">-</span> <span class="gs">**Name**</span>: [Pattern Name]
+<span class="p">-</span> <span class="gs">**Original Domain**</span>: [Domain]
+<span class="p">-</span> <span class="gs">**Category**</span>: tech | integration | security | business
+
+<span class="gu">## Why is this pattern of Bank-Wide interest?</span>
+<span class="p">-</span> [Reason 1: Recurring need across domains]
+<span class="p">-</span> [Reason 2: Multi-domain applicable]
+<span class="p">-</span> [Reason 3: Mature and proven]
+
+<span class="gu">## Proven-in-use within the domain</span>
+<span class="p">-</span> <span class="gs">**Project 1**</span>: [Project name, date, results]
+<span class="p">-</span> <span class="gs">**Project 2**</span>: [Project name, date, results]
+<span class="p">-</span> <span class="gs">**Project 3**</span>: [Project name, date, results]
+
+<span class="gu">## Expected Benefits</span>
+<span class="p">-</span> [Benefit 1]
+<span class="p">-</span> [Benefit 2]</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Analyze multi-sector impact</strong></p>
+<div class="paragraph">
+<p>Create <code>impact-analysis.md</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="markdown"><span class="gh"># Multi-Domain Impact Analysis</span>
+
+<span class="gu">## Domains that can benefit</span>
+
+<span class="gu">### Domain 1: [Name]</span>
+<span class="p">-</span> <span class="gs">**Use case**</span>: [Description]
+<span class="p">-</span> <span class="gs">**Added value**</span>: [Benefits]
+<span class="p">-</span> <span class="gs">**Adoption effort**</span>: Low | Medium | High
+
+<span class="gu">### Domain 2: [Name]</span>
+<span class="p">-</span> <span class="gs">**Use case**</span>: [Description]
+<span class="p">-</span> <span class="gs">**Added value**</span>: [Benefits]
+<span class="p">-</span> <span class="gs">**Adoption effort**</span>: Low | Medium | High
+
+<span class="gu">## Necessary Adaptations</span>
+<span class="p">-</span> [Modification 1 for generalization]
+<span class="p">-</span> [Modification 2 for generalization]
+
+<span class="gu">## Identified Risks</span>
+<span class="p">-</span> [Risk 1 + mitigation]
+<span class="p">-</span> [Risk 2 + mitigation]</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Update the pattern</strong></p>
+<div class="paragraph">
+<p>In the Domain pattern frontmatter:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="na">promotion_status</span><span class="pi">:</span> <span class="s">proposed</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Submit PR</strong></p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git checkout <span class="nt">-b</span> promotion/[domain]-[pattern]
+git add content/registre/en-promotion/[folder]/
+git add content/registre/domaines/[domain]/[pattern].md
+git commit <span class="nt">-m</span> <span class="s2">"feat: propose promotion [pattern] to Bank-Wide"</span>
+git push origin promotion/[domain]-[pattern]</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_phase_2_review">Phase 2: Review</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_assignment">Assignment</h3>
+<div class="paragraph">
+<p>The Pull Request is automatically assigned to the <strong>Expert Architects Governance Committee</strong>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_committee_analysis">Committee Analysis</h3>
+<div class="paragraph">
+<p>The committee evaluates according to these criteria:</p>
+</div>
+<div class="sect3">
+<h4 id="_1_multi_domain_reusability">1. Multi-Domain Reusability</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Does the pattern solve a problem common to 3+ domains?</p>
+</li>
+<li>
+<p>Are the necessary adaptations minor?</p>
+</li>
+<li>
+<p>Can domain-specific aspects be parameterized?</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_pattern_maturity">2. Pattern Maturity</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>1+ proven implementation in the original domain (Domain Approved)?</p>
+</li>
+<li>
+<p>Positive feedback from domain teams?</p>
+</li>
+<li>
+<p>Complete and clear documentation?</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_compliance_with_bank_wide_standards">3. Compliance with Bank-Wide Standards</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Complies with enterprise technical standards?</p>
+</li>
+<li>
+<p>Compatible with target architecture?</p>
+</li>
+<li>
+<p>Security and compliance validated?</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_impact_on_enterprise_consistency">4. Impact on Enterprise Consistency</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Strengthens architectural alignment across domains?</p>
+</li>
+<li>
+<p>Avoids solution duplication?</p>
+</li>
+<li>
+<p>Facilitates multi-domain interoperability?</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_possible_decisions">Possible Decisions</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Approved</strong>&#8201;&#8212;&#8201;Proceeds to Phase 3 (Migration)</p>
+</li>
+<li>
+<p><strong>Revisions required</strong>&#8201;&#8212;&#8201;Returns to domain with feedback</p>
+</li>
+<li>
+<p><strong>Rejected</strong>&#8201;&#8212;&#8201;Remains Domain-level with justification</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_timeline">Timeline</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Initial review</strong>: 1 week</p>
+</li>
+<li>
+<p><strong>Discussion</strong>: 1-2 weeks if clarifications needed</p>
+</li>
+<li>
+<p><strong>Final decision</strong>: Maximum 4 weeks</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_phase_3_migration_if_approved">Phase 3: Migration (if approved)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_7_cleanup_and_generalization">7. Cleanup and Generalization</h3>
+<div class="paragraph">
+<p>The pattern maintainer (with Expert Architects Committee support):</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Remove domain-specific aspects</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Replace specific references with generic parameters</p>
+</li>
+<li>
+<p>Document configuration points</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Enrich documentation</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add multi-domain examples</p>
+</li>
+<li>
+<p>Document domain-specific variations</p>
+</li>
+<li>
+<p>Create adaptation guide</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_8_technical_migration">8. Technical Migration</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="c"># Move the pattern</span>
+git <span class="nb">mv </span>content/registre/domaines/[domain]/[category]/[pattern].md <span class="se">\</span>
+       content/registre/bank-wide/[category]/[pattern].md
+
+<span class="c"># Update metadata</span>
+<span class="c"># In the frontmatter:</span>
+scope: bank-wide
+original_domain: <span class="o">[</span>original-domain]
+promotion_status: promoted
+promotion_date: YYYY-MM-DD</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_9_historical_marking">9. Historical Marking</h3>
+<div class="paragraph">
+<p>In the original domain, create a redirect:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="markdown"><span class="nn">---</span>
+<span class="na">title</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">Pattern Name</span><span class="pi">]</span>
+<span class="na">redirect</span><span class="pi">:</span> <span class="s">/registre/bank-wide/[category]/[pattern]</span>
+<span class="nn">---</span>
+
+<span class="gh"># [Pattern Name]</span>
+
+This pattern was <span class="gs">**promoted to Bank-Wide level**</span> on [date].
+
+It is now accessible to all domains:
+<span class="p">[</span><span class="nv">View the Bank-Wide pattern</span><span class="p">](</span><span class="sx">/registre/bank-wide/[category]/[pattern]</span><span class="p">)</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_10_communication">10. Communication</h3>
+<div class="paragraph">
+<p>Automated email sent to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>All architects</p>
+</li>
+<li>
+<p>Architecture managers of each domain</p>
+</li>
+<li>
+<p>PRA distribution list</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Template:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Subject: New Bank-Wide pattern: [Pattern Name]
+
+The pattern "[Pattern Name]" from the [Domain] domain has been promoted
+to Bank-Wide level.
+
+Benefits: [Summary]
+Applicable domains: [List]
+Documentation: [Link]
+
+Use it in your new projects!</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_11_archive_promotion">11. Archive Promotion</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="c"># Archive the promotion folder</span>
+git <span class="nb">mv </span>content/registre/en-promotion/[folder]/ <span class="se">\</span>
+       content/registre/en-promotion/archive/YYYY-MM-[pattern]/</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_phase_4_adoption">Phase 4: Adoption</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_multi_domain_encouragement">Multi-Domain Encouragement</h3>
+<div class="paragraph">
+<p>The Expert Architects Committee:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Presents the pattern in enterprise architecture meetings</p>
+</li>
+<li>
+<p>Identifies pilot projects in different domains</p>
+</li>
+<li>
+<p>Organizes Q&amp;A sessions</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_feedback_and_improvement">Feedback and Improvement</h3>
+<div class="paragraph">
+<p>Adopting teams:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Document their implementations (proven-in-use)</p>
+</li>
+<li>
+<p>Report feedback and suggestions</p>
+</li>
+<li>
+<p>Propose improvements via PR</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_continuous_evolution">Continuous Evolution</h3>
+<div class="paragraph">
+<p>The maintainer (now at Bank-Wide level):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Integrates multi-domain learnings</p>
+</li>
+<li>
+<p>Publishes regular updates</p>
+</li>
+<li>
+<p>Maintains compatibility across domains</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_success_metrics">Success Metrics</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A promotion is considered successful if:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>3+ domains</strong> adopt the pattern within 6 months (to reach Bank-Wide Approved)</p>
+</li>
+<li>
+<p><strong>80%+ satisfaction</strong> from user teams</p>
+</li>
+<li>
+<p><strong>Reduced duplication</strong>: no new similar domain-specific pattern</p>
+</li>
+<li>
+<p><strong>Maintained documentation</strong>: &lt; 6 months since last update</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_faq">FAQ</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_how_long_does_the_process_take">How long does the process take?</h3>
+<div class="paragraph">
+<p><strong>Minimum</strong>: 6 weeks (2 weeks review + 4 weeks migration)<br>
+<strong>Typical</strong>: 2-3 months (with revisions and communication)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_who_decides_on_the_promotion">Who decides on the promotion?</h3>
+<div class="paragraph">
+<p>The <strong>Expert Architects Governance Committee</strong>, with consultation from the original domain committee.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_can_we_propose_multiple_patterns_simultaneously">Can we propose multiple patterns simultaneously?</h3>
+<div class="paragraph">
+<p>Yes, but max <strong>2 active promotions</strong> per domain to avoid overload.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_what_happens_if_the_promotion_is_rejected">What happens if the promotion is rejected?</h3>
+<div class="paragraph">
+<p>The pattern remains at Domain level. The rejection rationale is documented and can be reevaluated after 6 months.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_can_a_bank_wide_pattern_be_demoted">Can a Bank-Wide pattern be "demoted"?</h3>
+<div class="paragraph">
+<p>No. If a Bank-Wide pattern becomes obsolete, it transitions to <code>deprecated</code>, but does not return to Domain level.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_support">Support</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For any questions about promotions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Teams Channel</strong>: <code>#pra-promotions</code></p>
+</li>
+<li>
+<p><strong>Committee Email</strong>: <a href="mailto:pra-governance@company.com">pra-governance@company.com</a></p>
+</li>
+<li>
+<p><strong>GitHub Issues</strong>: Tag <code>promotion</code> on your PRs</p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Recommended Journey</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="getting-started.adoc">Getting Started with PRAs</a></p>
+</li>
+<li>
+<p><a href="understanding-pra.adoc">Understanding PRAs</a></p>
+</li>
+<li>
+<p><a href="roles-responsibilities.adoc">Roles and Responsibilities</a></p>
+</li>
+<li>
+<p><a href="lifecycle.adoc">Lifecycle</a></p>
+</li>
+<li>
+<p><a href="standards.adoc">Quality Standards</a></p>
+</li>
+<li>
+<p><a href="contributing.adoc">Contributing a PRA</a></p>
+</li>
+<li>
+<p><strong>Promotion Process</strong> (you are here)</p>
+</li>
+<li>
+<p><a href="governance.adoc">Governance</a></p>
+</li>
+</ol>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Navigation</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Previous</strong>: <a href="contributing.adoc">Contributing a PRA</a></p>
+</li>
+<li>
+<p><strong>Next</strong>: <a href="governance.adoc">Governance</a></p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Last Updated</strong>: 2025-12-02<br>
+<strong>Next Review</strong>: 2026-06-02</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-03-18 14:27:12 -0400
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<meta name="keywords" content="pra, guide, promotion, domaine, bank-wide">
+<title>Processus de Promotion (Domaine &#8594; Bank-Wide)</title>
+<link rel="stylesheet" href="./rouge-github.css">
+<link rel="stylesheet" href="../../assets/style.css"></head>
+<body class="article">
+<div id="header">
+<h1>Processus de Promotion (Domaine &#8594; Bank-Wide)</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Ceci represente le Flow 1</strong> des trois flows de creation de PRA decrits dans <a href="governance.adoc">Gouvernance</a>. C&#8217;est le flow organique, bottom-up ou les PRAs Domaine sont identifies comme ayant une valeur multi-domaine et promus au statut Bank-Wide.</p>
+</div>
+<div class="paragraph">
+<p>Ce document decrit le processus permettant de promouvoir un patron Domaine au niveau Bank-Wide, le rendant ainsi applicable a tous les domaines de l&#8217;organisation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_vue_densemble">Vue d&#8217;ensemble</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La promotion d&#8217;un patron Domaine vers le niveau Bank-Wide suit un processus en 4 phases :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">graph LR
+    A[Phase 1: Proposition] --&gt; B[Phase 2: Revue]
+    B --&gt; C[Phase 3: Migration]
+    C --&gt; D[Phase 4: Adoption]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_phase_1_proposition">Phase 1 : Proposition</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_declencheur">Declencheur</h3>
+<div class="paragraph">
+<p>Un <strong>Comite de Gouvernance du Domaine</strong> identifie un patron Domaine qui pourrait beneficier a d&#8217;autres domaines.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_actions_requises">Actions requises</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Creer dossier de promotion</strong></p>
+<div class="listingblock">
+<div class="content">
+<pre>content/registre/en-promotion/[domaine]-[categorie]-[nom-patron]/</pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Documenter la justification</strong></p>
+<div class="paragraph">
+<p>Creer <code>justification.md</code> :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="markdown"><span class="gh"># Justification de Promotion</span>
+
+<span class="gu">## Patron Propose</span>
+<span class="p">-</span> <span class="gs">**Nom**</span> : [Nom du patron]
+<span class="p">-</span> <span class="gs">**Domaine d'origine**</span> : [Domaine]
+<span class="p">-</span> <span class="gs">**Categorie**</span> : tech | integration | security | business
+
+<span class="gu">## Pourquoi ce patron est d'interet Bank-Wide ?</span>
+<span class="p">-</span> [Raison 1 : Besoin recurrent]
+<span class="p">-</span> [Raison 2 : Applicable multi-domaines]
+<span class="p">-</span> [Raison 3 : Mature et eprouve]
+
+<span class="gu">## Proven-in-use dans le domaine</span>
+<span class="p">-</span> <span class="gs">**Projet 1**</span> : [Nom projet, date, resultats]
+<span class="p">-</span> <span class="gs">**Projet 2**</span> : [Nom projet, date, resultats]
+<span class="p">-</span> <span class="gs">**Projet 3**</span> : [Nom projet, date, resultats]
+
+<span class="gu">## Benefices attendus</span>
+<span class="p">-</span> [Benefice 1]
+<span class="p">-</span> [Benefice 2]</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Analyser l&#8217;impact multi-domaine</strong></p>
+<div class="paragraph">
+<p>Creer <code>impact-analysis.md</code> :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="markdown"><span class="gh"># Analyse d'Impact Multi-Domaine</span>
+
+<span class="gu">## Domaines pouvant beneficier</span>
+
+<span class="gu">### Domaine 1 : [Nom]</span>
+<span class="p">-</span> <span class="gs">**Cas d'usage**</span> : [Description]
+<span class="p">-</span> <span class="gs">**Valeur ajoutee**</span> : [Benefices]
+<span class="p">-</span> <span class="gs">**Effort d'adoption**</span> : Faible | Moyen | Eleve
+
+<span class="gu">### Domaine 2 : [Nom]</span>
+<span class="p">-</span> <span class="gs">**Cas d'usage**</span> : [Description]
+<span class="p">-</span> <span class="gs">**Valeur ajoutee**</span> : [Benefices]
+<span class="p">-</span> <span class="gs">**Effort d'adoption**</span> : Faible | Moyen | Eleve
+
+<span class="gu">## Adaptations necessaires</span>
+<span class="p">-</span> [Modification 1 pour generalisation]
+<span class="p">-</span> [Modification 2 pour generalisation]
+
+<span class="gu">## Risques identifies</span>
+<span class="p">-</span> [Risque 1 + mitigation]
+<span class="p">-</span> [Risque 2 + mitigation]</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Mettre a jour le patron</strong></p>
+<div class="paragraph">
+<p>Dans le frontmatter du patron domaine :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="na">promotion_status</span><span class="pi">:</span> <span class="s">proposed</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Soumettre PR</strong></p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash">git checkout <span class="nt">-b</span> promotion/[domaine]-[patron]
+git add content/registre/en-promotion/[dossier]/
+git add content/registre/domaines/[domaine]/[patron].md
+git commit <span class="nt">-m</span> <span class="s2">"feat: propose promotion [patron] vers Bank-Wide"</span>
+git push origin promotion/[domaine]-[patron]</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_phase_2_revue">Phase 2 : Revue</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_assignation">Assignation</h3>
+<div class="paragraph">
+<p>La Pull Request est automatiquement assignee au <strong>Comite de Gouvernance Architectes Experts</strong>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_analyse_du_comite">Analyse du Comite</h3>
+<div class="paragraph">
+<p>Le comite evalue selon ces criteres :</p>
+</div>
+<div class="sect3">
+<h4 id="_1_reutilisabilite_multi_domaine">1. Reutilisabilite Multi-Domaine</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Le patron resout-il un probleme commun a 3+ domaines ?</p>
+</li>
+<li>
+<p>Les adaptations necessaires sont-elles mineures ?</p>
+</li>
+<li>
+<p>Les specificites domaineles peuvent-elles etre parametrees ?</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_maturite_du_patron">2. Maturite du Patron</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>3+ implementations prouvees dans le domaine d&#8217;origine ?</p>
+</li>
+<li>
+<p>Retours positifs des equipes utilisatrices ?</p>
+</li>
+<li>
+<p>Documentation complete et claire ?</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_conformite_aux_standards_transversaux">3. Conformite aux Standards Transversaux</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Respecte les standards techniques entreprise ?</p>
+</li>
+<li>
+<p>Compatible avec l&#8217;architecture cible ?</p>
+</li>
+<li>
+<p>Securite et conformite validees ?</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_impact_sur_la_coherence_dentreprise">4. Impact sur la Coherence d&#8217;Entreprise</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Renforce l&#8217;alignement architectural ?</p>
+</li>
+<li>
+<p>Evite la duplication de solutions ?</p>
+</li>
+<li>
+<p>Facilite l&#8217;interoperabilite ?</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_decisions_possibles">Decisions Possibles</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Approuve</strong>&#8201;&#8212;&#8201;Passe en Phase 3 (Migration)</p>
+</li>
+<li>
+<p><strong>Revisions requises</strong>&#8201;&#8212;&#8201;Retour au domaine avec feedback</p>
+</li>
+<li>
+<p><strong>Refuse</strong>&#8201;&#8212;&#8201;Reste domaine avec justification</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_timeline">Timeline</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Review initiale</strong> : 1 semaine</p>
+</li>
+<li>
+<p><strong>Discussion</strong> : 1-2 semaines si clarifications</p>
+</li>
+<li>
+<p><strong>Decision finale</strong> : Maximum 4 semaines</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_phase_3_migration_si_approuve">Phase 3 : Migration (si approuve)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_7_nettoyage_et_generalisation">7. Nettoyage et Generalisation</h3>
+<div class="paragraph">
+<p>Le mainteneur du patron (avec support du comite) :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Retire les specificites domaineles</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Remplace references specifiques par parametres generiques</p>
+</li>
+<li>
+<p>Documente les points de configuration</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Enrichit la documentation</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Ajoute exemples multi-domaines</p>
+</li>
+<li>
+<p>Documente les variations domaineles</p>
+</li>
+<li>
+<p>Cree guide d&#8217;adaptation</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_8_migration_technique">8. Migration Technique</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="c"># Deplacer le patron</span>
+git <span class="nb">mv </span>content/registre/domaines/[domaine]/[categorie]/[patron].md <span class="se">\</span>
+       content/registre/Bank-Wide/[categorie]/[patron].md
+
+<span class="c"># Mettre a jour metadata</span>
+<span class="c"># Dans le frontmatter :</span>
+scope: Bank-Wide
+original_sector: <span class="o">[</span>domaine-origine]
+promotion_status: promoted
+promotion_date: YYYY-MM-DD</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_9_marquage_historique">9. Marquage Historique</h3>
+<div class="paragraph">
+<p>Dans le domaine d&#8217;origine, creer une redirection :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="markdown"><span class="nn">---</span>
+<span class="na">title</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">Nom Patron</span><span class="pi">]</span>
+<span class="na">redirect</span><span class="pi">:</span> <span class="s">/registre/Bank-Wide/[categorie]/[patron]</span>
+<span class="nn">---</span>
+
+<span class="gh"># [Nom Patron]</span>
+
+Ce patron a ete <span class="gs">**promu au niveau Bank-Wide**</span> le [date].
+
+Il est maintenant accessible a tous les domaines :
+<span class="p">[</span><span class="nv">Voir le patron Bank-Wide</span><span class="p">](</span><span class="sx">/registre/Bank-Wide/[categorie]/[patron]</span><span class="p">)</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_10_communication">10. Communication</h3>
+<div class="paragraph">
+<p>Email automatique envoye a :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Tous les architectes</p>
+</li>
+<li>
+<p>Responsables architecture de chaque domaine</p>
+</li>
+<li>
+<p>Liste de diffusion PRA</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Template :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Sujet: Nouveau patron Bank-Wide : [Nom Patron]
+
+Le patron "[Nom Patron]" du domaine [Domaine] a ete promu
+au niveau Bank-Wide.
+
+Benefices : [Resume]
+Domaines applicables : [Liste]
+Documentation : [Lien]
+
+Utilisez-le dans vos nouveaux projets !</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_11_archive_promotion">11. Archive Promotion</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="bash"><span class="c"># Archiver le dossier de promotion</span>
+git <span class="nb">mv </span>content/registre/en-promotion/[dossier]/ <span class="se">\</span>
+       content/registre/en-promotion/archive/YYYY-MM-[patron]/</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_phase_4_adoption">Phase 4 : Adoption</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_encouragement_multi_domaine">Encouragement Multi-Domaine</h3>
+<div class="paragraph">
+<p>Le Comite Architectes Experts :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Presente le patron en reunion architecture d&#8217;entreprise</p>
+</li>
+<li>
+<p>Identifie projets pilotes dans differents domaines</p>
+</li>
+<li>
+<p>Organise sessions de Q&amp;A</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_feedback_et_amelioration">Feedback et Amelioration</h3>
+<div class="paragraph">
+<p>Les equipes adoptantes :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Documentent leurs implementations (proven-in-use)</p>
+</li>
+<li>
+<p>Remontent feedbacks et suggestions</p>
+</li>
+<li>
+<p>Proposent ameliorations via PR</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_evolution_continue">Evolution Continue</h3>
+<div class="paragraph">
+<p>Le mainteneur (desormais au niveau Bank-Wide) :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Integre les learnings multi-domaines</p>
+</li>
+<li>
+<p>Publie updates regulieres</p>
+</li>
+<li>
+<p>Maintient compatibilite entre domaines</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_metriques_de_succes">Metriques de Succes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Une promotion est consideree reussie si :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>3+ domaines</strong> adoptent le patron dans les 6 mois</p>
+</li>
+<li>
+<p><strong>80%+ satisfaction</strong> des equipes utilisatrices</p>
+</li>
+<li>
+<p><strong>Reduction duplication</strong> : pas de nouveau patron domaine similaire</p>
+</li>
+<li>
+<p><strong>Documentation maintenue</strong> : &lt; 3 mois depuis derniere update</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_faq">FAQ</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_combien_de_temps_prend_le_processus">Combien de temps prend le processus ?</h3>
+<div class="paragraph">
+<p><strong>Minimum</strong> : 6 semaines (2 semaines review + 4 semaines migration)<br>
+<strong>Typique</strong> : 2-3 mois (avec revisions et communication)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_qui_decide_de_la_promotion">Qui decide de la promotion ?</h3>
+<div class="paragraph">
+<p>Le <strong>Comite de Gouvernance Architectes Experts</strong>, avec consultation du domaine d&#8217;origine.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_peut_on_proposer_plusieurs_patrons_simultanement">Peut-on proposer plusieurs patrons simultanement ?</h3>
+<div class="paragraph">
+<p>Oui, mais max <strong>2 promotions actives</strong> par domaine pour eviter surcharge.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_que_se_passe_t_il_si_la_promotion_est_refusee">Que se passe-t-il si la promotion est refusee ?</h3>
+<div class="paragraph">
+<p>Le patron reste domaine. La justification du refus est documentee et peut etre reevaluee apres 6 mois.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_un_patron_bank_wide_peut_il_etre_retrograde">Un patron Bank-Wide peut-il etre "retrograde" ?</h3>
+<div class="paragraph">
+<p>Non. Si un patron Bank-Wide devient obsolete, il passe a <code>deprecated</code>, mais ne retourne pas au niveau domaine.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_support">Support</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Pour toute question sur les promotions :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Canal Teams</strong> : <code>#pra-promotions</code></p>
+</li>
+<li>
+<p><strong>Email Comite</strong> : <a href="mailto:pra-governance@company.com">pra-governance@company.com</a></p>
+</li>
+<li>
+<p><strong>Issues GitHub</strong> : Tag <code>promotion</code> sur vos PRs</p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Parcours recommande</strong> :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="getting-started.adoc">Demarrer avec les PRA</a></p>
+</li>
+<li>
+<p><a href="understanding-pra.adoc">Comprendre les PRA</a></p>
+</li>
+<li>
+<p><a href="roles-responsibilities.adoc">Roles et Responsabilites</a></p>
+</li>
+<li>
+<p><a href="lifecycle.adoc">Cycle de Vie</a></p>
+</li>
+<li>
+<p><a href="standards.adoc">Standards de Qualite</a></p>
+</li>
+<li>
+<p><a href="contributing.adoc">Contribuer un PRA</a></p>
+</li>
+<li>
+<p><strong>Processus de Promotion</strong> (vous etes ici)</p>
+</li>
+<li>
+<p><a href="governance.adoc">Gouvernance</a></p>
+</li>
+</ol>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Navigation</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Precedent</strong> : <a href="contributing.adoc">Contribuer un PRA</a></p>
+</li>
+<li>
+<p><strong>Suivant</strong> : <a href="governance.adoc">Gouvernance</a></p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Derniere mise a jour</strong> : 2025-12-02<br>
+<strong>Prochaine review</strong> : 2026-06-02</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-03-18 14:26:50 -0400
+</div>
+</div>
+</body>
+</html>

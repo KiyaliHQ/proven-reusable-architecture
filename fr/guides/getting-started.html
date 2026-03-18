@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<meta name="keywords" content="pra, guide, getting-started">
+<title>Demarrer avec les PRA</title>
+<link rel="stylesheet" href="./rouge-github.css">
+<link rel="stylesheet" href="../../assets/style.css"></head>
+<body class="article">
+<div id="header">
+<h1>Demarrer avec les PRA</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Bienvenue dans le <strong>Registre des Proven Reusable Architecture (PRA)</strong> !</p>
+</div>
+<div class="paragraph">
+<p>Ce guide vous aidera a comprendre rapidement ce qu&#8217;est un PRA et comment l&#8217;utiliser dans vos projets.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quest_ce_quun_pra">Qu&#8217;est-ce qu&#8217;un PRA ?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Un <strong>Proven Reusable Architecture (PRA)</strong> est une <strong>solution eprouvee</strong> a un probleme recurrent d&#8217;architecture logicielle.</p>
+</div>
+<div class="sect2">
+<h3 id="_en_3_points_cles">En 3 points cles</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Proven-in-use</strong> : Valide en production reelle (pas theorique)</p>
+</li>
+<li>
+<p><strong>Reutilisable</strong> : Applicable a plusieurs contextes et projets</p>
+</li>
+<li>
+<p><strong>Bien documente</strong> : Contexte, architecture, exemples, retours d&#8217;experience</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_analogie_simple">Analogie Simple</h3>
+<div class="paragraph">
+<p>Pensez aux PRA comme des <strong>recettes de cuisine eprouvees</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>La recette (le PRA) a ete testee plusieurs fois</p>
+</li>
+<li>
+<p>Elle fonctionne dans differentes cuisines (contextes)</p>
+</li>
+<li>
+<p>Elle documente les ingredients (stack tech), les etapes (implementation) et les pieges a eviter</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pourquoi_utiliser_les_pra">Pourquoi utiliser les PRA ?</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_gain_de_temps">Gain de Temps</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Eviter de reinventer la roue</p>
+</li>
+<li>
+<p>Solutions pretes a l&#8217;emploi</p>
+</li>
+<li>
+<p>Retours d&#8217;experience documentes</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_qualite">Qualite</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Solutions validees en production</p>
+</li>
+<li>
+<p>Best practices integrees</p>
+</li>
+<li>
+<p>Pieges courants documentes</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_coherence">Coherence</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Alignement architectural entre equipes</p>
+</li>
+<li>
+<p>Vocabulaire commun</p>
+</li>
+<li>
+<p>Standards partages</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_comment_naviguer_dans_le_registre">Comment naviguer dans le registre ?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Le registre PRA est organise en <strong>2 scopes</strong> :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">graph TD
+    A[Registre PRA] --&gt; B[Bank-Wide]
+    A --&gt; C[Domaines]
+
+    B --&gt; B1[Approuvés pour tous]
+    C --&gt; C1[Spécifiques à un domaine]</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bank_wide_transversal">Bank-Wide (Transversal)</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pour qui ?</strong> Tous les domaines de l&#8217;organisation</p>
+</li>
+<li>
+<p><strong>Maturite</strong> : Valides par le Comite de Gouvernance Architectes Experts (3+ proven-in-use)</p>
+</li>
+<li>
+<p><strong>Exemples</strong> : Authentification, Observabilite, CI/CD, File Transfer</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_domaines">Domaines</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pour qui ?</strong> Equipes d&#8217;un domaine specifique (Particuliers, Entreprises, Gestion de Patrimoine)</p>
+</li>
+<li>
+<p><strong>Maturite</strong> : Valides par le Comite de Gouvernance du Domaine (1+ proven-in-use)</p>
+</li>
+<li>
+<p><strong>Contenu</strong> : Tous types de patterns (fonctionnels ET techniques)</p>
+</li>
+<li>
+<p><strong>Exemples</strong> : Onboarding digital, Integration SAP, Serverless AWS, Data pipelines</p>
+</li>
+<li>
+<p><strong>Note</strong> : Les PRAs en cours de promotion vers Bank-Wide ont un statut specifique visible dans leur metadonnees</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_vos_premiers_pas">Vos premiers pas</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_1_je_veux_utiliser_un_pra">1 Je veux <strong>utiliser</strong> un PRA</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">graph LR
+    A[Identifier mon besoin] --&gt; B[Consulter Transversal]
+    B --&gt; C[Lire le PRA]
+    C --&gt; D[Vérifier contexte d'application]
+    D --&gt; E[Implémenter]
+    E --&gt; F[Documenter mon proven-in-use]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Action</strong> : Parcourez la section <a href="/registre/transversal">Transversal</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_je_veux_contribuer_un_pra">2 Je veux <strong>contribuer</strong> un PRA</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">graph LR
+    A[J'ai une solution éprouvée] --&gt; B[Vérifier critères]
+    B --&gt; C[Documenter le PRA]
+    C --&gt; D[Soumettre PR]
+    D --&gt; E[Review Table Gouvernance]
+    E --&gt; F[PRA Candidate]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Action</strong> : Consultez le guide <a href="/guides/06-contributing">Contribuer</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_je_veux_comprendre_la_gouvernance">3 Je veux <strong>comprendre</strong> la gouvernance</h3>
+<div class="paragraph">
+<p><strong>Action</strong> : Suivez ce parcours dans l&#8217;ordre :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="/guides/02-understanding-pra">Comprendre les PRA</a></p>
+</li>
+<li>
+<p><a href="/guides/03-roles-responsibilities">Roles et Responsabilites</a></p>
+</li>
+<li>
+<p><a href="/guides/04-lifecycle">Cycle de Vie</a></p>
+</li>
+<li>
+<p><a href="/guides/08-governance">Gouvernance</a></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_exemple_concret">Exemple Concret</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_scenario_je_dois_implementer_de_lauthentification">Scenario : "Je dois implementer de l&#8217;authentification"</h3>
+<div class="sect3">
+<h4 id="_etape_1_rechercher">Etape 1 : Rechercher</h4>
+<div class="paragraph">
+<p>Allez dans <strong>Transversal &gt; Security</strong> et cherchez "Authentication"</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_etape_2_verifier_lapplicabilite">Etape 2 : Verifier l&#8217;applicabilite</h4>
+<div class="paragraph">
+<p>Lisez la section <strong>"Quand utiliser ce PRA ?"</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Application web avec utilisateurs</p>
+</li>
+<li>
+<p>Besoin de SSO</p>
+</li>
+<li>
+<p>Application interne sans login</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_etape_3_lire_la_documentation">Etape 3 : Lire la documentation</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Contexte et probleme resolu</p>
+</li>
+<li>
+<p>Architecture proposee</p>
+</li>
+<li>
+<p>Stack technologique (Auth0, Keycloak, etc.)</p>
+</li>
+<li>
+<p>Exemples de code</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_etape_4_implementer">Etape 4 : Implementer</h4>
+<div class="paragraph">
+<p>Suivez le guide d&#8217;implementation pas a pas</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_etape_5_feedback">Etape 5 : Feedback</h4>
+<div class="paragraph">
+<p>Documentez votre implementation dans les <strong>proven-in-use</strong></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_questions_frequentes">Questions Frequentes</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_dois_je_obligatoirement_utiliser_un_pra">Dois-je obligatoirement utiliser un PRA ?</h3>
+<div class="paragraph">
+<p><strong>Non.</strong> Les PRA sont des <strong>recommandations</strong>, pas des obligations.</p>
+</div>
+<div class="paragraph">
+<p><strong>Mais</strong> : Si un PRA applicable existe et que vous ne l&#8217;utilisez pas, vous devrez justifier pourquoi (lors des revues d&#8217;architecture).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_puis_je_adapter_un_pra_a_mon_contexte">Puis-je adapter un PRA a mon contexte ?</h3>
+<div class="paragraph">
+<p><strong>Oui, absolument !</strong> Les PRA sont des <strong>patrons</strong>, pas du code fige.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+Documentez vos adaptations et partagez vos learnings.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_combien_de_temps_pour_quun_pra_soit_approuve">Combien de temps pour qu&#8217;un PRA soit approuve ?</h3>
+<div class="paragraph">
+<p><strong>PRA Domaine</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Candidate</strong> : 5-10 jours (review par Comite Domaine)</p>
+</li>
+<li>
+<p><strong>Approved</strong> : Quand 1+ proven-in-use documente dans le domaine</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>PRA Bank-Wide</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Review initiale</strong> : 2-4 semaines (review par Comite Architectes Experts)</p>
+</li>
+<li>
+<p><strong>Approved</strong> : Quand 3+ proven-in-use documentes (multi-domaines)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_je_ne_trouve_pas_de_pra_pour_mon_besoin">Je ne trouve pas de PRA pour mon besoin</h3>
+<div class="paragraph">
+<p><strong>Options</strong> :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Cherchez dans les <strong>domaines</strong> (peut-etre existe dans un autre domaine)</p>
+</li>
+<li>
+<p>Verifiez les PRAs avec statut <strong>"en promotion"</strong> (peut-etre en cours de validation Bank-Wide)</p>
+</li>
+<li>
+<p><strong>Contribuez !</strong> Votre solution peut devenir un nouveau PRA</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prochaines_etapes">Prochaines Etapes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Maintenant que vous comprenez les bases, continuez votre apprentissage :</p>
+</div>
+<div class="paragraph">
+<p><strong>Suivant</strong> : <a href="/guides/02-understanding-pra">Comprendre les PRA</a> - Anatomie detaillee d&#8217;un PRA</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Parcours recommande</strong> :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Demarrer avec les PRA</strong> (vous etes ici)</p>
+</li>
+<li>
+<p><a href="/guides/02-understanding-pra">Comprendre les PRA</a></p>
+</li>
+<li>
+<p><a href="/guides/03-roles-responsibilities">Roles et Responsabilites</a></p>
+</li>
+<li>
+<p><a href="/guides/04-lifecycle">Cycle de Vie</a></p>
+</li>
+<li>
+<p><a href="/guides/05-standards">Standards de Qualite</a></p>
+</li>
+<li>
+<p><a href="/guides/06-contributing">Contribuer un PRA</a></p>
+</li>
+<li>
+<p><a href="/guides/07-promotion-process">Processus de Promotion</a></p>
+</li>
+<li>
+<p><a href="/guides/08-governance">Gouvernance</a></p>
+</li>
+</ol>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Besoin d&#8217;aide ?</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Canal Teams</strong> : <code>#pra-registry</code></p>
+</li>
+<li>
+<p><strong>Email</strong> : <a href="mailto:pra-support@company.com">pra-support@company.com</a></p>
+</li>
+<li>
+<p><strong>Documentation</strong> : Ce site</p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Derniere mise a jour</strong> : 2025-12-02</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-03-18 14:26:11 -0400
+</div>
+</div>
+</body>
+</html>

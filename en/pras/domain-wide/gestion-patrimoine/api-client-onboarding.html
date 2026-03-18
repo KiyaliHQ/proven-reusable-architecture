@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<meta name="keywords" content="pra, archetype-business, status-operationalizing, scope-domain-wide">
+<title>API-Based Client Onboarding Pattern</title>
+<link rel="stylesheet" href="./rouge-github.css">
+<link rel="stylesheet" href="../../../../assets/style.css"></head>
+<body class="article">
+<div id="header">
+<h1>API-Based Client Onboarding Pattern</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Fact Sheet</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Archetype</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">business</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Subcategory</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">onboarding</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Status</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">operationalizing</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Scope</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">domain-wide</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Proven-in-use</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Tags</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">onboarding, api, client, digital, gestion-patrimoine, kyc, compliance</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Version</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Author</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Équipe Digitale Gestion de Patrimoine</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Maintainer</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Équipe Digitale Gestion de Patrimoine</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Created</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2025-12-04</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Last Updated</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2025-12-04</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview">Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <strong>API-Based Client Onboarding Pattern</strong> is a standardized architecture designed to automate and secure the client onboarding process in wealth management. This pattern enables advisors and clients to initiate and complete the onboarding journey digitally while meeting strict regulatory requirements (KYC, AML, FINRA compliance).</p>
+</div>
+<div class="sect2">
+<h3 id="_problem_statement">Problem Statement</h3>
+<div class="paragraph">
+<p>In wealth management, traditional client onboarding is:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Slow</strong>: 4-6 weeks to complete a file</p>
+</li>
+<li>
+<p><strong>Manual</strong>: Repeated entry of the same information across multiple systems</p>
+</li>
+<li>
+<p><strong>Fragmented</strong>: Different processes for different client types (high-net-worth individuals, corporations, foundations)</p>
+</li>
+<li>
+<p><strong>Non-digital</strong>: Paper documents, physical signatures, manual validation</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_solution">Solution</h3>
+<div class="paragraph">
+<p>This PRA proposes an API-first architecture that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Unifies the onboarding journey for all client types</p>
+</li>
+<li>
+<p>Integrates real-time KYC/AML validation</p>
+</li>
+<li>
+<p>Enables secure electronic signatures</p>
+</li>
+<li>
+<p>Orchestrates multi-system workflows (CRM, Core Banking, Compliance)</p>
+</li>
+<li>
+<p>Provides a seamless user experience (web, mobile, external partners)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_context">Context</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_use_cases">Use Cases</h3>
+<div class="paragraph">
+<p><strong>Scenario 1: High-Net-Worth Individual Onboarding</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Advisor initiates file from CRM</p>
+</li>
+<li>
+<p>Client receives secure link to complete profile</p>
+</li>
+<li>
+<p>Upload documents (ID, proof of residence, tax declaration)</p>
+</li>
+<li>
+<p>Electronic signature of management contract</p>
+</li>
+<li>
+<p>Automatic KYC validation (risk score, PEP check)</p>
+</li>
+<li>
+<p>Final approval by advisor</p>
+</li>
+<li>
+<p>Core Banking account creation</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Scenario 2: Onboarding via External Partner (Accountant)</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Accountant submits client file via partner API</p>
+</li>
+<li>
+<p>Automatic pre-filling of tax information</p>
+</li>
+<li>
+<p>Client completes missing information via portal</p>
+</li>
+<li>
+<p>Compliant validation, accelerated approval</p>
+</li>
+<li>
+<p>Account activation</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_business_context">Business Context</h3>
+<div class="paragraph">
+<p><strong>Domain</strong>: Wealth Management</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Clients: High-net-worth individuals, SMEs, foundations, trusts</p>
+</li>
+<li>
+<p>Regulation: FINRA, SEC, KYC/AML, GDPR</p>
+</li>
+<li>
+<p>Stakeholders: Advisors, clients, compliance, operations</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Specific Constraints</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Strict compliance (complete audit trail)</p>
+</li>
+<li>
+<p>Maximum confidentiality (sensitive data)</p>
+</li>
+<li>
+<p>24/7 availability (international clients)</p>
+</li>
+<li>
+<p>Integration with legacy systems (mainframe Core Banking)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_architecture">Architecture</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_high_level_overview">High-Level Overview</h3>
+<div class="listingblock">
+<div class="content">
+<pre>┌─────────────────────────────────────────────────────────────────┐
+│                         CLIENTS                                  │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐         │
+│  │  Web Portal  │  │  Mobile App  │  │ External API │         │
+│  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘         │
+└─────────┼──────────────────┼──────────────────┼────────────────┘
+          │                  │                  │
+          └──────────────────┴──────────────────┘
+                             │
+                ┌────────────▼────────────┐
+                │   API Gateway (Kong)    │
+                │  - Auth (OAuth 2.0)     │
+                │  - Rate Limiting        │
+                │  - SSL/TLS              │
+                └────────────┬────────────┘
+                             │
+          ┌──────────────────┴──────────────────┐
+          │                                     │
+┌─────────▼─────────┐              ┌───────────▼────────────┐
+│ Onboarding Service│              │  Document Service      │
+│  (Node.js)        │              │   (Python)             │
+│                   │              │  - OCR                 │
+│ - Workflow Engine │              │  - Validation          │
+│ - State Machine   │◄────────────►│  - Storage (S3)        │
+│ - Event Bus       │              └────────────────────────┘
+└─────────┬─────────┘
+          │
+          │         ┌────────────────────────────┐
+          ├────────►│  KYC/AML Service           │
+          │         │   (Java Spring)            │
+          │         │  - Identity Verification   │
+          │         │  - Risk Scoring            │
+          │         │  - PEP/Sanctions Check     │
+          │         └────────────────────────────┘
+          │
+          │         ┌────────────────────────────┐
+          ├────────►│  Signature Service         │
+          │         │   (DocuSign API)           │
+          │         │  - E-signature             │
+          │         │  - Audit Trail             │
+          │         └────────────────────────────┘
+          │
+          │         ┌────────────────────────────┐
+          └────────►│  Core Banking Adapter      │
+                    │   (MQ/Kafka)               │
+                    │  - Account Creation        │
+                    │  - Profile Sync            │
+                    └────────┬───────────────────┘
+                             │
+                    ┌────────▼───────────┐
+                    │  Core Banking      │
+                    │  (Legacy Mainframe)│
+                    └────────────────────┘</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_key_components">Key Components</h3>
+<div class="paragraph">
+<p><strong>1. Onboarding Service (Orchestrator)</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Responsibility</strong>: Manages complete onboarding workflow</p>
+</li>
+<li>
+<p><strong>Technology</strong>: Node.js + Express + Bull (queue)</p>
+</li>
+<li>
+<p><strong>Patterns</strong>: State Machine (states: INITIATED, DOCS_PENDING, KYC_PENDING, APPROVED, REJECTED)</p>
+</li>
+<li>
+<p><strong>Database</strong>: PostgreSQL (transactional data) + Redis (cache)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>2. Document Service</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Responsibility</strong>: Upload, validation, OCR, document storage</p>
+</li>
+<li>
+<p><strong>Technology</strong>: Python + FastAPI + Tesseract OCR</p>
+</li>
+<li>
+<p><strong>Storage</strong>: AWS S3 (encrypted at rest)</p>
+</li>
+<li>
+<p><strong>Validation</strong>: Format (PDF, JPEG), size, fraud detection</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>3. KYC/AML Service</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Responsibility</strong>: Identity verification, risk scoring, regulatory checks</p>
+</li>
+<li>
+<p><strong>Technology</strong>: Java Spring Boot</p>
+</li>
+<li>
+<p><strong>Integrations</strong>: Third-party APIs (LexisNexis, Thomson Reuters)</p>
+</li>
+<li>
+<p><strong>Output</strong>: Risk score (0-100), recommendation (AUTO_APPROVE, MANUAL_REVIEW, REJECT)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>4. Signature Service</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Responsibility</strong>: Legally binding electronic signatures</p>
+</li>
+<li>
+<p><strong>Technology</strong>: DocuSign API integration</p>
+</li>
+<li>
+<p><strong>Compliance</strong>: eIDAS (EU), ESIGN Act (US)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>5. Core Banking Adapter</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Responsibility</strong>: Bridge to legacy system</p>
+</li>
+<li>
+<p><strong>Technology</strong>: MQ/Kafka for asynchronous messaging</p>
+</li>
+<li>
+<p><strong>Transformation</strong>: JSON &#8594; Mainframe format (COBOL copybook)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_data_flow">Data Flow</h3>
+<div class="paragraph">
+<p><strong>Step 1: Initiation</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Advisor (CRM) → API Gateway → Onboarding Service → Event: ONBOARDING_INITIATED</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Step 2: Document Collection</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Client → Web Portal → API Gateway → Document Service → S3 Storage
+                                   → Event: DOCUMENTS_UPLOADED
+                                   → Onboarding Service (state transition)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Step 3: KYC Validation</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Onboarding Service → KYC/AML Service → LexisNexis API
+                                     → Event: KYC_COMPLETED (score, recommendation)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Step 4: Signature</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Onboarding Service → Signature Service → DocuSign API → Client (email)
+Client signs → Event: CONTRACT_SIGNED</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Step 5: Account Creation</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Onboarding Service → Core Banking Adapter → Kafka Topic
+                                          → Core Banking (mainframe)
+                                          → Event: ACCOUNT_CREATED</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_security">Security</h3>
+<div class="paragraph">
+<p><strong>Authentication &amp; Authorization</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>OAuth 2.0 + OpenID Connect (OIDC)</p>
+</li>
+<li>
+<p>JWT tokens (15 min expiration)</p>
+</li>
+<li>
+<p>Refresh tokens (7 days)</p>
+</li>
+<li>
+<p>Role-Based Access Control (RBAC): CLIENT, ADVISOR, COMPLIANCE, ADMIN</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Encryption</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>TLS 1.3 for transit</p>
+</li>
+<li>
+<p>AES-256 for data at rest (S3, DB)</p>
+</li>
+<li>
+<p>Keys managed via AWS KMS</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Audit &amp; Compliance</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>All events logged (GDPR compliant)</p>
+</li>
+<li>
+<p>Immutable audit trail (blockchain for legal proof)</p>
+</li>
+<li>
+<p>Retention: 7 years (regulatory requirement)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_adrs">ADRs</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_adr_001_state_machine_pattern_for_workflow">ADR-001 : State Machine Pattern for Workflow</h3>
+<div class="paragraph">
+<p><strong>Context</strong></p>
+</div>
+<div class="paragraph">
+<p>The onboarding process has many steps with complex dependencies, conditional branches (e.g., manual vs automatic KYC), and requires complete traceability.</p>
+</div>
+<div class="paragraph">
+<p><strong>Decision</strong></p>
+</div>
+<div class="paragraph">
+<p>Implement the workflow as a State Machine with explicit states and validated transitions.</p>
+</div>
+<div class="paragraph">
+<p><strong>Alternatives Considered</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Simple linear workflow</strong>: Rejected - too rigid, doesn&#8217;t handle exceptions</p>
+</li>
+<li>
+<p><strong>Business Process Model (BPMN)</strong>: Rejected - too much overhead for our case</p>
+</li>
+<li>
+<p><strong>Pure Event Sourcing</strong>: Rejected - unnecessary complexity for this use case</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Consequences</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="green">✅</span> Improved code readability (explicit states and transitions)</p>
+</li>
+<li>
+<p><span class="green">✅</span> Testability: each transition independently testable</p>
+</li>
+<li>
+<p><span class="green">✅</span> Traceability: complete history of state changes</p>
+</li>
+<li>
+<p><span class="red">❌</span> Initial setup complexity</p>
+</li>
+<li>
+<p><span class="red">❌</span> Risk of "state explosion" if poorly managed</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Defined States</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>INITIATED → DOCUMENTS_PENDING → DOCUMENTS_UPLOADED → KYC_PENDING
+  → KYC_APPROVED → SIGNATURE_PENDING → SIGNED → ACCOUNT_CREATION_PENDING
+  → COMPLETED
+
+Error states:
+  - KYC_REJECTED
+  - COMPLIANCE_HOLD
+  - INCOMPLETE (timeout)</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adr_002_api_first_architecture_with_legacy_core_banking">ADR-002 : API-First Architecture with Legacy Core Banking</h3>
+<div class="paragraph">
+<p><strong>Context</strong></p>
+</div>
+<div class="paragraph">
+<p>Core Banking is a mainframe system (COBOL) without REST APIs. Direct access requires complex data transformations.</p>
+</div>
+<div class="paragraph">
+<p><strong>Decision</strong></p>
+</div>
+<div class="paragraph">
+<p>Create a dedicated <strong>Adapter Layer</strong> using asynchronous messaging (Kafka) to decouple modern onboarding from legacy.</p>
+</div>
+<div class="paragraph">
+<p><strong>Alternatives Considered</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Synchronous MQ calls</strong>: Rejected - frequent timeouts, tight coupling</p>
+</li>
+<li>
+<p><strong>Modify Core Banking</strong>: Rejected - too costly, risky</p>
+</li>
+<li>
+<p><strong>ESB (Enterprise Service Bus)</strong>: Rejected - overhead, vendor lock-in</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Consequences</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="green">✅</span> Decoupling: Onboarding Service doesn&#8217;t know mainframe format</p>
+</li>
+<li>
+<p><span class="green">✅</span> Resilience: Kafka queue handles temporary failures</p>
+</li>
+<li>
+<p><span class="green">✅</span> Evolvability: Easy to replace Core Banking later</p>
+</li>
+<li>
+<p><span class="red">❌</span> Operational complexity (Kafka cluster to manage)</p>
+</li>
+<li>
+<p><span class="red">❌</span> Additional latency (asynchronous)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Implementation</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="javascript"><span class="c1">// Onboarding Service publishes an event</span>
+<span class="kd">const</span> <span class="nx">event</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">CREATE_ACCOUNT</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">clientId</span><span class="p">:</span> <span class="dl">'</span><span class="s1">12345</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">profile</span><span class="p">:</span> <span class="p">{</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">ssn</span><span class="p">,</span> <span class="nx">address</span><span class="p">,</span> <span class="p">...</span> <span class="p">},</span>
+  <span class="na">timestamp</span><span class="p">:</span> <span class="nb">Date</span><span class="p">.</span><span class="nf">now</span><span class="p">()</span>
+<span class="p">};</span>
+<span class="k">await</span> <span class="nx">kafka</span><span class="p">.</span><span class="nf">publish</span><span class="p">(</span><span class="dl">'</span><span class="s1">core-banking-commands</span><span class="dl">'</span><span class="p">,</span> <span class="nx">event</span><span class="p">);</span>
+
+<span class="c1">// Core Banking Adapter consumes, transforms, sends to mainframe</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adr_003_hybrid_kyc_validation_auto_manual">ADR-003 : Hybrid KYC Validation (Auto + Manual)</h3>
+<div class="paragraph">
+<p><strong>Context</strong></p>
+</div>
+<div class="paragraph">
+<p>100% automatic KYC validation can reject legitimate clients (false negatives). 100% manual validation is slow and costly.</p>
+</div>
+<div class="paragraph">
+<p><strong>Decision</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Hybrid system with confidence score</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Score &gt;= 80: Automatic approval</p>
+</li>
+<li>
+<p>Score 50-79: Manual review (Compliance Team)</p>
+</li>
+<li>
+<p>Score &lt; 50: Automatic rejection</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Alternatives Considered</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Systematic automatic approval</strong>: Rejected - unacceptable regulatory risk</p>
+</li>
+<li>
+<p><strong>Systematic manual review</strong>: Rejected - too slow (4-6 weeks)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Consequences</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="green">✅</span> Balance speed/compliance: 70% of files approved in &lt; 24h</p>
+</li>
+<li>
+<p><span class="green">✅</span> Reduces Compliance Team workload</p>
+</li>
+<li>
+<p><span class="red">❌</span> Requires model maintenance (ML drift)</p>
+</li>
+<li>
+<p><span class="red">❌</span> Complexity in justifying automatic decisions</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Scoring Factors</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="na">Positive factors (+)</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">Valid documents (OCR confirmed)</span><span class="pi">:</span> <span class="s">+20</span>
+  <span class="pi">-</span> <span class="na">Verified address (postal database)</span><span class="pi">:</span> <span class="s">+15</span>
+  <span class="pi">-</span> <span class="na">No PEP/sanctions</span><span class="pi">:</span> <span class="s">+25</span>
+  <span class="pi">-</span> <span class="na">High credit score</span><span class="pi">:</span> <span class="s">+20</span>
+
+<span class="na">Negative factors (-)</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">Expired documents</span><span class="pi">:</span> <span class="s">-30</span>
+  <span class="pi">-</span> <span class="na">Data inconsistencies</span><span class="pi">:</span> <span class="s">-40</span>
+  <span class="pi">-</span> <span class="na">PEP detected</span><span class="pi">:</span> <span class="s">-50</span>
+  <span class="pi">-</span> <span class="na">High-risk country</span><span class="pi">:</span> <span class="s">-25</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_examples">Examples</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_example_1_client_api_initiate_onboarding">Example 1: Client API - Initiate Onboarding</h3>
+<div class="paragraph">
+<p><strong>Endpoint</strong>: <code>POST /api/v1/onboarding/initiate</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Request</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nl">"clientType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INDIVIDUAL"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"initiatedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ADVISOR"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"advisorEmail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@bnc.ca"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clientInfo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Marie"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tremblay"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"marie.tremblay@example.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+1-514-555-1234"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"dateOfBirth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1980-05-15"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"residenceCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CA"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"taxResidence"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CA"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CRM"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"campaignId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Q4-2025-PROMO"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Response (201 Created)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nl">"onboardingId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ONB-2025-00123"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INITIATED"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"nextStep"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DOCUMENTS_UPLOAD"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clientPortalUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://onboarding.bnc.ca/portal/ONB-2025-00123?token=eyJhbGc..."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expiresAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-12-11T14:30:00Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-12-04T14:30:00Z"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_2_kyc_completed_webhook">Example 2: KYC Completed Webhook</h3>
+<div class="paragraph">
+<p><strong>Event received from KYC Service</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nl">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KYC_COMPLETED"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"onboardingId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ONB-2025-00123"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"kycResult"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"APPROVED"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"score"</span><span class="p">:</span><span class="w"> </span><span class="mi">85</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"checks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"identityVerification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PASSED"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"addressVerification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PASSED"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"pepCheck"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PASSED"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"sanctionsCheck"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PASSED"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"adverseMedia"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PASSED"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"riskLevel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LOW"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"recommendation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AUTO_APPROVE"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"reviewedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SYSTEM"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"completedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-12-04T15:45:00Z"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Onboarding Service action</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="javascript"><span class="k">async</span> <span class="kd">function</span> <span class="nf">handleKycCompleted</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">onboardingId</span><span class="p">,</span> <span class="nx">kycResult</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">event</span><span class="p">;</span>
+
+  <span class="c1">// Update state</span>
+  <span class="k">await</span> <span class="nx">db</span><span class="p">.</span><span class="nx">onboardings</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="nx">onboardingId</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">status</span><span class="p">:</span> <span class="dl">'</span><span class="s1">KYC_APPROVED</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">kycScore</span><span class="p">:</span> <span class="nx">kycResult</span><span class="p">.</span><span class="nx">score</span><span class="p">,</span>
+    <span class="na">kycCompletedAt</span><span class="p">:</span> <span class="nx">kycResult</span><span class="p">.</span><span class="nx">completedAt</span>
+  <span class="p">});</span>
+
+  <span class="c1">// Trigger next step (signature)</span>
+  <span class="k">if </span><span class="p">(</span><span class="nx">kycResult</span><span class="p">.</span><span class="nx">recommendation</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">AUTO_APPROVE</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">await</span> <span class="nf">triggerSignatureStep</span><span class="p">(</span><span class="nx">onboardingId</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">kycResult</span><span class="p">.</span><span class="nx">recommendation</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">MANUAL_REVIEW</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">await</span> <span class="nf">notifyComplianceTeam</span><span class="p">(</span><span class="nx">onboardingId</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Publish event</span>
+  <span class="k">await</span> <span class="nx">eventBus</span><span class="p">.</span><span class="nf">publish</span><span class="p">(</span><span class="dl">'</span><span class="s1">onboarding.kyc.approved</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">onboardingId</span><span class="p">,</span>
+    <span class="na">timestamp</span><span class="p">:</span> <span class="nb">Date</span><span class="p">.</span><span class="nf">now</span><span class="p">()</span>
+  <span class="p">});</span>
+<span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_3_core_banking_adapter_message_transformation">Example 3: Core Banking Adapter - Message Transformation</h3>
+<div class="paragraph">
+<p><strong>Kafka message (modern JSON)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CREATE_ACCOUNT"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ONB-2025-00123"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Marie"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tremblay"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ssn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123-45-6789"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123 Rue Sherbrooke"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Montreal"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"province"</span><span class="p">:</span><span class="w"> </span><span class="s2">"QC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"postalCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"H3A 1B1"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"accountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WEALTH_MANAGEMENT"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Transformation to mainframe format (COBOL copybook)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="cobol">01  ACCOUNT-CREATE-REQUEST.
+    05  TRAN-CODE           PIC X(4)   VALUE 'ACCT'.
+    05  CLIENT-ID           PIC X(20)  VALUE 'ONB-2025-00123'.
+    05  FIRST-NAME          PIC X(30)  VALUE 'MARIE'.
+    05  LAST-NAME           PIC X(30)  VALUE 'TREMBLAY'.
+    05  SSN                 PIC 9(9)   VALUE 123456789.
+    05  ADDRESS-LINE-1      PIC X(40)  VALUE '123 RUE SHERBROOKE'.
+    05  CITY                PIC X(20)  VALUE 'MONTREAL'.
+    05  PROVINCE            PIC X(2)   VALUE 'QC'.
+    05  POSTAL-CODE         PIC X(7)   VALUE 'H3A1B1'.
+    05  ACCOUNT-TYPE        PIC X(3)   VALUE 'WM'.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Adapter code</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CoreBankingAdapter</span> <span class="o">{</span>
+
+    <span class="nd">@KafkaListener</span><span class="o">(</span><span class="n">topics</span> <span class="o">=</span> <span class="s">"core-banking-commands"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">processCommand</span><span class="o">(</span><span class="nc">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">CreateAccountCommand</span> <span class="n">cmd</span> <span class="o">=</span> <span class="n">parseJson</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
+
+        <span class="c1">// Transform to COBOL format</span>
+        <span class="nc">String</span> <span class="n">cobolRecord</span> <span class="o">=</span> <span class="nc">CobolTransformer</span><span class="o">.</span><span class="na">toCopybook</span><span class="o">(</span><span class="n">cmd</span><span class="o">);</span>
+
+        <span class="c1">// Send to MQ</span>
+        <span class="n">mqClient</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="s">"ACCT.CREATE.QUEUE"</span><span class="o">,</span> <span class="n">cobolRecord</span><span class="o">);</span>
+
+        <span class="c1">// Wait for response (max 30s)</span>
+        <span class="nc">String</span> <span class="n">response</span> <span class="o">=</span> <span class="n">mqClient</span><span class="o">.</span><span class="na">receiveWithTimeout</span><span class="o">(</span><span class="s">"ACCT.RESPONSE.QUEUE"</span><span class="o">,</span> <span class="mi">30000</span><span class="o">);</span>
+
+        <span class="c1">// Parse response and publish event</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">"SUCCESS"</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">kafkaProducer</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="s">"core-banking-events"</span><span class="o">,</span>
+                <span class="k">new</span> <span class="nf">AccountCreatedEvent</span><span class="o">(</span><span class="n">cmd</span><span class="o">.</span><span class="na">getClientId</span><span class="o">()));</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lessons_learned">Lessons Learned</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_what_works_well">What Works Well</h3>
+<div class="paragraph">
+<p><strong>1. API-First Architecture</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Rapid adoption by mobile teams (3 weeks to integrate)</p>
+</li>
+<li>
+<p>External partners (accountants, notaries) integrated in &lt; 1 month</p>
+</li>
+<li>
+<p>Reusability: same API used by web, mobile, and partners</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>2. State Machine for Workflow</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Easier debugging: state visible at all times</p>
+</li>
+<li>
+<p>Recovery after error: we know exactly where to resume</p>
+</li>
+<li>
+<p>Testing: each transition tested independently (95% coverage)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>3. Hybrid KYC Validation</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>70% automatic approvals (&lt; 24h)</p>
+</li>
+<li>
+<p>20% manual reviews (2-3 days)</p>
+</li>
+<li>
+<p>10% automatic rejections</p>
+</li>
+<li>
+<p>False positive rate &lt; 2%</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_challenges_encountered">Challenges Encountered</h3>
+<div class="paragraph">
+<p><strong>1. Legacy Core Banking Latency</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Problem</strong>: Account creation can take 5-10 minutes (overloaded mainframe)</p>
+</li>
+<li>
+<p><strong>Solution</strong>: Asynchronous decoupling (client notified by email when account ready)</p>
+</li>
+<li>
+<p><strong>Future Improvement</strong>: Migration to modern Core Banking (cloud-native)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>2. Large Document Management</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Problem</strong>: Uploading 50+ MB PDFs blocks the API</p>
+</li>
+<li>
+<p><strong>Solution</strong>: Pre-signed S3 URLs (client uploads directly to S3, API only receives metadata)</p>
+</li>
+<li>
+<p><strong>Code</strong>:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="javascript"><span class="c1">// Generate pre-signed URL</span>
+<span class="kd">const</span> <span class="nx">s3Url</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">s3</span><span class="p">.</span><span class="nf">getSignedUrl</span><span class="p">(</span><span class="dl">'</span><span class="s1">putObject</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">Bucket</span><span class="p">:</span> <span class="dl">'</span><span class="s1">onboarding-docs</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">Key</span><span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">onboardingId</span><span class="p">}</span><span class="s2">/</span><span class="p">${</span><span class="nx">docType</span><span class="p">}</span><span class="s2">/</span><span class="p">${</span><span class="nx">filename</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
+  <span class="na">Expires</span><span class="p">:</span> <span class="mi">3600</span><span class="p">,</span> <span class="c1">// 1 hour</span>
+  <span class="na">ContentType</span><span class="p">:</span> <span class="dl">'</span><span class="s1">application/pdf</span><span class="dl">'</span>
+<span class="p">});</span>
+
+<span class="k">return</span> <span class="p">{</span> <span class="na">uploadUrl</span><span class="p">:</span> <span class="nx">s3Url</span> <span class="p">};</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>3. Multi-System Data Consistency</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Problem</strong>: Client data duplicated in CRM, Onboarding DB, Core Banking</p>
+</li>
+<li>
+<p><strong>Solution</strong>: Partial Event Sourcing (events broadcast to all systems)</p>
+</li>
+<li>
+<p><strong>Pattern</strong>: Customer Data Hub (CDC on Core Banking &#8594; Event Bus &#8594; Sync to other systems)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_success_metrics">Success Metrics</h3>
+<div class="paragraph">
+<p><strong>Before PRA</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Onboarding time: 4-6 weeks</p>
+</li>
+<li>
+<p>Abandonment rate: 45%</p>
+</li>
+<li>
+<p>Manual entry errors: 25%</p>
+</li>
+<li>
+<p>Cost per onboarding: $450</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>After PRA (6 months)</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Onboarding time: 2-5 days (90% reduction)</p>
+</li>
+<li>
+<p>Abandonment rate: 18% (60% reduction)</p>
+</li>
+<li>
+<p>Entry errors: 5% (80% reduction)</p>
+</li>
+<li>
+<p>Cost per onboarding: $120 (73% reduction)</p>
+</li>
+<li>
+<p>Client satisfaction (NPS): +35 points</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_trade_offs">Trade-offs</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_complexity_vs_flexibility">Complexity vs Flexibility</h3>
+<div class="paragraph">
+<p><strong>Choice</strong>: Microservices architecture (5 distinct services)</p>
+</div>
+<div class="paragraph">
+<p><strong>Advantages</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Independent scaling (Document Service can scale without Onboarding Service)</p>
+</li>
+<li>
+<p>Independent deployment (KYC Service can be updated without global downtime)</p>
+</li>
+<li>
+<p>Resilience: failure of one service doesn&#8217;t affect others</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Disadvantages</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Operational overhead: 5 services to monitor, deploy, secure</p>
+</li>
+<li>
+<p>Debugging complexity: distributed tracing required (Jaeger)</p>
+</li>
+<li>
+<p>Network latency: inter-service calls add 50-100ms</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>When to Avoid</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Low volume (&lt; 100 onboardings/month): modular monolith sufficient</p>
+</li>
+<li>
+<p>Team &lt; 5 developers: operational complexity too high</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_kyc_validation_speed_vs_compliance">KYC Validation: Speed vs Compliance</h3>
+<div class="paragraph">
+<p><strong>Choice</strong>: Automatic approval for score &gt;= 80</p>
+</div>
+<div class="paragraph">
+<p><strong>Advantages</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>70% of files approved in &lt; 24h (vs 2-4 weeks)</p>
+</li>
+<li>
+<p>Superior client experience</p>
+</li>
+<li>
+<p>Reduced Compliance Team workload</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Disadvantages</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Regulatory risk: audit may question auto decisions</p>
+</li>
+<li>
+<p>Requires ML Ops (monitoring drift, model re-training)</p>
+</li>
+<li>
+<p>Dependency on third-party APIs (LexisNexis downtime = blockage)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>When to Avoid</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ultra-strict jurisdiction (e.g., Switzerland, certain US states)</p>
+</li>
+<li>
+<p>Lack of ML expertise in team</p>
+</li>
+<li>
+<p>Limited budget (third-party KYC APIs are expensive)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_synchronous_vs_asynchronous_with_core_banking">Synchronous vs Asynchronous with Core Banking</h3>
+<div class="paragraph">
+<p><strong>Choice</strong>: Asynchronous messaging (Kafka)</p>
+</div>
+<div class="paragraph">
+<p><strong>Advantages</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Resilience: queue persists messages during outages</p>
+</li>
+<li>
+<p>Decoupling: Onboarding doesn&#8217;t block if mainframe slow</p>
+</li>
+<li>
+<p>Future evolvability: easy to replace Core Banking</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Disadvantages</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Latency: client waits for email confirmation (vs immediate response)</p>
+</li>
+<li>
+<p>Complexity: Kafka cluster to operate (3+ brokers for HA)</p>
+</li>
+<li>
+<p>Debugging: harder to trace errors</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>When to Avoid</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If modern Core Banking with fast REST APIs (&lt; 2s)</p>
+</li>
+<li>
+<p>If immediate confirmation required (e.g., real-time bank transfer)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_related_patterns">Related Patterns</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Patterns Used in this PRA</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>State Machine Pattern</strong>: Workflow management with explicit states</p>
+</li>
+<li>
+<p><strong>Saga Pattern</strong>: Distributed transactions (rollback on step failure)</p>
+</li>
+<li>
+<p><strong>Adapter Pattern</strong>: Core Banking Adapter isolates legacy</p>
+</li>
+<li>
+<p><strong>Event Sourcing (partial)</strong>: Immutable audit trail for compliance</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Complementary Patterns</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Circuit Breaker</strong>: Protect against third-party KYC API failures</p>
+</li>
+<li>
+<p><strong>CQRS</strong>: Separate read (advisor dashboard) and write (workflow)</p>
+</li>
+<li>
+<p><strong>Bulkhead</strong>: Thread pool isolation per service</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_references">References</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Internal Documentation</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../tech/api-gateway.md">API Gateway Standards</a></p>
+</li>
+<li>
+<p><a href="../tech/event-driven.md">Event-Driven Architecture Guidelines</a></p>
+</li>
+<li>
+<p><a href="../../guides/compliance-guide.md">Compliance &amp; Audit Requirements</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Tools &amp; Technologies</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Node.js + Express: <a href="https://expressjs.com/" class="bare">https://expressjs.com/</a></p>
+</li>
+<li>
+<p>Bull (Job Queue): <a href="https://github.com/OptimalBits/bull" class="bare">https://github.com/OptimalBits/bull</a></p>
+</li>
+<li>
+<p>DocuSign API: <a href="https://developers.docusign.com/" class="bare">https://developers.docusign.com/</a></p>
+</li>
+<li>
+<p>AWS S3: <a href="https://aws.amazon.com/s3/" class="bare">https://aws.amazon.com/s3/</a></p>
+</li>
+<li>
+<p>Apache Kafka: <a href="https://kafka.apache.org/" class="bare">https://kafka.apache.org/</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Regulation</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>FINRA Rule 2090 (Know Your Customer): <a href="https://www.finra.org/rules-guidance/rulebooks/finra-rules/2090" class="bare">https://www.finra.org/rules-guidance/rulebooks/finra-rules/2090</a></p>
+</li>
+<li>
+<p>eIDAS (EU Digital Signatures): <a href="https://ec.europa.eu/digital-building-blocks/wikis/display/DIGITAL/eIDAS" class="bare">https://ec.europa.eu/digital-building-blocks/wikis/display/DIGITAL/eIDAS</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_proven_in_use">Proven-in-use</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_private_wealth_mobile_platformwealth_management_digital_team">Private Wealth Mobile Platform&#8201;&#8212;&#8201;Wealth Management Digital Team</h3>
+<div class="paragraph">
+<p><strong>Date</strong> : 2025-10-15<br>
+<strong>Feedback</strong> : 65% reduction in client onboarding time. API-first architecture enabled seamless integration with external partners (accountants, notaries). Automated KYC validation eliminated 80% of manual errors. Modular design facilitates adding new client types (SMEs, foundations).</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Author</strong> : Wealth Management Digital Team<br>
+<strong>Creation Date</strong> : 2025-12-04<br>
+<strong>Last Update</strong> : 2025-12-04<br>
+<strong>Status</strong> : Candidate (1 validated implementation)<br>
+<strong>Contact</strong> : <a href="mailto:digital-wealth@bnc.ca">digital-wealth@bnc.ca</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-03-18 14:24:04 -0400
+</div>
+</div>
+</body>
+</html>

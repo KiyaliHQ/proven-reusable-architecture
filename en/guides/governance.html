@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<meta name="keywords" content="pra, guide, governance, committee, validation">
+<title>PRA Registry Governance</title>
+<link rel="stylesheet" href="./rouge-github.css">
+<link rel="stylesheet" href="../../assets/style.css"></head>
+<body class="article">
+<div id="header">
+<h1>PRA Registry Governance</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document defines the two-tier governance structure, roles, and processes of the PRA Registry.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_two_tier_governance_structure">Two-Tier Governance Structure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The PRA registry operates with <strong>two governance levels</strong> to reflect the organizational reality at the National Bank:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">graph TB
+    ARCH["ARCHITECTS&lt;br/&gt;in Domains"]
+    TRANS["CROSS-CUTTING TEAMS&lt;br/&gt;(Software Engineering, etc.)"]
+    BOOT["BOOTSTRAP&lt;br/&gt;(Priority Identification)"]
+
+    GOV_DOM["Domain Governance&lt;br/&gt;Committees"]
+    GOV_BW["Expert Architects&lt;br/&gt;Governance Committee"]
+
+    DOM["DOMAIN PRAs"]
+    BW["BANK-WIDE PRAs"]
+
+    ARCH --&gt;|"Architectures"| GOV_DOM
+    GOV_DOM --&gt;|"Flow 1:&lt;br/&gt;Evaluated reusable"| DOM
+    DOM --&gt;|"If reusable&lt;br/&gt;outside domain"| GOV_BW
+
+    TRANS --&gt;|"Flow 2:&lt;br/&gt;New standards"| GOV_BW
+
+    BOOT -.-&gt;|"Flow 3:&lt;br/&gt;Existing candidates"| GOV_BW
+
+    GOV_BW --&gt;|"Approved"| BW
+
+    style BW fill:#10b981,stroke:#059669,stroke-width:4px,color:#fff
+    style DOM fill:#3b82f6,stroke:#2563eb,stroke-width:4px,color:#fff
+    style GOV_BW fill:#8b5cf6,stroke:#7c3aed,stroke-width:3px,color:#fff
+    style GOV_DOM fill:#60a5fa,stroke:#2563eb,stroke-width:3px,color:#fff
+    style ARCH fill:#fbbf24,stroke:#d97706,stroke-width:3px,color:#000
+    style TRANS fill:#f59e0b,stroke:#d97706,stroke-width:3px,color:#000
+    style BOOT fill:#ef4444,stroke:#dc2626,stroke-width:3px,color:#fff</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tier_1_domain_governance_committees">Tier 1: Domain Governance Committees</h3>
+<div class="paragraph">
+<p><strong>For</strong>: Validation of PRAs at the domain level (Retail, Corporate, Wealth Management)</p>
+</div>
+<div class="sect3">
+<h4 id="_composition">Composition</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Number</strong>: 3 to 5 architects from the domain</p>
+</li>
+<li>
+<p><strong>Profiles</strong>: Solution architects from the domain</p>
+</li>
+<li>
+<p><strong>Representation</strong>: Different teams within the domain</p>
+</li>
+<li>
+<p><strong>Term</strong>: Annually renewable</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_responsibilities">Responsibilities</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Validate Domain PRAs</strong> (functional AND technical)</p>
+</li>
+<li>
+<p>Verify 1+ proven-in-use within the domain</p>
+</li>
+<li>
+<p>Approve transition to Approved status (domain level)</p>
+</li>
+<li>
+<p>Identify PRA candidates for Bank-Wide promotion</p>
+</li>
+<li>
+<p>Local review &lt; 5 business days</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_validation_criteria">Validation Criteria</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Proven-in-use</strong>: Minimum 1 implementation within the domain</p>
+</li>
+<li>
+<p><strong>Documentation</strong>: Complete and compliant with template</p>
+</li>
+<li>
+<p><strong>Reusability</strong>: Generalizable within the domain</p>
+</li>
+<li>
+<p><strong>Quality</strong>: Technical standards and security respected</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tier_2_expert_architects_governance_committee">Tier 2: Expert Architects Governance Committee</h3>
+<div class="paragraph">
+<p><strong>For</strong>: Validation of Bank-Wide PRAs (applicable to all domains)</p>
+</div>
+<div class="sect3">
+<h4 id="_composition_2">Composition</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Number</strong>: 5 to 7 expert architects</p>
+</li>
+<li>
+<p><strong>Profiles</strong>: Expert architects close to practice</p>
+</li>
+<li>
+<p><strong>Representation</strong>: Cross-domain and cross-team</p>
+</li>
+<li>
+<p><strong>Term</strong>: Annually renewable</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_responsibilities_2">Responsibilities</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Validate Bank-Wide PRAs</strong> (infrastructure, standards, common patterns)</p>
+</li>
+<li>
+<p>Verify 3+ proven-in-use from different domains/teams</p>
+</li>
+<li>
+<p>Approve Domain &#8594; Bank-Wide promotions</p>
+</li>
+<li>
+<p>Validate standards from cross-cutting teams</p>
+</li>
+<li>
+<p>Manage Bootstrap (priority identification)</p>
+</li>
+<li>
+<p>Arbitrate cross-domain conflicts</p>
+</li>
+<li>
+<p>Review &lt; 2 weeks</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_validation_criteria_2">Validation Criteria</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Proven-in-use</strong>: Minimum 3 implementations (different domains/teams)</p>
+</li>
+<li>
+<p><strong>Multi-domain reusability</strong>: Applicable to 3+ domains</p>
+</li>
+<li>
+<p><strong>Standards</strong>: Compliance with BNC target architecture</p>
+</li>
+<li>
+<p><strong>Enriched documentation</strong>: Multi-context learnings</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_three_pra_creation_flows">Three PRA Creation Flows</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_flow_1_domain_bank_wide_organic_emergence">Flow 1: Domain &#8594; Bank-Wide (Organic Emergence)</h3>
+<div class="paragraph">
+<p><strong>Source</strong>: Architects in domains</p>
+</div>
+<div class="paragraph">
+<p><strong>Process</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Architects define <strong>architectures</strong> (functional AND technical)</p>
+</li>
+<li>
+<p>Some architectures evaluated as <strong>reusable</strong> &#8594; become <strong>Domain PRAs</strong></p>
+</li>
+<li>
+<p>Validation by <strong>Domain Governance Committee</strong> (1+ proven-in-use)</p>
+</li>
+<li>
+<p>Domain PRAs reusable <strong>outside the domain</strong> &#8594; Bank-Wide promotion proposal</p>
+</li>
+<li>
+<p>Review by <strong>Expert Architects Governance Committee</strong> (3+ proven-in-use)</p>
+</li>
+<li>
+<p>Approved &#8594; becomes <strong>Bank-Wide PRA</strong></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>File transfer pattern from Wealth Management &#8594; Bank-Wide</p>
+</li>
+<li>
+<p>Digital onboarding pattern from Retail &#8594; Bank-Wide (if repeated elsewhere)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Applicable Governance</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Local stage</strong>: Domain Governance Committee</p>
+</li>
+<li>
+<p><strong>Bank-Wide stage</strong>: Expert Architects Governance Committee</p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_flow_2_cross_cutting_standards_bank_wide_top_down">Flow 2: Cross-Cutting Standards &#8594; Bank-Wide (Top-Down)</h3>
+<div class="paragraph">
+<p><strong>Source</strong>: Cross-cutting teams (Software Engineering, Security, Cloud Infra)</p>
+</div>
+<div class="paragraph">
+<p><strong>Process</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Cross-cutting teams define <strong>new standards</strong> for the bank</p>
+</li>
+<li>
+<p>Standards translate into <strong>Bank-Wide PRAs</strong></p>
+</li>
+<li>
+<p>Direct submission to <strong>Expert Architects Governance Committee</strong></p>
+</li>
+<li>
+<p>Review and validation (Bank-Wide criteria: 3+ proven-in-use expected)</p>
+</li>
+<li>
+<p>Approved &#8594; <strong>Bank-Wide PRA</strong> available to all</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>CI/CD GitOps with ArgoCD</p>
+</li>
+<li>
+<p>Observability (Prometheus/Grafana/Tempo)</p>
+</li>
+<li>
+<p>Zero Trust network security</p>
+</li>
+<li>
+<p>Secrets management with Vault</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Applicable Governance</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Direct</strong>: Expert Architects Governance Committee</p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_flow_3_bootstrap_current_situation_transitional">Flow 3: Bootstrap (Current Situation - Transitional)</h3>
+<div class="paragraph">
+<p><strong>Source</strong>: Proactive priority identification by Expert Architects Committee</p>
+</div>
+<div class="paragraph">
+<p><strong>Context</strong>: No existing pattern registry currently &#8594; quick-start strategy</p>
+</div>
+<div class="paragraph">
+<p><strong>Process</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Expert Architects Committee identifies <strong>priority topics</strong> to cover Bank-Wide</p>
+</li>
+<li>
+<p>Search for <strong>existing architectures</strong> in domains (good candidates)</p>
+</li>
+<li>
+<p>Evaluation and selection of best candidates</p>
+</li>
+<li>
+<p><strong>Direct Bank-Wide</strong> promotion (bypassing standard Domain process)</p>
+</li>
+<li>
+<p>Communication and enriched documentation</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>File transfer identified as priority &#8594; WM pattern evaluated &#8594; directly Bank-Wide</p>
+</li>
+<li>
+<p>Async APIs identified as need &#8594; best domain pattern &#8594; Bank-Wide</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Why this flow?</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Rapidly populate initial registry</p>
+</li>
+<li>
+<p>Avoid existing duplication (same topic in multiple domains)</p>
+</li>
+<li>
+<p>Identify and promote best practices already in place</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Status</strong>: <strong>Transitional</strong> - This flow will decrease over time as the registry matures</p>
+</div>
+<div class="paragraph">
+<p><strong>Applicable Governance</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Leadership</strong>: Expert Architects Governance Committee</p>
+</li>
+<li>
+<p><strong>Consultation</strong>: Domain Committees (for candidate validation)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_submission_process_by_scope">Submission Process by Scope</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_for_a_domain_pra_flow_1_local_level">For a Domain PRA (Flow 1 - Local Level)</h3>
+<div class="sect3">
+<h4 id="_1_preparation">1. Preparation</h4>
+<div class="paragraph">
+<p>Domain architect prepares the PRA according to the <a href="/templates/pra-template.md">provided template</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Content</strong>: Any type of pattern (functional OR technical)</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_submission_pull_request">2. Submission (Pull Request)</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Fork repository</p>
+</li>
+<li>
+<p>Create PRA file in <code>content/registre/secteurs/[domain]/[category]/</code></p>
+</li>
+<li>
+<p>Pull Request with tags <code>scope:domain</code> and <code>domain:[domain-name]</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_automated_validation">3. Automated Validation</h4>
+<div class="paragraph">
+<p>GitHub Actions verifies format, mandatory sections, links.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_review_by_domain_committee">4. Review by Domain Committee</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>2 members of Domain Governance Committee review</p>
+</li>
+<li>
+<p>Discussion via PR comments</p>
+</li>
+<li>
+<p>Verification: 1+ proven-in-use within domain</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_5_decision">5. Decision</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Approved</strong> &#8594; Merge as Domain PRA Approved</p>
+</li>
+<li>
+<p><strong>Revisions</strong> &#8594; Iterations</p>
+</li>
+<li>
+<p><strong>Rejected</strong> &#8594; Feedback and closure</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Timeline</strong>: 5-10 business days</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_for_a_bank_wide_pra_flow_2_direct">For a Bank-Wide PRA (Flow 2 - Direct)</h3>
+<div class="sect3">
+<h4 id="_1_preparation_2">1. Preparation</h4>
+<div class="paragraph">
+<p>Cross-cutting team prepares the PRA (infrastructure/foundation standard).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_submission_pull_request_2">2. Submission (Pull Request)</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Create PRA file in <code>content/registre/transversal/[category]/</code></p>
+</li>
+<li>
+<p>Pull Request with tag <code>scope:bank-wide</code></p>
+</li>
+<li>
+<p>Justification of cross-cutting nature</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_review_by_expert_architects_committee">3. Review by Expert Architects Committee</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>2-3 members review</p>
+</li>
+<li>
+<p>Verification of multi-domain applicability</p>
+</li>
+<li>
+<p>Requirement: 3+ proven-in-use (or clear adoption plan)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_decision">4. Decision</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Approved</strong> &#8594; Merge as Bank-Wide PRA Approved</p>
+</li>
+<li>
+<p><strong>Revisions</strong> &#8594; Iterations</p>
+</li>
+<li>
+<p><strong>Rejected</strong> &#8594; Can be redirected to Domain level</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Timeline</strong>: 2-4 weeks</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_for_domain_bank_wide_promotion_flow_1_promotion">For Domain &#8594; Bank-Wide Promotion (Flow 1 - Promotion)</h3>
+<div class="paragraph">
+<p>See dedicated guide: <a href="promotion-process.adoc">Promotion Process</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Trigger</strong>: Domain PRA identified as reusable outside domain</p>
+</div>
+<div class="paragraph">
+<p><strong>Governance</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Proposal by Domain Committee</p>
+</li>
+<li>
+<p>Review by Expert Architects Committee</p>
+</li>
+<li>
+<p>Validation of Bank-Wide criteria (3+ proven-in-use required)</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_approval_criteria_by_level">Approval Criteria by Level</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_domain_pra_approved">Domain PRA (Approved)</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>1+ proven implementation</strong> in production within the domain</p>
+</li>
+<li>
+<p>Complete documentation (context, architecture, ADR, examples)</p>
+</li>
+<li>
+<p>Reusability within the domain</p>
+</li>
+<li>
+<p>Technical quality validated by Domain Committee</p>
+</li>
+<li>
+<p>Can be functional OR technical</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bank_wide_pra_approved">Bank-Wide PRA (Approved)</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>3+ proven implementations</strong> in production (different domains/teams)</p>
+</li>
+<li>
+<p>Positive feedback from user teams</p>
+</li>
+<li>
+<p>Documentation enriched with multi-context learnings</p>
+</li>
+<li>
+<p>Reusability demonstrated across the bank</p>
+</li>
+<li>
+<p>Validated by Expert Architects Committee</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deprecation_process">Deprecation Process</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A PRA may be deprecated if:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Obsolete technologies</p>
+</li>
+<li>
+<p>Better alternatives available</p>
+</li>
+<li>
+<p>Repeated negative feedback</p>
+</li>
+<li>
+<p>No maintenance for 12+ months</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_process_by_level">Process by Level</h3>
+<div class="paragraph">
+<p><strong>Domain PRA</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Proposal by Domain Committee or maintainer</p>
+</li>
+<li>
+<p>Discussion with domain users</p>
+</li>
+<li>
+<p>Domain Committee vote</p>
+</li>
+<li>
+<p>Migration to <code>deprecated</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Bank-Wide PRA</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Proposal by Expert Architects Committee</p>
+</li>
+<li>
+<p>Multi-domain consultation</p>
+</li>
+<li>
+<p>Expert Architects Committee vote</p>
+</li>
+<li>
+<p>Communicated migration plan</p>
+</li>
+<li>
+<p>Transition period (6 months)</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_governance_meetings">Governance Meetings</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_domain_governance_committees">Domain Governance Committees</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Frequency</strong>: Monthly</p>
+</li>
+<li>
+<p><strong>Duration</strong>: 1 hour maximum</p>
+</li>
+<li>
+<p><strong>Agenda</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Review new domain submissions</p>
+</li>
+<li>
+<p>Follow-up on candidate PRAs</p>
+</li>
+<li>
+<p>Identification of candidates for Bank-Wide promotion</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_expert_architects_governance_committee">Expert Architects Governance Committee</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Frequency</strong>: Biweekly (every 2 weeks)</p>
+</li>
+<li>
+<p><strong>Duration</strong>: 1.5 hours maximum</p>
+</li>
+<li>
+<p><strong>Agenda</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Review Bank-Wide PRAs (Flow 2)</p>
+</li>
+<li>
+<p>Review Domain &#8594; Bank-Wide promotions (Flow 1)</p>
+</li>
+<li>
+<p>Identification of Bootstrap priorities (Flow 3)</p>
+</li>
+<li>
+<p>Standards evolution</p>
+</li>
+<li>
+<p>Cross-domain issues</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_communication">Communication</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_domain_committees">Domain Committees</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Teams Channel</strong>: <code>#pra-[domain-name]</code></p>
+</li>
+<li>
+<p><strong>Email</strong>: pra-[domain]@company.com</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_expert_architects_committee">Expert Architects Committee</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Teams Channel</strong>: <code>#pra-governance</code></p>
+</li>
+<li>
+<p><strong>Email</strong>: <a href="mailto:pra-governance@company.com">pra-governance@company.com</a></p>
+</li>
+<li>
+<p><strong>GitHub Issues</strong>: For public questions</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_governance_metrics">Governance Metrics</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_by_domain">By Domain</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Number of active Domain PRAs</p>
+</li>
+<li>
+<p>Promotion rate to Bank-Wide</p>
+</li>
+<li>
+<p>Average review time</p>
+</li>
+<li>
+<p>Domain contributor satisfaction</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bank_wide">Bank-Wide</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Number of active Bank-Wide PRAs</p>
+</li>
+<li>
+<p>Multi-domain adoption (how many domains use)</p>
+</li>
+<li>
+<p>Deprecation rate</p>
+</li>
+<li>
+<p>Overall user feedback</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_governance_evolution">Governance Evolution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This governance document may evolve. Any major modification must:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Be proposed via PR</p>
+</li>
+<li>
+<p>Be discussed in Expert Architects Committee meeting</p>
+</li>
+<li>
+<p>Be validated by Domain Committees (consultation)</p>
+</li>
+<li>
+<p>Be approved by 2/3 vote of Expert Architects Committee</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_summary_who_validates_what">Summary: Who Validates What?</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">PRA Type</th>
+<th class="tableblock halign-left valign-top">Governance</th>
+<th class="tableblock halign-left valign-top">Proven-in-use Criteria</th>
+<th class="tableblock halign-left valign-top">Timeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Domain</strong> (functional/technical)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain Committee</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1+ within domain</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5-10 days</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Bank-Wide</strong> (cross-cutting standard)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expert Architects Committee</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3+ multi-domain</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2-4 weeks</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Promotion</strong> (Domain &#8594; Bank-Wide)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expert Architects Committee</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3+ multi-domain</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4-8 weeks</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Bootstrap</strong> (existing candidate)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expert Architects Committee</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Case-by-case evaluation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2-3 weeks</p></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="paragraph">
+<p><strong>Recommended path</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="getting-started.adoc">Getting Started with PRAs</a></p>
+</li>
+<li>
+<p><a href="understanding-pra.adoc">Understanding PRAs</a></p>
+</li>
+<li>
+<p><a href="roles-responsibilities.adoc">Roles and Responsibilities</a></p>
+</li>
+<li>
+<p><a href="lifecycle.adoc">Lifecycle</a></p>
+</li>
+<li>
+<p><a href="standards.adoc">Quality Standards</a></p>
+</li>
+<li>
+<p><a href="contributing.adoc">Contributing a PRA</a></p>
+</li>
+<li>
+<p><a href="promotion-process.adoc">Promotion Process</a></p>
+</li>
+<li>
+<p><strong>Governance</strong> (you are here)</p>
+</li>
+</ol>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Navigation</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Previous</strong>: <a href="promotion-process.adoc">Promotion Process</a></p>
+</li>
+<li>
+<p><strong>Back to start</strong>: <a href="getting-started.adoc">Getting Started with PRAs</a></p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Last updated</strong>: 2025-12-02<br>
+<strong>Next review</strong>: 2026-06-02</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-03-18 14:28:56 -0400
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<meta name="keywords" content="pra, archetype-integration, status-operationalizing, scope-domain-wide">
+<title>Salesforce Financial Services Cloud</title>
+<link rel="stylesheet" href="./rouge-github.css">
+<link rel="stylesheet" href="../../../../assets/style.css"></head>
+<body class="article">
+<div id="header">
+<h1>Salesforce Financial Services Cloud</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Fiche signaletique</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Archetype</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">integration</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Sous-categorie</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">crm</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Statut</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">operationalizing</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Scope</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">domain-wide</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Proven-in-use</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Tags</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">salesforce, fsc, crm, gestion-patrimoine, mulesoft</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Version</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Auteur</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Marie Bouchard</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Maintainer</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Luc Tremblay</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cree</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2025-01-30</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Derniere MAJ</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2025-01-30</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resume">Resume</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Solution CRM basee sur <strong>Salesforce Financial Services Cloud</strong>, deployee pour le secteur Gestion de Patrimoine de la BNC.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contexte">Contexte</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Secteur</strong> : Gestion de Patrimoine<br>
+<strong>Statut</strong> : <strong>EN PROMOTION</strong> vers Transversal<br>
+<strong>Proven-in-use</strong> : 18 mois en production<br>
+<strong>Adoption</strong> : 100% des conseillers (50+ utilisateurs)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_solution">Solution</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_architecture">Architecture</h3>
+<div class="sect3">
+<h4 id="_composants">Composants</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">graph TB
+    A[Conseillers] --&gt; B[Salesforce FSC]
+    B --&gt; C[Core Banking]
+    B --&gt; D[Portfolio Management]
+    B --&gt; E[Document Management]
+    F[Mobile App] --&gt; B</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_stack_technologique">Stack Technologique</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Platform</strong> : Salesforce Financial Services Cloud</p>
+</li>
+<li>
+<p><strong>Edition</strong> : Enterprise</p>
+</li>
+<li>
+<p><strong>Integration</strong> : MuleSoft Anypoint Platform</p>
+</li>
+<li>
+<p><strong>Data</strong> : Salesforce Data Cloud</p>
+</li>
+<li>
+<p><strong>Mobile</strong> : Salesforce Mobile App</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_fonctionnalites">Fonctionnalites</h3>
+<div class="sect3">
+<h4 id="_gestion_client_360_degres">Gestion Client 360 degres</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Profil client</strong> complet (donnees demographiques, financieres, preferences)</p>
+</li>
+<li>
+<p><strong>Vue patrimoniale</strong> consolidee</p>
+</li>
+<li>
+<p><strong>Objectifs financiers</strong> et planification</p>
+</li>
+<li>
+<p><strong>Documents</strong> centralises</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_gestion_de_portefeuille">Gestion de Portefeuille</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Holdings</strong> en temps reel</p>
+</li>
+<li>
+<p><strong>Performance tracking</strong></p>
+</li>
+<li>
+<p><strong>Risk assessment</strong></p>
+</li>
+<li>
+<p><strong>Rebalancing recommendations</strong></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_relationship_management">Relationship Management</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Interactions</strong> tracees (appels, meetings, emails)</p>
+</li>
+<li>
+<p><strong>Next best actions</strong> (IA)</p>
+</li>
+<li>
+<p><strong>Opportunites</strong> de vente</p>
+</li>
+<li>
+<p><strong>Pipeline</strong> de prospects</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_compliance_risk">Compliance &amp; Risk</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>KYC</strong> (Know Your Customer)</p>
+</li>
+<li>
+<p><strong>AML</strong> (Anti-Money Laundering)</p>
+</li>
+<li>
+<p><strong>Suitability checks</strong></p>
+</li>
+<li>
+<p><strong>Audit trail</strong> complet</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_integrations">Integrations</h3>
+<div class="sect3">
+<h4 id="_core_banking_system">Core Banking System</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">sequenceDiagram
+    participant FSC as Salesforce FSC
+    participant ML as MuleSoft
+    participant CBS as Core Banking
+
+    FSC-&gt;&gt;ML: Get Account Balance
+    ML-&gt;&gt;CBS: Query Account
+    CBS-&gt;&gt;ML: Account Data
+    ML-&gt;&gt;FSC: Transformed Data</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Technologies</strong> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>MuleSoft Anypoint Platform</p>
+</li>
+<li>
+<p>REST APIs</p>
+</li>
+<li>
+<p>Real-time data sync (every 15min)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_portfolio_management_system">Portfolio Management System</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Vendor</strong> : Bloomberg AIM</p>
+</li>
+<li>
+<p><strong>Protocol</strong> : SFTP + REST API</p>
+</li>
+<li>
+<p><strong>Frequency</strong> : Daily EOD + Real-time prices</p>
+</li>
+<li>
+<p><strong>Data</strong> : Holdings, transactions, market data</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_document_management">Document Management</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>ECM</strong> : OpenText Documentum</p>
+</li>
+<li>
+<p><strong>Integration</strong> : Salesforce Files Connect</p>
+</li>
+<li>
+<p><strong>Storage</strong> : S3-compatible object storage</p>
+</li>
+<li>
+<p><strong>Compliance</strong> : 7 years retention</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_metriques">Metriques</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_adoption">Adoption</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Utilisateurs actifs</strong> : 50+ conseillers</p>
+</li>
+<li>
+<p><strong>Clients geres</strong> : 5,000+ clients HNW/UHNW</p>
+</li>
+<li>
+<p><strong>AUM</strong> : $15B+ sous gestion</p>
+</li>
+<li>
+<p><strong>Taux d&#8217;adoption</strong> : 100%</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_performance">Performance</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>User satisfaction</strong> : 4.2/5</p>
+</li>
+<li>
+<p><strong>Time to onboard new advisor</strong> : 2 jours</p>
+</li>
+<li>
+<p><strong>Mobile usage</strong> : 40% des interactions</p>
+</li>
+<li>
+<p><strong>Response time (p95)</strong> : &lt; 2s</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_business_impact">Business Impact</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Client onboarding time</strong> : -50% (de 4 jours a 2 jours)</p>
+</li>
+<li>
+<p><strong>Client satisfaction</strong> : +15%</p>
+</li>
+<li>
+<p><strong>Cross-sell rate</strong> : +25%</p>
+</li>
+<li>
+<p><strong>Compliance incidents</strong> : -80%</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_securite">Securite</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_authentication">Authentication</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>SSO</strong> : SAML 2.0 avec Azure AD</p>
+</li>
+<li>
+<p><strong>MFA</strong> : Obligatoire pour acces externe</p>
+</li>
+<li>
+<p><strong>Session timeout</strong> : 30 minutes</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_authorization">Authorization</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Profiles</strong> : Conseiller, Manager, Admin</p>
+</li>
+<li>
+<p><strong>Permission Sets</strong> : Feature-based access</p>
+</li>
+<li>
+<p><strong>Sharing Rules</strong> : Territory-based</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_data_protection">Data Protection</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Encryption at rest</strong> : AES-256</p>
+</li>
+<li>
+<p><strong>Encryption in transit</strong> : TLS 1.3</p>
+</li>
+<li>
+<p><strong>Field-level encryption</strong> : SSN, account numbers</p>
+</li>
+<li>
+<p><strong>Shield Platform Encryption</strong> : Enabled</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conformite">Conformite</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_reglementations">Reglementations</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>PIPEDA</strong> : Protection des donnees personnelles</p>
+</li>
+<li>
+<p><strong>FINTRAC</strong> : Anti-blanchiment d&#8217;argent</p>
+</li>
+<li>
+<p><strong>IIROC</strong> : Regles sur les valeurs mobilieres</p>
+</li>
+<li>
+<p><strong>AMF</strong> : Autorite des marches financiers</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_audit_reporting">Audit &amp; Reporting</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Audit Trail</strong> : 10 ans de retention</p>
+</li>
+<li>
+<p><strong>Field History Tracking</strong> : Tous les champs critiques</p>
+</li>
+<li>
+<p><strong>Event Monitoring</strong> : Logs d&#8217;acces et modifications</p>
+</li>
+<li>
+<p><strong>Compliance Reports</strong> : 25+ rapports standard</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_couts">Couts</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_licences">Licences</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>User Licences</strong> : 50 x $300/mois = $15,000/mois</p>
+</li>
+<li>
+<p><strong>Data Cloud</strong> : $5,000/mois</p>
+</li>
+<li>
+<p><strong>Shield</strong> : $75/user/mois = $3,750/mois</p>
+</li>
+<li>
+<p><strong>Total</strong> : ~$24,000/mois</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_infrastructure">Infrastructure</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>MuleSoft</strong> : 2 vCores = $10,000/mois</p>
+</li>
+<li>
+<p><strong>Storage</strong> : 1TB = $2,000/mois</p>
+</li>
+<li>
+<p><strong>Sandbox</strong> : $5,000/mois</p>
+</li>
+<li>
+<p><strong>Total</strong> : ~$17,000/mois</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Cout total</strong> : ~$41,000/mois (~$500k/an)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deploiement">Deploiement</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_environments">Environments</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Production</strong> : prod.my.salesforce.com</p>
+</li>
+<li>
+<p><strong>UAT</strong> : uat.my.salesforce.com</p>
+</li>
+<li>
+<p><strong>Dev</strong> : dev.my.salesforce.com</p>
+</li>
+<li>
+<p><strong>Sandbox Full</strong> : full.my.salesforce.com</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cicd">CI/CD</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="c1"># .gitlab-ci.yml</span>
+<span class="na">stages</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">validate</span>
+  <span class="pi">-</span> <span class="s">deploy</span>
+
+<span class="na">validate</span><span class="pi">:</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">sfdx force:source:deploy --checkonly --testlevel RunLocalTests</span>
+
+<span class="na">deploy</span><span class="pi">:</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">sfdx force:source:deploy --targetusername prod</span>
+  <span class="na">only</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">main</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_formation_support">Formation &amp; Support</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_formation">Formation</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Onboarding</strong> : 2 jours (formation initiale)</p>
+</li>
+<li>
+<p><strong>Advanced</strong> : 1 jour/trimestre</p>
+</li>
+<li>
+<p><strong>Certification</strong> : Salesforce Financial Services Cloud Consultant (optionnelle)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_support">Support</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Equipe</strong> : 2 admins Salesforce</p>
+</li>
+<li>
+<p><strong>SLA</strong> : 4h pour incidents critiques</p>
+</li>
+<li>
+<p><strong>Canal</strong> : Slack #salesforce-support</p>
+</li>
+<li>
+<p><strong>Hours</strong> : 8h-18h EST, lundi-vendredi</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_promotion_vers_transversal">Promotion vers Transversal</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_dossier_de_promotion">Dossier de Promotion</h3>
+<div class="paragraph">
+<p>Ce patron est <strong>actuellement en promotion</strong> vers le statut Transversal. Voir le dossier complet dans /registre/en-promotion/salesforce-fsc[Promotions - Salesforce FSC].</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_justification">Justification</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Proven-in-use</strong> : 18 mois en production, 100% adoption</p>
+</li>
+<li>
+<p><strong>Applicabilite</strong> : Potentiel pour Entreprises, Institutionnel</p>
+</li>
+<li>
+<p><strong>ROI</strong> : -50% temps onboarding, +25% cross-sell</p>
+</li>
+<li>
+<p><strong>Maturite</strong> : Architecture stable, processus etablis</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_timeline">Timeline</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Phase 1</strong> : Proposition&#8201;&#8212;&#8201;Completee (Oct 2024)</p>
+</li>
+<li>
+<p><strong>Phase 2</strong> : Review&#8201;&#8212;&#8201;En cours (Nov-Dec 2024)</p>
+</li>
+<li>
+<p><strong>Phase 3</strong> : Migration&#8201;&#8212;&#8201;Planifiee (Q1 2025)</p>
+</li>
+<li>
+<p><strong>Phase 4</strong> : Adoption&#8201;&#8212;&#8201;Planifiee (Q2 2025)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_roadmap">Roadmap</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_q1_2025">Q1 2025</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Integration avec nouveau Portfolio Management System</p>
+</li>
+<li>
+<p>AI-powered client insights</p>
+</li>
+<li>
+<p>Enhanced mobile experience</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_q2_2025">Q2 2025</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Expansion vers secteur Entreprises (si promotion validee)</p>
+</li>
+<li>
+<p>Advanced analytics dashboard</p>
+</li>
+<li>
+<p>Client self-service portal</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_references">References</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://help.salesforce.com/s/articleView?id=sf.fsc_overview.htm">Salesforce FSC Documentation</a></p>
+</li>
+<li>
+<p><a href="https://www.mulesoft.com/integration-patterns">MuleSoft Integration Patterns</a></p>
+</li>
+<li>
+<p><a href="https://standards.bnc.ca/salesforce">BNC Salesforce Standards</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contacts">Contacts</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Product Owner</strong> : Marie Bouchard (<a href="mailto:marie.bouchard@bnc.ca">marie.bouchard@bnc.ca</a>)</p>
+</li>
+<li>
+<p><strong>Tech Lead</strong> : Luc Tremblay (<a href="mailto:luc.tremblay@bnc.ca">luc.tremblay@bnc.ca</a>)</p>
+</li>
+<li>
+<p><strong>Salesforce Admin</strong> : Julie Cote (<a href="mailto:julie.cote@bnc.ca">julie.cote@bnc.ca</a>)</p>
+</li>
+<li>
+<p><strong>Support</strong> : <a href="mailto:salesforce-support@bnc.ca">salesforce-support@bnc.ca</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-03-18 14:20:44 -0400
+</div>
+</div>
+</body>
+</html>

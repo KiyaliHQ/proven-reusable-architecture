@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<meta name="keywords" content="pra, guide, getting-started">
+<title>Getting Started with PRAs</title>
+<link rel="stylesheet" href="./rouge-github.css">
+<link rel="stylesheet" href="../../assets/style.css"></head>
+<body class="article">
+<div id="header">
+<h1>Getting Started with PRAs</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Welcome to the <strong>Proven Reusable Architecture (PRA) Registry</strong>!</p>
+</div>
+<div class="paragraph">
+<p>This guide will help you quickly understand what a PRA is and how to use it in your projects.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_is_a_pra">What is a PRA?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A <strong>Proven Reusable Architecture (PRA)</strong> is a <strong>proven solution</strong> to a recurring software architecture problem.</p>
+</div>
+<div class="sect2">
+<h3 id="_3_key_points">3 Key Points</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Proven-in-use</strong>: Validated in real production (not theoretical)</p>
+</li>
+<li>
+<p><strong>Reusable</strong>: Applicable to multiple contexts and projects</p>
+</li>
+<li>
+<p><strong>Well documented</strong>: Context, architecture, examples, feedback</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_simple_analogy">Simple Analogy</h3>
+<div class="paragraph">
+<p>Think of PRAs as <strong>proven recipes</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The recipe (the PRA) has been tested multiple times</p>
+</li>
+<li>
+<p>It works in different kitchens (contexts)</p>
+</li>
+<li>
+<p>It documents ingredients (tech stack), steps (implementation) and pitfalls to avoid</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_why_use_pras">Why Use PRAs?</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_time_savings">Time Savings</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Avoid reinventing the wheel</p>
+</li>
+<li>
+<p>Ready-to-use solutions</p>
+</li>
+<li>
+<p>Documented feedback</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_quality">Quality</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Solutions validated in production</p>
+</li>
+<li>
+<p>Best practices integrated</p>
+</li>
+<li>
+<p>Common pitfalls documented</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_consistency">Consistency</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Architectural alignment between teams</p>
+</li>
+<li>
+<p>Common vocabulary</p>
+</li>
+<li>
+<p>Shared standards</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_to_navigate_the_registry">How to Navigate the Registry?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The PRA registry is organized into <strong>2 scopes</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="mermaid">graph TD
+    A[PRA Registry] --&gt; B[Bank-Wide]
+    A --&gt; C[Domains]
+
+    B --&gt; B1[Approved for all]
+    C --&gt; C1[Domain-specific]</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bank_wide">Bank-Wide</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>For whom?</strong> All teams across all domains</p>
+</li>
+<li>
+<p><strong>Maturity</strong>: Validated by the <strong>Expert Architects Governance Committee</strong> (3+ proven-in-use)</p>
+</li>
+<li>
+<p><strong>Examples</strong>: Observability, CI/CD, Authentication</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_domains">Domains</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>For whom?</strong> Teams from a specific domain (Retail, Corporate, Wealth Management)</p>
+</li>
+<li>
+<p><strong>Maturity</strong>: Validated by the <strong>Domain Governance Committee</strong> (1+ proven-in-use)</p>
+</li>
+<li>
+<p><strong>Content</strong>: All pattern types (functional AND technical)</p>
+</li>
+<li>
+<p><strong>Note</strong>: PRAs being promoted to Bank-Wide have a specific status visible in their metadata</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quick_start_by_profile">Quick Start by Profile</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_im_a_developer">I&#8217;m a Developer</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Browse the catalogue</strong>: <code>/catalogue</code></p>
+</li>
+<li>
+<p><strong>Search</strong> for your need (e.g., "authentication", "deployment")</p>
+</li>
+<li>
+<p><strong>Read</strong> the PRA (context, solution, examples)</p>
+</li>
+<li>
+<p><strong>Implement</strong> following the guide</p>
+</li>
+<li>
+<p><strong>Share feedback</strong> once in production</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_im_an_architect">I&#8217;m an Architect</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Explore</strong> Bank-Wide and Domain PRAs</p>
+</li>
+<li>
+<p><strong>Recommend</strong> applicable PRAs in designs</p>
+</li>
+<li>
+<p><strong>Identify</strong> new reusable patterns in your projects</p>
+</li>
+<li>
+<p><strong>Contribute</strong> new PRAs</p>
+</li>
+<li>
+<p><strong>Participate</strong> in Domain Committee reviews</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_im_new_to_bnc">I&#8217;m New to BNC</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Start here</strong>: This guide</p>
+</li>
+<li>
+<p><strong>Read</strong>: <a href="/guides/02-understanding-pra">Understanding PRAs</a></p>
+</li>
+<li>
+<p><strong>Browse</strong>: Approved Bank-Wide PRAs</p>
+</li>
+<li>
+<p><strong>Ask</strong>: #pra-registry Teams channel</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_faq">FAQ</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_how_long_to_implement_a_pra">How long to implement a PRA?</h3>
+<div class="paragraph">
+<p><strong>Depends on the PRA</strong>, but typically:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Simple patterns (logging): 1-2 days</p>
+</li>
+<li>
+<p>Medium patterns (CI/CD): 1-2 weeks</p>
+</li>
+<li>
+<p>Complex patterns (authentication): 2-4 weeks</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The time saved compared to starting from scratch: <strong>30-60%</strong></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_are_pras_mandatory">Are PRAs mandatory?</h3>
+<div class="paragraph">
+<p><strong>No</strong>, but:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Bank-Wide Approved PRAs</strong> are strongly recommended</p>
+</li>
+<li>
+<p>Must justify if not using an applicable PRA</p>
+</li>
+<li>
+<p>Non-compliance may be discussed in architecture reviews</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_get_help">How to get help?</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Teams Channel</strong>: <code>#pra-registry</code></p>
+</li>
+<li>
+<p><strong>Email</strong>: <a href="mailto:pra-support@company.com">pra-support@company.com</a></p>
+</li>
+<li>
+<p><strong>GitHub Issues</strong>: For PRA-specific questions</p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Next</strong>: <a href="/guides/02-understanding-pra">Understanding PRAs</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-03-18 14:26:24 -0400
+</div>
+</div>
+</body>
+</html>
