@@ -52,27 +52,46 @@ Bidirectional banking integration solution between BNC and SAP S/4HANA, enabling
 
 === Overview
 
-[source,mermaid]
+[plantuml]
 ----
-graph LR
-    A[SAP S/4HANA] <--> B[BNC Integration Layer]
-    B <--> C[Core Banking]
-    B --> D[Document Storage]
-    E[Treasury Workstation] --> B
+@startuml
+left to right direction
+skinparam rectangleRoundCorner 15
+rectangle "SAP S/4HANA" as A
+rectangle "BNC Integration Layer" as B
+rectangle "Core Banking" as C
+rectangle "Document Storage" as D
+rectangle "Treasury Workstation" as E
+A <--> B
+B <--> C
+B --> D
+E --> B
+@enduml
 ----
 
 === Components
 
-[source,mermaid]
+[plantuml]
 ----
-graph TB
-    A[SAP S/4HANA] --> B[SAP PI/PO]
-    B --> C[EBICS Gateway]
-    C --> D[BNC API Gateway]
-    D --> E[Banking Services]
-    E --> F[Core Banking System]
-    E --> G[Statement Generator]
-    E --> H[Payment Processing]
+@startuml
+top to bottom direction
+skinparam rectangleRoundCorner 15
+rectangle "SAP S/4HANA" as A
+rectangle "SAP PI/PO" as B
+rectangle "EBICS Gateway" as C
+rectangle "BNC API Gateway" as D
+rectangle "Banking Services" as E
+rectangle "Core Banking System" as F
+rectangle "Statement Generator" as G
+rectangle "Payment Processing" as H
+A --> B
+B --> C
+C --> D
+D --> E
+E --> F
+E --> G
+E --> H
+@enduml
 ----
 
 === Technology Stack
@@ -88,22 +107,23 @@ graph TB
 
 === 1. Payments (Outbound)
 
-[source,mermaid]
+[plantuml]
 ----
-sequenceDiagram
-    participant SAP as SAP S/4HANA
-    participant PI as SAP PI/PO
-    participant EBICS as EBICS Gateway
-    participant BNC as BNC Banking
+@startuml
+participant "SAP S/4HANA" as SAP
+participant "SAP PI/PO" as PI
+participant "EBICS Gateway" as EBICS
+participant "BNC Banking" as BNC
 
-    SAP->>PI: Payment Order (pain.001)
-    PI->>PI: Validation & Enrichment
-    PI->>EBICS: EBICS Upload
-    EBICS->>BNC: Payment Instruction
-    BNC->>BNC: Process Payment
-    BNC->>EBICS: Status (pain.002)
-    EBICS->>PI: Download Status
-    PI->>SAP: Update Payment Status
+SAP -> PI : Payment Order (pain.001)
+PI -> PI : Validation & Enrichment
+PI -> EBICS : EBICS Upload
+EBICS -> BNC : Payment Instruction
+BNC -> BNC : Process Payment
+BNC -> EBICS : Status (pain.002)
+EBICS -> PI : Download Status
+PI -> SAP : Update Payment Status
+@enduml
 ----
 
 *ISO 20022 Messages* :
@@ -113,20 +133,21 @@ sequenceDiagram
 
 === 2. Bank Statements (Inbound)
 
-[source,mermaid]
+[plantuml]
 ----
-sequenceDiagram
-    participant BNC as BNC Banking
-    participant EBICS as EBICS Gateway
-    participant PI as SAP PI/PO
-    participant SAP as SAP S/4HANA
+@startuml
+participant "BNC Banking" as BNC
+participant "EBICS Gateway" as EBICS
+participant "SAP PI/PO" as PI
+participant "SAP S/4HANA" as SAP
 
-    BNC->>BNC: Generate Daily Statement
-    BNC->>EBICS: Statement (camt.053)
-    EBICS->>PI: Download Statement
-    PI->>PI: Transform to SAP Format
-    PI->>SAP: Post Bank Statement
-    SAP->>SAP: Auto-Reconciliation
+BNC -> BNC : Generate Daily Statement
+BNC -> EBICS : Statement (camt.053)
+EBICS -> PI : Download Statement
+PI -> PI : Transform to SAP Format
+PI -> SAP : Post Bank Statement
+SAP -> SAP : Auto-Reconciliation
+@enduml
 ----
 
 *ISO 20022 Messages* :
@@ -136,18 +157,19 @@ sequenceDiagram
 
 === 3. Cash Position (Real-time)
 
-[source,mermaid]
+[plantuml]
 ----
-sequenceDiagram
-    participant SAP as SAP Treasury
-    participant API as BNC API
-    participant CBS as Core Banking
+@startuml
+participant "SAP Treasury" as SAP
+participant "BNC API" as API
+participant "Core Banking" as CBS
 
-    SAP->>API: Get Account Balances
-    API->>CBS: Query Balances
-    CBS->>API: Return Balances
-    API->>SAP: Balance Response (JSON)
-    SAP->>SAP: Update Cash Position
+SAP -> API : Get Account Balances
+API -> CBS : Query Balances
+CBS -> API : Return Balances
+API -> SAP : Balance Response (JSON)
+SAP -> SAP : Update Cash Position
+@enduml
 ----
 
 == SAP Configuration

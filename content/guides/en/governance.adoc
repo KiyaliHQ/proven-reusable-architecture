@@ -8,36 +8,34 @@ This document defines the two-tier governance structure, roles, and processes of
 
 The PRA registry operates with *two governance levels* to reflect the organizational reality at the National Bank:
 
-[source,mermaid]
+[plantuml]
 ----
-graph TB
-    ARCH["ARCHITECTS<br/>in Domains"]
-    TRANS["CROSS-CUTTING TEAMS<br/>(Software Engineering, etc.)"]
-    BOOT["BOOTSTRAP<br/>(Priority Identification)"]
+@startuml
+top to bottom direction
+skinparam rectangle {
+  RoundCorner 15
+}
 
-    GOV_DOM["Domain Governance<br/>Committees"]
-    GOV_BW["Expert Architects<br/>Governance Committee"]
+rectangle "ARCHITECTS\nin Domains" as ARCH #fbbf24
+rectangle "CROSS-CUTTING TEAMS\n(Software Engineering, etc.)" as TRANS #f59e0b
+rectangle "BOOTSTRAP\n(Priority Identification)" as BOOT #ef4444
 
-    DOM["DOMAIN PRAs"]
-    BW["BANK-WIDE PRAs"]
+rectangle "Domain Governance\nCommittees" as GOV_DOM #60a5fa
+rectangle "Expert Architects\nGovernance Committee" as GOV_BW #8b5cf6
 
-    ARCH -->|"Architectures"| GOV_DOM
-    GOV_DOM -->|"Flow 1:<br/>Evaluated reusable"| DOM
-    DOM -->|"If reusable<br/>outside domain"| GOV_BW
+rectangle "DOMAIN PRAs" as DOM #3b82f6
+rectangle "BANK-WIDE PRAs" as BW #10b981
 
-    TRANS -->|"Flow 2:<br/>New standards"| GOV_BW
+ARCH --> GOV_DOM : Architectures
+GOV_DOM --> DOM : Flow 1:\nEvaluated reusable
+DOM --> GOV_BW : If reusable\noutside domain
 
-    BOOT -.->|"Flow 3:<br/>Existing candidates"| GOV_BW
+TRANS --> GOV_BW : Flow 2:\nNew standards
 
-    GOV_BW -->|"Approved"| BW
+BOOT ..> GOV_BW : Flow 3:\nExisting candidates
 
-    style BW fill:#10b981,stroke:#059669,stroke-width:4px,color:#fff
-    style DOM fill:#3b82f6,stroke:#2563eb,stroke-width:4px,color:#fff
-    style GOV_BW fill:#8b5cf6,stroke:#7c3aed,stroke-width:3px,color:#fff
-    style GOV_DOM fill:#60a5fa,stroke:#2563eb,stroke-width:3px,color:#fff
-    style ARCH fill:#fbbf24,stroke:#d97706,stroke-width:3px,color:#000
-    style TRANS fill:#f59e0b,stroke:#d97706,stroke-width:3px,color:#000
-    style BOOT fill:#ef4444,stroke:#dc2626,stroke-width:3px,color:#fff
+GOV_BW --> BW : Approved
+@enduml
 ----
 
 === Tier 1: Domain Governance Committees

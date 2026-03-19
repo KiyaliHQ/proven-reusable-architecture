@@ -6,19 +6,27 @@ Ce document définit les rôles clés dans l'écosystème du registre PRA et leu
 
 == Vue d'ensemble des Rôles
 
-[source,mermaid]
+[plantuml]
 ----
-graph TD
-    GOV_DOM[Comités Gouvernance Domaine] --> ARCH[Architectes Contributeurs]
-    GOV_BW[Comité Gouvernance Architectes Experts] --> ARCH
-    INIT[Équipe Initiative] --> ARCH
-    ARCH --> MAIN[Mainteneurs PRA]
-    MAIN --> USERS[Utilisateurs PRA]
+@startuml
+top to bottom direction
+skinparam rectangleRoundCorner 15
 
-    GOV_DOM -.-> GOV_BW
+rectangle "Comités Gouvernance Domaine" as GOV_DOM #60a5fa
+rectangle "Comité Gouvernance Architectes Experts" as GOV_BW #8b5cf6
+rectangle "Équipe Initiative" as INIT
+rectangle "Architectes Contributeurs" as ARCH
+rectangle "Mainteneurs PRA" as MAIN
+rectangle "Utilisateurs PRA" as USERS
 
-    style GOV_DOM fill:#60a5fa,stroke:#2563eb,color:#fff
-    style GOV_BW fill:#8b5cf6,stroke:#7c3aed,color:#fff
+GOV_DOM --> ARCH
+GOV_BW --> ARCH
+INIT --> ARCH
+ARCH --> MAIN
+MAIN --> USERS
+
+GOV_DOM ..> GOV_BW
+@enduml
 ----
 
 == Comités de Gouvernance par Domaine

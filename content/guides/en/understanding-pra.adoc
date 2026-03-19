@@ -89,13 +89,21 @@ replaces: null
 
 === 1. Bank-Wide (Transversal)
 
-[source,mermaid]
+[plantuml]
 ----
-graph TD
-    A[Bank-Wide PRA] --> B[Validated for ALL domains]
-    B --> C[3+ multi-domain proven-in-use]
-    B --> D[Approved by Expert Architects Committee]
-    B --> E[Enriched documentation]
+@startuml
+top to bottom direction
+skinparam rectangleRoundCorner 15
+rectangle "Bank-Wide PRA" as A
+rectangle "Validated for ALL domains" as B
+rectangle "3+ multi-domain proven-in-use" as C
+rectangle "Approved by Expert Architects Committee" as D
+rectangle "Enriched documentation" as E
+A --> B
+B --> C
+B --> D
+B --> E
+@enduml
 ----
 
 *Characteristics*:
@@ -115,13 +123,21 @@ graph TD
 
 === 2. Domain
 
-[source,mermaid]
+[plantuml]
 ----
-graph TD
-    A[Domain PRA] --> B[Specific to one domain]
-    B --> C[1+ proven-in-use in the domain]
-    B --> D[Approved by Domain Committee]
-    B --> E[Can be promoted to Bank-Wide]
+@startuml
+top to bottom direction
+skinparam rectangleRoundCorner 15
+rectangle "Domain PRA" as A
+rectangle "Specific to one domain" as B
+rectangle "1+ proven-in-use in the domain" as C
+rectangle "Approved by Domain Committee" as D
+rectangle "Can be promoted to Bank-Wide" as E
+A --> B
+B --> C
+B --> D
+B --> E
+@enduml
 ----
 
 *Characteristics*:
@@ -144,12 +160,19 @@ NOTE: When a Domain PRA is proposed to become Bank-Wide, it receives the *"in pr
 
 === Candidate
 
-[source,mermaid]
+[plantuml]
 ----
-graph LR
-    A[1 proven-in-use] --> B[Complete documentation]
-    B --> C[Governance Table review]
-    C --> D[Candidate PRA]
+@startuml
+left to right direction
+skinparam rectangleRoundCorner 15
+rectangle "1 proven-in-use" as A
+rectangle "Complete documentation" as B
+rectangle "Governance Table review" as C
+rectangle "Candidate PRA" as D
+A --> B
+B --> C
+C --> D
+@enduml
 ----
 
 *Criteria*:
@@ -169,12 +192,19 @@ graph LR
 
 === Approved
 
-[source,mermaid]
+[plantuml]
 ----
-graph LR
-    A[3+ proven-in-use] --> B[Positive feedback]
-    B --> C[Active maintenance]
-    C --> D[Approved PRA]
+@startuml
+left to right direction
+skinparam rectangleRoundCorner 15
+rectangle "3+ proven-in-use" as A
+rectangle "Positive feedback" as B
+rectangle "Active maintenance" as C
+rectangle "Approved PRA" as D
+A --> B
+B --> C
+C --> D
+@enduml
 ----
 
 *Criteria*:
@@ -194,12 +224,19 @@ graph LR
 
 === Deprecated
 
-[source,mermaid]
+[plantuml]
 ----
-graph LR
-    A[Obsolete technology] --> D[Deprecated PRA]
-    B[Better alternative] --> D
-    C[Repeated negative feedback] --> D
+@startuml
+left to right direction
+skinparam rectangleRoundCorner 15
+rectangle "Obsolete technology" as A
+rectangle "Better alternative" as B
+rectangle "Repeated negative feedback" as C
+rectangle "Deprecated PRA" as D
+A --> D
+B --> D
+C --> D
+@enduml
 ----
 
 *Reasons*:
@@ -221,21 +258,32 @@ graph LR
 
 === Selection Workflow
 
-[source,mermaid]
+[plantuml]
 ----
-graph TD
-    A[I have a need] --> B{Bank-Wide PRA exists?}
-    B -->|Yes| C[Check application context]
-    B -->|No| D{Domain PRA exists?}
-
-    C -->|Applicable| E[Use Bank-Wide PRA]
-    C -->|Not applicable| D
-
-    D -->|Yes| F[Check context]
-    D -->|No| G[Create new PRA?]
-
-    F -->|Applicable| H[Use Domain PRA]
-    F -->|Not applicable| G
+@startuml
+start
+:I have a need;
+if (Bank-Wide PRA exists?) then (Yes)
+  :Check application context;
+  if (Applicable?) then (Yes)
+    :Use Bank-Wide PRA;
+    stop
+  else (Not applicable)
+  endif
+else (No)
+endif
+if (Domain PRA exists?) then (Yes)
+  :Check context;
+  if (Applicable?) then (Yes)
+    :Use Domain PRA;
+    stop
+  else (Not applicable)
+  endif
+else (No)
+endif
+:Create new PRA?;
+stop
+@enduml
 ----
 
 NOTE: PRAs with *"in promotion"* status are visible in Domain PRA metadata and can be consulted to see emerging patterns.

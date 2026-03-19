@@ -6,19 +6,27 @@ This document defines the key roles in the PRA registry ecosystem and their resp
 
 == Roles Overview
 
-[source,mermaid]
+[plantuml]
 ----
-graph TD
-    GOV_DOM[Domain Governance Committees] --> ARCH[Contributing Architects]
-    GOV_BW[Expert Architects Governance Committee] --> ARCH
-    INIT[Initiative Team] --> ARCH
-    ARCH --> MAIN[PRA Maintainers]
-    MAIN --> USERS[PRA Users]
+@startuml
+top to bottom direction
+skinparam rectangleRoundCorner 15
 
-    GOV_DOM -.-> GOV_BW
+rectangle "Domain Governance Committees" as GOV_DOM #60a5fa
+rectangle "Expert Architects Governance Committee" as GOV_BW #8b5cf6
+rectangle "Initiative Team" as INIT
+rectangle "Contributing Architects" as ARCH
+rectangle "PRA Maintainers" as MAIN
+rectangle "PRA Users" as USERS
 
-    style GOV_DOM fill:#60a5fa,stroke:#2563eb,color:#fff
-    style GOV_BW fill:#8b5cf6,stroke:#7c3aed,color:#fff
+GOV_DOM --> ARCH
+GOV_BW --> ARCH
+INIT --> ARCH
+ARCH --> MAIN
+MAIN --> USERS
+
+GOV_DOM ..> GOV_BW
+@enduml
 ----
 
 == Domain Governance Committees

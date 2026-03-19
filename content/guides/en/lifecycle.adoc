@@ -8,13 +8,21 @@ This document describes the different stages in the lifecycle of a Proven Reusab
 
 A PRA goes through several statuses during its lifecycle:
 
-[source,mermaid]
+[plantuml]
 ----
-graph LR
-    A[Identification] --> B[Candidate]
-    B --> C[Approved]
-    C --> D[Deprecated]
-    C --> E[Archived]
+@startuml
+left to right direction
+skinparam rectangleRoundCorner 15
+rectangle "Identification" as A
+rectangle "Candidate" as B
+rectangle "Approved" as C
+rectangle "Deprecated" as D
+rectangle "Archived" as E
+A --> B
+B --> C
+C --> D
+C --> E
+@enduml
 ----
 
 == PRA Statuses

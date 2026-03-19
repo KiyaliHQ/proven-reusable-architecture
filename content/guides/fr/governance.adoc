@@ -8,36 +8,34 @@ Ce document definit la structure de gouvernance a deux niveaux, les roles, et le
 
 Le registre PRA fonctionne avec *deux niveaux de gouvernance* pour refleter la realite organisationnelle de la Banque Nationale :
 
-[source,mermaid]
+[plantuml]
 ----
-graph TB
-    ARCH["ARCHITECTS<br/>dans les Domaines"]
-    TRANS["EQUIPES TRANSVERSALES<br/>(Software Engineering, etc.)"]
-    BOOT["BOOTSTRAP<br/>(Identification priorites)"]
+@startuml
+top to bottom direction
+skinparam rectangle {
+  RoundCorner 15
+}
 
-    GOV_DOM["Comites de Gouvernance<br/>par Domaine"]
-    GOV_BW["Comite de Gouvernance<br/>Architectes Experts"]
+rectangle "ARCHITECTS\ndans les Domaines" as ARCH #fbbf24
+rectangle "EQUIPES TRANSVERSALES\n(Software Engineering, etc.)" as TRANS #f59e0b
+rectangle "BOOTSTRAP\n(Identification priorites)" as BOOT #ef4444
 
-    DOM["PRAs DOMAINE"]
-    BW["PRAs BANK-WIDE"]
+rectangle "Comites de Gouvernance\npar Domaine" as GOV_DOM #60a5fa
+rectangle "Comite de Gouvernance\nArchitectes Experts" as GOV_BW #8b5cf6
 
-    ARCH -->|"Architectures"| GOV_DOM
-    GOV_DOM -->|"Flux 1:<br/>Evalue reutilisable"| DOM
-    DOM -->|"Si reutilisable<br/>hors domaine"| GOV_BW
+rectangle "PRAs DOMAINE" as DOM #3b82f6
+rectangle "PRAs BANK-WIDE" as BW #10b981
 
-    TRANS -->|"Flux 2:<br/>Nouveaux standards"| GOV_BW
+ARCH --> GOV_DOM : Architectures
+GOV_DOM --> DOM : Flux 1:\nEvalue reutilisable
+DOM --> GOV_BW : Si reutilisable\nhors domaine
 
-    BOOT -.->|"Flux 3:<br/>Candidats existants"| GOV_BW
+TRANS --> GOV_BW : Flux 2:\nNouveaux standards
 
-    GOV_BW -->|"Approuve"| BW
+BOOT ..> GOV_BW : Flux 3:\nCandidats existants
 
-    style BW fill:#10b981,stroke:#059669,stroke-width:4px,color:#fff
-    style DOM fill:#3b82f6,stroke:#2563eb,stroke-width:4px,color:#fff
-    style GOV_BW fill:#8b5cf6,stroke:#7c3aed,stroke-width:3px,color:#fff
-    style GOV_DOM fill:#60a5fa,stroke:#2563eb,stroke-width:3px,color:#fff
-    style ARCH fill:#fbbf24,stroke:#d97706,stroke-width:3px,color:#000
-    style TRANS fill:#f59e0b,stroke:#d97706,stroke-width:3px,color:#000
-    style BOOT fill:#ef4444,stroke:#dc2626,stroke-width:3px,color:#fff
+GOV_BW --> BW : Approuve
+@enduml
 ----
 
 === Niveau 1 : Comites de Gouvernance par Domaine

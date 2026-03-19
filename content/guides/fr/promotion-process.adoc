@@ -10,12 +10,19 @@ Ce document decrit le processus permettant de promouvoir un patron Domaine au ni
 
 La promotion d'un patron Domaine vers le niveau Bank-Wide suit un processus en 4 phases :
 
-[source,mermaid]
+[plantuml]
 ----
-graph LR
-    A[Phase 1: Proposition] --> B[Phase 2: Revue]
-    B --> C[Phase 3: Migration]
-    C --> D[Phase 4: Adoption]
+@startuml
+left to right direction
+skinparam rectangleRoundCorner 15
+rectangle "Phase 1: Proposition" as A
+rectangle "Phase 2: Revue" as B
+rectangle "Phase 3: Migration" as C
+rectangle "Phase 4: Adoption" as D
+A --> B
+B --> C
+C --> D
+@enduml
 ----
 
 == Phase 1 : Proposition

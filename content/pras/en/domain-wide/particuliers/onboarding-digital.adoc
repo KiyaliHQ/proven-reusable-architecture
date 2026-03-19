@@ -50,30 +50,52 @@ A 100% digital onboarding solution enabling new clients to open a bank account i
 
 === Workflow
 
-[source,mermaid]
+[plantuml]
 ----
-graph TD
-    A[Web/Mobile Visitor] --> B[Initial Form]
-    B --> C[Identity Verification]
-    C --> D[Credit Check]
-    D --> E[Product Selection]
-    E --> F[Electronic Signature]
-    F --> G[Account Creation]
-    G --> H[Mobile Activation]
+@startuml
+top to bottom direction
+skinparam rectangleRoundCorner 15
+rectangle "Web/Mobile Visitor" as A
+rectangle "Initial Form" as B
+rectangle "Identity Verification" as C
+rectangle "Credit Check" as D
+rectangle "Product Selection" as E
+rectangle "Electronic Signature" as F
+rectangle "Account Creation" as G
+rectangle "Mobile Activation" as H
+A --> B
+B --> C
+C --> D
+D --> E
+E --> F
+F --> G
+G --> H
+@enduml
 ----
 
 === Components
 
-[source,mermaid]
+[plantuml]
 ----
-graph TB
-    A[Web/Mobile Frontend] --> B[API Gateway]
-    B --> C[Onboarding Service]
-    C --> D[Identity Verification]
-    C --> E[Credit Bureau]
-    C --> F[Core Banking]
-    C --> G[Document Management]
-    C --> H[Notification Service]
+@startuml
+top to bottom direction
+skinparam rectangleRoundCorner 15
+rectangle "Web/Mobile Frontend" as A
+rectangle "API Gateway" as B
+rectangle "Onboarding Service" as C
+rectangle "Identity Verification" as D
+rectangle "Credit Bureau" as E
+rectangle "Core Banking" as F
+rectangle "Document Management" as G
+rectangle "Notification Service" as H
+A --> B
+B --> C
+C --> D
+C --> E
+C --> F
+C --> G
+C --> H
+@enduml
 ----
 
 === Technology Stack

@@ -48,14 +48,21 @@ Pensez aux PRA comme des *recettes de cuisine eprouvees* :
 
 Le registre PRA est organise en *2 scopes* :
 
-[source,mermaid]
+[plantuml]
 ----
-graph TD
-    A[Registre PRA] --> B[Bank-Wide]
-    A --> C[Domaines]
-
-    B --> B1[Approuvés pour tous]
-    C --> C1[Spécifiques à un domaine]
+@startuml
+top to bottom direction
+skinparam rectangleRoundCorner 15
+rectangle "Registre PRA" as A
+rectangle "Bank-Wide" as B
+rectangle "Domaines" as C
+rectangle "Approuvés pour tous" as B1
+rectangle "Spécifiques à un domaine" as C1
+A --> B
+A --> C
+B --> B1
+C --> C1
+@enduml
 ----
 
 === Bank-Wide (Transversal)
@@ -76,28 +83,46 @@ graph TD
 
 === 1 Je veux *utiliser* un PRA
 
-[source,mermaid]
+[plantuml]
 ----
-graph LR
-    A[Identifier mon besoin] --> B[Consulter Transversal]
-    B --> C[Lire le PRA]
-    C --> D[Vérifier contexte d'application]
-    D --> E[Implémenter]
-    E --> F[Documenter mon proven-in-use]
+@startuml
+left to right direction
+skinparam rectangleRoundCorner 15
+rectangle "Identifier mon besoin" as A
+rectangle "Consulter Transversal" as B
+rectangle "Lire le PRA" as C
+rectangle "Vérifier contexte d'application" as D
+rectangle "Implémenter" as E
+rectangle "Documenter mon proven-in-use" as F
+A --> B
+B --> C
+C --> D
+D --> E
+E --> F
+@enduml
 ----
 
 *Action* : Parcourez la section link:/registre/transversal[Transversal]
 
 === 2 Je veux *contribuer* un PRA
 
-[source,mermaid]
+[plantuml]
 ----
-graph LR
-    A[J'ai une solution éprouvée] --> B[Vérifier critères]
-    B --> C[Documenter le PRA]
-    C --> D[Soumettre PR]
-    D --> E[Review Table Gouvernance]
-    E --> F[PRA Candidate]
+@startuml
+left to right direction
+skinparam rectangleRoundCorner 15
+rectangle "J'ai une solution éprouvée" as A
+rectangle "Vérifier critères" as B
+rectangle "Documenter le PRA" as C
+rectangle "Soumettre PR" as D
+rectangle "Review Table Gouvernance" as E
+rectangle "PRA Candidate" as F
+A --> B
+B --> C
+C --> D
+D --> E
+E --> F
+@enduml
 ----
 
 *Action* : Consultez le guide link:/guides/06-contributing[Contribuer]

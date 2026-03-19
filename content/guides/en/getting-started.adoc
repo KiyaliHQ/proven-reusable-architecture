@@ -48,14 +48,21 @@ Think of PRAs as *proven recipes*:
 
 The PRA registry is organized into *2 scopes*:
 
-[source,mermaid]
+[plantuml]
 ----
-graph TD
-    A[PRA Registry] --> B[Bank-Wide]
-    A --> C[Domains]
-
-    B --> B1[Approved for all]
-    C --> C1[Domain-specific]
+@startuml
+top to bottom direction
+skinparam rectangleRoundCorner 15
+rectangle "PRA Registry" as A
+rectangle "Bank-Wide" as B
+rectangle "Domains" as C
+rectangle "Approved for all" as B1
+rectangle "Domain-specific" as C1
+A --> B
+A --> C
+B --> B1
+C --> C1
+@enduml
 ----
 
 === Bank-Wide

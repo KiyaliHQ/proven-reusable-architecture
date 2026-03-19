@@ -50,30 +50,52 @@ Solution d'onboarding 100% digital permettant aux nouveaux clients d'ouvrir un c
 
 === Workflow
 
-[source,mermaid]
+[plantuml]
 ----
-graph TD
-    A[Visiteur Web/Mobile] --> B[Formulaire Initial]
-    B --> C[Vérification Identité]
-    C --> D[Vérification Crédit]
-    D --> E[Sélection Produits]
-    E --> F[Signature Électronique]
-    F --> G[Création Compte]
-    G --> H[Activation Mobile]
+@startuml
+top to bottom direction
+skinparam rectangleRoundCorner 15
+rectangle "Visiteur Web/Mobile" as A
+rectangle "Formulaire Initial" as B
+rectangle "Vérification Identité" as C
+rectangle "Vérification Crédit" as D
+rectangle "Sélection Produits" as E
+rectangle "Signature Électronique" as F
+rectangle "Création Compte" as G
+rectangle "Activation Mobile" as H
+A --> B
+B --> C
+C --> D
+D --> E
+E --> F
+F --> G
+G --> H
+@enduml
 ----
 
 === Composants
 
-[source,mermaid]
+[plantuml]
 ----
-graph TB
-    A[Frontend Web/Mobile] --> B[API Gateway]
-    B --> C[Onboarding Service]
-    C --> D[Identity Verification]
-    C --> E[Credit Bureau]
-    C --> F[Core Banking]
-    C --> G[Document Management]
-    C --> H[Notification Service]
+@startuml
+top to bottom direction
+skinparam rectangleRoundCorner 15
+rectangle "Frontend Web/Mobile" as A
+rectangle "API Gateway" as B
+rectangle "Onboarding Service" as C
+rectangle "Identity Verification" as D
+rectangle "Credit Bureau" as E
+rectangle "Core Banking" as F
+rectangle "Document Management" as G
+rectangle "Notification Service" as H
+A --> B
+B --> C
+C --> D
+C --> E
+C --> F
+C --> G
+C --> H
+@enduml
 ----
 
 === Stack Technologique

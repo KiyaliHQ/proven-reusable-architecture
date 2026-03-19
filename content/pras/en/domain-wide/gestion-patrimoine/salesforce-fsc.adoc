@@ -53,14 +53,23 @@ CRM solution based on *Salesforce Financial Services Cloud*, deployed for BNC's 
 
 ==== Components
 
-[source,mermaid]
+[plantuml]
 ----
-graph TB
-    A[Advisors] --> B[Salesforce FSC]
-    B --> C[Core Banking]
-    B --> D[Portfolio Management]
-    B --> E[Document Management]
-    F[Mobile App] --> B
+@startuml
+top to bottom direction
+skinparam rectangleRoundCorner 15
+rectangle "Advisors" as A
+rectangle "Salesforce FSC" as B
+rectangle "Core Banking" as C
+rectangle "Portfolio Management" as D
+rectangle "Document Management" as E
+rectangle "Mobile App" as F
+A --> B
+B --> C
+B --> D
+B --> E
+F --> B
+@enduml
 ----
 
 ==== Technology Stack
@@ -105,17 +114,18 @@ graph TB
 
 ==== Core Banking System
 
-[source,mermaid]
+[plantuml]
 ----
-sequenceDiagram
-    participant FSC as Salesforce FSC
-    participant ML as MuleSoft
-    participant CBS as Core Banking
+@startuml
+participant "Salesforce FSC" as FSC
+participant "MuleSoft" as ML
+participant "Core Banking" as CBS
 
-    FSC->>ML: Get Account Balance
-    ML->>CBS: Query Account
-    CBS->>ML: Account Data
-    ML->>FSC: Transformed Data
+FSC -> ML : Get Account Balance
+ML -> CBS : Query Account
+CBS -> ML : Account Data
+ML -> FSC : Transformed Data
+@enduml
 ----
 
 *Technologies* :
