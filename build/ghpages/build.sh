@@ -133,7 +133,7 @@ build_pra_index() {
     local idx_file="$BUILD_TMP/pra-index-${lang}.tsv"
     > "$idx_file"
 
-    find "$pras_dir" -name "*.adoc" -not -name "index.adoc" 2>/dev/null | sort | while read -r f; do
+    find "$pras_dir" -name "*.adoc" -not -name "index.adoc" -not -name "overview.adoc" 2>/dev/null | sort | while read -r f; do
         local name
         name=$(extract_title "$f")
         [ -z "$name" ] && continue
@@ -218,6 +218,16 @@ EOF
     </a>
     <div class="sidebar-divider"></div>
 EOF
+
+    # --- Overview link (if overview.adoc exists) ---
+    if [ -f "$pras_dir/overview.adoc" ]; then
+        local overview_label="Vue d'ensemble"
+        [ "$lang" = "en" ] && overview_label="Overview"
+        cat >> "$out" <<EOF
+    <a href="pras/${lang}/overview.html" class="sidebar-guide" style="display:block;padding:6px 12px;font-weight:600;">📐 ${overview_label}</a>
+    <div class="sidebar-divider"></div>
+EOF
+    fi
 
     # === BANK-WIDE ===
     cat >> "$out" <<'EOF'
@@ -618,9 +628,13 @@ convert_pra_page() {
     local toc_html
     toc_html=$(generate_toc "$tmp_html" "$lang")
 
-    # Generate metadata card
-    local meta_card
-    meta_card=$(generate_meta_card "$adoc_file" "$lang")
+    # Generate metadata card (skip for overview pages)
+    local meta_card=""
+    local hide_meta
+    hide_meta=$(extract_attr "$adoc_file" "pra-hide-meta")
+    if [ "$hide_meta" != "true" ]; then
+        meta_card=$(generate_meta_card "$adoc_file" "$lang")
+    fi
 
     # Breadcrumb
     local bc_home="Accueil" bc_catalogue="Catalogue"
