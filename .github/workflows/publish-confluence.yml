@@ -1,0 +1,32 @@
+name: Publish to Confluence
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: confluence
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Publish to Confluence
+        env:
+          CONFLUENCE_URL: ${{ secrets.CONFLUENCE_URL }}
+          CONFLUENCE_SPACE_KEY: ${{ secrets.CONFLUENCE_SPACE_KEY }}
+          CONFLUENCE_USER: ${{ secrets.CONFLUENCE_USER }}
+          CONFLUENCE_TOKEN: ${{ secrets.CONFLUENCE_TOKEN }}
+          CONFLUENCE_ANCESTOR_FR: ${{ secrets.CONFLUENCE_ANCESTOR_FR }}
+          CONFLUENCE_ANCESTOR_EN: ${{ secrets.CONFLUENCE_ANCESTOR_EN }}
+        run: |
+          chmod +x scripts/publish-confluence.sh
+          ./scripts/publish-confluence.sh
