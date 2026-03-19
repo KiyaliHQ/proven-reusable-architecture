@@ -7,6 +7,10 @@ node_modules/
 coverage/
 .playwright-mcp/
 
+# Temporary files
+.tmp/
+_confluence_tmp/
+
 # Build output
 _site/
 dist/
