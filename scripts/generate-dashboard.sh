@@ -24,6 +24,11 @@ extract_attr() {
     grep -m1 "^:${attr}:" "$file" 2>/dev/null | sed "s/^:${attr}: *//" || echo ""
 }
 
+# Extract the AsciiDoc document title (= Title)
+extract_title() {
+    grep -m1 "^= " "$1" 2>/dev/null | sed 's/^= //' || echo "Untitled"
+}
+
 # Generate index.adoc for a given language
 generate_index() {
     local lang="$1"
@@ -79,7 +84,7 @@ EOF
     local count=0
     find "$lang_dir" -name "*.adoc" -not -name "index.adoc" | sort | while read -r file; do
         local name archetype subcategory status scope proven_count updated
-        name=$(extract_attr "$file" "pra-name")
+        name=$(extract_title "$file")
         archetype=$(extract_attr "$file" "pra-archetype")
         subcategory=$(extract_attr "$file" "pra-subcategory")
         status=$(extract_attr "$file" "pra-status")

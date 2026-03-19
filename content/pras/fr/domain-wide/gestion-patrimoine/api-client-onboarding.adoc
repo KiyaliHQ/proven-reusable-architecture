@@ -1,6 +1,5 @@
 = [DEMO DATA] Patron d'Onboarding Client via API
 // === MÉTADONNÉES PRA ===
-:pra-name: [DEMO DATA] Patron d'Onboarding Client via API
 :pra-archetype: business
 :pra-subcategory: onboarding
 :pra-status: operationalizing

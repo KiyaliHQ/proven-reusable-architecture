@@ -1,6 +1,5 @@
 = [DEMO DATA] Code Review Standards
 // === PRA METADATA ===
-:pra-name: [DEMO DATA] Code Review Standards
 :pra-archetype: devops
 :pra-subcategory: software-engineering
 :pra-status: operationalizing

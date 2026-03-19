@@ -135,7 +135,7 @@ build_pra_index() {
 
     find "$pras_dir" -name "*.adoc" -not -name "index.adoc" 2>/dev/null | sort | while read -r f; do
         local name
-        name=$(extract_attr "$f" "pra-name")
+        name=$(extract_title "$f")
         [ -z "$name" ] && continue
         local rel="${f#$CONTENT_DIR/}"
         local html_rel="${rel%.adoc}.html"
@@ -870,7 +870,7 @@ generate_dashboard() {
     > "$BUILD_TMP/dashboard-rows-${lang}.html"
     find "$pras_dir" -name "*.adoc" -not -name "index.adoc" 2>/dev/null | sort | while read -r f; do
         local name arch subcat status scope domain proven updated
-        name=$(extract_attr "$f" "pra-name")
+        name=$(extract_title "$f")
         [ -z "$name" ] && continue
         arch=$(extract_attr "$f" "pra-archetype")
         subcat=$(extract_attr "$f" "pra-subcategory")
@@ -1122,7 +1122,7 @@ generate_landing() {
     > "$BUILD_TMP/recent-${lang}.txt"
     find "$pras_dir" -name "*.adoc" -not -name "index.adoc" 2>/dev/null | while read -r f; do
         local name updated status desc_text
-        name=$(extract_attr "$f" "pra-name")
+        name=$(extract_title "$f")
         updated=$(extract_attr "$f" "pra-updated")
         status=$(extract_attr "$f" "pra-status")
         [ -z "$name" ] && continue

@@ -1,6 +1,5 @@
 = [DEMO DATA] ADR Process (Architecture Decision Records)
 // === PRA METADATA ===
-:pra-name: [DEMO DATA] ADR Process
 :pra-archetype: application
 :pra-subcategory: pratique-architecture
 :pra-status: operationalizing

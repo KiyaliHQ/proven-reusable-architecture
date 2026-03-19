@@ -1,6 +1,5 @@
 = [DEMO DATA] Standards de Code Review
 // === MÉTADONNÉES PRA ===
-:pra-name: [DEMO DATA] Standards de Code Review
 :pra-archetype: devops
 :pra-subcategory: software-engineering
 :pra-status: operationalizing

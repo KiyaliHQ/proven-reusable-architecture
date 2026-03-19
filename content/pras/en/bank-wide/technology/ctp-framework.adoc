@@ -1,6 +1,5 @@
 = [DEMO DATA] CTP Framework
 // === PRA METADATA ===
-:pra-name: [DEMO DATA] CTP Framework
 :pra-archetype: technology
 :pra-subcategory: ctp
 :pra-status: operationalizing
