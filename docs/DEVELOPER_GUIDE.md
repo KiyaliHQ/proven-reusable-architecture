@@ -2,7 +2,7 @@
 
 > **Guide complet pour les développeurs travaillant sur le PRA Registry**
 >
-> Dernière mise à jour : 3 décembre 2025
+> Dernière mise à jour : 18 mars 2026
 
 ---
 
@@ -14,9 +14,12 @@
 4. [Configuration Fumadocs](#configuration-fumadocs)
 5. [Gestion du Contenu](#gestion-du-contenu)
 6. [Développement Local](#développement-local)
-7. [Bonnes Pratiques](#bonnes-pratiques)
-8. [Résolution de Problèmes](#résolution-de-problèmes)
-9. [Décisions Architecturales](#décisions-architecturales)
+7. [Site GitHub Pages (Build Statique)](#site-github-pages-build-statique)
+8. [CI/CD — Déploiement Automatique](#cicd--déploiement-automatique)
+9. [Diagrammes (PlantUML)](#diagrammes-plantuml)
+10. [Bonnes Pratiques](#bonnes-pratiques)
+11. [Résolution de Problèmes](#résolution-de-problèmes)
+12. [Décisions Architecturales](#décisions-architecturales)
 
 ---
 
@@ -517,8 +520,20 @@ Naviguer vers :
 
 ### Prérequis
 
+**Pour le site Fumadocs (Next.js)** :
 - **Node.js** : 18.x ou supérieur
 - **PNPM** : 8.x ou supérieur
+
+**Pour le site GitHub Pages (build statique AsciiDoc)** :
+- **Ruby** : 2.7+ (inclus sur macOS, `apt install ruby` sur Linux)
+- **Asciidoctor** : `gem install asciidoctor`
+- **asciidoctor-diagram** : `gem install asciidoctor-diagram` (extension pour les blocs `[plantuml]`)
+- **asciidoctor-diagram-plantuml** : `gem install asciidoctor-diagram-plantuml` (bundle le JAR PlantUML)
+- **Java 17+** : Requis par PlantUML pour générer les images PNG des diagrammes
+  - macOS : `brew install openjdk`
+  - Ubuntu : `apt install openjdk-17-jre`
+
+> **Note** : Sans Java et les gems diagram, le build fonctionne mais les blocs `[plantuml]` ne seront pas convertis en images PNG.
 
 ### Installation
 
@@ -588,6 +603,291 @@ pnpm dev
 
 ---
 
+## Site GitHub Pages (Build Statique)
+
+Le projet dispose d'un **second site** (en plus de Fumadocs) : un site statique HTML construit à partir des fichiers `.adoc` (AsciiDoc) et déployé sur GitHub Pages. Ce site est le site public officiel du registre PRA.
+
+### Vue d'ensemble du pipeline
+
+```
+content/**/*.adoc → Asciidoctor → HTML body extraction → Template injection → _site/
+```
+
+Le build est orchestré par **`build/ghpages/build.sh`** (~800 lignes) :
+
+1. **Indexation** : Parcourt `content/pras/` et `content/guides/` pour construire les listes de PRAs et guides par langue
+2. **Génération des sidebars** : Crée les sidebars HTML avec groupement par archétype (7 archétypes toujours affichés)
+3. **Conversion des pages PRA** : `.adoc` → Asciidoctor → extraction du body → injection dans le template HTML
+4. **Conversion des guides** : Même pipeline pour les guides
+5. **Génération des dashboards** : Pages index avec table filtrables (catalogue)
+6. **Génération des landing pages** : Pages d'accueil FR/EN
+7. **Cleanup** : Suppression des fichiers temporaires
+
+### Structure du répertoire `build/ghpages/`
+
+```
+build/ghpages/
+├── build.sh              # Script principal (~800 lignes)
+├── assets/               # CSS, JS, SVG
+│   ├── style.css         # Styles du site
+│   ├── nav.js            # JavaScript de navigation (sidebar toggle, search)
+│   └── logo-bnc.svg      # Logo Banque Nationale
+├── templates/            # Templates HTML avec placeholders
+│   ├── header.html       # {{ASSETS_PREFIX}}, {{LANG}}, navigation
+│   ├── footer.html       # Footer avec liens
+│   ├── sidebar-*.html    # Sidebars par contexte
+│   └── ...
+└── mockups/              # Maquettes de référence (design)
+```
+
+### Système de templates
+
+Les templates utilisent des **placeholders `{{VARIABLE}}`** remplacés par `sed` au moment du build :
+
+| Placeholder | Description |
+|-------------|-------------|
+| `{{ASSETS_PREFIX}}` | Chemin relatif vers `/assets/` (ex: `../../`) |
+| `{{LANG}}` | Langue courante (`fr` ou `en`) |
+| `{{TITLE}}` | Titre de la page |
+| `{{BODY}}` | Contenu HTML généré par Asciidoctor |
+| `{{SIDEBAR}}` | Sidebar HTML |
+| `{{BREADCRUMB}}` | Fil d'Ariane |
+| `{{TOC}}` | Table des matières |
+| `{{PREV_LINK}}` / `{{NEXT_LINK}}` | Navigation précédent/suivant |
+
+### Réécriture des liens internes
+
+La fonction `fix_internal_links()` dans `build.sh` réécrit automatiquement 11 patterns de liens absolus legacy en chemins relatifs corrects :
+
+```
+/guides/01-getting-started    → guides/{lang}/getting-started.html
+/guides/02-understanding-pra  → guides/{lang}/understanding-pra.html
+/registre                     → {lang}/pras/index.html
+...
+```
+
+**Convention** : Les fichiers `.adoc` peuvent utiliser les chemins legacy (ex: `/guides/01-getting-started`) — ils seront automatiquement corrigés au build.
+
+### Attributs AsciiDoc pour les métadonnées PRA
+
+Chaque fichier `.adoc` de PRA utilise des attributs AsciiDoc (`:pra-*:`) pour les métadonnées :
+
+```asciidoc
+:pra-name: Mon PRA
+:pra-archetype: integration
+:pra-sub-category: api
+:pra-status: operationalizing
+:pra-scope: bank-wide
+:pra-origin:
+:pra-proven-count: 2
+:pra-tags: api, gateway, rest
+:pra-version: 1.0.0
+:pra-author: Jean Dupont
+:pra-maintainer: Marie Martin
+:pra-created: 2025-01-15
+:pra-updated: 2025-03-18
+```
+
+### Build local
+
+```bash
+# Installation des prérequis (une seule fois)
+gem install asciidoctor asciidoctor-diagram asciidoctor-diagram-plantuml
+brew install openjdk  # macOS — ou apt install openjdk-17-jre sur Linux
+
+# Build
+bash build/ghpages/build.sh
+
+# Le site est généré dans _site/
+# Pour prévisualiser :
+cd _site && python3 -m http.server 8787
+# Ouvrir http://localhost:8787/fr/index.html
+```
+
+### Output
+
+Le build génère dans `_site/` :
+
+```
+_site/
+├── fr/
+│   ├── index.html              # Landing page FR
+│   ├── pras/
+│   │   └── index.html          # Catalogue/Dashboard FR
+│   └── guides/
+│       └── index.html          # Index guides FR
+├── en/                          # Même structure EN
+├── pras/
+│   ├── fr/                      # Pages PRA individuelles FR
+│   │   ├── bank-wide/
+│   │   └── domain-wide/
+│   └── en/                      # Pages PRA individuelles EN
+├── guides/
+│   ├── fr/                      # Pages guide individuelles FR
+│   └── en/
+├── assets/
+│   ├── style.css
+│   ├── nav.js
+│   └── logo-bnc.svg
+└── index.html                   # Redirect → fr/index.html
+```
+
+Les images de diagrammes PlantUML (`.png`) sont générées directement à côté des pages HTML qui les référencent.
+
+---
+
+## CI/CD — Déploiement Automatique
+
+### Workflow GitHub Actions
+
+Le fichier `.github/workflows/deploy-gh-pages.yml` déploie automatiquement le site sur GitHub Pages à chaque push sur `main`.
+
+### Architecture du workflow
+
+```
+Push sur main
+  └─ Job: build
+       ├─ Checkout
+       ├─ Install Java 17 (Temurin) — requis par PlantUML
+       ├─ Install gems (asciidoctor, asciidoctor-diagram, asciidoctor-diagram-plantuml)
+       ├─ Generate dashboard (scripts/generate-dashboard.sh)
+       ├─ Build site (build/ghpages/build.sh)
+       ├─ Configure Pages
+       └─ Upload artifact (_site/)
+  └─ Job: deploy (needs: build)
+       └─ Deploy to GitHub Pages (OIDC)
+```
+
+### Points clés
+
+| Aspect | Configuration |
+|--------|---------------|
+| **Trigger** | Push sur `main` + `workflow_dispatch` (manuel) |
+| **Auth** | OIDC — `environment: github-pages` (requis par la politique BNC) |
+| **Permissions** | `contents: read`, `pages: write`, `id-token: write` |
+| **Concurrency** | Un seul deploy à la fois (`cancel-in-progress: false`) |
+| **Java** | Temurin 17 via `actions/setup-java@v4` |
+| **Gems** | `asciidoctor`, `asciidoctor-diagram`, `asciidoctor-diagram-plantuml` |
+| **Output** | `_site/` uploadé comme artifact Pages |
+
+### Déploiement manuel
+
+Pour déclencher un deploy manuellement (sans push) :
+1. Aller sur GitHub → Actions → "Deploy to GitHub Pages"
+2. Cliquer "Run workflow" → "Run workflow" sur la branche `main`
+
+### Debugging CI
+
+```bash
+# Voir le status du dernier run
+gh run list --limit 1
+
+# Voir les logs d'un run spécifique
+gh run view <run-id> --log
+
+# Re-run un workflow échoué
+gh run rerun <run-id>
+```
+
+---
+
+## Diagrammes (PlantUML)
+
+### Convention
+
+**Tous les diagrammes du projet utilisent PlantUML** (pas Mermaid). Les blocs `[plantuml]` dans les fichiers `.adoc` sont convertis en images PNG au moment du build par `asciidoctor-diagram`.
+
+### Syntaxe
+
+```asciidoc
+[plantuml]
+----
+@startuml
+left to right direction
+skinparam rectangleRoundCorner 15
+
+rectangle "Étape 1" as A
+rectangle "Étape 2" as B
+rectangle "Étape 3" as C
+
+A --> B
+B --> C
+@enduml
+----
+```
+
+### Types de diagrammes supportés
+
+**Flowchart (rectangles + flèches)** :
+```
+@startuml
+left to right direction  ← ou "top to bottom direction"
+rectangle "Nom" as alias
+alias1 --> alias2
+@enduml
+```
+
+**Diagramme de séquence** :
+```
+@startuml
+participant "Service A" as A
+participant "Service B" as B
+A -> B : Request
+B --> A : Response
+@enduml
+```
+
+**Diagramme d'activité (décisions)** :
+```
+@startuml
+start
+:Étape initiale;
+if (Condition ?) then (Oui)
+  :Action A;
+else (Non)
+  :Action B;
+endif
+stop
+@enduml
+```
+
+### Ajouter un nouveau diagramme
+
+1. Écrire le bloc `[plantuml]` dans le fichier `.adoc`
+2. Builder localement pour vérifier le rendu :
+   ```bash
+   bash build/ghpages/build.sh
+   ```
+3. Les images PNG sont générées automatiquement à côté du fichier HTML
+4. Nom des images : `diag-plantuml-md5-<hash>.png` (automatique, basé sur le contenu)
+
+### Pourquoi PlantUML et pas Mermaid ?
+
+- **Mermaid** nécessite un runtime JavaScript côté navigateur — incompatible avec le build statique Asciidoctor
+- **PlantUML** tourne via Java + `asciidoctor-diagram`, générant des **PNG statiques** au build → aucun JS nécessaire côté client
+- Les 39 diagrammes du projet ont été convertis de Mermaid vers PlantUML (commit `3c63c2b`)
+
+### Personnalisation visuelle
+
+PlantUML supporte le styling via `skinparam` :
+
+```
+@startuml
+skinparam rectangleRoundCorner 15
+skinparam rectangle {
+  BackgroundColor #E8F5E9
+  BorderColor #4CAF50
+}
+@enduml
+```
+
+Pour les couleurs inline :
+```
+rectangle "Approved" as A #E8F5E9
+```
+
+---
+
 ## Bonnes Pratiques
 
 ### Gestion du Contenu
@@ -600,7 +900,7 @@ pnpm dev
    - ✅ `digital-onboarding-pattern.md`
    - ❌ `dop.md`
 4. **Documenter tous les proven-in-use** avec détails quantifiés
-5. **Inclure des diagrammes** (Mermaid supporté)
+5. **Inclure des diagrammes** (PlantUML dans les fichiers `.adoc` — voir [Diagrammes](#diagrammes-plantuml))
 
 ### Code
 
@@ -909,6 +1209,6 @@ refactor(config): Simplify Fumadocs source configuration
 
 ---
 
-**Dernière mise à jour** : 3 décembre 2025
+**Dernière mise à jour** : 18 mars 2026
 **Maintenu par** : Architecture Team, Banque Nationale du Canada
-**Version** : 1.0.0
+**Version** : 1.1.0

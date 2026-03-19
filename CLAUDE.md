@@ -77,8 +77,14 @@ proven-reusable-architecture/
 │       ├── README.md               # Migration documentation
 │       ├── split_pras_by_lang_fixed.py
 │       └── flatten_pra_files.py
+├── build/                          # 🏗️ BUILD PIPELINE
+│   └── ghpages/                    # GitHub Pages static site builder
+│       ├── build.sh                # Main build script (~800 lines)
+│       ├── assets/                 # CSS, JS, SVG for the static site
+│       └── templates/              # HTML templates with {{PLACEHOLDER}}
 ├── .github/                        # GitHub configuration
 │   └── workflows/                  # CI/CD workflows
+│       └── deploy-gh-pages.yml     # Auto-deploy to GitHub Pages on push to main
 ├── CHANGELOG.md                    # Project changelog
 ├── package.json                    # Root package.json (workspace)
 ├── pnpm-workspace.yaml             # PNPM workspace configuration
@@ -182,8 +188,17 @@ Landing page featuring:
   - `fumadocs-ui`: Pre-built UI components
   - `fumadocs-mdx`: MDX processing
 - **Search**: Orama 3.0.2 (client-side full-text search)
-- **Content**: MDX with frontmatter metadata
+- **Content**: MDX with frontmatter metadata (Fumadocs) / AsciiDoc (GH Pages)
 - **Package Manager**: PNPM (workspace monorepo)
+
+### GitHub Pages Build Dependencies
+
+- **Asciidoctor**: Converts `.adoc` files to HTML
+- **asciidoctor-diagram**: Extension for `[plantuml]` blocks
+- **asciidoctor-diagram-plantuml**: Bundles PlantUML JAR
+- **Java 17+**: Runtime required by PlantUML to render diagram PNGs
+- **Build script**: `build/ghpages/build.sh`
+- **CI workflow**: `.github/workflows/deploy-gh-pages.yml`
 
 ### Key Dependencies
 
@@ -222,7 +237,7 @@ pnpm dev
 ### Available Commands
 
 ```bash
-# Development
+# Fumadocs Development (from site/ directory)
 pnpm dev              # Start dev server with Turbopack
 pnpm build            # Build for production
 pnpm start            # Start production server
@@ -230,6 +245,9 @@ pnpm start            # Start production server
 # Utilities
 pnpm lint             # Run ESLint
 pnpm type-check       # TypeScript type checking
+
+# GitHub Pages Build (from project root)
+bash build/ghpages/build.sh    # Build static site → _site/
 ```
 
 ### Project Conventions
@@ -657,7 +675,7 @@ pnpm build
 
 ---
 
-**Last Updated**: 2025-12-03
+**Last Updated**: 2026-03-18
 **Version**: 1.0.0 (MVP)
 **Maintained By**: Architecture Team, Banque Nationale du Canada
 **Repository**: https://github.com/KiyaliHQ/proven-reusable-architecture

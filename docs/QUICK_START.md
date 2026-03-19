@@ -2,7 +2,7 @@
 
 > Guide de démarrage rapide pour les développeurs
 
-**Dernière mise à jour** : 3 décembre 2025
+**Dernière mise à jour** : 18 mars 2026
 
 ---
 
@@ -118,6 +118,53 @@ Naviguer vers :
 - **particuliers** : Retail banking
 - **entreprises** : Corporate banking
 - **gestion-patrimoine** : Wealth management
+
+---
+
+## 🌐 Site GitHub Pages (Build Statique)
+
+Le registre PRA est aussi publié en tant que site statique sur GitHub Pages, construit à partir des fichiers `.adoc` (AsciiDoc).
+
+### Prérequis supplémentaires
+
+```bash
+# Installer les gems Ruby
+gem install asciidoctor asciidoctor-diagram asciidoctor-diagram-plantuml
+
+# Installer Java (requis par PlantUML pour les diagrammes)
+brew install openjdk          # macOS
+# apt install openjdk-17-jre  # Ubuntu
+```
+
+### Builder localement
+
+```bash
+# Depuis la racine du projet
+bash build/ghpages/build.sh
+
+# Prévisualiser
+cd _site && python3 -m http.server 8787
+# → http://localhost:8787/fr/index.html
+```
+
+### Déploiement
+
+Le site se déploie **automatiquement** via GitHub Actions à chaque push sur `main`. Voir `.github/workflows/deploy-gh-pages.yml`.
+
+### Diagrammes
+
+Les diagrammes utilisent **PlantUML** (pas Mermaid). Syntaxe dans les fichiers `.adoc` :
+
+```asciidoc
+[plantuml]
+----
+@startuml
+rectangle "A" --> rectangle "B"
+@enduml
+----
+```
+
+Voir le [Guide Développeur](./DEVELOPER_GUIDE.md#diagrammes-plantuml) pour les détails.
 
 ---
 
