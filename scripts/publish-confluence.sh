@@ -147,7 +147,7 @@ publish_dir() {
         -e ANCESTOR_ID="${ancestor_id}" \
         -e USERNAME="${CONFLUENCE_USER}" \
         -e PASSWORD="${CONFLUENCE_TOKEN}" \
-        -e PUBLISHING_STRATEGY="APPEND_TO_ANCESTOR" \
+        -e PUBLISHING_STRATEGY="REPLACE_ANCESTOR" \
         -v "$src_dir:/var/asciidoc-root-folder" \
         "$PUBLISHER_IMAGE" 2>&1 | grep -E "^(Added|Updated|Deleted|Documentation)" || true
 }
