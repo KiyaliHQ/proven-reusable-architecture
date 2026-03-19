@@ -220,11 +220,11 @@ EOF
 EOF
 
     # --- Overview link (if overview.adoc exists) ---
-    if [ -f "$pras_dir/overview.adoc" ]; then
+    if [ -f "$guides_dir/overview.adoc" ]; then
         local overview_label="Vue d'ensemble"
         [ "$lang" = "en" ] && overview_label="Overview"
         cat >> "$out" <<EOF
-    <a href="pras/${lang}/overview.html" class="sidebar-guide" style="display:block;padding:6px 12px;font-weight:600;">📐 ${overview_label}</a>
+    <a href="guides/${lang}/overview.html" class="sidebar-guide" style="display:block;padding:6px 12px;font-weight:600;">📐 ${overview_label}</a>
     <div class="sidebar-divider"></div>
 EOF
     fi
