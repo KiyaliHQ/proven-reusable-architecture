@@ -21,8 +21,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Asciidoctor
-        run: sudo gem install asciidoctor
+      - name: Install Java (required for PlantUML)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install Asciidoctor with diagram support
+        run: sudo gem install asciidoctor asciidoctor-diagram asciidoctor-diagram-plantuml
 
       - name: Generate dashboard
         run: |

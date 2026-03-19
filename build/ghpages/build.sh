@@ -42,6 +42,19 @@ else
     exit 1
 fi
 
+# --- Check for asciidoctor-diagram ---
+if $ASCIIDOCTOR -r asciidoctor-diagram --version &>/dev/null; then
+    ASCIIDOCTOR="$ASCIIDOCTOR -r asciidoctor-diagram"
+else
+    echo "  [WARN] asciidoctor-diagram not found. PlantUML diagrams will not render."
+    echo "         Install: gem install asciidoctor-diagram"
+fi
+
+# --- Check for Java (required by PlantUML) ---
+if ! command -v java &>/dev/null; then
+    echo "  [WARN] Java not found. PlantUML diagrams require Java to render."
+fi
+
 echo "=== Building PRA Registry site ==="
 echo "  Asciidoctor: $ASCIIDOCTOR"
 echo ""
@@ -572,7 +585,10 @@ convert_pra_page() {
 
     # Convert with Asciidoctor
     local tmp_html="$BUILD_TMP/tmp_pra_$(basename "${adoc_file%.adoc}").html"
+    local dest_dir
+    dest_dir="$(dirname "$dest_file")"
     $ASCIIDOCTOR -a stylesheet! -a linkcss -a source-highlighter=rouge \
+        -a imagesoutdir="$dest_dir" -a imagesdir=. \
         -o "$tmp_html" "$adoc_file" 2>/dev/null || {
         echo "    [WARN] Failed: $adoc_file"
         return
@@ -708,7 +724,10 @@ convert_guide_page() {
 
     # Convert with Asciidoctor
     local tmp_html="$BUILD_TMP/tmp_guide_$(basename "${adoc_file%.adoc}").html"
+    local dest_dir
+    dest_dir="$(dirname "$dest_file")"
     $ASCIIDOCTOR -a stylesheet! -a linkcss -a source-highlighter=rouge \
+        -a imagesoutdir="$dest_dir" -a imagesdir=. \
         -o "$tmp_html" "$adoc_file" 2>/dev/null || {
         echo "    [WARN] Failed: $adoc_file"
         return
