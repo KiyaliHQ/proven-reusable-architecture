@@ -182,7 +182,7 @@ GOV_BW --> BW : Approved
 
 ==== 1. Preparation
 
-Domain architect prepares the PRA according to the link:/templates/pra-template.md[provided template].
+Domain architect prepares the PRA according to the provided template (`templates/pra-template.md` in the repo).
 
 *Content*: Any type of pattern (functional OR technical)
 

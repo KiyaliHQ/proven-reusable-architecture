@@ -182,7 +182,7 @@ GOV_BW --> BW : Approuve
 
 ==== 1. Preparation
 
-L'architecte du domaine prepare le PRA selon le link:/templates/pra-template.md[template fourni].
+L'architecte du domaine prepare le PRA selon le template fourni (`templates/pra-template.md` dans le repo).
 
 *Contenu* : Tout type de pattern (fonctionnel OU technique)
 
