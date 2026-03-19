@@ -1,27 +1,42 @@
-= Architectural Overview — PRA Registry
-:page-title: Architectural Overview
-:keywords: architecture, overview, platform, ci-cd, governance
+= PRA Registry — Overview
+:page-title: PRA Registry Overview
+:keywords: architecture, overview, platform, governance, ai-agents, ci-cd
 :pra-hide-meta: true
 
-The PRA Registry (Proven Reusable Architecture) is Banque Nationale's centralized platform for cataloguing, sharing and governing architectural patterns validated in production.
+== What is a PRA?
 
-This document presents the complete platform architecture, its flows, AI agents and governance.
+A *Proven Reusable Architecture* is an architectural pattern validated in production, documented and ready to be reused.
 
-== 1. Platform Overview
+[cols="1,1,1,1,1", options="header"]
+|===
+| Proven | Documented | Reusable | Maintained | AI-Friendly
 
-The registry follows a *Git-centric* model: the GitHub repository is the single source of truth. Two publication targets are automatically fed on every merge.
+| Validated in production
+| ADR, examples, feedback
+| Multi-context, multi-team
+| Active governance
+| Integrated AI agents
+|===
+
+[cols="1,1,1", options="header"]
+|===
+| ~200 target architects | 7 archetypes | 2 AI agents
+|===
+
+== Platform Architecture
+
+Git is the single source of truth. Two publication targets are automatically fed on every merge.
 
 [plantuml]
 ----
 @startuml
 skinparam backgroundColor transparent
-skinparam defaultFontName "Segoe UI"
 skinparam defaultFontSize 13
 skinparam shadowing false
 skinparam roundCorner 10
 skinparam ArrowColor #333333
 
-actor "Architects\n(~200)" as arch
+actor "~200\nArchitects" as arch
 
 package "GitHub Repository" as repo #c8102e {
 }
@@ -31,7 +46,7 @@ rectangle "GitHub Actions\n(Automated CI/CD)" as ci #333333
 rectangle "GitHub Pages\n(Filterable dashboard)" as ghp #2563eb
 rectangle "Confluence\n(Enterprise wiki)" as conf #2563eb
 
-arch -down-> repo : Contribute\n(Pull Request)
+arch -down-> repo : Contribute (PR)
 repo -down-> ci : Merge to main
 ci -right-> ghp : Build\nAsciidoctor + PlantUML
 ci -left-> conf : Publish\nDocker Publisher
@@ -40,23 +55,19 @@ arch -left-> conf : Browse
 
 note bottom of repo
   Single source of truth
-  PRAs · Guides · Templates
-  Config · AI Agents
+  PRAs . Guides . Config . AI Agents
 end note
 @enduml
 ----
 
-*Key principle*: Git is the only write point. GitHub Pages and Confluence are read-only views, regenerated on every merge.
+== How Architects Use the Registry
 
-== 2. How Architects Use the Registry
-
-Three usage modes cover the entire cycle: browse, explore with AI, and contribute.
+Three usage modes cover the entire cycle.
 
 [plantuml]
 ----
 @startuml
 skinparam backgroundColor transparent
-skinparam defaultFontName "Segoe UI"
 skinparam defaultFontSize 12
 skinparam shadowing false
 skinparam roundCorner 10
@@ -73,15 +84,15 @@ rectangle "Browse" as c1 #e8f5e9 {
 }
 
 rectangle "AI Agents" as c2 #e3f2fd {
-  rectangle "PRA Explorer\nDescribe your context\n-> Recommendations" as c2a #ffffff
-  rectangle "PRA Guide\nProcess question\n-> Concrete steps" as c2b #ffffff
+  rectangle "PRA Explorer\nContext -> Recommendations\nfor relevant patterns" as c2a #ffffff
+  rectangle "PRA Guide\nProcess questions\n-> Concrete steps" as c2b #ffffff
 }
 
 rectangle "Contribute" as c3 #fce4ec {
   rectangle "Pattern validated\nin production" as c3a #ffffff
-  rectangle "Document PRA\n(FR + EN)" as c3b #ffffff
+  rectangle "Document\n(FR + EN)" as c3b #ffffff
   rectangle "Submit PR\n-> CODEOWNERS review" as c3c #ffffff
-  rectangle "Merge\n-> Auto publish" as c3d #ffffff
+  rectangle "Merge -> Auto publish\nPages + Confluence" as c3d #ffffff
   c3a -down-> c3b
   c3b -down-> c3c
   c3c -down-> c3d
@@ -92,150 +103,219 @@ c2 -[hidden]right-> c3
 @enduml
 ----
 
-== 3. Content Architecture
+== Content Structure
 
-Content is organized into two scopes with a clear hierarchy. The 7 archetypes are shared across all levels.
+The registry is organized into two scopes. The 7 archetypes are shared across all levels.
 
-[plantuml]
-----
-@startuml
-skinparam backgroundColor transparent
-skinparam defaultFontName "Segoe UI"
-skinparam defaultFontSize 13
-skinparam shadowing false
-skinparam roundCorner 10
-skinparam ArrowColor #333333
-skinparam object {
-  BackgroundColor #ffffff
-  BorderColor #d1d5db
-}
+[cols="1,4", options="header"]
+|===
+| Scope | Description
 
-rectangle "PRA Registry" as root #c8102e
+| *Bank-Wide*
+| Cross-cutting -- Validated for all domains. 3+ proven-in-use required.
 
-rectangle "Bank-Wide\n(Cross-cutting)" as bw #e8f5e9
-rectangle "Domain-Wide\n(Sector-specific)" as dw #e3f2fd
+| *Domain-Wide*
+| Sector-specific -- Retail Banking, Corporate Banking, Wealth Management, Cards, etc. 1+ proven-in-use.
+|===
 
-rectangle "7 Archetypes" as arch #fff5e1 {
-  rectangle "Integration" as a1 #ffffff
-  rectangle "Application" as a2 #ffffff
-  rectangle "Data" as a3 #ffffff
-  rectangle "Security" as a4 #ffffff
-  rectangle "Technology" as a5 #ffffff
-  rectangle "DevOps" as a6 #ffffff
-  rectangle "Business" as a7 #ffffff
-}
+*7 Archetypes:* Integration . Application . Data . Security . Technology . DevOps . Business
 
-rectangle "Domains" as domains #e3f2fd {
-  rectangle "Retail Banking" as d1 #ffffff
-  rectangle "Corporate Banking" as d2 #ffffff
-  rectangle "Wealth Management" as d3 #ffffff
-  rectangle "Cards" as d4 #ffffff
-  rectangle "..." as d5 #f5f5f5
-}
+Each PRA contains:
 
-root -down-> bw
-root -down-> dw
-bw -down-> arch : organized by
-dw -down-> domains : organized by
-domains -down-> arch : then by archetype
+* *Metadata card* -- attributes, status, tags
+* *Technical content* -- context, architecture, ADR
+* *Experience feedback* -- quantified proven-in-use
 
-note bottom of arch
-  Each PRA contains:
-  · Metadata card (attributes)
-  · Context, Architecture, ADR
-  · Implementation, Proven-in-use
+Status (`operationalizing`, `operationalized`, `deprecated`) is metadata, not a folder.
 
-  Status = metadata, not a folder
-end note
-@enduml
-----
+== Anatomy of a PRA
 
-*Important*: Status (`operationalizing`, `operationalized`, `deprecated`) is PRA metadata, not a hierarchy element.
+Each PRA follows a standardized AsciiDoc (`.adoc`) template with structured metadata.
 
-== 4. AI Agents — Architecture
+*Metadata (file header):*
 
-Two AI agents allow architects to interact with the registry in natural language, directly from VS Code or Claude Code. Both are *config-driven* and *structure-agnostic*.
+[cols="1,2", options="header"]
+|===
+| Attribute | Example
 
-[plantuml]
-----
-@startuml
-skinparam backgroundColor transparent
-skinparam defaultFontName "Segoe UI"
-skinparam defaultFontSize 12
-skinparam shadowing false
-skinparam ArrowColor #333333
-skinparam sequence {
-  ParticipantBackgroundColor #ffffff
-  ParticipantBorderColor #d1d5db
-  LifeLineBackgroundColor #f9fafb
-}
+| `:pra-archetype:` | `integration`
+| `:pra-status:` | `operationalizing`
+| `:pra-scope:` | `domain-wide`
+| `:pra-origin:` | `retail`
+| `:pra-tags:` | `api, gateway, kong`
+| `:pra-version:` | `1.0.0`
+| `:pra-proven-count:` | `2`
+| `:pra-author:` | `A. Tremblay`
+| `:pra-created:` | `2025-12-03`
+|===
 
-actor "Architect" as arch
-participant "PRA Explorer" as explorer #c8102e
-participant "PRA Guide" as guide #2563eb
-database "Registry\n(config + content)" as reg
+*PRA sections:*
 
-== Find a pattern ==
+[cols="1,3", options="header"]
+|===
+| Section | Content
 
-arch -> explorer : "I need to integrate\nSalesforce for Corporate"
-explorer -> reg : Read config + scan PRAs
-explorer --> arch : "Salesforce FSC available\n2 proven-in-use, score 8/10"
+| Metadata card | Auto-generated metadata table
+| Summary | 2-3 sentences, why this PRA exists
+| Context | When to use / not to use
+| Architecture | PlantUML diagrams + tech stack
+| ADR | Decisions with compared options
+| Implementation | Step-by-step guide with code
+| Experience feedback | Quantified proven-in-use
+| Limitations | Constraints and known risks
+| References | External links
+|===
 
-== Understand the process ==
+Available templates: `pra-template-fr.adoc` . `pra-template-en.adoc` . `adr-template.adoc`
 
-arch -> guide : "How do I submit a PRA?"
-guide -> reg : Read guides + docs
-guide --> arch : "1. Copy template\n2. Document FR+EN\n3. Submit PR"
+== Where Do PRAs Come From?
 
-@enduml
-----
-
-== 5. Governance
-
-Two governance levels mirror the two registry scopes. GitHub CODEOWNERS automate reviewer assignment.
+Each practice and program feeds the registry. The `:pra-origin:` field identifies the provenance of each PRA.
 
 [plantuml]
 ----
 @startuml
 skinparam backgroundColor transparent
-skinparam defaultFontName "Segoe UI"
 skinparam defaultFontSize 12
 skinparam shadowing false
 skinparam roundCorner 10
 skinparam ArrowColor #333333
 
-rectangle "Bank-Wide" as bw #c8102e {
-  rectangle "Expert Architects Committee\n5-7 cross-domain experts\n\nReview: 2-4 weeks\n2 approvals\n3+ proven-in-use" as bw_rules #ffffff
+rectangle "PRA\nRegistry" as reg #c8102e
+
+rectangle "Bank-Wide" as bw #e8f5e9 {
+  rectangle "Solution\nArchitecture" as bw1 #ffffff
+  rectangle "Software\nEngineering" as bw2 #ffffff
+  rectangle "Cloud\nTransformation" as bw3 #ffffff
+  rectangle "Security" as bw4 #ffffff
+  rectangle "Data" as bw5 #ffffff
+  rectangle "DevOps" as bw6 #ffffff
 }
 
-rectangle "Domain-Wide" as dw #2563eb {
-  rectangle "Domain committee\n3-5 architects\n\nReview: 5-10 days\n1+ proven-in-use" as dw_rules #ffffff
+rectangle "Domain-Wide" as dw #e3f2fd {
+  rectangle "Retail\nBanking" as dw1 #ffffff
+  rectangle "Corporate\nBanking" as dw2 #ffffff
+  rectangle "Wealth\nManagement" as dw3 #ffffff
+  rectangle "Cards" as dw4 #ffffff
+  rectangle "..." as dw5 #f5f5f5
 }
 
-rectangle "CODEOWNERS (automatic)" as co #fff5e1 {
-  rectangle "bank-wide/ -> @expert-committee\nretail/ -> @retail-committee\ncorporate/ -> @corporate-committee\nbuild/ -> @platform-team" as co_rules #ffffff
-}
-
-bw -[hidden]right-> dw
-bw -down-> co
-dw -down-> co
-
-note bottom of co
-  GitHub automatically assigns
-  reviewers based on file paths
-end note
+bw --> reg
+dw --> reg
 @enduml
 ----
 
-== 6. PRA Lifecycle
+== GitHub Repository Structure
 
-Each PRA follows a clear lifecycle, from initial contribution to eventual deprecation.
+[cols="1,3", options="header"]
+|===
+| Zone | Content
+
+| *Architect Zone* +
+`content/pras/`
+| PRAs only -- FR + EN content -- 7 archetypes x 2 scopes
+
+| *Core Team Zone* +
+`.github/`, `build/`, `scripts/`, `content/guides/`
+| CI/CD, AI agents, guides, templates, scripts, CODEOWNERS
+
+| *Centralized Config* +
+`pra-registry.config.yml`
+| Source of truth for agents and scripts
+|===
+
+== Integrated AI Agents
+
+Two AI agents in VS Code, config-driven and structure-agnostic. Zero hardcode.
+
+*PRA Explorer -- Finds and recommends patterns*
+
+* Architect: _"I need to integrate Salesforce in the Corporate domain"_
+* Agent: Reads config -> Scans PRAs
+* Result: _"Salesforce FSC available -- 2 proven-in-use, satisfaction 8/10"_
+
+*PRA Guide -- Help with processes and governance*
+
+* Architect: _"How do I submit a PRA?"_
+* Agent: Reads config -> Consults guides
+* Result: _"1. Copy the template -- 2. Document FR + EN -- 3. Submit a PR"_
+
+== Submission Process
+
+From contribution to approval -- full traceability in the Pull Request.
 
 [plantuml]
 ----
 @startuml
 skinparam backgroundColor transparent
-skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 12
+skinparam shadowing false
+skinparam roundCorner 10
+skinparam ArrowColor #333333
+
+rectangle "Branch +\nDocumentation" as s1 #e3f2fd
+rectangle "Pull Request\nCODEOWNERS\nauto-assigned" as s2 #e3f2fd
+rectangle "Governance\nCeremony\n(presentation)" as s3 #fff5e1
+rectangle "Feedback\n+ Decision" as s4 #fff5e1
+rectangle "Approved\n-> Merge" as s5 #e8f5e9
+
+s1 -right-> s2
+s2 -right-> s3
+s3 -right-> s4
+s4 -right-> s5
+s4 -up-> s2 : Corrections\nrequested
+
+note bottom of s5
+  The PR contains the full history:
+  presentations, feedback,
+  corrections, meeting notes.
+end note
+@enduml
+----
+
+*Iterative loop:* If corrections requested -> comments in PR -> architect fixes -> new ceremony -> until approval.
+
+== Governance and CODEOWNERS
+
+[cols="1,1,1", options="header"]
+|===
+| Bank-Wide | Domain-Wide | Core Team
+
+| Expert Architects Committee +
+5-7 cross-domain experts +
+Review: 2-4 weeks +
+2 approvals, 3+ proven-in-use
+| Domain Committee +
+3-5 architects / domain +
+Review: 5-10 days +
+1+ proven-in-use
+| Framework maintenance +
+Only team outside `content/pras/` +
+CI/CD, scripts, templates +
+Features via GitHub Issues
+|===
+
+*CODEOWNERS -- Automatic reviewer assignment:*
+
+[cols="2,2,1", options="header"]
+|===
+| Modified file | Reviewers | Team
+
+| `content/pras/*/bank-wide/` | `@expert-architects-committee` | Bank-Wide
+| `content/pras/*/domain-wide/retail/` | `@gov-retail-committee` | Domain-Wide
+| `.github/` . `build/` . `scripts/` . `*.yml` | `@pra-core-team` | Core
+|===
+
+GitHub automatically assigns reviewers based on the modified file in the PR.
+
+== Lifecycle and Promotion
+
+Each PRA follows a clear lifecycle with promotion capability.
+
+[plantuml]
+----
+@startuml
+skinparam backgroundColor transparent
 skinparam defaultFontSize 13
 skinparam shadowing false
 skinparam ArrowColor #333333
@@ -246,33 +326,34 @@ skinparam state {
 
 [*] --> Contribution
 
-state "Contribution" as contrib #fce4ec : PR + Review\nCODEOWNERS
+state "Contribution" as s1 #fce4ec : PR + Governance\nceremony
 
-contrib --> Operationalizing : Approved
+s1 --> Operationalizing : Approved
 
-state "Operationalizing" as op #e3f2fd : 1+ proven-in-use\nCollecting feedback
+state "Operationalizing" as s2 #e3f2fd : 1+ proven-in-use\nCollecting feedback
 
-op --> Operationalized : Criteria met\n(3+ bank-wide)
+s2 --> Operationalized : Criteria met\n(3+ bank-wide)
 
-state "Operationalized" as done #e8f5e9 : Recommended pattern\nActive maintenance
+state "Operationalized" as s3 #e8f5e9 : Recommended pattern\nActive maintenance
 
-done --> Deprecated : Replaced or obsolete
+s3 --> Deprecated : Replaced or obsolete
 
-state "Deprecated" as dep #ffebee : Not recommended\nMigration plan
+state "Deprecated" as s4 #ffebee : Not recommended\nMigration plan
 
-dep --> [*]
+s4 --> [*]
 @enduml
 ----
 
-== 7. CI/CD Pipeline
+*Promotion Domain-Wide -> Bank-Wide:* Same process as initial contribution -- PRA proven in 3+ multi-domain projects -> promotion PR -> Expert Committee review + ceremony -> Approved = Bank-Wide.
 
-On every merge to `main`, two parallel jobs publish content in under 5 minutes.
+== CI/CD Pipeline
+
+A single merge to `main` updates both platforms automatically.
 
 [plantuml]
 ----
 @startuml
 skinparam backgroundColor transparent
-skinparam defaultFontName "Segoe UI"
 skinparam defaultFontSize 12
 skinparam shadowing false
 skinparam ArrowColor #333333
@@ -303,4 +384,38 @@ end note
 @enduml
 ----
 
-*Result*: A single merge to `main` updates both platforms simultaneously. Zero manual intervention.
+*Job 1 -- GitHub Pages:* Asciidoctor + PlantUML -> HTML . Interactive dashboard with filters . Auto-generated sidebar
+
+*Job 2 -- Confluence:* Confluence Publisher (Docker) . Automatic FR / EN hierarchy . Compatible Cloud + Data Center
+
+== Feature Requests
+
+Architects suggest framework improvements via GitHub Issues.
+
+[cols="1,1", options="header"]
+|===
+| Architects | Core Team
+
+| Modify `content/pras/` only (PRAs FR + EN)
+| Maintain everything outside `content/pras/`
+
+| Open GitHub Issues for: new features, improvements, bugs, template suggestions
+| Process Issues: prioritize, plan, implement, maintain AI agents, evolve templates
+|===
+
+== Current State
+
+[cols="1,5", options="header"]
+|===
+| Status | Deliverable
+
+| DONE | Central GitHub repository -- AsciiDoc structure, centralized config, FR/EN templates
+| DONE | AI Agents -- PRA Explorer + PRA Guide in VS Code
+| DONE | GitHub Pages pipeline -- Auto build Asciidoctor + PlantUML, BNC design
+| DONE | Confluence pipeline -- Auto publish FR/EN, hierarchy, labels
+| DONE | CI/CD workflows -- Publish Pages + Publish Confluence on every merge to main
+| DONE | Fully bilingual -- All content and navigation in French and English
+| DONE | PlantUML support -- Architecture diagrams integrated in PRAs
+|===
+
+*Ready for deployment in the bank's environment.*

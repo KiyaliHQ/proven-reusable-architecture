@@ -1,37 +1,52 @@
-= Vue d'ensemble architecturale — Registre PRA
-:page-title: Vue d'ensemble architecturale
-:keywords: architecture, overview, plateforme, ci-cd, gouvernance
+= Registre PRA — Vue d'ensemble
+:page-title: Vue d'ensemble du Registre PRA
+:keywords: architecture, overview, plateforme, gouvernance, agents-ia, ci-cd
 :pra-hide-meta: true
 
-Le Registre PRA (Proven Reusable Architecture) est la plateforme centralisée de la Banque Nationale pour cataloguer, partager et gouverner les patrons architecturaux validés en production.
+== Qu'est-ce qu'un PRA ?
 
-Ce document présente l'architecture complète de la plateforme, ses flux, ses agents IA et sa gouvernance.
+Un *Proven Reusable Architecture* est un patron architectural validé en production, documenté et prêt à être réutilisé.
 
-== 1. Vue d'ensemble de la plateforme
+[cols="1,1,1,1,1", options="header"]
+|===
+| Éprouvé | Documenté | Réutilisable | Maintenu | AI-Friendly
 
-Le registre suit un modèle *Git-centric* : le repository GitHub est la source de vérité unique. Deux cibles de publication sont alimentées automatiquement à chaque merge.
+| Validé en production
+| ADR, exemples, retours
+| Multi-contexte, multi-équipe
+| Gouvernance active
+| Agents IA intégrés
+|===
+
+[cols="1,1,1", options="header"]
+|===
+| ~200 architectes ciblés | 7 archétypes | 2 agents IA
+|===
+
+== Architecture de la plateforme
+
+Git est la source de vérité unique. Deux cibles de publication sont alimentées automatiquement à chaque merge.
 
 [plantuml]
 ----
 @startuml
 skinparam backgroundColor transparent
-skinparam defaultFontName "Segoe UI"
 skinparam defaultFontSize 13
 skinparam shadowing false
 skinparam roundCorner 10
 skinparam ArrowColor #333333
 
-actor "Architectes\n(~200)" as arch
+actor "~200\nArchitectes" as arch
 
 package "GitHub Repository" as repo #c8102e {
 }
 
-rectangle "GitHub Actions\n(CI/CD automatique)" as ci #333333
+rectangle "GitHub Actions\n(CI/CD auto)" as ci #333333
 
 rectangle "GitHub Pages\n(Dashboard filtrable)" as ghp #2563eb
 rectangle "Confluence\n(Wiki entreprise)" as conf #2563eb
 
-arch -down-> repo : Contribuer\n(Pull Request)
+arch -down-> repo : Contribuer (PR)
 repo -down-> ci : Merge sur main
 ci -right-> ghp : Build\nAsciidoctor + PlantUML
 ci -left-> conf : Publish\nDocker Publisher
@@ -40,23 +55,19 @@ arch -left-> conf : Consulter
 
 note bottom of repo
   Source de vérité unique
-  PRAs · Guides · Templates
-  Config · Agents IA
+  PRAs · Guides · Config · Agents IA
 end note
 @enduml
 ----
 
-*Principe clé* : Git est le seul point d'écriture. GitHub Pages et Confluence sont des vues en lecture seule, régénérées à chaque merge.
+== Comment les architectes l'utilisent
 
-== 2. Comment les architectes utilisent le registre
-
-Trois modes d'utilisation couvrent l'ensemble du cycle : consulter, explorer avec l'IA, et contribuer.
+Trois modes d'utilisation couvrent l'ensemble du cycle.
 
 [plantuml]
 ----
 @startuml
 skinparam backgroundColor transparent
-skinparam defaultFontName "Segoe UI"
 skinparam defaultFontSize 12
 skinparam shadowing false
 skinparam roundCorner 10
@@ -65,7 +76,7 @@ skinparam ArrowColor #333333
 rectangle "Consulter" as c1 #e8f5e9 {
   rectangle "Besoin architectural" as c1a #ffffff
   rectangle "Filtrer le catalogue\n(archétype, scope, statut)" as c1b #ffffff
-  rectangle "Lire fiche PRA\n(ADR, proven-in-use)" as c1c #ffffff
+  rectangle "Lire la fiche PRA\n(ADR, proven-in-use)" as c1c #ffffff
   rectangle "Implémenter" as c1d #ffffff
   c1a -down-> c1b
   c1b -down-> c1c
@@ -73,15 +84,15 @@ rectangle "Consulter" as c1 #e8f5e9 {
 }
 
 rectangle "Agents IA" as c2 #e3f2fd {
-  rectangle "PRA Explorer\nDécrire son contexte\n→ Recommandations" as c2a #ffffff
-  rectangle "PRA Guide\nQuestion process\n→ Étapes concrètes" as c2b #ffffff
+  rectangle "PRA Explorer\nContexte → Recommandations\nde patterns pertinents" as c2a #ffffff
+  rectangle "PRA Guide\nQuestions process\n→ Étapes concrètes" as c2b #ffffff
 }
 
 rectangle "Contribuer" as c3 #fce4ec {
   rectangle "Pattern validé\nen production" as c3a #ffffff
-  rectangle "Documenter PRA\n(FR + EN)" as c3b #ffffff
+  rectangle "Documenter\n(FR + EN)" as c3b #ffffff
   rectangle "Soumettre PR\n→ Review CODEOWNERS" as c3c #ffffff
-  rectangle "Merge\n→ Publication auto" as c3d #ffffff
+  rectangle "Merge → Publication\nauto Pages + Confluence" as c3d #ffffff
   c3a -down-> c3b
   c3b -down-> c3c
   c3c -down-> c3d
@@ -92,150 +103,219 @@ c2 -[hidden]right-> c3
 @enduml
 ----
 
-== 3. Architecture du contenu
+== Structure du contenu
 
-Le contenu est organisé en deux scopes avec une hiérarchie claire. Les 7 archétypes sont communs à tous les niveaux.
+Le registre est organisé en deux scopes. Les 7 archétypes sont communs à tous les niveaux.
 
-[plantuml]
-----
-@startuml
-skinparam backgroundColor transparent
-skinparam defaultFontName "Segoe UI"
-skinparam defaultFontSize 13
-skinparam shadowing false
-skinparam roundCorner 10
-skinparam ArrowColor #333333
-skinparam object {
-  BackgroundColor #ffffff
-  BorderColor #d1d5db
-}
+[cols="1,4", options="header"]
+|===
+| Scope | Description
 
-rectangle "Registre PRA" as root #c8102e
+| *Bank-Wide*
+| Transversal — Validé pour tous les domaines. 3+ proven-in-use requis.
 
-rectangle "Bank-Wide\n(Transversal)" as bw #e8f5e9
-rectangle "Domain-Wide\n(Par domaine)" as dw #e3f2fd
+| *Domain-Wide*
+| Par domaine — Particuliers, Entreprises, Gestion Patrimoine, Carte, etc. 1+ proven-in-use.
+|===
 
-rectangle "7 Archétypes" as arch #fff5e1 {
-  rectangle "Intégration" as a1 #ffffff
-  rectangle "Application" as a2 #ffffff
-  rectangle "Data" as a3 #ffffff
-  rectangle "Sécurité" as a4 #ffffff
-  rectangle "Technology" as a5 #ffffff
-  rectangle "DevOps" as a6 #ffffff
-  rectangle "Business" as a7 #ffffff
-}
+*7 Archétypes :* Integration · Application · Data · Security · Technology · DevOps · Business
 
-rectangle "Domaines" as domains #e3f2fd {
-  rectangle "Particuliers" as d1 #ffffff
-  rectangle "Entreprises" as d2 #ffffff
-  rectangle "Gestion Patrimoine" as d3 #ffffff
-  rectangle "Carte" as d4 #ffffff
-  rectangle "..." as d5 #f5f5f5
-}
+Chaque PRA contient :
 
-root -down-> bw
-root -down-> dw
-bw -down-> arch : organisé par
-dw -down-> domains : organisé par
-domains -down-> arch : puis par archétype
+* *Fiche signalétique* — métadonnées, statut, tags
+* *Contenu technique* — contexte, architecture, ADR
+* *Retours d'expérience* — proven-in-use quantifiés
 
-note bottom of arch
-  Chaque PRA contient :
-  · Fiche signalétique (métadonnées)
-  · Contexte, Architecture, ADR
-  · Implémentation, Proven-in-use
+Le statut (`operationalizing`, `operationalized`, `deprecated`) est une métadonnée, pas un dossier.
 
-  Statut = métadonnée, pas un dossier
-end note
-@enduml
-----
+== Anatomie d'un PRA
 
-*Point important* : Le statut (`operationalizing`, `operationalized`, `deprecated`) est une métadonnée du PRA, pas un élément de la hiérarchie de dossiers.
+Chaque PRA suit un template standardisé en AsciiDoc (`.adoc`) avec des métadonnées structurées.
 
-== 4. Agents IA — Architecture
+*Métadonnées (en-tête du fichier .adoc) :*
 
-Deux agents IA permettent aux architectes d'interagir avec le registre en langage naturel, directement depuis VS Code ou Claude Code. Les deux sont *config-driven* et *structure-agnostic*.
+[cols="1,2", options="header"]
+|===
+| Attribut | Exemple
 
-[plantuml]
-----
-@startuml
-skinparam backgroundColor transparent
-skinparam defaultFontName "Segoe UI"
-skinparam defaultFontSize 12
-skinparam shadowing false
-skinparam ArrowColor #333333
-skinparam sequence {
-  ParticipantBackgroundColor #ffffff
-  ParticipantBorderColor #d1d5db
-  LifeLineBackgroundColor #f9fafb
-}
+| `:pra-archetype:` | `integration`
+| `:pra-status:` | `operationalizing`
+| `:pra-scope:` | `domain-wide`
+| `:pra-origin:` | `particuliers`
+| `:pra-tags:` | `api, gateway, kong`
+| `:pra-version:` | `1.0.0`
+| `:pra-proven-count:` | `2`
+| `:pra-author:` | `A. Tremblay`
+| `:pra-created:` | `2025-12-03`
+|===
 
-actor "Architecte" as arch
-participant "PRA Explorer" as explorer #c8102e
-participant "PRA Guide" as guide #2563eb
-database "Registre\n(config + contenu)" as reg
+*Sections du PRA :*
 
-== Trouver un pattern ==
+[cols="1,3", options="header"]
+|===
+| Section | Contenu
 
-arch -> explorer : "Je dois intégrer\nSalesforce pour Entreprises"
-explorer -> reg : Lire config + scanner PRAs
-explorer --> arch : "Salesforce FSC disponible\n2 proven-in-use, score 8/10"
+| Fiche signalétique | Tableau de métadonnées auto-généré
+| Résumé | 2-3 phrases, pourquoi ce PRA existe
+| Contexte | Quand utiliser / ne pas utiliser
+| Architecture | Diagrammes PlantUML + stack technique
+| ADR | Décisions avec options comparées
+| Implémentation | Guide pas-à-pas avec code
+| Retours d'expérience | Proven-in-use quantifiés
+| Limitations | Contraintes et risques connus
+| Références | Liens externes
+|===
 
-== Comprendre le process ==
+Templates disponibles : `pra-template-fr.adoc` · `pra-template-en.adoc` · `adr-template.adoc`
 
-arch -> guide : "Comment soumettre un PRA ?"
-guide -> reg : Lire guides + docs
-guide --> arch : "1. Copier template\n2. Documenter FR+EN\n3. Soumettre PR"
+== D'où viennent les PRAs ?
 
-@enduml
-----
-
-== 5. Gouvernance
-
-Deux niveaux de gouvernance reflètent les deux scopes du registre. Les CODEOWNERS GitHub automatisent l'assignation des reviewers.
+Chaque pratique et programme alimente le registre. Le champ `:pra-origin:` identifie la provenance de chaque PRA.
 
 [plantuml]
 ----
 @startuml
 skinparam backgroundColor transparent
-skinparam defaultFontName "Segoe UI"
 skinparam defaultFontSize 12
 skinparam shadowing false
 skinparam roundCorner 10
 skinparam ArrowColor #333333
 
-rectangle "Bank-Wide" as bw #c8102e {
-  rectangle "Comité Architectes Experts\n5-7 experts cross-domaines\n\nReview : 2-4 semaines\n2 approbations\n3+ proven-in-use" as bw_rules #ffffff
+rectangle "Registre\nPRA" as reg #c8102e
+
+rectangle "Bank-Wide" as bw #e8f5e9 {
+  rectangle "Architecture\nde solutions" as bw1 #ffffff
+  rectangle "Software\nEngineering" as bw2 #ffffff
+  rectangle "Cloud\nTransformation" as bw3 #ffffff
+  rectangle "Sécurité" as bw4 #ffffff
+  rectangle "Data" as bw5 #ffffff
+  rectangle "DevOps" as bw6 #ffffff
 }
 
-rectangle "Domain-Wide" as dw #2563eb {
-  rectangle "Comité par domaine\n3-5 architectes\n\nReview : 5-10 jours\n1+ proven-in-use" as dw_rules #ffffff
+rectangle "Domain-Wide" as dw #e3f2fd {
+  rectangle "Particuliers" as dw1 #ffffff
+  rectangle "Entreprises" as dw2 #ffffff
+  rectangle "Gestion\nPatrimoine" as dw3 #ffffff
+  rectangle "Carte" as dw4 #ffffff
+  rectangle "..." as dw5 #f5f5f5
 }
 
-rectangle "CODEOWNERS (automatique)" as co #fff5e1 {
-  rectangle "bank-wide/ → @comité-experts\nparticuliers/ → @comité-particuliers\nentreprises/ → @comité-entreprises\nbuild/ → @équipe-plateforme" as co_rules #ffffff
-}
-
-bw -[hidden]right-> dw
-bw -down-> co
-dw -down-> co
-
-note bottom of co
-  GitHub assigne automatiquement
-  les reviewers selon le fichier modifié
-end note
+bw --> reg
+dw --> reg
 @enduml
 ----
 
-== 6. Cycle de vie d'un PRA
+== Structure du repository GitHub
 
-Chaque PRA suit un cycle de vie clair, de la contribution initiale jusqu'à la dépréciation éventuelle.
+[cols="1,3", options="header"]
+|===
+| Zone | Contenu
+
+| *Zone Architectes* +
+`content/pras/`
+| PRAs uniquement — Contenu FR + EN — 7 archétypes × 2 scopes
+
+| *Zone Équipe Core* +
+`.github/`, `build/`, `scripts/`, `content/guides/`
+| CI/CD, agents IA, guides, templates, scripts, CODEOWNERS
+
+| *Config centralisée* +
+`pra-registry.config.yml`
+| Source de vérité pour les agents et les scripts
+|===
+
+== Agents IA intégrés
+
+Deux agents IA dans VS Code, config-driven et structure-agnostic. Zéro hardcode.
+
+*PRA Explorer — Trouve et recommande des patterns*
+
+* Architecte : _"Je dois intégrer Salesforce dans le domaine Entreprises"_
+* Agent : Lit la config → Scanne les PRAs
+* Résultat : _"Salesforce FSC disponible — 2 proven-in-use, satisfaction 8/10"_
+
+*PRA Guide — Aide sur les processus et la gouvernance*
+
+* Architecte : _"Comment soumettre un PRA ?"_
+* Agent : Lit la config → Consulte les guides
+* Résultat : _"1. Copier le template — 2. Documenter FR + EN — 3. Soumettre une PR"_
+
+== Processus de soumission
+
+De la contribution à l'approbation — traçabilité complète dans la Pull Request.
 
 [plantuml]
 ----
 @startuml
 skinparam backgroundColor transparent
-skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 12
+skinparam shadowing false
+skinparam roundCorner 10
+skinparam ArrowColor #333333
+
+rectangle "Branche +\nDocumentation" as s1 #e3f2fd
+rectangle "Pull Request\nCODEOWNERS\nassignés auto" as s2 #e3f2fd
+rectangle "Cérémonie\nGouvernance\n(présentation)" as s3 #fff5e1
+rectangle "Feedback\n+ Décision" as s4 #fff5e1
+rectangle "Approuvé\n→ Merge" as s5 #e8f5e9
+
+s1 -right-> s2
+s2 -right-> s3
+s3 -right-> s4
+s4 -right-> s5
+s4 -up-> s2 : Corrections\ndemandées
+
+note bottom of s5
+  La PR contient tout l'historique :
+  présentations, feedbacks,
+  corrections, compte-rendus.
+end note
+@enduml
+----
+
+*Boucle itérative :* Si corrections demandées → commentaires dans la PR → architecte corrige → nouvelle cérémonie → jusqu'à approbation.
+
+== Gouvernance et CODEOWNERS
+
+[cols="1,1,1", options="header"]
+|===
+| Bank-Wide | Domain-Wide | Équipe Core
+
+| Comité Architectes Experts +
+5-7 experts cross-domaines +
+Review : 2-4 semaines +
+2 approbations, 3+ proven-in-use
+| Comité par domaine +
+3-5 architectes / domaine +
+Review : 5-10 jours +
+1+ proven-in-use
+| Maintien du framework +
+Seule équipe hors `content/pras/` +
+CI/CD, scripts, templates +
+Features via GitHub Issues
+|===
+
+*CODEOWNERS — Assignation automatique des reviewers :*
+
+[cols="2,2,1", options="header"]
+|===
+| Fichier modifié | Reviewers | Équipe
+
+| `content/pras/*/bank-wide/` | `@comité-architectes-experts` | Bank-Wide
+| `content/pras/*/domain-wide/particuliers/` | `@comité-gov-particuliers` | Domain-Wide
+| `.github/` · `build/` · `scripts/` · `*.yml` | `@pra-core-team` | Core
+|===
+
+GitHub assigne automatiquement les reviewers selon le fichier modifié dans la PR.
+
+== Cycle de vie et promotion
+
+Chaque PRA suit un cycle de vie clair avec possibilité de promotion.
+
+[plantuml]
+----
+@startuml
+skinparam backgroundColor transparent
 skinparam defaultFontSize 13
 skinparam shadowing false
 skinparam ArrowColor #333333
@@ -246,33 +326,34 @@ skinparam state {
 
 [*] --> Contribution
 
-state "Contribution" as contrib #fce4ec : PR + Review\nCODEOWNERS
+state "Contribution" as s1 #fce4ec : PR + Cérémonie\ngouvernance
 
-contrib --> Operationalizing : Approuvé
+s1 --> Operationalizing : Approuvé
 
-state "Operationalizing" as op #e3f2fd : 1+ proven-in-use\nCollecte de retours
+state "Operationalizing" as s2 #e3f2fd : 1+ proven-in-use\nCollecte de retours
 
-op --> Operationalized : Critères atteints\n(3+ bank-wide)
+s2 --> Operationalized : Critères atteints\n(3+ bank-wide)
 
-state "Operationalized" as done #e8f5e9 : Pattern recommandé\nMaintenance active
+state "Operationalized" as s3 #e8f5e9 : Pattern recommandé\nMaintenance active
 
-done --> Deprecated : Remplacé ou obsolète
+s3 --> Deprecated : Remplacé ou obsolète
 
-state "Deprecated" as dep #ffebee : Non recommandé\nPlan de migration
+state "Deprecated" as s4 #ffebee : Non recommandé\nPlan de migration
 
-dep --> [*]
+s4 --> [*]
 @enduml
 ----
 
-== 7. Pipeline CI/CD
+*Promotion Domain-Wide → Bank-Wide :* Même processus que la contribution initiale — PRA prouvé dans 3+ projets multi-domaines → PR de promotion → Comité Experts review + cérémonie → Approuvé = Bank-Wide.
 
-À chaque merge sur `main`, deux jobs parallèles publient le contenu en moins de 5 minutes.
+== Pipeline CI/CD
+
+Un seul merge sur `main` met à jour les deux plateformes automatiquement.
 
 [plantuml]
 ----
 @startuml
 skinparam backgroundColor transparent
-skinparam defaultFontName "Segoe UI"
 skinparam defaultFontSize 12
 skinparam shadowing false
 skinparam ArrowColor #333333
@@ -303,4 +384,38 @@ end note
 @enduml
 ----
 
-*Résultat* : Un seul merge sur `main` met à jour les deux plateformes simultanément. Zéro intervention manuelle.
+*Job 1 — GitHub Pages :* Asciidoctor + PlantUML → HTML · Dashboard avec filtres interactifs · Sidebar auto-générée
+
+*Job 2 — Confluence :* Confluence Publisher (Docker) · Hiérarchie automatique FR / EN · Compatible Cloud + Data Center
+
+== Demandes de fonctionnalités
+
+Les architectes suggèrent des améliorations au framework via GitHub Issues.
+
+[cols="1,1", options="header"]
+|===
+| Les architectes | Équipe Core
+
+| Modifient `content/pras/` uniquement (PRAs FR + EN)
+| Maintient tout hors `content/pras/`
+
+| Ouvrent des Issues GitHub pour : nouvelles fonctionnalités, améliorations, bugs, suggestions de templates
+| Traite les Issues : priorise, planifie, implémente, maintient les agents IA, évolue les templates
+|===
+
+== État actuel
+
+[cols="1,5", options="header"]
+|===
+| Statut | Livrable
+
+| ✅ | Repository GitHub central — Structure AsciiDoc, config centralisée, templates FR/EN
+| ✅ | Agents IA — PRA Explorer + PRA Guide dans VS Code
+| ✅ | Pipeline GitHub Pages — Build auto Asciidoctor + PlantUML, design BNC
+| ✅ | Pipeline Confluence — Publication auto FR/EN, hiérarchie, labels
+| ✅ | Workflows CI/CD — Publish Pages + Publish Confluence à chaque merge sur main
+| ✅ | Bilingue complet — Tout le contenu et la navigation en français et anglais
+| ✅ | Support PlantUML — Diagrammes d'architecture intégrés dans les PRAs
+|===
+
+*Prêt pour le déploiement dans l'environnement de la banque.*
