@@ -8,13 +8,14 @@ Dashboard of Proven Reusable Architectures in the registry.
 |===
 | Name | Archetype | Subcategory | Status | Scope | Proven | Last Updated
 
-| link:bank-wide/application/adr-process.html[ADR Process] | application | pratique-architecture | operationalizing | bank-wide | 0 | 2025-01-30
-| link:bank-wide/devops/code-review-standards.html[Code Review Standards] | devops | software-engineering | operationalizing | bank-wide | 0 | 2025-01-30
-| link:bank-wide/technology/ctp-framework.html[CTP Framework] | technology | ctp | operationalizing | bank-wide | 0 | 2025-01-30
-| link:domain-wide/entreprises/erp-sap.html[ERP SAP S/4HANA Integration] | integration | erp | operationalizing | domain-wide | 1 | 2025-01-30
-| link:domain-wide/gestion-patrimoine/api-client-onboarding.html[API-Based Client Onboarding Pattern] | business | onboarding | operationalizing | domain-wide | 1 | 2025-12-04
-| link:domain-wide/gestion-patrimoine/salesforce-fsc.html[Salesforce Financial Services Cloud] | integration | crm | operationalizing | domain-wide | 1 | 2025-01-30
-| link:domain-wide/particuliers/onboarding-digital.html[Digital Client Onboarding] | business | onboarding | operationalizing | domain-wide | 1 | 2025-01-30
-| link:domain-wide/particuliers/test-api-gateway.html[API Gateway Test Pattern] | technology | api-gateway | operationalizing | domain-wide | 1 | 2025-12-03
+| link:by-domain/entreprises/erp-sap.html[[DEMO DATA] ERP SAP S/4HANA Integration] | integration | erp | operationalizing | par-domaine | 1 | 2025-01-30
+| link:by-domain/gestion-patrimoine/api-client-onboarding.html[[DEMO DATA] API-Based Client Onboarding Pattern] | business | onboarding | operationalizing | par-domaine | 1 | 2025-12-04
+| link:by-domain/gestion-patrimoine/salesforce-fsc.html[[DEMO DATA] Salesforce Financial Services Cloud] | integration | crm | operationalizing | par-domaine | 1 | 2025-01-30
+| link:by-domain/particuliers/onboarding-digital.html[[DEMO DATA] Digital Client Onboarding] | business | onboarding | operationalizing | par-domaine | 1 | 2025-01-30
+| link:by-domain/particuliers/test-api-gateway.html[[DEMO DATA] API Gateway Test Pattern] | technology | api-gateway | operationalizing | par-domaine | 1 | 2025-12-03
+| link:overview.html[PRA Registry — Overview] |  |  |  |  |  | 
+| link:transversal/application/adr-process.html[[DEMO DATA] ADR Process (Architecture Decision Records)] | application | pratique-architecture | operationalizing | transversale | 0 | 2025-01-30
+| link:transversal/devops/code-review-standards.html[[DEMO DATA] Code Review Standards] | devops | software-engineering | operationalizing | transversale | 0 | 2025-01-30
+| link:transversal/technology/ctp-framework.html[[DEMO DATA] CTP Framework] | technology | ctp | operationalizing | transversale | 0 | 2025-01-30
 |===
 

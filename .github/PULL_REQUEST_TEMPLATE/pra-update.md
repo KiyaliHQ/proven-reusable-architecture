@@ -31,7 +31,7 @@
 - [ ] Transition de status respecte le lifecycle
 - [ ] Critères de transition sont satisfaits :
   - [ ] Candidate → Approved (Domaine) : 1+ proven-in-use
-  - [ ] Candidate → Approved (Bank-Wide) : 3+ proven-in-use multi-domaines
+  - [ ] Candidate → Approved (Transversale) : 3+ proven-in-use multi-domaines
   - [ ] → Deprecated : Alternative mentionnée, plan de migration fourni
 
 **Si modification de Contenu** :
@@ -99,7 +99,7 @@
 
 **Période de transition** :
 - **Domaine** : 3 mois
-- **Bank-Wide** : 6 mois
+- **Transversale** : 6 mois
 
 **Date de fin de support** : YYYY-MM-DD
 

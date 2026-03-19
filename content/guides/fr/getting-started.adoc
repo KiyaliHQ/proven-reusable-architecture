@@ -54,7 +54,7 @@ Le registre PRA est organise en *2 scopes* :
 top to bottom direction
 skinparam rectangleRoundCorner 15
 rectangle "Registre PRA" as A
-rectangle "Bank-Wide" as B
+rectangle "Transversale" as B
 rectangle "Domaines" as C
 rectangle "Approuvés pour tous" as B1
 rectangle "Spécifiques à un domaine" as C1
@@ -65,7 +65,7 @@ C --> C1
 @enduml
 ----
 
-=== Bank-Wide (Transversal)
+=== Transversale (Transversal)
 
 * *Pour qui ?* Tous les domaines de l'organisation
 * *Maturite* : Valides par le Comite de Gouvernance Architectes Experts (3+ proven-in-use)
@@ -77,7 +77,7 @@ C --> C1
 * *Maturite* : Valides par le Comite de Gouvernance du Domaine (1+ proven-in-use)
 * *Contenu* : Tous types de patterns (fonctionnels ET techniques)
 * *Exemples* : Onboarding digital, Integration SAP, Serverless AWS, Data pipelines
-* *Note* : Les PRAs en cours de promotion vers Bank-Wide ont un statut specifique visible dans leur metadonnees
+* *Note* : Les PRAs en cours de promotion vers Transversale ont un statut specifique visible dans leur metadonnees
 
 == Vos premiers pas
 
@@ -188,7 +188,7 @@ IMPORTANT: Documentez vos adaptations et partagez vos learnings.
 * *Candidate* : 5-10 jours (review par Comite Domaine)
 * *Approved* : Quand 1+ proven-in-use documente dans le domaine
 
-*PRA Bank-Wide* :
+*PRA Transversale* :
 
 * *Review initiale* : 2-4 semaines (review par Comite Architectes Experts)
 * *Approved* : Quand 3+ proven-in-use documentes (multi-domaines)
@@ -198,7 +198,7 @@ IMPORTANT: Documentez vos adaptations et partagez vos learnings.
 *Options* :
 
 . Cherchez dans les *domaines* (peut-etre existe dans un autre domaine)
-. Verifiez les PRAs avec statut *"en promotion"* (peut-etre en cours de validation Bank-Wide)
+. Verifiez les PRAs avec statut *"en promotion"* (peut-etre en cours de validation Transversale)
 . *Contribuez !* Votre solution peut devenir un nouveau PRA
 
 == Prochaines Etapes

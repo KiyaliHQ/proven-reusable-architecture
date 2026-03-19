@@ -64,13 +64,13 @@ jobs:
 
           # Extract path components
           # Format: content/pras-{lang}/{scope}/{status}/{category}/pra-name.md
-          # OR:     content/pras-{lang}/domain-wide/{domain}/{status}/{category}/pra-name.md
+          # OR:     content/pras-{lang}/par-domaine/{domain}/{status}/{category}/pra-name.md
           IFS='/' read -ra PATH_PARTS <<< "$FIRST_PRA"
 
-          SCOPE="${PATH_PARTS[2]}" # bank-wide or domain-wide
+          SCOPE="${PATH_PARTS[2]}" # transversale or par-domaine
 
           DOMAIN=""
-          if [ "$SCOPE" == "domain-wide" ]; then
+          if [ "$SCOPE" == "par-domaine" ]; then
             DOMAIN="${PATH_PARTS[3]}" # particuliers, entreprises, gestion-patrimoine
           fi
 
@@ -79,9 +79,9 @@ jobs:
 
           # Determine governance team
           TEAM=""
-          if [ "$SCOPE" == "bank-wide" ]; then
+          if [ "$SCOPE" == "transversale" ]; then
             TEAM="comite-architectes-experts"
-          elif [ "$SCOPE" == "domain-wide" ]; then
+          elif [ "$SCOPE" == "par-domaine" ]; then
             case "$DOMAIN" in
               particuliers)
                 TEAM="comite-gov-particuliers"

@@ -54,7 +54,7 @@ GOV_BW --> BW : Approuve
 * *Valider les PRAs Domaine* (fonctionnels ET techniques)
 * Verifier 1+ proven-in-use dans le domaine
 * Approuver passage en statut Approved (echelle domaine)
-* Identifier PRAs candidats pour promotion Bank-Wide
+* Identifier PRAs candidats pour promotion Transversale
 * Review locale < 5 jours ouvres
 
 ==== Criteres de Validation
@@ -66,7 +66,7 @@ GOV_BW --> BW : Approuve
 
 === Niveau 2 : Comite de Gouvernance Architectes Experts
 
-*Pour qui* : Validation des PRAs Bank-Wide (applicable a tous les domaines)
+*Pour qui* : Validation des PRAs Transversale (applicable a tous les domaines)
 
 ==== Composition
 
@@ -77,9 +77,9 @@ GOV_BW --> BW : Approuve
 
 ==== Responsabilites
 
-* *Valider les PRAs Bank-Wide* (infrastructure, standards, patterns communs)
+* *Valider les PRAs Transversale* (infrastructure, standards, patterns communs)
 * Verifier 3+ proven-in-use de differents domaines/equipes
-* Approuver promotions Domaine -> Bank-Wide
+* Approuver promotions Domaine -> Transversale
 * Valider standards des equipes transversales
 * Gerer le Bootstrap (identification priorites)
 * Arbitrer conflits inter-domaines
@@ -94,7 +94,7 @@ GOV_BW --> BW : Approuve
 
 == Trois Flux de Creation de PRAs
 
-=== Flux 1 : Domaine -> Bank-Wide (Emergence Organique)
+=== Flux 1 : Domaine -> Transversale (Emergence Organique)
 
 *Source* : Architectes dans les domaines
 
@@ -103,33 +103,33 @@ GOV_BW --> BW : Approuve
 . Architectes definissent des *architectures* (fonctionnelles ET techniques)
 . Certaines architectures evaluees *reutilisables* -> deviennent *PRAs Domaine*
 . Validation par *Comite de Gouvernance du Domaine* (1+ proven-in-use)
-. PRAs Domaine reutilisables *hors du domaine* -> proposition promotion Bank-Wide
+. PRAs Domaine reutilisables *hors du domaine* -> proposition promotion Transversale
 . Review par *Comite Gouvernance Architectes Experts* (3+ proven-in-use)
-. Approuve -> devient *PRA Bank-Wide*
+. Approuve -> devient *PRA Transversale*
 
 *Exemples* :
 
-* File transfer pattern de Gestion de Patrimoine -> Bank-Wide
-* Onboarding digital pattern de Particuliers -> Bank-Wide (si repete ailleurs)
+* File transfer pattern de Gestion de Patrimoine -> Transversale
+* Onboarding digital pattern de Particuliers -> Transversale (si repete ailleurs)
 
 *Gouvernance applicable* :
 
 * *Etape locale* : Comite de Gouvernance Domaine
-* *Etape Bank-Wide* : Comite Gouvernance Architectes Experts
+* *Etape Transversale* : Comite Gouvernance Architectes Experts
 
 '''
 
-=== Flux 2 : Standards Transversaux -> Bank-Wide (Top-Down)
+=== Flux 2 : Standards Transversaux -> Transversale (Top-Down)
 
 *Source* : Equipes transversales (Software Engineering, Securite, Infra Cloud)
 
 *Processus* :
 
 . Equipes transversales definissent *nouveaux standards* pour la banque
-. Standards se traduisent en *PRAs Bank-Wide*
+. Standards se traduisent en *PRAs Transversale*
 . Soumission directe au *Comite Gouvernance Architectes Experts*
-. Review et validation (criteres Bank-Wide : 3+ proven-in-use attendu)
-. Approuve -> *PRA Bank-Wide* disponible pour tous
+. Review et validation (criteres Transversale : 3+ proven-in-use attendu)
+. Approuve -> *PRA Transversale* disponible pour tous
 
 *Exemples* :
 
@@ -152,16 +152,16 @@ GOV_BW --> BW : Approuve
 
 *Processus* :
 
-. Comite Architectes Experts identifie *sujets prioritaires* a couvrir Bank-Wide
+. Comite Architectes Experts identifie *sujets prioritaires* a couvrir Transversale
 . Recherche *architectures existantes* dans les domaines (bons candidats)
 . Evaluation et selection des meilleurs candidats
-. Promotion *directe Bank-Wide* (bypass du processus Domaine standard)
+. Promotion *directe Transversale* (bypass du processus Domaine standard)
 . Communication et documentation enrichie
 
 *Exemples* :
 
-* File transfer identifie comme priorite -> pattern de GP evalue -> directement Bank-Wide
-* APIs asynchrones identifiees comme besoin -> meilleur pattern domaine -> Bank-Wide
+* File transfer identifie comme priorite -> pattern de GP evalue -> directement Transversale
+* APIs asynchrones identifiees comme besoin -> meilleur pattern domaine -> Transversale
 
 *Pourquoi ce flux ?* :
 
@@ -212,7 +212,7 @@ GitHub Actions verifie format, sections obligatoires, liens.
 
 '''
 
-=== Pour un PRA Bank-Wide (Flux 2 - Direct)
+=== Pour un PRA Transversale (Flux 2 - Direct)
 
 ==== 1. Preparation
 
@@ -221,7 +221,7 @@ Equipe transversale prepare le PRA (standard infrastructure/fondation).
 ==== 2. Soumission (Pull Request)
 
 * Creation du fichier PRA dans `content/registre/transversal/[categorie]/`
-* Pull Request avec tag `scope:bank-wide`
+* Pull Request avec tag `scope:transversale`
 * Justification du caractere transversal
 
 ==== 3. Review par Comite Architectes Experts
@@ -232,7 +232,7 @@ Equipe transversale prepare le PRA (standard infrastructure/fondation).
 
 ==== 4. Decision
 
-* *Approuve* -> Merge en tant que PRA Bank-Wide Approved
+* *Approuve* -> Merge en tant que PRA Transversale Approved
 * *Revisions* -> Iterations
 * *Rejete* -> Peut etre redirige vers niveau Domaine
 
@@ -240,7 +240,7 @@ Equipe transversale prepare le PRA (standard infrastructure/fondation).
 
 '''
 
-=== Pour Promotion Domaine -> Bank-Wide (Flux 1 - Promotion)
+=== Pour Promotion Domaine -> Transversale (Flux 1 - Promotion)
 
 Voir le guide dedie : link:promotion-process.adoc[Processus de Promotion]
 
@@ -250,7 +250,7 @@ Voir le guide dedie : link:promotion-process.adoc[Processus de Promotion]
 
 . Proposition par Comite Domaine
 . Review par Comite Architectes Experts
-. Validation criteres Bank-Wide (3+ proven-in-use requis)
+. Validation criteres Transversale (3+ proven-in-use requis)
 
 == Criteres d'Approbation par Niveau
 
@@ -262,7 +262,7 @@ Voir le guide dedie : link:promotion-process.adoc[Processus de Promotion]
 * Qualite technique validee par Comite Domaine
 * Peut etre fonctionnel OU technique
 
-=== PRA Bank-Wide (Approved)
+=== PRA Transversale (Approved)
 
 * *3+ implementations prouvees* en production (differents domaines/equipes)
 * Retours positifs des equipes utilisatrices
@@ -288,7 +288,7 @@ Un PRA peut etre deprecie si :
 . Vote Comite Domaine
 . Migration vers `deprecated`
 
-*PRA Bank-Wide* :
+*PRA Transversale* :
 
 . Proposition par Comite Architectes Experts
 . Consultation multi-domaines
@@ -305,15 +305,15 @@ Un PRA peut etre deprecie si :
 * *Agenda* :
 ** Review nouvelles soumissions domaine
 ** Suivi PRAs candidates
-** Identification candidats pour promotion Bank-Wide
+** Identification candidats pour promotion Transversale
 
 === Comite de Gouvernance Architectes Experts
 
 * *Frequence* : Bimensuelle (toutes les 2 semaines)
 * *Duree* : 1h30 maximum
 * *Agenda* :
-** Review PRAs Bank-Wide (Flux 2)
-** Review promotions Domaine -> Bank-Wide (Flux 1)
+** Review PRAs Transversale (Flux 2)
+** Review promotions Domaine -> Transversale (Flux 1)
 ** Identification priorites Bootstrap (Flux 3)
 ** Evolutions standards
 ** Points inter-domaines
@@ -336,13 +336,13 @@ Un PRA peut etre deprecie si :
 === Par Domaine
 
 * Nombre de PRAs Domaine actifs
-* Taux de promotion vers Bank-Wide
+* Taux de promotion vers Transversale
 * Delai moyen de review
 * Satisfaction contributeurs domaine
 
-=== Bank-Wide
+=== Transversale
 
-* Nombre de PRAs Bank-Wide actifs
+* Nombre de PRAs Transversale actifs
 * Adoption multi-domaine (combien de domaines utilisent)
 * Taux de depreciation
 * Feedback global utilisateurs
@@ -367,12 +367,12 @@ Ce document de gouvernance peut evoluer. Toute modification majeure doit :
 | 1+ dans le domaine
 | 5-10 jours
 
-| *Bank-Wide* (standard transversal)
+| *Transversale* (standard transversal)
 | Comite Architectes Experts
 | 3+ multi-domaines
 | 2-4 semaines
 
-| *Promotion* (Domaine -> Bank-Wide)
+| *Promotion* (Domaine -> Transversale)
 | Comite Architectes Experts
 | 3+ multi-domaines
 | 4-8 semaines

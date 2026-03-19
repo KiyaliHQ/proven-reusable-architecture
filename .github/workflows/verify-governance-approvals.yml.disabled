@@ -5,7 +5,7 @@ name: Verify Governance Approvals
 #
 # Validates:
 # - Domain PRA: minimum 2 approvals from domain committee
-# - Bank-Wide PRA: minimum 2 approvals from expert architects
+# - Transversale PRA: minimum 2 approvals from expert architects
 # - Promotion: minimum 2 approvals from expert architects
 # - Blocks merge if insufficient approvals
 

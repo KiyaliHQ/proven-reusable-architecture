@@ -121,7 +121,7 @@ echo ""
 for lang_dir in "$CONTENT_DIR"/*/; do
     lang=$(basename "$lang_dir")
     # Only process language directories (fr, en)
-    if [ -d "$lang_dir/bank-wide" ] || [ -d "$lang_dir/domain-wide" ]; then
+    if [ -d "$lang_dir/transversale" ] || [ -d "$lang_dir/transversal" ] || [ -d "$lang_dir/par-domaine" ] || [ -d "$lang_dir/by-domain" ]; then
         echo "[$lang]"
         generate_index "$lang"
         echo ""

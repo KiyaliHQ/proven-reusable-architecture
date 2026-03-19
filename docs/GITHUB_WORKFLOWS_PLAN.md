@@ -10,7 +10,7 @@ Mettre en place une infrastructure complète de workflows GitHub pour automatise
 
 **Principes directeurs** :
 - Automatisation maximale des validations techniques
-- Respect strict de la gouvernance à 2 niveaux (Domaines + Bank-Wide)
+- Respect strict de la gouvernance à 2 niveaux (Domaines + Transversale)
 - Traçabilité complète de toutes les actions
 - Communication proactive aux parties prenantes
 
@@ -27,7 +27,7 @@ Mettre en place une infrastructure complète de workflows GitHub pour automatise
 - Vérifier métadonnées complètes (name, category, status, tags, proven_in_use, etc.)
 - Valider sections obligatoires (Overview, Context, Architecture, ADR, Examples, Proven-in-use)
 - Vérifier liens internes/externes (pas de 404)
-- Valider cohérence scope/path (domain-wide/* vs bank-wide/*)
+- Valider cohérence scope/path (par-domaine/* vs transversale/*)
 - Vérifier images/diagrammes référencés existent
 - Valider cohérence status/proven-in-use count
 
@@ -41,15 +41,15 @@ Mettre en place une infrastructure complète de workflows GitHub pour automatise
 **Trigger** : `pull_request` (opened)
 **Responsabilités** :
 - Détecter scope automatiquement :
-  * `domain-wide/particuliers/` → labels: `scope:domaine`, `domaine:particuliers`
-  * `domain-wide/entreprises/` → labels: `scope:domaine`, `domaine:entreprises`
-  * `domain-wide/gestion-patrimoine/` → labels: `scope:domaine`, `domaine:gestion-patrimoine`
-  * `bank-wide/` → label: `scope:bank-wide`
+  * `par-domaine/particuliers/` → labels: `scope:domaine`, `domaine:particuliers`
+  * `par-domaine/entreprises/` → labels: `scope:domaine`, `domaine:entreprises`
+  * `par-domaine/gestion-patrimoine/` → labels: `scope:domaine`, `domaine:gestion-patrimoine`
+  * `transversale/` → label: `scope:transversale`
 - Détecter catégorie : `category:tech`, `category:integration`, `category:security`, `category:business`
 - Détecter type de changement :
   * Nouveau fichier → `type:nouveau-pra`
   * Modification status → `type:status-change`
-  * Déplacement domain-wide→bank-wide → `type:promotion`
+  * Déplacement par-domaine→transversale → `type:promotion`
   * Status→deprecated → `type:deprecation`
 
 **Scripts utilisés** :
@@ -62,7 +62,7 @@ Mettre en place une infrastructure complète de workflows GitHub pour automatise
 **Responsabilités** :
 - Compter les approbations valides selon scope :
   * PRA Domaine : minimum 2 approvals de `@bnc/comite-gov-[domaine]`
-  * PRA Bank-Wide : minimum 2 approvals de `@bnc/comite-architectes-experts`
+  * PRA Transversale : minimum 2 approvals de `@bnc/comite-architectes-experts`
   * Promotion : minimum 2 approvals de `@bnc/comite-architectes-experts`
 - Bloquer merge si approbations insuffisantes
 - Afficher status check avec count actuel
@@ -91,7 +91,7 @@ Mettre en place une infrastructure complète de workflows GitHub pour automatise
   * `scope:domaine` + `domaine:particuliers` → assign `@bnc/comite-gov-particuliers`
   * `scope:domaine` + `domaine:entreprises` → assign `@bnc/comite-gov-entreprises`
   * `scope:domaine` + `domaine:gestion-patrimoine` → assign `@bnc/comite-gov-patrimoine`
-  * `scope:bank-wide` → assign `@bnc/comite-architectes-experts`
+  * `scope:transversale` → assign `@bnc/comite-architectes-experts`
   * `type:promotion` → assign `@bnc/comite-architectes-experts`
 - Ajouter commentaire avec guidelines de review
 
@@ -104,7 +104,7 @@ Mettre en place une infrastructure complète de workflows GitHub pour automatise
   * Vérifier 1+ proven-in-use dans le domaine
   * Check documentation enrichie
   * Vérifier feedback positif (si présent)
-- **Candidate → Approved (Bank-Wide)** :
+- **Candidate → Approved (Transversale)** :
   * Vérifier 3+ proven-in-use de différents domaines/équipes
   * Check documentation enrichie multi-contexte
   * Vérifier applicabilité multi-domaine
@@ -116,7 +116,7 @@ Mettre en place une infrastructure complète de workflows GitHub pour automatise
 ---
 
 #### 7. `promotion-check.yml` - Validation Promotions
-**Trigger** : `pull_request` when files moved from `domain-wide/*` to `bank-wide/*`
+**Trigger** : `pull_request` when files moved from `par-domaine/*` to `transversale/*`
 **Responsabilités** :
 - Appliquer label `type:promotion`
 - Vérifier 3+ proven-in-use multi-domaines
@@ -135,7 +135,7 @@ Mettre en place une infrastructure complète de workflows GitHub pour automatise
 - **Si PRA Domaine** :
   * Notification canal Teams du domaine (#pra-particuliers, etc.)
   * Email aux abonnés du domaine
-- **Si PRA Bank-Wide** :
+- **Si PRA Transversale** :
   * Notification canal général #pra-registry
   * Notification tous canaux domaines
   * Email global
@@ -158,7 +158,7 @@ Mettre en place une infrastructure complète de workflows GitHub pour automatise
 - Mentionner reviewers assignés
 - Escalader si :
   * PRA Domaine : > 7 jours (timeline : 5-10 jours)
-  * PRA Bank-Wide : > 14 jours (timeline : 2-4 semaines)
+  * PRA Transversale : > 14 jours (timeline : 2-4 semaines)
   * Promotion : > 21 jours (timeline : 4-8 semaines)
 
 ---
@@ -214,20 +214,20 @@ Mettre en place une infrastructure complète de workflows GitHub pour automatise
 ### 1. Fichier `.github/CODEOWNERS`
 ```plaintext
 # PRAs Domaine Particuliers
-/content/pras/fr/domain-wide/particuliers/ @bnc/comite-gov-particuliers
-/content/pras/en/domain-wide/particuliers/ @bnc/comite-gov-particuliers
+/content/pras/fr/par-domaine/particuliers/ @bnc/comite-gov-particuliers
+/content/pras/en/par-domaine/particuliers/ @bnc/comite-gov-particuliers
 
 # PRAs Domaine Entreprises
-/content/pras/fr/domain-wide/entreprises/ @bnc/comite-gov-entreprises
-/content/pras/en/domain-wide/entreprises/ @bnc/comite-gov-entreprises
+/content/pras/fr/par-domaine/entreprises/ @bnc/comite-gov-entreprises
+/content/pras/en/par-domaine/entreprises/ @bnc/comite-gov-entreprises
 
 # PRAs Domaine Gestion de Patrimoine
-/content/pras/fr/domain-wide/gestion-patrimoine/ @bnc/comite-gov-patrimoine
-/content/pras/en/domain-wide/gestion-patrimoine/ @bnc/comite-gov-patrimoine
+/content/pras/fr/par-domaine/gestion-patrimoine/ @bnc/comite-gov-patrimoine
+/content/pras/en/par-domaine/gestion-patrimoine/ @bnc/comite-gov-patrimoine
 
-# PRAs Bank-Wide
-/content/pras/fr/bank-wide/ @bnc/comite-architectes-experts
-/content/pras/en/bank-wide/ @bnc/comite-architectes-experts
+# PRAs Transversale
+/content/pras/fr/transversale/ @bnc/comite-architectes-experts
+/content/pras/en/transversale/ @bnc/comite-architectes-experts
 
 # Templates et guides (tous peuvent contribuer)
 /templates/ @bnc/comite-architectes-experts
@@ -283,7 +283,7 @@ Tous les scripts dans `/scripts/` ou `/.github/scripts/`
 **Fonction** : Détection type de changement
 **Outputs** :
 - Type : nouveau / update / promotion / deprecation
-- Scope : domaine / bank-wide
+- Scope : domaine / transversale
 - Domaine : particuliers / entreprises / gestion-patrimoine (si applicable)
 - Catégorie : tech / integration / security / business
 
@@ -316,7 +316,7 @@ Tous les scripts dans `/scripts/` ou `/.github/scripts/`
 
 ### Informations de Base
 - **Nom du PRA** :
-- **Scope** : [ ] Domaine | [ ] Bank-Wide
+- **Scope** : [ ] Domaine | [ ] Transversale
 - **Domaine** (si applicable) : [ ] Particuliers | [ ] Entreprises | [ ] Gestion de Patrimoine
 - **Catégorie** : [ ] Tech | [ ] Integration | [ ] Security | [ ] Business
 
@@ -339,12 +339,12 @@ Tous les scripts dans `/scripts/` ou `/.github/scripts/`
 
 #### 2. `.github/PULL_REQUEST_TEMPLATE/pra-promotion.md`
 ```markdown
-## 🚀 Promotion PRA Domaine → Bank-Wide
+## 🚀 Promotion PRA Domaine → Transversale
 
 ### Informations
 - **PRA actuel** : [lien vers PRA domaine]
 - **Domaine d'origine** :
-- **Nouveau path** : `bank-wide/[category]/`
+- **Nouveau path** : `transversale/[category]/`
 
 ### Checklist Promotion
 - [ ] 3+ proven-in-use documentés de **différents domaines/équipes**
@@ -404,7 +404,7 @@ labels: type:deprecation, tracking
 
 **PRA** : [lien]
 **Date de deprecation** : YYYY-MM-DD
-**Fin de support** : YYYY-MM-DD (6 mois pour Bank-Wide, 3 mois pour Domaine)
+**Fin de support** : YYYY-MM-DD (6 mois pour Transversale, 3 mois pour Domaine)
 
 ### Alternative Recommandée
 [Lien vers PRA alternatif]

@@ -21,7 +21,7 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/lang/fr/).
 - Search client-side avec Orama 3.0.2
 
 **Structure de Contenu**
-- Organisation Bank-Wide (transversal) et Domain-Wide (par secteur)
+- Organisation Transversale (transversal) et Par Domaine (par secteur)
 - Catégories : tech, integration, security, business
 - Status : candidate, approved, deprecated
 - Domaines : particuliers, entreprises, gestion-patrimoine
@@ -78,8 +78,8 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/lang/fr/).
 - **Raison** : Fumadocs attend structure plate pour créer page nodes
 - **Impact** : Toutes pages PRA accessibles, cohérence avec guides
 
-**ADR-004 : Organisation Bank-Wide vs Domain-Wide**
-- **Décision** : Séparer bank-wide/ et domain-wide/[domaine]/
+**ADR-004 : Organisation Transversale vs Par Domaine**
+- **Décision** : Séparer transversale/ et par-domaine/[domaine]/
 - **Raison** : Refléter portée et processus de gouvernance différents
 - **Impact** : Portée claire depuis chemin, promotion = simple mv
 
@@ -93,8 +93,8 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/lang/fr/).
 
 **Validé**
 - ✅ Guides FR/EN (tous retournent 200)
-- ✅ Bank-Wide PRAs (tech, integration, business)
-- ✅ Domain-Wide PRAs (particuliers, entreprises, gestion-patrimoine)
+- ✅ Transversale PRAs (tech, integration, business)
+- ✅ Par Domaine PRAs (particuliers, entreprises, gestion-patrimoine)
 - ✅ Navigation (sidebar, breadcrumb, language switcher)
 - ✅ Rendu contenu (titres, sections, diagrammes)
 
@@ -145,8 +145,8 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/lang/fr/).
    ```
 
 3. **Vérifier chemins** :
-   - Avant : `pras/bank-wide/candidate/tech/mon-pra/fr/page.md`
-   - Après : `pras-fr/bank-wide/candidate/tech/mon-pra.md`
+   - Avant : `pras/transversale/candidate/tech/mon-pra/fr/page.md`
+   - Après : `pras-fr/transversale/candidate/tech/mon-pra.md`
 
 4. **Rebuild cache** :
    ```bash

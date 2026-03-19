@@ -103,8 +103,8 @@ graph TB
 | **Développeur** | Primaire | Consomme les PRA pour ses projets | Lecture seule |
 | **Architecte Contributeur** | Primaire | Propose et documente des PRA | Lecture + Soumission |
 | **Architecte Mainteneur** | Primaire | Responsable d'un ou plusieurs PRA | Lecture + Modification PRA assignés |
-| **Membre Comité Domaine** | Primaire | Valide les PRA Domain-Wide | Validation domaine |
-| **Membre Comité Experts** | Primaire | Valide les PRA Bank-Wide | Validation transversale |
+| **Membre Comité Domaine** | Primaire | Valide les PRA Par Domaine | Validation domaine |
+| **Membre Comité Experts** | Primaire | Valide les PRA Transversale | Validation transversale |
 | **Équipe Initiative PRA** | Secondaire | Administre la plateforme | Admin complet |
 | **Agent IA** | Secondaire | Recommande des PRA automatiquement | Lecture + API |
 | **GitHub Actions** | Système | Automatise les validations | Exécution workflows |
@@ -147,7 +147,7 @@ graph TB
                            │ Membre Comité   │               │ Membre Comité   │
                            │    Domaine      │               │    Experts      │
                            │                 │               │                 │
-                           │ • Particuliers  │               │ • Bank-Wide     │
+                           │ • Particuliers  │               │ • Transversale     │
                            │ • Entreprises   │               │ • Promotion     │
                            │ • Gestion Pat.  │               │ • Standards     │
                            └─────────────────┘               └─────────────────┘
@@ -187,8 +187,8 @@ graph TB
         end
 
         subgraph "Package: Gouvernance"
-            UC07[UC-07: Valider PRA Domain-Wide]
-            UC08[UC-08: Valider PRA Bank-Wide]
+            UC07[UC-07: Valider PRA Par Domaine]
+            UC08[UC-08: Valider PRA Transversale]
             UC09[UC-09: Promouvoir PRA]
             UC10[UC-10: Déprécier PRA]
             UC11[UC-11: Archiver PRA]
@@ -267,7 +267,7 @@ graph TB
 │  ║  ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐              ║ │
 │  ║  │  (UC-07)         │  │  (UC-08)         │  │  (UC-09)         │              ║ │
 │  ║  │  Valider PRA     │  │  Valider PRA     │  │  Promouvoir      │              ║ │
-│  ║  │  Domain-Wide     │  │  Bank-Wide       │  │  PRA             │              ║ │
+│  ║  │  Par Domaine     │  │  Transversale       │  │  PRA             │              ║ │
 │  ║  └──────────────────┘  └──────────────────┘  └──────────────────┘              ║ │
 │  ║  ┌──────────────────┐  ┌──────────────────┐                                    ║ │
 │  ║  │  (UC-10)         │  │  (UC-11)         │                                    ║ │
@@ -355,7 +355,7 @@ graph TB
 ║  1. L'utilisateur accède à la page Catalogue (/catalogue)                    ║
 ║  2. Le système affiche la liste des PRA avec pagination                      ║
 ║  3. L'utilisateur peut filtrer par :                                         ║
-║     - Scope (Bank-Wide, Domain-Wide)                                         ║
+║     - Scope (Transversale, Par Domaine)                                         ║
 ║     - Catégorie (CTP, Software Engineering, Pratique Architecture...)        ║
 ║     - Statut (Operationalized, Operationalizing, Deprecated)                 ║
 ║     - Domaine (Particuliers, Entreprises, Gestion Patrimoine)                ║
@@ -698,11 +698,11 @@ graph TB
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║  SOUS-CAS D'UTILISATION                                                      ║
 ║                                                                              ║
-║  UC-05a: Valider PRA Domain-Wide                                             ║
+║  UC-05a: Valider PRA Par Domaine                                             ║
 ║          Acteur: Membre Comité Domaine                                       ║
 ║          Critère: 1+ proven-in-use dans le domaine                           ║
 ║                                                                              ║
-║  UC-05b: Valider PRA Bank-Wide                                               ║
+║  UC-05b: Valider PRA Transversale                                               ║
 ║          Acteur: Membre Comité Experts                                       ║
 ║          Critère: 3+ proven-in-use multi-secteur                             ║
 ║                                                                              ║
@@ -739,7 +739,7 @@ graph TB
 ║  DESCRIPTION                                                                 ║
 ║  Processus de promotion d'un PRA :                                           ║
 ║  • Operationalizing → Operationalized                                        ║
-║  • Domain-Wide → Bank-Wide                                                   ║
+║  • Par Domaine → Transversale                                                   ║
 ║                                                                              ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║  PRÉ-CONDITIONS (Candidate → Approved)                                       ║
@@ -750,7 +750,7 @@ graph TB
 ║  • Feedback positif (>80% satisfaction)                                      ║
 ║                                                                              ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
-║  PRÉ-CONDITIONS (Domain → Bank-Wide)                                         ║
+║  PRÉ-CONDITIONS (Domain → Transversale)                                         ║
 ║  • PRA déjà Approved dans son domaine                                        ║
 ║  • Implémentations dans au moins 2 secteurs différents                       ║
 ║  • Documentation généralisée (non secteur-spécifique)                        ║
@@ -762,10 +762,10 @@ graph TB
 ║  2. Le mainteneur crée une branche: pra/promote-[pra-name]                   ║
 ║  3. Le mainteneur déplace le fichier vers le nouveau dossier :               ║
 ║     • operationalizing/ → operationalized/                                   ║
-║     • domain-wide/ → bank-wide/                                              ║
+║     • par-domaine/ → transversale/                                              ║
 ║  4. Le mainteneur met à jour le frontmatter :                                ║
 ║     • status: operationalized                                                ║
-║     • scope: bank-wide (si applicable)                                       ║
+║     • scope: transversale (si applicable)                                       ║
 ║  5. Le mainteneur soumet la PR de promotion                                  ║
 ║  6. GitHub Actions valide les critères automatiquement                       ║
 ║  7. Le Comité Experts review et approuve                                     ║
@@ -1096,13 +1096,13 @@ graph TB
 │           │    ┌────────────────────────┐        │               │
 │           └───>│  (UC-07)               │        │               │
 │                │  Valider PRA           │        │               │
-│                │  Domain-Wide           │        │               │
+│                │  Par Domaine           │        │               │
 │                └────────────────────────┘        │               │
 │                                                  │               │
 │                ┌────────────────────────┐        │               │
 │                │  (UC-08)               │<───────┤               │
 │                │  Valider PRA           │        │               │
-│                │  Bank-Wide             │        │               │
+│                │  Transversale             │        │               │
 │                └────────────────────────┘        │               │
 │                                                  │               │
 │                ┌────────────────────────┐        │               │
@@ -1146,8 +1146,8 @@ graph TB
 | UC-04: Soumettre PRA Candidat | ○ | ● | ● | ○ | ○ | ○ | ○ |
 | UC-05: Ajouter Proven-in-Use | ● | ● | ● | ○ | ○ | ○ | ○ |
 | UC-06: Mettre à Jour PRA | ○ | ● | ● | ○ | ○ | ○ | ○ |
-| UC-07: Valider Domain-Wide | ○ | ○ | ○ | ● | ○ | ○ | ○ |
-| UC-08: Valider Bank-Wide | ○ | ○ | ○ | ○ | ● | ○ | ○ |
+| UC-07: Valider Par Domaine | ○ | ○ | ○ | ● | ○ | ○ | ○ |
+| UC-08: Valider Transversale | ○ | ○ | ○ | ○ | ● | ○ | ○ |
 | UC-09: Promouvoir PRA | ○ | ○ | ● | ○ | ● | ○ | ○ |
 | UC-10: Déprécier PRA | ○ | ○ | ● | ● | ● | ○ | ○ |
 | UC-11: Archiver PRA | ○ | ○ | ○ | ○ | ● | ○ | ○ |
@@ -1271,7 +1271,7 @@ RÉSULTAT: PRA non créé, mais enrichissement de PRA existant
 ### 7.3 Scénario de Promotion
 
 ```
-SCÉNARIO: Promotion Domain-Wide → Bank-Wide
+SCÉNARIO: Promotion Par Domaine → Transversale
 
 Acteur: Architecte Mainteneur (David)
 PRA: Event Sourcing Pattern (Particuliers)
@@ -1284,13 +1284,13 @@ PRA: Event Sourcing Pattern (Particuliers)
    - 3 équipes différentes
    - 2 secteurs couverts
    - 8 mois depuis création
-4. David crée PR: pra/promote-event-sourcing-bank-wide
+4. David crée PR: pra/promote-event-sourcing-transversale
 5. David généralise la documentation (retire références spécifiques)
 6. Comité Experts review:
    - Vérifie la diversité des implémentations
    - Vérifie l'absence de dépendance sectorielle
 7. 2 approbations obtenues
-8. Merge → PRA déplacé vers bank-wide/
+8. Merge → PRA déplacé vers transversale/
 9. Communication à l'ensemble de l'entreprise
 
 RÉSULTAT: PRA Event Sourcing disponible pour tous les secteurs
@@ -1304,14 +1304,14 @@ RÉSULTAT: PRA Event Sourcing disponible pour tous les secteurs
 |-------|------------|
 | **PRA** | Proven Reusable Architecture - Solution architecturale validée en production |
 | **Proven-in-use** | Implémentation documentée d'un PRA dans un projet réel |
-| **Bank-Wide** | Scope transversal applicable à tous les secteurs de la banque |
-| **Domain-Wide** | Scope limité à un secteur spécifique (Particuliers, Entreprises, Gestion Patrimoine) |
+| **Transversale** | Scope transversal applicable à tous les secteurs de la banque |
+| **Par Domaine** | Scope limité à un secteur spécifique (Particuliers, Entreprises, Gestion Patrimoine) |
 | **Operationalizing** | Statut candidat, en cours de validation (1+ proven-in-use) |
 | **Operationalized** | Statut approuvé, recommandé pour utilisation (3+ proven-in-use) |
 | **Deprecated** | Statut obsolète, ne plus utiliser pour nouveaux projets |
 | **ADR** | Architecture Decision Record - Documentation d'une décision architecturale |
-| **Comité Domaine** | Instance de gouvernance pour validation des PRA Domain-Wide |
-| **Comité Experts** | Instance de gouvernance pour validation des PRA Bank-Wide |
+| **Comité Domaine** | Instance de gouvernance pour validation des PRA Par Domaine |
+| **Comité Experts** | Instance de gouvernance pour validation des PRA Transversale |
 | **Équipe Initiative** | Équipe technique gérant la plateforme PRA |
 
 ---

@@ -2,7 +2,7 @@
 """
 Script to migrate PRAs from old structure to new structure.
 Old: content/fr/registre/[scope]/[category]/[pra-name].md
-New: content/pras/[bank-wide|domain-wide]/[domain]/[status]/[category]/[pra-name]/[en|fr].md
+New: content/pras/[transversale|par-domaine]/[domain]/[status]/[category]/[pra-name]/[en|fr].md
 """
 
 import os
@@ -23,8 +23,8 @@ OLD_EN = CONTENT_ROOT / "en" / "registre"
 NEW_PRAS = CONTENT_ROOT / "pras"
 
 # Mapping of old scope to new scope
-# transversal -> bank-wide
-# secteurs/[domain] -> domain-wide/[domain]
+# transversal -> transversale
+# secteurs/[domain] -> par-domaine/[domain]
 # en-promotion -> will be discussed (skip for now or put in candidate?)
 
 # Default status mapping (can be customized per PRA)
@@ -43,22 +43,22 @@ def extract_pra_info(file_path: Path) -> dict:
 
     # Determine scope and domain
     if parts[0] == "transversal":
-        info["scope"] = "bank-wide"
+        info["scope"] = "transversale"
         info["domain"] = None
         info["category"] = parts[1] if len(parts) > 1 else "tech"
     elif parts[0] == "secteurs":
-        info["scope"] = "domain-wide"
+        info["scope"] = "par-domaine"
         info["domain"] = parts[1] if len(parts) > 1 else "particuliers"
         info["category"] = parts[2] if len(parts) > 2 else "tech"
     elif parts[0] == "en-promotion":
-        # For now, treat as bank-wide candidate
+        # For now, treat as transversale candidate
         # User can decide later if they want a separate "promotion" status
-        info["scope"] = "bank-wide"
+        info["scope"] = "transversale"
         info["domain"] = None
         info["category"] = "business"  # Default, can be customized
         info["is_promotion"] = True
     else:
-        info["scope"] = "bank-wide"
+        info["scope"] = "transversale"
         info["domain"] = None
         info["category"] = "tech"
 
@@ -98,10 +98,10 @@ def migrate_pra(fr_path: Path, en_path: Optional[Path]):
         return
 
     # Build new path
-    if info["scope"] == "bank-wide":
-        new_dir = NEW_PRAS / "bank-wide" / info["status"] / info["category"] / info["filename"]
-    else:  # domain-wide
-        new_dir = NEW_PRAS / "domain-wide" / info["domain"] / info["status"] / info["category"] / info["filename"]
+    if info["scope"] == "transversale":
+        new_dir = NEW_PRAS / "transversale" / info["status"] / info["category"] / info["filename"]
+    else:  # par-domaine
+        new_dir = NEW_PRAS / "par-domaine" / info["domain"] / info["status"] / info["category"] / info["filename"]
 
     # Create directory
     new_dir.mkdir(parents=True, exist_ok=True)

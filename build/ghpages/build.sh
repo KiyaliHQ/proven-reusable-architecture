@@ -229,24 +229,26 @@ EOF
 EOF
     fi
 
-    # === BANK-WIDE ===
-    cat >> "$out" <<'EOF'
-    <div class="sidebar-section-title" onclick="toggleSection(this)"><span class="arrow"></span>Bank-Wide</div>
+    # === TRANSVERSALE ===
+    local scope_bw_label="Transversale"
+    [ "$lang" = "en" ] && scope_bw_label="Transversal"
+    cat >> "$out" <<EOF
+    <div class="sidebar-section-title" onclick="toggleSection(this)"><span class="arrow"></span>${scope_bw_label}</div>
     <div class="tree-children collapsed">
 EOF
 
-    # Build per-archetype data for bank-wide
+    # Build per-archetype data for transversale
     for arch in $ARCHETYPES; do
         local display_name
         display_name=$(pretty_name "$arch")
-        # Find bank-wide PRAs with this archetype
+        # Find transversale PRAs with this archetype
         local count=0
         local leaves=""
         while IFS=$'\t' read -r name html_rel adoc_file; do
             local scope file_arch
             scope=$(extract_attr "$adoc_file" "pra-scope")
             file_arch=$(extract_attr "$adoc_file" "pra-archetype")
-            if [ "$scope" = "bank-wide" ] && [ "$file_arch" = "$arch" ]; then
+            if [ "$scope" = "transversale" ] && [ "$file_arch" = "$arch" ]; then
                 count=$((count + 1))
                 leaves="${leaves}<a href=\"${html_rel}\" class=\"tree-leaf\">${name}</a>\n"
             fi
@@ -267,16 +269,19 @@ EOF
     <div class="sidebar-divider"></div>
 EOF
 
-    # === DOMAIN-WIDE ===
-    cat >> "$out" <<'EOF'
-    <div class="sidebar-section-title" onclick="toggleSection(this)"><span class="arrow"></span>Domain-Wide</div>
+    # === PAR DOMAINE ===
+    local scope_dw_label="Par Domaine"
+    [ "$lang" = "en" ] && scope_dw_label="By Domain"
+    cat >> "$out" <<EOF
+    <div class="sidebar-section-title" onclick="toggleSection(this)"><span class="arrow"></span>${scope_dw_label}</div>
     <div class="tree-children collapsed">
 EOF
 
-    # Get list of domains from directory structure
-    local domains=""
-    if [ -d "$pras_dir/domain-wide" ]; then
-        domains=$(find "$pras_dir/domain-wide" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort | while read -r d; do basename "$d"; done)
+    # Get list of domains from directory structure (per-language dir name)
+    local domains="" dw_dir
+    if [ "$lang" = "en" ]; then dw_dir="$pras_dir/by-domain"; else dw_dir="$pras_dir/par-domaine"; fi
+    if [ -d "$dw_dir" ]; then
+        domains=$(find "$dw_dir" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort | while read -r d; do basename "$d"; done)
     fi
 
     for domain in $domains; do
@@ -288,8 +293,8 @@ EOF
             local scope file_domain
             scope=$(extract_attr "$adoc_file" "pra-scope")
             file_domain=$(extract_attr "$adoc_file" "pra-domain")
-            [ -z "$file_domain" ] && file_domain=$(echo "$adoc_file" | sed -n 's|.*domain-wide/\([^/]*\).*|\1|p')
-            if [ "$scope" = "domain-wide" ] && [ "$file_domain" = "$domain" ]; then
+            [ -z "$file_domain" ] && file_domain=$(echo "$adoc_file" | sed -n 's|.*\(par-domaine\|by-domain\)/\([^/]*\).*|\2|p')
+            if [ "$scope" = "par-domaine" ] && [ "$file_domain" = "$domain" ]; then
                 domain_count=$((domain_count + 1))
             fi
         done < "$BUILD_TMP/pra-index-${lang}.tsv"
@@ -312,9 +317,9 @@ EOF
                 local scope file_domain file_arch
                 scope=$(extract_attr "$adoc_file" "pra-scope")
                 file_domain=$(extract_attr "$adoc_file" "pra-domain")
-                [ -z "$file_domain" ] && file_domain=$(echo "$adoc_file" | sed -n 's|.*domain-wide/\([^/]*\).*|\1|p')
+                [ -z "$file_domain" ] && file_domain=$(echo "$adoc_file" | sed -n 's|.*\(par-domaine\|by-domain\)/\([^/]*\).*|\2|p')
                 file_arch=$(extract_attr "$adoc_file" "pra-archetype")
-                if [ "$scope" = "domain-wide" ] && [ "$file_domain" = "$domain" ] && [ "$file_arch" = "$arch" ]; then
+                if [ "$scope" = "par-domaine" ] && [ "$file_domain" = "$domain" ] && [ "$file_arch" = "$arch" ]; then
                     arch_count=$((arch_count + 1))
                     deep_leaves="${deep_leaves}<a href=\"${html_rel}\" class=\"tree-leaf-deep\">${name}</a>\n"
                 fi
@@ -518,7 +523,7 @@ generate_meta_card() {
 
     # Origin display
     local origin=""
-    if [ "$scope" = "domain-wide" ]; then
+    if [ "$scope" = "par-domaine" ]; then
         origin="$domain"
     else
         origin="$subcat"
@@ -894,7 +899,7 @@ generate_dashboard() {
         proven=$(extract_attr "$f" "pra-proven-count")
         updated=$(extract_attr "$f" "pra-updated")
 
-        # Origin: domain for domain-wide, subcategory for bank-wide
+        # Origin: domain for par-domaine, subcategory for transversale
         local origin="$domain"
         [ -z "$origin" ] && origin="$subcat"
 
@@ -965,8 +970,8 @@ ${sidebar_html}
   </select>
   <select id="filter-scope" class="filter-select" onchange="filterTable()">
     <option value="">${lbl_all_scope}</option>
-    <option value="bank-wide">Bank-Wide</option>
-    <option value="domain-wide">Domain-Wide</option>
+    <option value="transversale">Transversale</option>
+    <option value="par-domaine">Par Domaine</option>
   </select>
   <select id="filter-origin" class="filter-select" onchange="filterTable()">
     <option value="">${lbl_all_origin}</option>
@@ -1094,17 +1099,19 @@ generate_landing() {
     # Count PRAs
     local total_pras bw_count dw_count
     total_pras=$(find "$pras_dir" -name "*.adoc" -not -name "index.adoc" 2>/dev/null | wc -l | tr -d ' ')
-    bw_count=$(find "$pras_dir/bank-wide" -name "*.adoc" 2>/dev/null | wc -l | tr -d ' ')
-    dw_count=$(find "$pras_dir/domain-wide" -name "*.adoc" 2>/dev/null | wc -l | tr -d ' ')
+    local bw_dir dw_dir_landing
+    if [ "$lang" = "en" ]; then bw_dir="$pras_dir/transversal"; dw_dir_landing="$pras_dir/by-domain"; else bw_dir="$pras_dir/transversale"; dw_dir_landing="$pras_dir/par-domaine"; fi
+    bw_count=$(find "$bw_dir" -name "*.adoc" 2>/dev/null | wc -l | tr -d ' ')
+    dw_count=$(find "$dw_dir_landing" -name "*.adoc" 2>/dev/null | wc -l | tr -d ' ')
 
     # Labels
     local hero_pill="Registre officiel — Architecture d'entreprise"
     local hero_sub="Capitalisez sur les architectures eprouvees en production. Trouvez, reutilisez et contribuez aux patterns valides de la Banque Nationale."
     local search_placeholder="Rechercher un PRA, un pattern, une technologie..."
-    local stat_total="PRAs au registre" stat_bw="Bank-Wide" stat_dw="Domain-Wide"
+    local stat_total="PRAs au registre" stat_bw="Transversale" stat_dw="Par Domaine"
     local section_explore="Explorer le registre" section_recent="Dernieres mises a jour"
-    local card1_title="Bank-Wide" card1_desc="Patterns transversaux applicables a tous les domaines d'affaires. Valides pour l'ensemble de la banque."
-    local card2_title="Domain-Wide" card2_desc="Patterns specifiques par domaine d'affaires : Particuliers, Entreprises, Gestion de Patrimoine."
+    local card1_title="Transversale" card1_desc="Patterns transversaux applicables a tous les domaines d'affaires. Valides pour l'ensemble de la banque."
+    local card2_title="Par Domaine" card2_desc="Patterns specifiques par domaine d'affaires : Particuliers, Entreprises, Gestion de Patrimoine."
     local card3_title="Catalogue complet" card3_desc="Tableau filtrable de tous les PRAs du registre. Recherche, tri et filtres par archetype, statut, scope."
     local card4_title="Guides" card4_desc="Contribuer un PRA, gouvernance, standards de qualite, cycle de vie, processus de promotion."
     local card5_title="Demarrage rapide" card5_desc="Nouveau dans le registre? Comprenez ce qu'est un PRA, comment en trouver un et comment l'utiliser."
@@ -1117,7 +1124,7 @@ generate_landing() {
         hero_pill="Official Registry — Enterprise Architecture"
         hero_sub="Leverage proven production architectures. Find, reuse and contribute to validated patterns at Banque Nationale."
         search_placeholder="Search for a PRA, pattern, technology..."
-        stat_total="PRAs in registry" stat_bw="Bank-Wide" stat_dw="Domain-Wide"
+        stat_total="PRAs in registry" stat_bw="Transversal" stat_dw="By Domain"
         section_explore="Explore the registry" section_recent="Latest updates"
         card1_desc="Cross-cutting patterns for all business domains. Validated for the entire bank."
         card2_desc="Domain-specific patterns: Retail, Corporate, Wealth Management."
@@ -1211,13 +1218,13 @@ ${header_html}
 <section class="landing-section">
   <div class="landing-section-title">${section_explore}</div>
   <div class="card-grid">
-    <a href="${cat_url}?q=bank-wide" class="landing-card">
+    <a href="${cat_url}?q=transversale" class="landing-card">
       <div class="card-icon red">&#127963;&#65039;</div>
       <h3>${card1_title}</h3>
       <p>${card1_desc}</p>
       <div class="card-action">${card1_action} ${SVG_CARD_ARROW}</div>
     </a>
-    <a href="${cat_url}?q=domain-wide" class="landing-card">
+    <a href="${cat_url}?q=par-domaine" class="landing-card">
       <div class="card-icon blue">&#127970;</div>
       <h3>${card2_title}</h3>
       <p>${card2_desc}</p>

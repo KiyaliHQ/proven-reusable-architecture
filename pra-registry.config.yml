@@ -29,8 +29,8 @@ languages:
 
 # --- Scopes ---
 scopes:
-  - bank-wide                    # PRAs transversaux (tous domaines)
-  - domain-wide                  # PRAs spécifiques à un domaine
+  - transversale                 # PRAs transversaux (tous domaines) — ancien: bank-wide
+  - par-domaine                  # PRAs spécifiques à un domaine — ancien: domain-wide
 
 # --- Archétypes (dossiers de classification principale) ---
 # Ajouter un archétype = ajouter ici + créer le dossier correspondant
@@ -63,7 +63,7 @@ governance:
   # Review
   review:
     domain_review_days: 10       # Max jours pour review domaine
-    bankwide_review_weeks: 4     # Max semaines pour review bank-wide
+    transversale_review_weeks: 4  # Max semaines pour review transversale
     promotion_review_weeks: 8    # Max semaines pour review promotion
 
   # Comités

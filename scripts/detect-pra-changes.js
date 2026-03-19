@@ -7,7 +7,7 @@
  *
  * Detects:
  * - Change type: nouveau-pra, update, promotion, deprecation, status-change
- * - Scope: domaine, bank-wide
+ * - Scope: domaine, transversale
  * - Domaine: particuliers, entreprises, gestion-patrimoine (if applicable)
  * - Category: tech, integration, security, business
  *
@@ -38,8 +38,8 @@ const SCOPE_PATTERNS = {
   'secteurs/particuliers': { scope: 'domaine', domaine: 'particuliers' },
   'secteurs/entreprises': { scope: 'domaine', domaine: 'entreprises' },
   'secteurs/gestion-patrimoine': { scope: 'domaine', domaine: 'gestion-patrimoine' },
-  'transversal': { scope: 'bank-wide', domaine: null },
-  'en-promotion': { scope: 'bank-wide', domaine: null }
+  'transversal': { scope: 'transversale', domaine: null },
+  'en-promotion': { scope: 'transversale', domaine: null }
 };
 
 /**
@@ -61,8 +61,8 @@ function extractScopeFromPath(filePath) {
     return { scope: 'domaine', domaine: null };
   }
 
-  // Default to bank-wide if unclear
-  return { scope: 'bank-wide', domaine: null };
+  // Default to transversale if unclear
+  return { scope: 'transversale', domaine: null };
 }
 
 /**
@@ -112,10 +112,10 @@ function detectChangeType(filePath, baseFilePath, metadata, baseMetadata) {
   const currentScope = extractScopeFromPath(filePath);
   const baseScope = extractScopeFromPath(baseFilePath);
 
-  if (baseScope.scope === 'domaine' && currentScope.scope === 'bank-wide' && !filePath.includes('en-promotion')) {
+  if (baseScope.scope === 'domaine' && currentScope.scope === 'transversale' && !filePath.includes('en-promotion')) {
     return {
       changeType: 'promotion',
-      details: `PRA promoted from ${baseScope.domaine || 'domaine'} to bank-wide`
+      details: `PRA promoted from ${baseScope.domaine || 'domaine'} to transversale`
     };
   }
 

@@ -23,7 +23,7 @@ Ces scripts ont été utilisés pour migrer l'architecture du contenu PRA de l'a
 **Ancien format**:
 ```
 content/pras/
-  └── bank-wide/
+  └── transversale/
       └── candidate/
           └── tech/
               └── test-workflow/
@@ -35,9 +35,9 @@ content/pras/
 ```
 content/
   ├── pras-fr/
-  │   └── bank-wide/candidate/tech/test-workflow/page.md
+  │   └── transversale/candidate/tech/test-workflow/page.md
   └── pras-en/
-      └── bank-wide/candidate/tech/test-workflow/page.md
+      └── transversale/candidate/tech/test-workflow/page.md
 ```
 
 **Usage**:
@@ -53,12 +53,12 @@ python3 scripts/migration/split_pras_by_lang_fixed.py
 
 **Ancien format**:
 ```
-pras-fr/bank-wide/candidate/tech/test-workflow/page.md
+pras-fr/transversale/candidate/tech/test-workflow/page.md
 ```
 
 **Nouveau format**:
 ```
-pras-fr/bank-wide/candidate/tech/test-workflow.md
+pras-fr/transversale/candidate/tech/test-workflow.md
 ```
 
 **Raison**: Fumadocs attend une structure plate pour créer correctement les page nodes.

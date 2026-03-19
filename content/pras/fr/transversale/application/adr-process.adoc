@@ -1,0 +1,132 @@
+= [DEMO DATA] Processus ADR (Architecture Decision Records)
+// === MÉTADONNÉES PRA ===
+:pra-archetype: application
+:pra-subcategory: pratique-architecture
+:pra-status: operationalizing
+:pra-scope: transversale
+:pra-tags: adr, architecture, documentation, décisions
+:pra-created: 2025-01-30
+:pra-updated: 2025-01-30
+:pra-version: 1.0.0
+:pra-proven-count: 0
+:pra-author: TBD
+:pra-maintainer: TBD
+// === CONFLUENCE ===
+:page-title: Processus ADR
+:keywords: pra, archetype-application, status-operationalizing, scope-transversale
+
+// =============================================
+// FICHE SIGNALÉTIQUE
+// =============================================
+[sidebar]
+****
+.Fiche signalétique
+[cols="1,3"]
+|===
+| *Archétype*       | {pra-archetype}
+| *Sous-catégorie*  | {pra-subcategory}
+| *Statut*          | {pra-status}
+| *Scope*           | {pra-scope}
+| *Proven-in-use*   | {pra-proven-count}
+| *Tags*            | {pra-tags}
+| *Version*         | {pra-version}
+| *Auteur*          | {pra-author}
+| *Maintainer*      | {pra-maintainer}
+| *Créé*            | {pra-created}
+| *Dernière MAJ*    | {pra-updated}
+|===
+****
+
+== Résumé
+
+Les *ADR (Architecture Decision Records)* sont un moyen structuré de documenter les décisions architecturales importantes et leur contexte. Ce PRA standardise le processus de création et maintenance des ADR.
+
+== Contexte d'application
+
+=== Quand utiliser
+
+* Décision architecturale significative à documenter
+* Choix technologique impactant l'organisation
+* Besoin de traçabilité des décisions passées
+
+=== Quand ne pas utiliser
+
+* Décisions triviales ou réversibles sans effort
+* Choix déjà documentés dans un ADR existant
+
+== Problème résolu
+
+* Décisions architecturales non documentées
+* Perte de contexte avec le temps
+* Difficultés à comprendre "pourquoi" une décision a été prise
+
+== Solution
+
+=== Architecture
+
+Processus standardisé pour :
+
+* Documenter chaque décision significative
+* Capturer le contexte et les alternatives
+* Maintenir un historique des décisions
+
+=== Template ADR
+
+[source,markdown]
+----
+# ADR-XXX: Titre de la Décision
+
+## Statut
+Proposé | Accepté | Déprécié | Remplacé par ADR-YYY
+
+## Contexte
+Quel est le problème ou la situation ?
+
+## Décision
+Quelle est la décision prise ?
+
+## Conséquences
+Quels sont les impacts positifs et négatifs ?
+
+## Alternatives Considérées
+Quelles autres options ont été évaluées ?
+----
+
+=== Workflow
+
+[source]
+----
+┌──────────┐    ┌──────────┐    ┌──────────┐
+│ Proposé  │ → │ Review   │ → │ Accepté  │
+└──────────┘    └──────────┘    └──────────┘
+                     ↓
+               ┌──────────┐
+               │ Rejeté   │
+               └──────────┘
+----
+
+== Décisions architecturales (ADR)
+
+_Aucun ADR documenté pour le moment._
+
+== Implémentation
+
+=== Bonnes Pratiques
+
+. *Un ADR = Une décision* — Garder focalisé
+. *Immutable* — Ne pas modifier, créer un nouvel ADR
+. *Contexte riche* — Documenter le "pourquoi"
+. *Liens* — Référencer les ADRs connexes
+
+== Retours d'expérience (Proven-in-use)
+
+_Aucun retour d'expérience documenté pour le moment._
+
+== Limitations et pièges
+
+* Processus en cours de validation
+* Nécessite discipline de documentation par les équipes
+
+== Références
+
+_Aucune référence documentée pour le moment._

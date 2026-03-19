@@ -134,10 +134,10 @@ CATEGORY="tech"
 PRA_NAME="ci-cd-gitops-argocd"
 
 # Créer la structure
-mkdir -p content/pras/fr/bank-wide/$CATEGORY/operationalizing
+mkdir -p content/pras/fr/transversale/$CATEGORY/operationalizing
 
 # Copier le template
-cp templates/pra-template.md content/pras/fr/bank-wide/$CATEGORY/operationalizing/$PRA_NAME.md
+cp templates/pra-template.md content/pras/fr/transversale/$CATEGORY/operationalizing/$PRA_NAME.md
 ```
 
 ### Étape 5 : Remplir le Template
@@ -192,7 +192,7 @@ replaces: null
 
 ```bash
 # Copier template ADR
-cp templates/adr-template.md content/pras/fr/bank-wide/$CATEGORY/operationalizing/adr/001-choix-argocd-vs-fluxcd.md
+cp templates/adr-template.md content/pras/fr/transversale/$CATEGORY/operationalizing/adr/001-choix-argocd-vs-fluxcd.md
 
 # Remplir l'ADR avec la décision architecturale
 ```
@@ -201,7 +201,7 @@ cp templates/adr-template.md content/pras/fr/bank-wide/$CATEGORY/operationalizin
 
 ```bash
 # Créer dossier exemple
-mkdir -p content/pras/fr/bank-wide/$CATEGORY/operationalizing/examples/azure-pipeline
+mkdir -p content/pras/fr/transversale/$CATEGORY/operationalizing/examples/azure-pipeline
 
 # Ajouter fichiers d'exemple
 # - Code source
@@ -213,12 +213,12 @@ mkdir -p content/pras/fr/bank-wide/$CATEGORY/operationalizing/examples/azure-pip
 
 ```bash
 # Validation métadonnées YAML
-./scripts/validate-metadata.sh content/pras/fr/bank-wide/$CATEGORY/operationalizing/$PRA_NAME.md
+./scripts/validate-metadata.sh content/pras/fr/transversale/$CATEGORY/operationalizing/$PRA_NAME.md
 
 # Validation liens Markdown (optionnel)
 # Installer markdown-link-check si besoin
 npm install -g markdown-link-check
-markdown-link-check content/pras/fr/bank-wide/$CATEGORY/operationalizing/$PRA_NAME.md
+markdown-link-check content/pras/fr/transversale/$CATEGORY/operationalizing/$PRA_NAME.md
 ```
 
 ### Étape 9 : Commit & Push
@@ -296,7 +296,7 @@ git push origin pra/nouveau-tech-ci-cd-gitops
 git checkout -b pra/update-pra-001-proven-in-use
 
 # Éditer le fichier
-vim content/pras/fr/bank-wide/tech/operationalized/ci-cd-gitops-argocd.md
+vim content/pras/fr/transversale/tech/operationalized/ci-cd-gitops-argocd.md
 
 # Ajouter dans la section "Retours d'Expérience"
 # + dans le YAML frontmatter
@@ -318,7 +318,7 @@ git commit -m "fix(pra): Fix typo in PRA-001"
 git checkout -b pra/add-example-pra-001
 
 # Créer nouvel exemple
-mkdir -p content/pras/fr/bank-wide/tech/operationalized/examples/gitlab-ci
+mkdir -p content/pras/fr/transversale/tech/operationalized/examples/gitlab-ci
 
 # Ajouter fichiers + documentation
 ```

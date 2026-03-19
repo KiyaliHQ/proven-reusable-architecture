@@ -6,11 +6,11 @@ name: Approve PRA Approved
 #
 # Governance:
 # - Domain PRA: Requires 2 approvals from Domain Governance Committee
-# - Bank-Wide PRA: Requires 2 approvals from Expert Architects Committee
+# - Transversale PRA: Requires 2 approvals from Expert Architects Committee
 #
 # Validation:
 # - Domain: 1+ proven-in-use in domain, positive feedback, enriched documentation
-# - Bank-Wide: 3+ proven-in-use multi-domains, positive feedback, enriched documentation
+# - Transversale: 3+ proven-in-use multi-domains, positive feedback, enriched documentation
 #
 # Result: PRA status transitions to 'approved'
 
@@ -131,7 +131,7 @@ jobs:
                   SCOPE="Domain - Wealth Management"
                   DOMAIN="gestion-patrimoine"
                 elif [[ "$file" =~ transversal ]]; then
-                  SCOPE="Bank-Wide"
+                  SCOPE="Transversale"
                   DOMAIN="transversal"
                 fi
 
@@ -166,8 +166,8 @@ jobs:
                 VALIDATION_OUTPUT+="### 📊 Criteria Verification\\n\\n"
 
                 # Validation criteria depend on scope
-                if [ "$SCOPE" = "Bank-Wide" ]; then
-                  VALIDATION_OUTPUT+="**Bank-Wide PRA Approval Criteria:**\\n\\n"
+                if [ "$SCOPE" = "Transversale" ]; then
+                  VALIDATION_OUTPUT+="**Transversale PRA Approval Criteria:**\\n\\n"
 
                   # Require 3+ proven-in-use multi-domains
                   if [ "$PROVEN_COUNT" -ge 3 ]; then
@@ -260,7 +260,7 @@ jobs:
 
                 VALIDATION_OUTPUT+="\\n**Governance** (manual approval required):\\n"
 
-                if [ "$SCOPE" = "Bank-Wide" ]; then
+                if [ "$SCOPE" = "Transversale" ]; then
                   VALIDATION_OUTPUT+="- [ ] 2 approvals from Expert Architects Committee (0/2) ⏳\\n\\n"
                   VALIDATION_OUTPUT+="### 👥 Assigned Reviewers\\n"
                   VALIDATION_OUTPUT+="@KiyaliHQ/comite-architectes-experts\\n\\n"
@@ -289,10 +289,10 @@ jobs:
 
                 VALIDATION_OUTPUT+="### 📢 What Happens Next\\n"
                 VALIDATION_OUTPUT+="Once approved, this PRA will transition to **Approved** status and will be:\\n"
-                if [ "$SCOPE" = "Bank-Wide" ]; then
+                if [ "$SCOPE" = "Transversale" ]; then
                   VALIDATION_OUTPUT+="- ✅ **Recommended** for all domains across the bank\\n"
                   VALIDATION_OUTPUT+="- 📢 Communicated to all domain committees\\n"
-                  VALIDATION_OUTPUT+="- 📚 Added to bank-wide architecture standards\\n"
+                  VALIDATION_OUTPUT+="- 📚 Added to transversale architecture standards\\n"
                 else
                   VALIDATION_OUTPUT+="- ✅ **Recommended** for all projects in $SCOPE\\n"
                   VALIDATION_OUTPUT+="- 📢 Communicated to domain teams\\n"
@@ -360,8 +360,8 @@ ${validationOutput}`;
 
             const labels = ['type:status-change', 'status:approved'];
 
-            if (scope === 'Bank-Wide') {
-              labels.push('scope:bank-wide');
+            if (scope === 'Transversale') {
+              labels.push('scope:transversale');
             } else {
               labels.push('scope:domaine');
               if (domain === 'particuliers') labels.push('domaine:particuliers');

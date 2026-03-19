@@ -200,7 +200,7 @@
     <aside class="sidebar flex-shrink-0 overflow-y-auto sticky top-[57px] h-[calc(100vh-57px)]">
       <div class="py-4">
         <!-- BANK-WIDE -->
-        <div class="sidebar-section-title open" onclick="toggleSection(this)"><span class="arrow"></span>Bank-Wide</div>
+        <div class="sidebar-section-title open" onclick="toggleSection(this)"><span class="arrow"></span>Transversale</div>
         <div class="tree-children">
           <div class="tree-node open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Integration</span><span class="tree-count">2</span></div>
           <div class="tree-children">
@@ -227,7 +227,7 @@
         <div class="my-2 mx-4 border-t border-gray-200"></div>
 
         <!-- DOMAIN-WIDE -->
-        <div class="sidebar-section-title open" onclick="toggleSection(this)"><span class="arrow"></span>Domain-Wide</div>
+        <div class="sidebar-section-title open" onclick="toggleSection(this)"><span class="arrow"></span>Par Domaine</div>
         <div class="tree-children">
           <div class="tree-node open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Particuliers</span><span class="tree-count">2</span></div>
           <div class="tree-children">
@@ -349,13 +349,13 @@ git checkout -b <span class="string">pra/api-gateway-pattern</span>
               <div class="code-block">
 <span class="comment"># Copier le template</span>
 cp templates/pra-template-fr.adoc \
-  content/pras/fr/domain-wide/particuliers/<span class="string">api-gateway-pattern.adoc</span>
+  content/pras/fr/par-domaine/particuliers/<span class="string">api-gateway-pattern.adoc</span>
 
 <span class="comment"># Structure attendue</span>
 content/pras/
   fr/
-    bank-wide/          <span class="comment"># Patterns transversaux</span>
-    domain-wide/        <span class="comment"># Patterns par domaine</span>
+    transversale/          <span class="comment"># Patterns transversaux</span>
+    par-domaine/        <span class="comment"># Patterns par domaine</span>
       particuliers/
       entreprises/
       gestion-patrimoine/
@@ -378,7 +378,7 @@ content/pras/
 <span class="keyword">:pra-name:</span> <span class="string">API Gateway Test Pattern</span>
 <span class="keyword">:pra-archetype:</span> <span class="string">technology</span>          <span class="comment">// technology|integration|security|business</span>
 <span class="keyword">:pra-status:</span> <span class="string">operationalizing</span>     <span class="comment">// operationalizing|operationalized|deprecated</span>
-<span class="keyword">:pra-scope:</span> <span class="string">domain-wide</span>           <span class="comment">// bank-wide|domain-wide</span>
+<span class="keyword">:pra-scope:</span> <span class="string">par-domaine</span>           <span class="comment">// transversale|par-domaine</span>
 <span class="keyword">:pra-origin:</span> <span class="string">particuliers</span>         <span class="comment">// domaine ou pratique source</span>
 <span class="keyword">:pra-tags:</span> <span class="string">api, gateway, microservices, kong</span>
 <span class="keyword">:pra-created:</span> <span class="string">2025-12-03</span>
@@ -413,8 +413,8 @@ content/pras/
               <p>Le registre est bilingue. Créez la version anglaise dans le répertoire correspondant :</p>
               <div class="code-block">
 <span class="comment"># Copier et traduire pour la version anglaise</span>
-cp content/pras/fr/domain-wide/particuliers/<span class="string">api-gateway-pattern.adoc</span> \
-   content/pras/en/domain-wide/particuliers/<span class="string">api-gateway-pattern.adoc</span>
+cp content/pras/fr/par-domaine/particuliers/<span class="string">api-gateway-pattern.adoc</span> \
+   content/pras/en/par-domaine/particuliers/<span class="string">api-gateway-pattern.adoc</span>
 
 <span class="comment"># Modifier le fichier anglais : title, description, contenu</span>
               </div>
@@ -500,12 +500,12 @@ git push origin <span class="string">pra/api-gateway-pattern</span>
 
           <div class="mb-5">
             <h3 style="margin-top: 1rem; font-size: 0.95rem;">Mon pattern n'a qu'une seule implémentation. Puis-je le soumettre?</h3>
-            <p>Oui! Une seule implémentation en production suffit pour le statut <em>Candidate</em>. Le passage au statut <em>Approved</em> nécessite 3 implémentations pour les PRAs Bank-Wide, et 1 pour les Domain-Wide.</p>
+            <p>Oui! Une seule implémentation en production suffit pour le statut <em>Candidate</em>. Le passage au statut <em>Approved</em> nécessite 3 implémentations pour les PRAs Transversale, et 1 pour les Par Domaine.</p>
           </div>
 
           <div class="mb-5">
-            <h3 style="margin-top: 1rem; font-size: 0.95rem;">Qui peut promouvoir un PRA de Domain-Wide à Bank-Wide?</h3>
-            <p>La promotion est initiée par la table de gouvernance lorsqu'un PRA Domain-Wide atteint 3 implémentations prouvées dans des contextes différents. Le processus est documenté dans le <a href="#">guide de promotion</a>.</p>
+            <h3 style="margin-top: 1rem; font-size: 0.95rem;">Qui peut promouvoir un PRA de Par Domaine à Transversale?</h3>
+            <p>La promotion est initiée par la table de gouvernance lorsqu'un PRA Par Domaine atteint 3 implémentations prouvées dans des contextes différents. Le processus est documenté dans le <a href="#">guide de promotion</a>.</p>
           </div>
 
           <div class="mb-5">

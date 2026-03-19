@@ -1,6 +1,6 @@
 name: Approve PRA Promotion
 
-# Workflow for approving promotion from Domain to Bank-Wide
+# Workflow for approving promotion from Domain to Transversale
 #
 # Trigger: When a PRA file is moved from secteurs/[domaine] to transversal/
 #
@@ -13,7 +13,7 @@ name: Approve PRA Promotion
 # - Multi-domain applicability demonstrated
 # - Documentation enriched with multi-context learnings
 #
-# Result: PRA moved to transversal/ (Bank-Wide scope)
+# Result: PRA moved to transversal/ (Transversale scope)
 
 on:
   pull_request:
@@ -28,7 +28,7 @@ permissions:
 
 jobs:
   detect-and-validate-promotion:
-    name: Detect & Validate Domain → Bank-Wide Promotion
+    name: Detect & Validate Domain → Transversale Promotion
     runs-on: ubuntu-latest
 
     steps:
@@ -62,7 +62,7 @@ jobs:
         if: steps.changed-files.outputs.any_changed == 'true'
         id: validate
         run: |
-          echo "🔍 Checking for Domain → Bank-Wide promotions..."
+          echo "🔍 Checking for Domain → Transversale promotions..."
 
           PROMOTION_FOUND=false
           ERROR_COUNT=0
@@ -86,7 +86,7 @@ jobs:
                 # Validate the promotion
                 echo ""
                 echo "========================================="
-                echo "Validating Domain → Bank-Wide Promotion: $file"
+                echo "Validating Domain → Transversale Promotion: $file"
                 echo "========================================="
 
                 # Extract metadata from new location
@@ -141,7 +141,7 @@ jobs:
                 VALIDATION_OUTPUT+="### 📋 Details Detected\\n"
                 VALIDATION_OUTPUT+="- **PRA Name**: $PRA_NAME\\n"
                 VALIDATION_OUTPUT+="- **Original Domain**: $ORIGINAL_DOMAIN\\n"
-                VALIDATION_OUTPUT+="- **New Scope**: Bank-Wide (Transversal)\\n"
+                VALIDATION_OUTPUT+="- **New Scope**: Transversale (Transversal)\\n"
                 VALIDATION_OUTPUT+="- **Category**: $CATEGORY\\n"
                 VALIDATION_OUTPUT+="- **Status**: $STATUS\\n"
                 VALIDATION_OUTPUT+="- **File Movement**: \`$OLD_FILE\` → \`$file\`\\n"
@@ -242,10 +242,10 @@ jobs:
                 VALIDATION_OUTPUT+="**⏱️ 4-8 weeks** for thorough review across domains\\n\\n"
 
                 VALIDATION_OUTPUT+="### 📚 Important Notes\\n"
-                VALIDATION_OUTPUT+="This is a **significant decision** that requires thorough validation. Promoting a PRA to Bank-Wide means:\\n"
+                VALIDATION_OUTPUT+="This is a **significant decision** that requires thorough validation. Promoting a PRA to Transversale means:\\n"
                 VALIDATION_OUTPUT+="- ✅ It becomes **recommended** for all domains across the bank\\n"
                 VALIDATION_OUTPUT+="- 📢 It will be communicated to all domain committees\\n"
-                VALIDATION_OUTPUT+="- 📚 It becomes part of bank-wide architecture standards\\n"
+                VALIDATION_OUTPUT+="- 📚 It becomes part of transversale architecture standards\\n"
                 VALIDATION_OUTPUT+="- 🔍 It must demonstrate clear applicability beyond its original domain\\n\\n"
 
                 VALIDATION_OUTPUT+="### 📋 Review Checklist for Approvers\\n"
@@ -284,7 +284,7 @@ jobs:
           fi
 
           if [ "$PROMOTION_FOUND" = false ]; then
-            echo "ℹ️  No Domain → Bank-Wide promotions detected"
+            echo "ℹ️  No Domain → Transversale promotions detected"
             echo "promotion_found=false" >> $GITHUB_OUTPUT
             exit 0
           fi
@@ -312,9 +312,9 @@ jobs:
             const fs = require('fs');
             const validationOutput = fs.readFileSync('/tmp/validation_output.txt', 'utf8');
 
-            const comment = `## 🚀 Approval Request: Promotion to Bank-Wide
+            const comment = `## 🚀 Approval Request: Promotion to Transversale
 
-You are requesting to promote this Domain PRA to **Bank-Wide** (Transversal) status.
+You are requesting to promote this Domain PRA to **Transversale** (Transversal) status.
 
 ${validationOutput}`;
 
@@ -333,7 +333,7 @@ ${validationOutput}`;
             const originalDomain = '${{ steps.validate.outputs.original_domain }}';
             const category = '${{ steps.validate.outputs.category }}';
 
-            const labels = ['type:promotion', 'scope:bank-wide'];
+            const labels = ['type:promotion', 'scope:transversale'];
 
             if (category) labels.push(`category:${category}`);
 

@@ -82,7 +82,7 @@ Le projet utilise une **séparation physique** des contenus FR/EN :
 **Avant (❌ Problématique)** :
 ```
 content/pras/
-  ├── bank-wide/
+  ├── transversale/
   │   ├── candidate/
   │   │   └── tech/
   │   │       └── test-workflow/
@@ -95,12 +95,12 @@ content/pras/
 content/
   └── pras/
       ├── fr/               # Base FR séparée
-      │   └── bank-wide/
+      │   └── transversale/
       │       └── operationalizing/
       │           └── tech/
       │               └── test-workflow.md
       └── en/               # Base EN séparée
-          └── bank-wide/
+          └── transversale/
               └── operationalizing/
                   └── tech/
                       └── test-workflow.md
@@ -116,7 +116,7 @@ content/
 **Exemple** :
 ```
 pras/fr/
-  └── bank-wide/
+  └── transversale/
       └── operationalizing/
           └── tech/
               ├── test-workflow.md      ✅ Correct
@@ -172,12 +172,12 @@ content/
 │       └── ...
 └── pras/                         # PRAs (séparé par langue)
     ├── fr/                       # PRAs français
-    │   ├── bank-wide/            # PRAs transversaux (tous secteurs)
+    │   ├── transversale/            # PRAs transversaux (tous secteurs)
     │   │   ├── [category]/       # ctp, software-engineering, pratique-architecture
     │   │   │   ├── operationalized/   # Status: Operationalized (3+ proven)
     │   │   │   └── operationalizing/  # Status: Operationalizing (1+ proven)
     │   │   └── ...
-    │   └── domain-wide/          # PRAs spécifiques à un domaine
+    │   └── par-domaine/          # PRAs spécifiques à un domaine
     │       ├── particuliers/     # Retail banking
     │       ├── entreprises/      # Corporate banking
     │       └── gestion-patrimoine/ # Wealth management
@@ -189,15 +189,15 @@ content/
 
 | Scope | Description | Approbation | Exemples |
 |-------|-------------|-------------|----------|
-| **Bank-Wide** | Transversal (tous secteurs) | Comité Architectes Experts | API Gateway, CI/CD patterns |
-| **Domain-Wide** | Spécifique à un domaine | Comité Gouvernance Domaine | Onboarding client, KYC |
+| **Transversale** | Transversal (tous secteurs) | Comité Architectes Experts | API Gateway, CI/CD patterns |
+| **Par Domaine** | Spécifique à un domaine | Comité Gouvernance Domaine | Onboarding client, KYC |
 
 ### Status des PRAs
 
 | Status | Critères | Description |
 |--------|----------|-------------|
 | **Candidate** | 1+ proven-in-use | En validation, usage avec prudence |
-| **Approved** | 3+ proven-in-use (Bank-Wide) ou 1+ (Domain) | Recommandé pour usage |
+| **Approved** | 3+ proven-in-use (Transversale) ou 1+ (Domain) | Recommandé pour usage |
 | **Deprecated** | Obsolète | À remplacer, plan de migration fourni |
 
 ### Catégories des PRAs
@@ -380,27 +380,27 @@ export function getRegistreSource(lang: 'en' | 'fr') {
 #### 1. Choisir Scope, Catégorie et Status
 
 **Scope** :
-- `bank-wide/` : Transversal (tous secteurs)
-- `domain-wide/[domaine]/` : Spécifique à un domaine
+- `transversale/` : Transversal (tous secteurs)
+- `par-domaine/[domaine]/` : Spécifique à un domaine
 
 **Catégorie** :
 - `tech/`, `integration/`, `security/`, `business/`
 
 **Status** :
 - `operationalizing/` : 1+ proven-in-use (début)
-- `operationalized/` : 3+ proven-in-use (Bank-Wide) ou 1+ (Domain-Wide)
+- `operationalized/` : 3+ proven-in-use (Transversale) ou 1+ (Par Domaine)
 
 **Exemple de chemin** :
 ```
-content/pras/fr/bank-wide/[category]/operationalizing/mon-nouveau-pra.md
-content/pras/en/bank-wide/[category]/operationalizing/my-new-pra.md
+content/pras/fr/transversale/[category]/operationalizing/mon-nouveau-pra.md
+content/pras/en/transversale/[category]/operationalizing/my-new-pra.md
 ```
 
 #### 2. Créer le Fichier MDX
 
 **Utiliser le template** :
 ```bash
-cp templates/pra-template.md content/pras/fr/bank-wide/tech/operationalizing/mon-pra.md
+cp templates/pra-template.md content/pras/fr/transversale/tech/operationalizing/mon-pra.md
 ```
 
 **Structure du Frontmatter** :
@@ -474,8 +474,8 @@ pnpm dev
 ```
 
 Naviguer vers :
-- FR : `http://localhost:3000/fr/registre/bank-wide/tech/operationalizing/mon-nouveau-pra`
-- EN : `http://localhost:3000/en/registre/bank-wide/tech/operationalizing/my-new-pra`
+- FR : `http://localhost:3000/fr/registre/transversale/tech/operationalizing/mon-nouveau-pra`
+- EN : `http://localhost:3000/en/registre/transversale/tech/operationalizing/my-new-pra`
 
 ### Mettre à Jour un PRA Existant
 
@@ -494,22 +494,22 @@ Naviguer vers :
 
 **Candidate → Approved** :
 1. Vérifier critères :
-   - Bank-Wide : 3+ proven-in-use multi-domaines
-   - Domain-Wide : 1+ proven-in-use dans le domaine
+   - Transversale : 3+ proven-in-use multi-domaines
+   - Par Domaine : 1+ proven-in-use dans le domaine
 2. Déplacer fichier :
    ```bash
-   mv content/pras/fr/bank-wide/tech/operationalizing/mon-pra.md \
-      content/pras/fr/bank-wide/tech/operationalized/mon-pra.md
+   mv content/pras/fr/transversale/tech/operationalizing/mon-pra.md \
+      content/pras/fr/transversale/tech/operationalized/mon-pra.md
    ```
 3. Mettre à jour `status: operationalized` dans frontmatter
 4. Mettre à jour `meta.json` dans les deux répertoires
 
-**Domain-Wide → Bank-Wide** :
+**Par Domaine → Transversale** :
 1. Vérifier critères : 3+ proven-in-use multi-domaines
 2. Déplacer fichier :
    ```bash
-   mv content/pras/fr/domain-wide/particuliers/tech/operationalizing/mon-pra.md \
-      content/pras/fr/bank-wide/tech/operationalizing/mon-pra.md
+   mv content/pras/fr/par-domaine/particuliers/tech/operationalizing/mon-pra.md \
+      content/pras/fr/transversale/tech/operationalizing/mon-pra.md
    ```
 3. Mettre à jour documentation avec justification applicabilité
 4. Soumettre pour approbation Comité Architectes Experts
@@ -677,7 +677,7 @@ Chaque fichier `.adoc` de PRA utilise des attributs AsciiDoc (`:pra-*:`) pour le
 :pra-archetype: integration
 :pra-sub-category: api
 :pra-status: operationalizing
-:pra-scope: bank-wide
+:pra-scope: transversale
 :pra-origin:
 :pra-proven-count: 2
 :pra-tags: api, gateway, rest
@@ -719,8 +719,8 @@ _site/
 ├── en/                          # Même structure EN
 ├── pras/
 │   ├── fr/                      # Pages PRA individuelles FR
-│   │   ├── bank-wide/
-│   │   └── domain-wide/
+│   │   ├── transversale/
+│   │   └── par-domaine/
 │   └── en/                      # Pages PRA individuelles EN
 ├── guides/
 │   ├── fr/                      # Pages guide individuelles FR
@@ -894,8 +894,8 @@ rectangle "Approved" as A #E8F5E9
 
 1. **Toujours créer les deux versions linguistiques** (FR et EN) en même temps
 2. **Maintenir la cohérence des chemins** entre FR et EN
-   - ✅ `pras/fr/bank-wide/tech/operationalizing/api-gateway.md`
-   - ✅ `pras/en/bank-wide/tech/operationalizing/api-gateway.md`
+   - ✅ `pras/fr/transversale/tech/operationalizing/api-gateway.md`
+   - ✅ `pras/en/transversale/tech/operationalizing/api-gateway.md`
 3. **Utiliser des slugs descriptifs** en kebab-case
    - ✅ `digital-onboarding-pattern.md`
    - ❌ `dop.md`
@@ -918,7 +918,7 @@ rectangle "Approved" as A #E8F5E9
    ```
 2. **Commits descriptifs** :
    ```bash
-   git commit -m "feat(pra): Add API Gateway pattern (Bank-Wide Tech Candidate)"
+   git commit -m "feat(pra): Add API Gateway pattern (Transversale Tech Candidate)"
    ```
 3. **Pull Request** avec template approprié
 4. **Ne jamais commit sur `main`** directement
@@ -954,7 +954,7 @@ rectangle "Approved" as A #E8F5E9
 ### Erreur : 404 sur toutes les pages PRA
 
 **Symptôme** :
-- `/fr/registre/bank-wide/candidate/tech/test-workflow` retourne 404
+- `/fr/registre/transversale/candidate/tech/test-workflow` retourne 404
 - Site compile sans erreur
 
 **Cause** :
@@ -1089,24 +1089,24 @@ for page_md in pras_dir.rglob('page.md'):
     page_md.parent.rmdir()
 ```
 
-### ADR-004 : Organisation Bank-Wide vs Domain-Wide
+### ADR-004 : Organisation Transversale vs Par Domaine
 
 **Date** : 2 décembre 2025
 
 **Contexte** :
 - PRAs ont des portées différentes (tous secteurs vs un secteur)
 - Processus de gouvernance différents selon portée
-- Promotion possible : Domain → Bank-Wide
+- Promotion possible : Domain → Transversale
 
 **Décision** :
-- Séparer `bank-wide/` (transversal) et `domain-wide/[domaine]/`
+- Séparer `transversale/` (transversal) et `par-domaine/[domaine]/`
 - Sous-structure par status puis category
 - Permet promotion par simple déplacement de fichier
 
 **Structure** :
 ```
 pras/fr/
-  ├── bank-wide/
+  ├── transversale/
   │   ├── ctp/
   │   │   ├── operationalized/
   │   │   └── operationalizing/
@@ -1116,7 +1116,7 @@ pras/fr/
   │   └── pratique-architecture/
   │       ├── operationalized/
   │       └── operationalizing/
-  └── domain-wide/
+  └── par-domaine/
       ├── particuliers/
       ├── entreprises/
       └── gestion-patrimoine/
@@ -1190,7 +1190,7 @@ python3 /path/to/script.py
 
 **Exemples** :
 ```bash
-feat(pra): Add API Gateway pattern (Bank-Wide Tech Candidate)
+feat(pra): Add API Gateway pattern (Transversale Tech Candidate)
 fix(site): Correct 404 error on PRA pages
 docs(guides): Update contributing guide with new structure
 refactor(config): Simplify Fumadocs source configuration

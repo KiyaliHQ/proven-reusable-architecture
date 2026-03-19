@@ -57,17 +57,17 @@ GOV_DOM ..> GOV_BW
 * Approuver passage en statut Approved (échelle domaine)
 * *Seuil* : 2 approvals requis dans le comité domaine
 
-==== 3. Identification Candidats Bank-Wide
+==== 3. Identification Candidats Transversale
 
 * Identifier PRA domaine réutilisables hors du domaine
-* Proposer promotions Domaine -> Bank-Wide
+* Proposer promotions Domaine -> Transversale
 * Fournir justification et preuves de réutilisabilité
 
 ==== 4. Maintenance Locale
 
 * Review trimestrielle des PRA domaine
 * Identifier PRA obsolètes dans le domaine
-* Adapter standards Bank-Wide au contexte domaine
+* Adapter standards Transversale au contexte domaine
 
 === Réunions
 
@@ -76,7 +76,7 @@ GOV_DOM ..> GOV_BW
 * *Agenda type* :
 ** Review nouvelles soumissions domaine (30 min)
 ** Suivi PRA candidates domaine (15 min)
-** Identification candidats Bank-Wide (10 min)
+** Identification candidats Transversale (10 min)
 ** Questions diverses (5 min)
 
 === Engagement Attendu
@@ -97,33 +97,33 @@ GOV_DOM ..> GOV_BW
 
 === Responsabilités
 
-==== 1. Review des PRA Bank-Wide
+==== 1. Review des PRA Transversale
 
 * Évaluer PRA standards transversaux (Flow 2 : équipes transversales)
-* Évaluer promotions Domaine -> Bank-Wide (Flow 1)
+* Évaluer promotions Domaine -> Transversale (Flow 1)
 * Gérer Bootstrap : identifier et valider priorités (Flow 3)
 * *Timeline* : Review sous 2 semaines
 
-==== 2. Approbation des PRA Bank-Wide
+==== 2. Approbation des PRA Transversale
 
-*Pour les PRA Bank-Wide Approved* :
+*Pour les PRA Transversale Approved* :
 
 * Vérifier 3+ proven-in-use (différents domaines/équipes)
 * Valider applicabilité multi-domaine
 * Vérifier conformité architecture cible BNC
-* Approuver passage en statut Approved Bank-Wide
+* Approuver passage en statut Approved Transversale
 * *Seuil* : 2 approvals requis dans le comité
 
 ==== 3. Gouvernance Stratégique
 
-* Approuver promotions Domaine -> Bank-Wide
-* Approuver dépréciations Bank-Wide (avec consultation multi-domaine)
+* Approuver promotions Domaine -> Transversale
+* Approuver dépréciations Transversale (avec consultation multi-domaine)
 * Valider nouveaux standards des équipes transversales
 * Arbitrer conflits inter-domaines
 
 ==== 4. Bootstrap et Priorisation
 
-* Identifier sujets prioritaires Bank-Wide
+* Identifier sujets prioritaires Transversale
 * Rechercher candidats existants dans domaines
 * Valider promotion directe (bypass Domaine standard)
 * *Note* : Flux transitoire, diminuera avec maturité registre
@@ -133,8 +133,8 @@ GOV_DOM ..> GOV_BW
 * *Fréquence* : Bimensuelle (toutes les 2 semaines)
 * *Durée* : 1h30 maximum
 * *Agenda type* :
-** Review PRAs Bank-Wide (Flow 2) (30 min)
-** Review promotions Domaine -> Bank-Wide (Flow 1) (30 min)
+** Review PRAs Transversale (Flow 2) (30 min)
+** Review promotions Domaine -> Transversale (Flow 1) (30 min)
 ** Bootstrap et priorités (Flow 3) (20 min)
 ** Points stratégiques (10 min)
 
@@ -333,9 +333,9 @@ Architectes désignés comme responsables d'un ou plusieurs PRA spécifiques.
 | Soumettre PRA Domaine | C | I | I | *R* | I | I
 | Review PRA Domaine | *R/A* | I | C | C | I | I
 | Approuver PRA Domaine | *A* | I | I | I | C | I
-| Soumettre PRA Bank-Wide | I | C | I | *R* | I | I
-| Review PRA Bank-Wide | I | *R/A* | C | C | I | I
-| Approuver PRA Bank-Wide | I | *A* | I | I | C | I
+| Soumettre PRA Transversale | I | C | I | *R* | I | I
+| Review PRA Transversale | I | *R/A* | C | C | I | I
+| Approuver PRA Transversale | I | *A* | I | I | C | I
 | Proposer promotion Domaine->BW | *R* | C | I | C | C | I
 | Approuver promotion Domaine->BW | C | *A* | I | C | C | I
 | Bootstrap (identifier priorités) | C | *R/A* | C | I | I | I
@@ -343,7 +343,7 @@ Architectes désignés comme responsables d'un ou plusieurs PRA spécifiques.
 | Maintenir PRA | I | I | C | I | *R/A* | C
 | Utiliser PRA | I | I | I | I | C | *R/A*
 | Déprécier PRA Domaine | *A* | I | C | C | R | C
-| Déprécier PRA Bank-Wide | C | *A* | C | C | R | C
+| Déprécier PRA Transversale | C | *A* | C | C | R | C
 | Former communauté | I | I | *R/A* | C | C | I
 |===
 

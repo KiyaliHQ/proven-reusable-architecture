@@ -27,7 +27,7 @@ const https = require('https');
 // Required approvals per scope
 const APPROVAL_REQUIREMENTS = {
   'domaine': 2,        // Domain PRAs need 2 approvals from domain committee
-  'bank-wide': 2,      // Bank-wide PRAs need 2 approvals from expert architects
+  'transversale': 2,      // Transversale PRAs need 2 approvals from expert architects
   'promotion': 2       // Promotions need 2 approvals from expert architects
 };
 
@@ -36,7 +36,7 @@ const AUTHORIZED_TEAMS = {
   'domaine:particuliers': ['comite-gov-particuliers'],
   'domaine:entreprises': ['comite-gov-entreprises'],
   'domaine:gestion-patrimoine': ['comite-gov-patrimoine'],
-  'bank-wide': ['comite-architectes-experts'],
+  'transversale': ['comite-architectes-experts'],
   'promotion': ['comite-architectes-experts']
 };
 
@@ -140,9 +140,9 @@ function determineScope(labels) {
     return 'promotion';
   }
 
-  // Check for bank-wide
-  if (labels.includes('scope:bank-wide')) {
-    return 'bank-wide';
+  // Check for transversale
+  if (labels.includes('scope:transversale')) {
+    return 'transversale';
   }
 
   // Check for domain-specific
@@ -153,8 +153,8 @@ function determineScope(labels) {
     return 'domaine'; // Generic domain
   }
 
-  // Default to bank-wide if unclear
-  return 'bank-wide';
+  // Default to transversale if unclear
+  return 'transversale';
 }
 
 /**
@@ -180,7 +180,7 @@ async function checkApprovalAuthority(prNumber, owner, repo, token) {
     console.log(`Required approvals: ${requiredApprovals}`);
 
     // Get authorized teams for this scope
-    const authorizedTeams = AUTHORIZED_TEAMS[scope] || AUTHORIZED_TEAMS['bank-wide'];
+    const authorizedTeams = AUTHORIZED_TEAMS[scope] || AUTHORIZED_TEAMS['transversale'];
     console.log(`Authorized teams: ${authorizedTeams.join(', ')}`);
 
     // Get PR reviews

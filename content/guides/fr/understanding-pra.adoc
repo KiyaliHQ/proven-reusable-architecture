@@ -87,14 +87,14 @@ replaces: null
 
 == Les 2 Scopes d'un PRA
 
-=== 1. Bank-Wide (Transversal)
+=== 1. Transversale (Transversal)
 
 [plantuml]
 ----
 @startuml
 top to bottom direction
 skinparam rectangleRoundCorner 15
-rectangle "PRA Bank-Wide" as A
+rectangle "PRA Transversale" as A
 rectangle "Validé pour TOUS les domaines" as B
 rectangle "3+ proven-in-use multi-domaines" as C
 rectangle "Approuvé Comité Architectes Experts" as D
@@ -132,7 +132,7 @@ rectangle "PRA Domaine" as A
 rectangle "Spécifique à un domaine" as B
 rectangle "1+ proven-in-use dans le domaine" as C
 rectangle "Approuvé Comité Domaine" as D
-rectangle "Peut être promu Bank-Wide" as E
+rectangle "Peut être promu Transversale" as E
 A --> B
 B --> C
 B --> D
@@ -146,15 +146,15 @@ B --> E
 * Valide par le *Comite de Gouvernance du Domaine*
 * Au moins *1 proven-in-use* dans le domaine
 * *Tout type de pattern* (fonctionnel ET technique)
-* Peut etre promu vers Bank-Wide si reutilisable hors domaine (statut *"en promotion"*)
+* Peut etre promu vers Transversale si reutilisable hors domaine (statut *"en promotion"*)
 * Localisation : `pra/secteurs/[domaine]/[category]/`
 
 *Exemples* :
 
 * Fonctionnels : Onboarding Digital (Particuliers), Integration ERP SAP (Entreprises)
-* Techniques : Serverless AWS, file transfer, data pipelines (en l'absence de pattern Bank-Wide)
+* Techniques : Serverless AWS, file transfer, data pipelines (en l'absence de pattern Transversale)
 
-NOTE: Quand un PRA Domaine est propose pour devenir Bank-Wide, il recoit le statut *"en promotion"* dans ses metadonnees. Ce statut est visible par tous les domaines pendant la periode de revue par le Comite Architectes Experts.
+NOTE: Quand un PRA Domaine est propose pour devenir Transversale, il recoit le statut *"en promotion"* dans ses metadonnees. Ce statut est visible par tous les domaines pendant la periode de revue par le Comite Architectes Experts.
 
 == Les Statuts d'un PRA
 
@@ -263,10 +263,10 @@ C --> D
 @startuml
 start
 :J'ai un besoin;
-if (PRA Bank-Wide existe ?) then (Oui)
+if (PRA Transversale existe ?) then (Oui)
   :Vérifier contexte d'application;
   if (Applicable ?) then (Oui)
-    :Utiliser PRA Bank-Wide;
+    :Utiliser PRA Transversale;
     stop
   else (Non applicable)
   endif

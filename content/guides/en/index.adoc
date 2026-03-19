@@ -12,5 +12,5 @@ This directory contains the user guides for Banque Nationale du Canada's PRA Reg
 . link:lifecycle.adoc[Lifecycle] — From candidate to operationalized
 . link:standards.adoc[Quality Standards] — Criteria and scoring
 . link:contributing.adoc[Contributing] — Submission process
-. link:promotion-process.adoc[Promotion Process] — Domain → Bank-Wide
+. link:promotion-process.adoc[Promotion Process] — Domain → Transversal
 . link:governance.adoc[Governance] — Decision-making structure

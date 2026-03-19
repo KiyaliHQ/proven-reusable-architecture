@@ -3,7 +3,7 @@
 ### Informations de Base
 
 - **Nom du PRA** :
-- **Scope** : [ ] Domaine | [ ] Bank-Wide
+- **Scope** : [ ] Domaine | [ ] Transversale
 - **Domaine** (si scope=Domaine) : [ ] Particuliers | [ ] Entreprises | [ ] Gestion de Patrimoine
 - **Catégorie** : [ ] Tech | [ ] Integration | [ ] Security | [ ] Business
 
@@ -17,7 +17,7 @@
 **Proven-in-use** :
 - [ ] Au moins **1 proven-in-use** documenté avec feedback concret
 - [ ] Chaque proven-in-use inclut : projet, équipe, date, feedback
-- [ ] Pour Bank-Wide : **3+ proven-in-use** de différents domaines/équipes
+- [ ] Pour Transversale : **3+ proven-in-use** de différents domaines/équipes
 
 **Architecture** :
 - [ ] ADRs (Architecture Decision Records) inclus avec justifications

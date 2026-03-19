@@ -40,7 +40,7 @@ C --> E
 * Demonstrated reusability within the domain
 * Technical quality validated by *Domain Governance Committee*
 
-*Bank-Wide PRA*:
+*Transversal PRA*:
 
 * At least *1 proven implementation* in production
 * Complete documentation
@@ -50,7 +50,7 @@ C --> E
 *Location*:
 
 * Domain: `pra/secteurs/[domain]/[category]/`
-* Bank-Wide: `pra/transversal/[category]/`
+* Transversal: `pra/transversal/[category]/`
 
 *Usage*: May be used with caution and feedback required
 
@@ -67,7 +67,7 @@ C --> E
 * Documentation enriched with learnings
 * Validated by *Domain Governance Committee*
 
-*Bank-Wide PRA Approved*:
+*Transversal PRA Approved*:
 
 * At least *3 proven implementations* (different domains/teams)
 * Positive multi-domain feedback
@@ -78,12 +78,12 @@ C --> E
 *Location*:
 
 * Domain: `pra/secteurs/[domain]/[category]/`
-* Bank-Wide: `pra/transversal/[category]/`
+* Transversal: `pra/transversal/[category]/`
 
 *Usage*:
 
 * Domain: Recommended for domain projects
-* Bank-Wide: Recommended for all domains
+* Transversal: Recommended for all domains
 
 === Deprecated
 
@@ -116,7 +116,7 @@ C --> E
 
 *Timeline*: 5-10 business days
 
-=== Bank-Wide PRA: From Candidate to Approved
+=== Transversal PRA: From Candidate to Approved
 
 *Trigger*: 3+ documented proven implementations (different domains/teams)
 
@@ -126,13 +126,13 @@ C --> E
 . Automatic validation via GitHub Actions
 . Review by *Expert Architects Governance Committee* (2 approvals required)
 . Verification of multi-domain applicability
-. Merge -> PRA becomes Bank-Wide Approved
+. Merge -> PRA becomes Transversal Approved
 . Automatic publication to Confluence
 . Announcement to all domains (Teams/email)
 
 *Timeline*: 2-4 weeks
 
-=== Domain PRA: Promotion to Bank-Wide
+=== Domain PRA: Promotion to Transversal
 
 *Trigger*: Domain PRA identified as reusable outside the domain
 
@@ -141,7 +141,7 @@ C --> E
 . *Domain Committee* proposes promotion (with justification)
 . Create promotion dossier with multi-domain evidence
 . Review by *Expert Architects Committee*
-. Validation of Bank-Wide criteria (3+ proven-in-use required)
+. Validation of Transversal criteria (3+ proven-in-use required)
 . If approved -> move to `transversal/`
 . Communication to all domains
 
@@ -164,7 +164,7 @@ See detailed guide: link:/guides/07-promotion-process[Promotion Process]
 . Communication to domain teams
 . 3-month transition period
 
-*Bank-Wide PRA*:
+*Transversal PRA*:
 
 . Proposal from *Expert Architects Committee* (with justification)
 . Multi-domain consultation
@@ -189,7 +189,7 @@ See detailed guide: link:/guides/07-promotion-process[Promotion Process]
 * *Quarterly review*: Domain relevance, usage, feedback
 * *As-needed updates*: New technology versions, learnings
 
-=== Bank-Wide PRA Approved
+=== Transversal PRA Approved
 
 *Responsibilities*:
 
@@ -211,7 +211,7 @@ See detailed guide: link:/guides/07-promotion-process[Promotion Process]
 *Objective*:
 
 * Domain: Reach 1 proven implementation for local Approved
-* Bank-Wide: Reach 3 multi-domain implementations for Approved
+* Transversal: Reach 3 multi-domain implementations for Approved
 
 == Proven-in-Use Feedback
 
@@ -253,7 +253,7 @@ proven_in_use:
 * Confirmed reusability within the domain
 * Regular maintenance (< 6 months since last update)
 
-=== For a Bank-Wide PRA Candidate
+=== For a Transversal PRA Candidate
 
 * 1+ documented proven-in-use
 * Complete documentation with multi-domain vision
@@ -261,7 +261,7 @@ proven_in_use:
 * No major technical blockers
 * Validated by Expert Architects Committee
 
-=== For a Bank-Wide PRA Approved
+=== For a Transversal PRA Approved
 
 * 3+ documented proven-in-use (different domains/teams)
 * Positive multi-domain feedback

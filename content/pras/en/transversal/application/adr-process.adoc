@@ -1,0 +1,132 @@
+= [DEMO DATA] ADR Process (Architecture Decision Records)
+// === PRA METADATA ===
+:pra-archetype: application
+:pra-subcategory: pratique-architecture
+:pra-status: operationalizing
+:pra-scope: transversale
+:pra-tags: adr, architecture, documentation, decisions
+:pra-created: 2025-01-30
+:pra-updated: 2025-01-30
+:pra-version: 1.0.0
+:pra-proven-count: 0
+:pra-author: TBD
+:pra-maintainer: TBD
+// === CONFLUENCE ===
+:page-title: ADR Process
+:keywords: pra, archetype-application, status-operationalizing, scope-transversale
+
+// =============================================
+// FACT SHEET
+// =============================================
+[sidebar]
+****
+.Fact Sheet
+[cols="1,3"]
+|===
+| *Archetype*       | {pra-archetype}
+| *Subcategory*     | {pra-subcategory}
+| *Status*          | {pra-status}
+| *Scope*           | {pra-scope}
+| *Proven-in-use*   | {pra-proven-count}
+| *Tags*            | {pra-tags}
+| *Version*         | {pra-version}
+| *Author*          | {pra-author}
+| *Maintainer*      | {pra-maintainer}
+| *Created*         | {pra-created}
+| *Last updated*    | {pra-updated}
+|===
+****
+
+== Summary
+
+*ADRs (Architecture Decision Records)* are a structured way to document important architectural decisions and their context. This PRA standardizes the ADR creation and maintenance process.
+
+== Application Context
+
+=== When to use
+
+* Significant architectural decision to document
+* Technology choice impacting the organization
+* Need for traceability of past decisions
+
+=== When NOT to use
+
+* Trivial or effortlessly reversible decisions
+* Choices already documented in an existing ADR
+
+== Problem Solved
+
+* Undocumented architectural decisions
+* Loss of context over time
+* Difficulty understanding "why" a decision was made
+
+== Solution
+
+=== Architecture
+
+Standardized process for:
+
+* Documenting each significant decision
+* Capturing context and alternatives
+* Maintaining a decision history
+
+=== ADR Template
+
+[source,markdown]
+----
+# ADR-XXX: Decision Title
+
+## Status
+Proposed | Accepted | Deprecated | Superseded by ADR-YYY
+
+## Context
+What is the problem or situation?
+
+## Decision
+What is the decision made?
+
+## Consequences
+What are the positive and negative impacts?
+
+## Alternatives Considered
+What other options were evaluated?
+----
+
+=== Workflow
+
+[source]
+----
+┌──────────┐    ┌──────────┐    ┌──────────┐
+│ Proposed │ → │ Review   │ → │ Accepted │
+└──────────┘    └──────────┘    └──────────┘
+                     ↓
+               ┌──────────┐
+               │ Rejected │
+               └──────────┘
+----
+
+== Architectural Decisions (ADR)
+
+_No ADR documented yet._
+
+== Implementation
+
+=== Best Practices
+
+. *One ADR = One decision* — Stay focused
+. *Immutable* — Don't modify, create a new ADR
+. *Rich context* — Document the "why"
+. *Links* — Reference related ADRs
+
+== Production Feedback (Proven-in-use)
+
+_No production feedback documented yet._
+
+== Limitations and Pitfalls
+
+* Process under validation
+* Requires documentation discipline from teams
+
+== References
+
+_No references documented yet._

@@ -25,7 +25,7 @@ Si le fichier config n'existe pas, chercher un `*.config.yml` à la racine.
 Lire `pra-registry.config.yml` à la racine du repo. Extraire le chemin racine des PRAs (`paths.pras`), les langues, la terminologie des statuts, et les seuils de gouvernance.
 
 ### Step 1 : Découvrir la structure du registre
-Explorer le chemin des PRAs pour découvrir les scopes, archétypes et statuts réels. La structure est `scope/archetype/fichier.adoc` pour bank-wide et `scope/domaine/fichier.adoc` pour domain-wide. Le statut est uniquement dans l'attribut `:pra-status:` du fichier.
+Explorer le chemin des PRAs pour découvrir les scopes, archétypes et statuts réels. La structure est `scope/archetype/fichier.adoc` pour transversale et `scope/domaine/fichier.adoc` pour par-domaine. Le statut est uniquement dans l'attribut `:pra-status:` du fichier.
 
 ### Step 2 : Comprendre la demande
 Identifier ce que l'utilisateur cherche : pattern spécifique, recommandation, comparaison, ou retours d'expérience.

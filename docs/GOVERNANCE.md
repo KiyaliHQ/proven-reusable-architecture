@@ -155,10 +155,10 @@ git checkout -b pra/nouveau-pra-nom-descriptif
 
 ```bash
 # Pour un PRA candidat
-cp templates/pra-template.md content/pras/fr/bank-wide/[category]/operationalizing/[pra-name].md
+cp templates/pra-template.md content/pras/fr/transversale/[category]/operationalizing/[pra-name].md
 
 # Créer la version anglaise
-cp templates/pra-template.md content/pras/en/bank-wide/[category]/operationalizing/[pra-name].md
+cp templates/pra-template.md content/pras/en/transversale/[category]/operationalizing/[pra-name].md
 ```
 
 ### Étape 4 : Remplissage
@@ -172,7 +172,7 @@ cp templates/pra-template.md content/pras/en/bank-wide/[category]/operationalizi
 
 ```bash
 # Validation métadonnées YAML
-./scripts/validate-metadata.sh content/pras/fr/bank-wide/[category]/operationalizing/[pra-name].md
+./scripts/validate-metadata.sh content/pras/fr/transversale/[category]/operationalizing/[pra-name].md
 
 # Validation liens Markdown
 # (manuel ou via outil)
@@ -260,7 +260,7 @@ Une fois approuvé :
 1. **Initiation** : Mainteneur ou contributeur crée une PR
    ```bash
    git checkout -b pra/promote-pra-xxx-to-approved
-   git mv content/pras/fr/bank-wide/[category]/operationalizing/[pra-name].md content/pras/fr/bank-wide/[category]/operationalized/[pra-name].md
+   git mv content/pras/fr/transversale/[category]/operationalizing/[pra-name].md content/pras/fr/transversale/[category]/operationalized/[pra-name].md
    ```
 
 2. **Mise à jour métadonnées**

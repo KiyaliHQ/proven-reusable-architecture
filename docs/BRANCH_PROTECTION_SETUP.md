@@ -110,7 +110,7 @@ When a contributor submits a PR with only `/content/` changes:
 4. ✅ Requires 2 approvals from appropriate governance team
 5. ✅ PR can be merged after approvals
 
-**Example PR**: Adding a new PRA in `/content/pras/fr/bank-wide/tech/operationalizing/`
+**Example PR**: Adding a new PRA in `/content/pras/fr/transversale/tech/operationalizing/`
 - No framework files touched
 - Workflow assigns `@KiyaliHQ/comite-architectes-experts`
 - Committee approves via GitHub reviews
@@ -253,7 +253,7 @@ Replace `KiyaliHQ` with your bank's organization name in:
 
 Create these teams in the bank's GitHub organization:
 - `pra-development-team` - Framework developers
-- `comite-architectes-experts` - Expert architects committee (Bank-Wide PRAs)
+- `comite-architectes-experts` - Expert architects committee (Transversale PRAs)
 - `comite-gov-particuliers` - Retail banking governance
 - `comite-gov-entreprises` - Corporate banking governance
 - `comite-gov-patrimoine` - Wealth management governance

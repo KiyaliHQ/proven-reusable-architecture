@@ -1,4 +1,4 @@
-## 🚀 Promotion PRA Domaine → Bank-Wide
+## 🚀 Promotion PRA Domaine → Transversale
 
 ### Informations
 
@@ -20,7 +20,7 @@
 - [ ] Documentation enrichie avec **learnings multi-contextes**
 - [ ] Section dédiée à l'**applicabilité multi-domaine**
 - [ ] Exemples couvrant **différents cas d'usage**
-- [ ] ADRs mis à jour pour contexte bank-wide
+- [ ] ADRs mis à jour pour contexte transversale
 
 **Validation** :
 - [ ] **Approbation obtenue** du Comité de Gouvernance du domaine d'origine
@@ -46,7 +46,7 @@
 - Les patterns réutilisables identifiés
 -->
 
-**Bénéfices attendus bank-wide** :
+**Bénéfices attendus transversale** :
 
 <!-- Liste des bénéfices pour l'ensemble de la banque -->
 
@@ -110,7 +110,7 @@
 Le processus de promotion nécessite une review approfondie pour s'assurer :
 - De la réutilisabilité cross-domaine
 - De l'absence d'assumptions domain-specific
-- De l'alignement avec les standards bank-wide
+- De l'alignement avec les standards transversale
 
 ---
 
@@ -118,7 +118,7 @@ Le processus de promotion nécessite une review approfondie pour s'assurer :
 
 - [Processus de Promotion](/site/content/en/guides/07-promotion-process.md)
 - [Gouvernance](/site/content/en/guides/08-governance.md)
-- [Standards Bank-Wide](/site/content/en/guides/05-standards.md)
+- [Standards Transversale](/site/content/en/guides/05-standards.md)
 
 ---
 

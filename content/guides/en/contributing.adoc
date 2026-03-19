@@ -26,19 +26,19 @@ Submit a *Domain PRA* if your pattern:
 * Has at least *1 proven-in-use within your domain*
 * Will be reviewed by your *Domain Governance Committee*
 
-=== Bank-Wide PRA
+=== Transversal PRA
 
-Submit a *Bank-Wide PRA* if your pattern:
+Submit a *Transversal PRA* if your pattern:
 
 * Is applicable across *multiple domains*
 * Has demonstrated *multi-domain applicability*
 * Has at least *1 proven-in-use* (with clear multi-domain potential)
 * Will be reviewed by the *Expert Architects Governance Committee*
 
-*Note*: Most PRAs start as Domain PRAs. Bank-Wide PRAs typically come from:
+*Note*: Most PRAs start as Domain PRAs. Transversal PRAs typically come from:
 
-* Cross-cutting teams (Software Engineering, Security, etc.) - /guides/08-governance#-flow-2-top-down-cross-cutting-teams--bank-wide[*Flow 2*]
-* Domain PRAs promoted to Bank-Wide - /guides/08-governance#-flow-1-organic-domain--bank-wide[*Flow 1*]
+* Cross-cutting teams (Software Engineering, Security, etc.) - /guides/08-governance#-flow-2-top-down-cross-cutting-teams--transversal[*Flow 2*]
+* Domain PRAs promoted to Transversal - /guides/08-governance#-flow-1-organic-domain--transversal[*Flow 1*]
 * Bootstrap initiative (transitional) - /guides/08-governance#-flow-3-bootstrap-transitional[*Flow 3*]
 
 == Submission Process
@@ -64,31 +64,31 @@ git checkout -b feature/pra-your-pra-name
 
 ==== Directory Structure
 
-* *Bank-Wide PRA*: `content/pras/{lang}/bank-wide/{category}/operationalizing/pra-name.md`
-* *Domain-Wide PRA*: `content/pras/{lang}/domain-wide/{domain}/{category}/operationalizing/pra-name.md`
+* *Transversal PRA*: `content/pras/{lang}/transversal/{category}/operationalizing/pra-name.md`
+* *By Domain PRA*: `content/pras/{lang}/by-domain/{domain}/{category}/operationalizing/pra-name.md`
 
 Where:
 
 * `{lang}` = `fr` or `en`
-* `{category}` = PRA category (e.g., `ctp`, `software-engineering`, `pratique-architecture` for Bank-Wide; plus `application`, `business`, `data`, `integration`, `security`, `technology` for Domain-Wide)
-* `{domain}` = `particuliers`, `entreprises`, or `gestion-patrimoine` (if domain-wide)
+* `{category}` = PRA category (e.g., `ctp`, `software-engineering`, `pratique-architecture` for Transversal; plus `application`, `business`, `data`, `integration`, `security`, `technology` for By Domain)
+* `{domain}` = `particuliers`, `entreprises`, or `gestion-patrimoine` (if by-domain)
 
 ==== Examples
 
-*Bank-Wide CTP PRA* (applicable to all sectors):
+*Transversal CTP PRA* (applicable to all sectors):
 
 [source,bash]
 ----
-content/pras/fr/bank-wide/ctp/operationalizing/api-gateway-pattern.md
-content/pras/en/bank-wide/ctp/operationalizing/api-gateway-pattern.md
+content/pras/fr/transversal/ctp/operationalizing/api-gateway-pattern.md
+content/pras/en/transversal/ctp/operationalizing/api-gateway-pattern.md
 ----
 
-*Domain-Wide Security PRA* (Retail):
+*By Domain Security PRA* (Retail):
 
 [source,bash]
 ----
-content/pras/fr/domain-wide/particuliers/security/operationalizing/kyc-verification.md
-content/pras/en/domain-wide/particuliers/security/operationalizing/kyc-verification.md
+content/pras/fr/by-domain/particuliers/security/operationalizing/kyc-verification.md
+content/pras/en/by-domain/particuliers/security/operationalizing/kyc-verification.md
 ----
 
 === 4. Use the Template
@@ -147,7 +147,7 @@ pra:
 [source,bash]
 ----
 git add content/pras/fr/ content/pras/en/
-git commit -m "feat: add PRA - PRA Name (Bank-Wide Tech Candidate)"
+git commit -m "feat: add PRA - PRA Name (Transversal Tech Candidate)"
 git push origin feature/pra-your-pra-name
 ----
 
@@ -164,15 +164,15 @@ Then create a Pull Request on GitHub.
 * FR and EN versions present
 
 . *Assign reviewers*
-* *Bank-Wide* -> `@KiyaliHQ/comite-architectes-experts`
-* *Domain-Wide Particuliers* -> `@KiyaliHQ/comite-gov-particuliers`
-* *Domain-Wide Entreprises* -> `@KiyaliHQ/comite-gov-entreprises`
-* *Domain-Wide Patrimoine* -> `@KiyaliHQ/comite-gov-patrimoine`
+* *Transversal* -> `@KiyaliHQ/comite-architectes-experts`
+* *By Domain Particuliers* -> `@KiyaliHQ/comite-gov-particuliers`
+* *By Domain Entreprises* -> `@KiyaliHQ/comite-gov-entreprises`
+* *By Domain Patrimoine* -> `@KiyaliHQ/comite-gov-patrimoine`
 
 . *Post status comment*
 * Validation checklist
 * Next steps
-* Timeline (2-4 weeks for Bank-Wide, 5-10 days for Domain-Wide)
+* Timeline (2-4 weeks for Transversal, 5-10 days for By Domain)
 
 WARNING: *Framework Protection*: You can only modify files in `content/`. Any modifications outside this directory (`site/`, `.github/`, `docs/`, etc.) will be automatically blocked.
 
@@ -191,7 +191,7 @@ GitHub Actions automatically checks:
 
 === 2. Governance Committee Review
 
-*For Domain-Wide PRAs* (Retail, Corporate, Wealth Management):
+*For By Domain PRAs* (Retail, Corporate, Wealth Management):
 
 * *Committee meeting*: You will be invited to present your PRA
 * *Presentation*: Explain the context, architecture, and benefits
@@ -200,7 +200,7 @@ GitHub Actions automatically checks:
 * *GitHub Approvals*: 2 approvals required from `@KiyaliHQ/comite-gov-{domain}`
 * *Timeline*: 5-10 business days
 
-*For Bank-Wide PRAs* (Cross-cutting):
+*For Transversal PRAs* (Cross-cutting):
 
 * *Expert committee meeting*: You will be invited to present your PRA
 * *Presentation*: Explain the context, architecture, and benefits
@@ -260,9 +260,9 @@ For a Domain Candidate PRA to become *Domain Approved*, it must:
 * Confirmed reusability within the domain
 * Review and approval by *Domain Governance Committee*
 
-=== Bank-Wide PRA: Candidate -> Approved
+=== Transversal PRA: Candidate -> Approved
 
-For a Bank-Wide Candidate PRA to become *Bank-Wide Approved*, it must:
+For a Transversal Candidate PRA to become *Transversal Approved*, it must:
 
 * Have *3+ proven implementations from different domains/teams*
 * Positive multi-domain feedback (satisfaction > 7/10)

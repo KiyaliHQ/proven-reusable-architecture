@@ -5,7 +5,7 @@
 # Handles:
 #   - Sanitizing broken link: references (link:/, link:../path.ext)
 #   - Adding (EN) suffix to EN page titles to avoid Confluence title conflicts
-#   - Creating intermediate hierarchy pages (PRAs, Bank-Wide, Domain-Wide, etc.)
+#   - Creating intermediate hierarchy pages (PRAs, Transversale, Par Domaine, etc.)
 #   - Publishing each leaf directory under the correct parent page
 #
 # Required environment variables:
@@ -184,14 +184,14 @@ echo "--- Step 1: Create/find hierarchy pages ---"
 # FR hierarchy
 FR_PRAS=$(create_or_find_page "PRAs — FR" "$CONFLUENCE_ANCESTOR_FR")
 log "PAGE" "PRAs — FR → $FR_PRAS"
-FR_BW=$(create_or_find_page "Bank-Wide — FR" "$FR_PRAS")
-log "PAGE" "  Bank-Wide — FR → $FR_BW"
+FR_BW=$(create_or_find_page "Transversale — FR" "$FR_PRAS")
+log "PAGE" "  Transversale — FR → $FR_BW"
 FR_BW_APP=$(create_or_find_page "Application — FR" "$FR_BW")
 FR_BW_DEV=$(create_or_find_page "DevOps — FR" "$FR_BW")
 FR_BW_TECH=$(create_or_find_page "Technology — FR" "$FR_BW")
 log "PAGE" "    Application=$FR_BW_APP DevOps=$FR_BW_DEV Technology=$FR_BW_TECH"
-FR_DW=$(create_or_find_page "Domain-Wide — FR" "$FR_PRAS")
-log "PAGE" "  Domain-Wide — FR → $FR_DW"
+FR_DW=$(create_or_find_page "Par Domaine — FR" "$FR_PRAS")
+log "PAGE" "  Par Domaine — FR → $FR_DW"
 FR_DW_ENT=$(create_or_find_page "Entreprises — FR" "$FR_DW")
 FR_DW_GP=$(create_or_find_page "Gestion Patrimoine — FR" "$FR_DW")
 FR_DW_PART=$(create_or_find_page "Particuliers — FR" "$FR_DW")
@@ -202,14 +202,14 @@ log "PAGE" "Guides — FR → $FR_GUIDES"
 # EN hierarchy
 EN_PRAS=$(create_or_find_page "PRAs — EN" "$CONFLUENCE_ANCESTOR_EN")
 log "PAGE" "PRAs — EN → $EN_PRAS"
-EN_BW=$(create_or_find_page "Bank-Wide — EN" "$EN_PRAS")
-log "PAGE" "  Bank-Wide — EN → $EN_BW"
+EN_BW=$(create_or_find_page "Transversal — EN" "$EN_PRAS")
+log "PAGE" "  Transversal — EN → $EN_BW"
 EN_BW_APP=$(create_or_find_page "Application — EN" "$EN_BW")
 EN_BW_DEV=$(create_or_find_page "DevOps — EN" "$EN_BW")
 EN_BW_TECH=$(create_or_find_page "Technology — EN" "$EN_BW")
 log "PAGE" "    Application=$EN_BW_APP DevOps=$EN_BW_DEV Technology=$EN_BW_TECH"
-EN_DW=$(create_or_find_page "Domain-Wide — EN" "$EN_PRAS")
-log "PAGE" "  Domain-Wide — EN → $EN_DW"
+EN_DW=$(create_or_find_page "By Domain — EN" "$EN_PRAS")
+log "PAGE" "  By Domain — EN → $EN_DW"
 EN_DW_ENT=$(create_or_find_page "Entreprises — EN" "$EN_DW")
 EN_DW_GP=$(create_or_find_page "Gestion Patrimoine — EN" "$EN_DW")
 EN_DW_PART=$(create_or_find_page "Particuliers — EN" "$EN_DW")
@@ -223,21 +223,21 @@ echo ""
 echo "--- Step 2: Sanitize content ---"
 
 # FR PRAs (strip broken links only)
-sanitize_dir "$WORK_DIR/content/pras/fr/bank-wide/application"        "$TMP_DIR/fr/bw-app"
-sanitize_dir "$WORK_DIR/content/pras/fr/bank-wide/devops"             "$TMP_DIR/fr/bw-dev"
-sanitize_dir "$WORK_DIR/content/pras/fr/bank-wide/technology"         "$TMP_DIR/fr/bw-tech"
-sanitize_dir "$WORK_DIR/content/pras/fr/domain-wide/entreprises"      "$TMP_DIR/fr/dw-ent"
-sanitize_dir "$WORK_DIR/content/pras/fr/domain-wide/gestion-patrimoine" "$TMP_DIR/fr/dw-gp"
-sanitize_dir "$WORK_DIR/content/pras/fr/domain-wide/particuliers"     "$TMP_DIR/fr/dw-part"
+sanitize_dir "$WORK_DIR/content/pras/fr/transversale/application"        "$TMP_DIR/fr/bw-app"
+sanitize_dir "$WORK_DIR/content/pras/fr/transversale/devops"             "$TMP_DIR/fr/bw-dev"
+sanitize_dir "$WORK_DIR/content/pras/fr/transversale/technology"         "$TMP_DIR/fr/bw-tech"
+sanitize_dir "$WORK_DIR/content/pras/fr/par-domaine/entreprises"      "$TMP_DIR/fr/dw-ent"
+sanitize_dir "$WORK_DIR/content/pras/fr/par-domaine/gestion-patrimoine" "$TMP_DIR/fr/dw-gp"
+sanitize_dir "$WORK_DIR/content/pras/fr/par-domaine/particuliers"     "$TMP_DIR/fr/dw-part"
 sanitize_dir "$WORK_DIR/content/guides/fr"                            "$TMP_DIR/fr/guides"
 
 # EN PRAs (strip broken links + add EN suffix to titles)
-sanitize_dir "$WORK_DIR/content/pras/en/bank-wide/application"        "$TMP_DIR/en/bw-app"    true
-sanitize_dir "$WORK_DIR/content/pras/en/bank-wide/devops"             "$TMP_DIR/en/bw-dev"    true
-sanitize_dir "$WORK_DIR/content/pras/en/bank-wide/technology"         "$TMP_DIR/en/bw-tech"   true
-sanitize_dir "$WORK_DIR/content/pras/en/domain-wide/entreprises"      "$TMP_DIR/en/dw-ent"    true
-sanitize_dir "$WORK_DIR/content/pras/en/domain-wide/gestion-patrimoine" "$TMP_DIR/en/dw-gp"   true
-sanitize_dir "$WORK_DIR/content/pras/en/domain-wide/particuliers"     "$TMP_DIR/en/dw-part"   true
+sanitize_dir "$WORK_DIR/content/pras/en/transversal/application"        "$TMP_DIR/en/bw-app"    true
+sanitize_dir "$WORK_DIR/content/pras/en/transversal/devops"             "$TMP_DIR/en/bw-dev"    true
+sanitize_dir "$WORK_DIR/content/pras/en/transversal/technology"         "$TMP_DIR/en/bw-tech"   true
+sanitize_dir "$WORK_DIR/content/pras/en/by-domain/entreprises"      "$TMP_DIR/en/dw-ent"    true
+sanitize_dir "$WORK_DIR/content/pras/en/by-domain/gestion-patrimoine" "$TMP_DIR/en/dw-gp"   true
+sanitize_dir "$WORK_DIR/content/pras/en/by-domain/particuliers"     "$TMP_DIR/en/dw-part"   true
 sanitize_dir "$WORK_DIR/content/guides/en"                            "$TMP_DIR/en/guides"    true
 
 log "DONE" "Content sanitized in $TMP_DIR"
@@ -247,21 +247,21 @@ echo ""
 echo "--- Step 3: Publish content ---"
 
 # FR PRAs
-publish_dir "$TMP_DIR/fr/bw-app"  "$FR_BW_APP"  "FR/Bank-Wide/Application"
-publish_dir "$TMP_DIR/fr/bw-dev"  "$FR_BW_DEV"  "FR/Bank-Wide/DevOps"
-publish_dir "$TMP_DIR/fr/bw-tech" "$FR_BW_TECH" "FR/Bank-Wide/Technology"
-publish_dir "$TMP_DIR/fr/dw-ent"  "$FR_DW_ENT"  "FR/Domain-Wide/Entreprises"
-publish_dir "$TMP_DIR/fr/dw-gp"   "$FR_DW_GP"   "FR/Domain-Wide/Gestion Patrimoine"
-publish_dir "$TMP_DIR/fr/dw-part" "$FR_DW_PART" "FR/Domain-Wide/Particuliers"
+publish_dir "$TMP_DIR/fr/bw-app"  "$FR_BW_APP"  "FR/Transversale/Application"
+publish_dir "$TMP_DIR/fr/bw-dev"  "$FR_BW_DEV"  "FR/Transversale/DevOps"
+publish_dir "$TMP_DIR/fr/bw-tech" "$FR_BW_TECH" "FR/Transversale/Technology"
+publish_dir "$TMP_DIR/fr/dw-ent"  "$FR_DW_ENT"  "FR/Par Domaine/Entreprises"
+publish_dir "$TMP_DIR/fr/dw-gp"   "$FR_DW_GP"   "FR/Par Domaine/Gestion Patrimoine"
+publish_dir "$TMP_DIR/fr/dw-part" "$FR_DW_PART" "FR/Par Domaine/Particuliers"
 publish_dir "$TMP_DIR/fr/guides"  "$FR_GUIDES"  "FR/Guides"
 
 # EN PRAs
-publish_dir "$TMP_DIR/en/bw-app"  "$EN_BW_APP"  "EN/Bank-Wide/Application"
-publish_dir "$TMP_DIR/en/bw-dev"  "$EN_BW_DEV"  "EN/Bank-Wide/DevOps"
-publish_dir "$TMP_DIR/en/bw-tech" "$EN_BW_TECH" "EN/Bank-Wide/Technology"
-publish_dir "$TMP_DIR/en/dw-ent"  "$EN_DW_ENT"  "EN/Domain-Wide/Entreprises"
-publish_dir "$TMP_DIR/en/dw-gp"   "$EN_DW_GP"   "EN/Domain-Wide/Gestion Patrimoine"
-publish_dir "$TMP_DIR/en/dw-part" "$EN_DW_PART" "EN/Domain-Wide/Particuliers"
+publish_dir "$TMP_DIR/en/bw-app"  "$EN_BW_APP"  "EN/Transversal/Application"
+publish_dir "$TMP_DIR/en/bw-dev"  "$EN_BW_DEV"  "EN/Transversal/DevOps"
+publish_dir "$TMP_DIR/en/bw-tech" "$EN_BW_TECH" "EN/Transversal/Technology"
+publish_dir "$TMP_DIR/en/dw-ent"  "$EN_DW_ENT"  "EN/By Domain/Entreprises"
+publish_dir "$TMP_DIR/en/dw-gp"   "$EN_DW_GP"   "EN/By Domain/Gestion Patrimoine"
+publish_dir "$TMP_DIR/en/dw-part" "$EN_DW_PART" "EN/By Domain/Particuliers"
 publish_dir "$TMP_DIR/en/guides"  "$EN_GUIDES"  "EN/Guides"
 
 echo ""

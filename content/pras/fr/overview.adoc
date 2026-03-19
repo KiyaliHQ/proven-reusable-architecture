@@ -111,10 +111,10 @@ Le registre est organisé en deux scopes. Les 7 archétypes sont communs à tous
 |===
 | Scope | Description
 
-| *Bank-Wide*
+| *Transversale*
 | Transversal — Validé pour tous les domaines. 3+ proven-in-use requis.
 
-| *Domain-Wide*
+| *Par Domaine*
 | Par domaine — Particuliers, Entreprises, Gestion Patrimoine, Carte, etc. 1+ proven-in-use.
 |===
 
@@ -140,7 +140,7 @@ Chaque PRA suit un template standardisé en AsciiDoc (`.adoc`) avec des métadon
 
 | `:pra-archetype:` | `integration`
 | `:pra-status:` | `operationalizing`
-| `:pra-scope:` | `domain-wide`
+| `:pra-scope:` | `par-domaine`
 | `:pra-origin:` | `particuliers`
 | `:pra-tags:` | `api, gateway, kong`
 | `:pra-version:` | `1.0.0`
@@ -183,7 +183,7 @@ skinparam ArrowColor #333333
 
 rectangle "Registre\nPRA" as reg #c8102e
 
-rectangle "Bank-Wide" as bw #e8f5e9 {
+rectangle "Transversale" as bw #e8f5e9 {
   rectangle "Architecture\nde solutions" as bw1 #ffffff
   rectangle "Software\nEngineering" as bw2 #ffffff
   rectangle "Cloud\nTransformation" as bw3 #ffffff
@@ -192,7 +192,7 @@ rectangle "Bank-Wide" as bw #e8f5e9 {
   rectangle "DevOps" as bw6 #ffffff
 }
 
-rectangle "Domain-Wide" as dw #e3f2fd {
+rectangle "Par Domaine" as dw #e3f2fd {
   rectangle "Particuliers" as dw1 #ffffff
   rectangle "Entreprises" as dw2 #ffffff
   rectangle "Gestion\nPatrimoine" as dw3 #ffffff
@@ -279,7 +279,7 @@ end note
 
 [cols="1,1,1", options="header"]
 |===
-| Bank-Wide | Domain-Wide | Équipe Core
+| Transversale | Par Domaine | Équipe Core
 
 | Comité Architectes Experts +
 5-7 experts cross-domaines +
@@ -301,8 +301,8 @@ Features via GitHub Issues
 |===
 | Fichier modifié | Reviewers | Équipe
 
-| `content/pras/*/bank-wide/` | `@comité-architectes-experts` | Bank-Wide
-| `content/pras/*/domain-wide/particuliers/` | `@comité-gov-particuliers` | Domain-Wide
+| `content/pras/*/transversale/` | `@comité-architectes-experts` | Transversale
+| `content/pras/*/par-domaine/particuliers/` | `@comité-gov-particuliers` | Par Domaine
 | `.github/` · `build/` · `scripts/` · `*.yml` | `@pra-core-team` | Core
 |===
 
@@ -332,7 +332,7 @@ s1 --> Operationalizing : Approuvé
 
 state "Operationalizing" as s2 #e3f2fd : 1+ proven-in-use\nCollecte de retours
 
-s2 --> Operationalized : Critères atteints\n(3+ bank-wide)
+s2 --> Operationalized : Critères atteints\n(3+ transversale)
 
 state "Operationalized" as s3 #e8f5e9 : Pattern recommandé\nMaintenance active
 
@@ -344,7 +344,7 @@ s4 --> [*]
 @enduml
 ----
 
-*Promotion Domain-Wide → Bank-Wide :* Même processus que la contribution initiale — PRA prouvé dans 3+ projets multi-domaines → PR de promotion → Comité Experts review + cérémonie → Approuvé = Bank-Wide.
+*Promotion Par Domaine → Transversale :* Même processus que la contribution initiale — PRA prouvé dans 3+ projets multi-domaines → PR de promotion → Comité Experts review + cérémonie → Approuvé = Transversale.
 
 == Pipeline CI/CD
 

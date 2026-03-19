@@ -57,17 +57,17 @@ GOV_DOM ..> GOV_BW
 * Approve transition to Approved status (domain level)
 * *Threshold*: 2 approvals required in domain committee
 
-==== 3. Identify Bank-Wide Candidates
+==== 3. Identify Transversal Candidates
 
 * Identify domain PRAs reusable outside the domain
-* Propose Domain -> Bank-Wide promotions
+* Propose Domain -> Transversal promotions
 * Provide justification and proof of reusability
 
 ==== 4. Local Maintenance
 
 * Quarterly review of domain PRAs
 * Identify obsolete PRAs in the domain
-* Adapt Bank-Wide standards to domain context
+* Adapt Transversal standards to domain context
 
 === Meetings
 
@@ -76,7 +76,7 @@ GOV_DOM ..> GOV_BW
 * *Typical agenda*:
 ** Review new domain submissions (30 min)
 ** Candidate domain PRA follow-up (15 min)
-** Bank-Wide candidate identification (10 min)
+** Transversal candidate identification (10 min)
 ** Miscellaneous questions (5 min)
 
 === Expected Commitment
@@ -97,33 +97,33 @@ GOV_DOM ..> GOV_BW
 
 === Responsibilities
 
-==== 1. Review Bank-Wide PRAs
+==== 1. Review Transversal PRAs
 
-* Evaluate Bank-Wide standard PRAs (Flow 2: cross-cutting teams)
-* Evaluate Domain -> Bank-Wide promotions (Flow 1)
+* Evaluate Transversal standard PRAs (Flow 2: cross-cutting teams)
+* Evaluate Domain -> Transversal promotions (Flow 1)
 * Manage Bootstrap: identify and validate priorities (Flow 3)
 * *Timeline*: Review within 2 weeks
 
-==== 2. Approve Bank-Wide PRAs
+==== 2. Approve Transversal PRAs
 
-*For Bank-Wide PRAs Approved*:
+*For Transversal PRAs Approved*:
 
 * Verify 3+ proven-in-use (different domains/teams)
 * Validate multi-domain applicability
 * Verify compliance with BNC target architecture
-* Approve transition to Bank-Wide Approved status
+* Approve transition to Transversal Approved status
 * *Threshold*: 2 approvals required in committee
 
 ==== 3. Strategic Governance
 
-* Approve Domain -> Bank-Wide promotions
-* Approve Bank-Wide deprecations (with multi-domain consultation)
+* Approve Domain -> Transversal promotions
+* Approve Transversal deprecations (with multi-domain consultation)
 * Validate new standards from cross-cutting teams
 * Arbitrate cross-domain conflicts
 
 ==== 4. Bootstrap and Prioritization
 
-* Identify priority Bank-Wide topics
+* Identify priority Transversal topics
 * Search for existing candidates in domains
 * Validate direct promotion (bypass standard Domain process)
 * *Note*: Transitional flow, will decrease as registry matures
@@ -133,8 +133,8 @@ GOV_DOM ..> GOV_BW
 * *Frequency*: Biweekly (every 2 weeks)
 * *Duration*: 1.5 hours maximum
 * *Typical agenda*:
-** Review Bank-Wide PRAs (Flow 2) (30 min)
-** Review Domain -> Bank-Wide promotions (Flow 1) (30 min)
+** Review Transversal PRAs (Flow 2) (30 min)
+** Review Domain -> Transversal promotions (Flow 1) (30 min)
 ** Bootstrap and priorities (Flow 3) (20 min)
 ** Strategic topics (10 min)
 
@@ -333,9 +333,9 @@ Architects designated as responsible for one or more specific PRAs.
 | Submit Domain PRA | C | I | I | *R* | I | I
 | Review Domain PRA | *R/A* | I | C | C | I | I
 | Approve Domain PRA | *A* | I | I | I | C | I
-| Submit Bank-Wide PRA | I | C | I | *R* | I | I
-| Review Bank-Wide PRA | I | *R/A* | C | C | I | I
-| Approve Bank-Wide PRA | I | *A* | I | I | C | I
+| Submit Transversal PRA | I | C | I | *R* | I | I
+| Review Transversal PRA | I | *R/A* | C | C | I | I
+| Approve Transversal PRA | I | *A* | I | I | C | I
 | Propose Domain->BW promotion | *R* | C | I | C | C | I
 | Approve Domain->BW promotion | C | *A* | I | C | C | I
 | Bootstrap (identify priorities) | C | *R/A* | C | I | I | I
@@ -343,7 +343,7 @@ Architects designated as responsible for one or more specific PRAs.
 | Maintain PRA | I | I | C | I | *R/A* | C
 | Use PRA | I | I | I | I | C | *R/A*
 | Deprecate Domain PRA | *A* | I | C | C | R | C
-| Deprecate Bank-Wide PRA | C | *A* | C | C | R | C
+| Deprecate Transversal PRA | C | *A* | C | C | R | C
 | Train community | I | I | *R/A* | C | C | I
 |===
 

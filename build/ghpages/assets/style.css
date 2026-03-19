@@ -498,7 +498,7 @@ table.tableblock tbody tr:hover { background: #fef7f7; }
 .badge-operationalizing { background: var(--amber-50); color: var(--amber-700); border: 1px solid var(--amber-200); }
 .badge-operationalized  { background: var(--green-50); color: var(--green-700); border: 1px solid var(--green-200); }
 .badge-deprecated       { background: var(--gray-50); color: var(--gray-500); border: 1px solid var(--gray-200); }
-.badge-scope, .badge-bank-wide, .badge-domain-wide {
+.badge-scope, .badge-transversale, .badge-par-domaine {
   background: var(--blue-50);
   color: var(--blue-700);
   border: 1px solid var(--blue-100);

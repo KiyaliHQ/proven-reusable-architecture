@@ -53,7 +53,7 @@ A quality PRA must be:
 * Migration guide (if applicable)
 * FAQ based on experience
 
-=== For a Bank-Wide PRA Candidate
+=== For a Transversal PRA Candidate
 
 ==== Mandatory Criteria
 
@@ -101,7 +101,7 @@ A quality PRA must be:
 * No major negative feedback
 * Recommended by domain peers
 
-=== For a Bank-Wide PRA Approved
+=== For a Transversal PRA Approved
 
 ==== Mandatory Criteria (in addition to Candidate)
 
@@ -355,7 +355,7 @@ Before submitting a PRA, verify:
 
 * Required minimum documented:
 ** Domain PRA: 1+ for Candidate and Approved
-** Bank-Wide PRA: 1+ for Candidate, 3+ (multi-domain) for Approved
+** Transversal PRA: 1+ for Candidate, 3+ (multi-domain) for Approved
 * Real named projects
 * Feedback with metrics
 * Recent dates (< 2 years)

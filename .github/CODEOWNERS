@@ -27,7 +27,7 @@
 # ==============================================================================
 # PRA content and guides can be submitted by anyone
 # Governance committee reviewers are assigned automatically by the workflow
-# based on the PRA's scope and domain (bank-wide vs domain-wide)
+# based on the PRA's scope and domain (transversale vs par-domaine)
 
 # No specific owners - allows any contributor to modify
 # Reviewer assignment is handled by pra-candidate-validate-submission.yml workflow

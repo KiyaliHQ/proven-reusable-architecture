@@ -48,19 +48,19 @@ proven-reusable-architecture/
 │   │   └── en/                     # English guides
 │   └── pras/                       # PRAs (physically separated by language)
 │       ├── fr/                     # French PRAs
-│       │   ├── bank-wide/          # Cross-cutting (all sectors)
+│       │   ├── transversale/          # Cross-cutting (all sectors)
 │       │   │   ├── ctp/
 │       │   │   │   ├── operationalized/
 │       │   │   │   └── operationalizing/
 │       │   │   ├── software-engineering/
 │       │   │   └── pratique-architecture/
-│       │   └── domain-wide/        # Domain-specific
+│       │   └── par-domaine/        # Domain-specific
 │       │       ├── particuliers/   # Retail banking
 │       │       ├── entreprises/    # Corporate banking
 │       │       └── gestion-patrimoine/ # Wealth management
 │       └── en/                     # English PRAs (same structure)
-│           ├── bank-wide/
-│           └── domain-wide/
+│           ├── transversale/
+│           └── par-domaine/
 ├── docs/                           # 📖 DOCUMENTATION
 │   ├── DEVELOPER_GUIDE.md          # Comprehensive developer guide
 │   ├── QUICK_START.md              # 5-minute quick start
@@ -141,16 +141,16 @@ Bilingual documentation (FR/EN) with comprehensive guides:
 4. **Lifecycle** - From Candidate to Approved
 5. **Standards** - Quality criteria
 6. **Contributing** - Submission process
-7. **Promotion Process** - Domain → Bank-Wide
+7. **Promotion Process** - Domain → Transversale
 8. **Governance** - Decision-making structure
 
 **PRA Scopes**:
-- **Bank-Wide** (`bank-wide/`): Cross-cutting, validated for all sectors
-- **Domain-Wide** (`domain-wide/`): Domain-specific (Particuliers, Entreprises, Gestion de Patrimoine)
+- **Transversale** (`transversale/`): Cross-cutting, validated for all sectors
+- **Par Domaine** (`par-domaine/`): Domain-specific (Particuliers, Entreprises, Gestion de Patrimoine)
 
 **PRA Status**:
 - **Candidate**: 1+ proven-in-use implementation
-- **Approved**: 3+ proven-in-use for Bank-Wide, 1+ for Domain-Wide
+- **Approved**: 3+ proven-in-use for Transversale, 1+ for Par Domaine
 - **Deprecated**: Obsolete, archived
 
 ### 3. Homepage (`/`)
@@ -272,11 +272,11 @@ bash build/ghpages/build.sh    # Build static site → _site/
    content/
    └── pras/                       # PRAs (separated by language)
        ├── fr/                     # French PRAs
-       │   ├── bank-wide/          # Cross-cutting (all sectors)
+       │   ├── transversale/          # Cross-cutting (all sectors)
        │   │   └── [category]/     # ctp, software-engineering, pratique-architecture
        │   │       ├── operationalized/   # 3+ proven-in-use
        │   │       └── operationalizing/  # 1+ proven-in-use
-       │   └── domain-wide/        # Domain-specific
+       │   └── par-domaine/        # Domain-specific
        │       ├── particuliers/   # Retail banking
        │       ├── entreprises/    # Corporate banking
        │       └── gestion-patrimoine/ # Wealth management
@@ -284,8 +284,8 @@ bash build/ghpages/build.sh    # Build static site → _site/
    ```
 
    **IMPORTANT**: Use flat file structure
-   - ✅ Correct: `pras/fr/bank-wide/tech/operationalizing/my-pra.md`
-   - ❌ Incorrect: `pras/fr/bank-wide/tech/operationalizing/my-pra/page.md`
+   - ✅ Correct: `pras/fr/transversale/tech/operationalizing/my-pra.md`
+   - ❌ Incorrect: `pras/fr/transversale/tech/operationalizing/my-pra/page.md`
 
 2. **Create MDX file** with frontmatter:
    ```mdx
@@ -312,8 +312,8 @@ bash build/ghpages/build.sh    # Build static site → _site/
    ```
 
 3. **Create bilingual versions** (FR and EN):
-   - `content/pras/fr/bank-wide/tech/operationalizing/api-gateway.md`
-   - `content/pras/en/bank-wide/tech/operationalizing/api-gateway.md`
+   - `content/pras/fr/transversale/tech/operationalizing/api-gateway.md`
+   - `content/pras/en/transversale/tech/operationalizing/api-gateway.md`
 
 4. **The PRA will automatically appear** in:
    - Fumadocs navigation sidebar
@@ -622,7 +622,7 @@ pnpm build
 - **Keep ADRs immutable** (add new ones instead of modifying)
 - **Tag PRAs accurately** for better search results
 - **Create bilingual content** (FR and EN) for new PRAs
-- **Respect scope hierarchy**: Bank-Wide vs Domain-Wide
+- **Respect scope hierarchy**: Transversale vs Par Domaine
 
 ### Architecture Rules (ADRs)
 
@@ -639,10 +639,10 @@ pnpm build
 - Files MUST be `pra-name.md` at category level
 - NOT nested in `pra-name/page.md` subdirectories
 
-**ADR-004: Bank-Wide vs Domain-Wide**
-- `bank-wide/`: Cross-cutting (all sectors)
-- `domain-wide/`: Domain-specific (particuliers, entreprises, gestion-patrimoine)
-- Promotion = moving file from domain-wide/ to bank-wide/
+**ADR-004: Transversale vs Par Domaine**
+- `transversale/`: Cross-cutting (all sectors)
+- `par-domaine/`: Domain-specific (particuliers, entreprises, gestion-patrimoine)
+- Promotion = moving file from par-domaine/ to transversale/
 
 ---
 
@@ -691,4 +691,4 @@ For complete ADR documentation with context, rationale, and consequences, see `/
 1. **ADR-001: Physical FR/EN Separation** - Separate `pras/fr/` and `pras/en/` directories
 2. **ADR-002: Simplified Collections** - 2 PRA collections instead of 24
 3. **ADR-003: Flat File Structure** - `pra-name.md` instead of `pra-name/page.md`
-4. **ADR-004: Bank-Wide vs Domain-Wide** - Scope-based organization reflecting governance
+4. **ADR-004: Transversale vs Par Domaine** - Scope-based organization reflecting governance

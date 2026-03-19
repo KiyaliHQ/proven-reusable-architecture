@@ -1,14 +1,14 @@
-= Processus de Promotion (Domaine -> Bank-Wide)
+= Processus de Promotion (Domaine -> Transversale)
 :page-title: Processus de Promotion
-:keywords: pra, guide, promotion, domaine, bank-wide
+:keywords: pra, guide, promotion, domaine, transversale
 
-*Ceci represente le Flow 1* des trois flows de creation de PRA decrits dans link:governance.adoc[Gouvernance]. C'est le flow organique, bottom-up ou les PRAs Domaine sont identifies comme ayant une valeur multi-domaine et promus au statut Bank-Wide.
+*Ceci represente le Flow 1* des trois flows de creation de PRA decrits dans link:governance.adoc[Gouvernance]. C'est le flow organique, bottom-up ou les PRAs Domaine sont identifies comme ayant une valeur multi-domaine et promus au statut Transversale.
 
-Ce document decrit le processus permettant de promouvoir un patron Domaine au niveau Bank-Wide, le rendant ainsi applicable a tous les domaines de l'organisation.
+Ce document decrit le processus permettant de promouvoir un patron Domaine au niveau Transversale, le rendant ainsi applicable a tous les domaines de l'organisation.
 
 == Vue d'ensemble
 
-La promotion d'un patron Domaine vers le niveau Bank-Wide suit un processus en 4 phases :
+La promotion d'un patron Domaine vers le niveau Transversale suit un processus en 4 phases :
 
 [plantuml]
 ----
@@ -52,7 +52,7 @@ Creer `justification.md` :
 - **Domaine d'origine** : [Domaine]
 - **Categorie** : tech | integration | security | business
 
-## Pourquoi ce patron est d'interet Bank-Wide ?
+## Pourquoi ce patron est d'interet Transversale ?
 - [Raison 1 : Besoin recurrent]
 - [Raison 2 : Applicable multi-domaines]
 - [Raison 3 : Mature et eprouve]
@@ -112,7 +112,7 @@ promotion_status: proposed
 git checkout -b promotion/[domaine]-[patron]
 git add content/registre/en-promotion/[dossier]/
 git add content/registre/domaines/[domaine]/[patron].md
-git commit -m "feat: propose promotion [patron] vers Bank-Wide"
+git commit -m "feat: propose promotion [patron] vers Transversale"
 git push origin promotion/[domaine]-[patron]
 ----
 
@@ -183,11 +183,11 @@ Le mainteneur du patron (avec support du comite) :
 ----
 # Deplacer le patron
 git mv content/registre/domaines/[domaine]/[categorie]/[patron].md \
-       content/registre/Bank-Wide/[categorie]/[patron].md
+       content/registre/Transversale/[categorie]/[patron].md
 
 # Mettre a jour metadata
 # Dans le frontmatter :
-scope: Bank-Wide
+scope: Transversale
 original_sector: [domaine-origine]
 promotion_status: promoted
 promotion_date: YYYY-MM-DD
@@ -201,15 +201,15 @@ Dans le domaine d'origine, creer une redirection :
 ----
 ---
 title: [Nom Patron]
-redirect: /registre/Bank-Wide/[categorie]/[patron]
+redirect: /registre/Transversale/[categorie]/[patron]
 ---
 
 # [Nom Patron]
 
-Ce patron a ete **promu au niveau Bank-Wide** le [date].
+Ce patron a ete **promu au niveau Transversale** le [date].
 
 Il est maintenant accessible a tous les domaines :
-[Voir le patron Bank-Wide](/registre/Bank-Wide/[categorie]/[patron])
+[Voir le patron Transversale](/registre/Transversale/[categorie]/[patron])
 ----
 
 === 10. Communication
@@ -223,10 +223,10 @@ Email automatique envoye a :
 Template :
 
 ----
-Sujet: Nouveau patron Bank-Wide : [Nom Patron]
+Sujet: Nouveau patron Transversale : [Nom Patron]
 
 Le patron "[Nom Patron]" du domaine [Domaine] a ete promu
-au niveau Bank-Wide.
+au niveau Transversale.
 
 Benefices : [Resume]
 Domaines applicables : [Liste]
@@ -264,7 +264,7 @@ Les equipes adoptantes :
 
 === Evolution Continue
 
-Le mainteneur (desormais au niveau Bank-Wide) :
+Le mainteneur (desormais au niveau Transversale) :
 
 * Integre les learnings multi-domaines
 * Publie updates regulieres
@@ -298,9 +298,9 @@ Oui, mais max *2 promotions actives* par domaine pour eviter surcharge.
 
 Le patron reste domaine. La justification du refus est documentee et peut etre reevaluee apres 6 mois.
 
-=== Un patron Bank-Wide peut-il etre "retrograde" ?
+=== Un patron Transversale peut-il etre "retrograde" ?
 
-Non. Si un patron Bank-Wide devient obsolete, il passe a `deprecated`, mais ne retourne pas au niveau domaine.
+Non. Si un patron Transversale devient obsolete, il passe a `deprecated`, mais ne retourne pas au niveau domaine.
 
 == Support
 

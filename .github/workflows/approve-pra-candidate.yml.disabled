@@ -6,7 +6,7 @@ name: Approve PRA Candidate
 #
 # Governance:
 # - Domain PRA: Requires 2 approvals from Domain Governance Committee
-# - Bank-Wide PRA: Requires 2 approvals from Expert Architects Committee
+# - Transversale PRA: Requires 2 approvals from Expert Architects Committee
 #
 # Validation:
 # - 1+ proven-in-use documented
@@ -108,7 +108,7 @@ jobs:
                 SCOPE="Domain - Wealth Management"
                 DOMAIN="gestion-patrimoine"
               elif [[ "$file" =~ transversal ]]; then
-                SCOPE="Bank-Wide"
+                SCOPE="Transversale"
                 DOMAIN="transversal"
               fi
 
@@ -223,7 +223,7 @@ jobs:
 
               VALIDATION_OUTPUT+="\n**Governance** (manual approval required):\n"
 
-              if [ "$SCOPE" = "Bank-Wide" ]; then
+              if [ "$SCOPE" = "Transversale" ]; then
                 VALIDATION_OUTPUT+="- [ ] 2 approvals from Expert Architects Committee (0/2) ⏳\n\n"
                 VALIDATION_OUTPUT+="### 👥 Assigned Reviewers\n"
                 VALIDATION_OUTPUT+="@KiyaliHQ/comite-architectes-experts\n\n"
@@ -312,8 +312,8 @@ ${validationOutput}`;
 
             const labels = ['type:new-pra'];
 
-            if (scope === 'Bank-Wide') {
-              labels.push('scope:bank-wide');
+            if (scope === 'Transversale') {
+              labels.push('scope:transversale');
             } else {
               labels.push('scope:domaine');
               if (domain === 'particuliers') labels.push('domaine:particuliers');

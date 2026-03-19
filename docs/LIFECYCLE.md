@@ -266,7 +266,7 @@ replaced_by: pra-150  # Si remplacé par un nouveau PRA
 **Actions** :
 ```bash
 # Archivage = mise à jour du status dans le frontmatter
-# Le fichier reste dans content/pras/fr/bank-wide/[category]/operationalized/[pra-name].md
+# Le fichier reste dans content/pras/fr/transversale/[category]/operationalized/[pra-name].md
 # Mettre à jour: status: deprecated
 ```
 

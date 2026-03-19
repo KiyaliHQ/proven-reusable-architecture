@@ -31,8 +31,8 @@ Chaque PRA est un fichier `.adoc` avec des attributs structurés (`:pra-name:`, 
 
 | Scope | Description |
 |-------|-------------|
-| **bank-wide** | Transversal — validé pour tous les secteurs |
-| **domain-wide** | Spécifique à un domaine (particuliers, entreprises, gestion-patrimoine) |
+| **transversale** | Transversal — validé pour tous les secteurs |
+| **par-domaine** | Spécifique à un domaine (particuliers, entreprises, gestion-patrimoine) |
 
 ### Archétypes
 
@@ -51,7 +51,7 @@ Chaque PRA est un fichier `.adoc` avec des attributs structurés (`:pra-name:`, 
 | Statut | Description |
 |--------|-------------|
 | **operationalizing** | En cours de validation (1+ proven-in-use) |
-| **operationalized** | Validé et recommandé (3+ proven-in-use bank-wide, 1+ domain-wide) |
+| **operationalized** | Validé et recommandé (3+ proven-in-use transversale, 1+ par-domaine) |
 | **deprecated** | Obsolète, non recommandé |
 
 ---
@@ -92,13 +92,13 @@ proven-reusable-architecture/
 │   └── pras/                       # PRAs (séparé par langue)
 │       ├── fr/                     # PRAs français
 │       │   ├── index.adoc          # Dashboard auto-généré
-│       │   ├── bank-wide/          # PRAs transversaux
+│       │   ├── transversale/          # PRAs transversaux
 │       │   │   ├── integration/
 │       │   │   ├── application/
 │       │   │   ├── technology/
 │       │   │   ├── devops/
 │       │   │   └── ...
-│       │   └── domain-wide/        # PRAs spécifiques domaine
+│       │   └── par-domaine/        # PRAs spécifiques domaine
 │       │       ├── particuliers/
 │       │       ├── entreprises/
 │       │       └── gestion-patrimoine/
@@ -239,7 +239,7 @@ export CONFLUENCE_ANCESTOR_EN=789012
    ↓
 4. Merge → PRA operationalizing
    ↓
-5. Collecte proven-in-use (3+ bank-wide)
+5. Collecte proven-in-use (3+ transversale)
    ↓
 6. Promotion → PRA operationalized
 ```

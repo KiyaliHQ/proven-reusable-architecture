@@ -43,10 +43,10 @@ proven-reusable-architecture/
 ```bash
 # 1. Créer le fichier (flat structure, pas de sous-dossier)
 # ✅ Correct
-content/pras/fr/bank-wide/tech/operationalizing/mon-pra.md
+content/pras/fr/transversale/tech/operationalizing/mon-pra.md
 
 # ❌ Incorrect
-content/pras/fr/bank-wide/tech/operationalizing/mon-pra/page.md
+content/pras/fr/transversale/tech/operationalizing/mon-pra/page.md
 ```
 
 ```yaml
@@ -82,8 +82,8 @@ pra:
 ### 4. Tester
 
 Naviguer vers :
-- FR : `http://localhost:3000/fr/registre/bank-wide/tech/operationalizing/mon-pra`
-- EN : `http://localhost:3000/en/registre/bank-wide/tech/operationalizing/my-pra`
+- FR : `http://localhost:3000/fr/registre/transversale/tech/operationalizing/mon-pra`
+- EN : `http://localhost:3000/en/registre/transversale/tech/operationalizing/my-pra`
 
 ---
 
@@ -93,8 +93,8 @@ Naviguer vers :
 
 | Scope | Chemin | Description |
 |-------|--------|-------------|
-| **Bank-Wide** | `pras/fr/bank-wide/` | Transversal (tous secteurs) |
-| **Domain-Wide** | `pras/fr/domain-wide/[domaine]/` | Spécifique à un domaine |
+| **Transversale** | `pras/fr/transversale/` | Transversal (tous secteurs) |
+| **Par Domaine** | `pras/fr/par-domaine/[domaine]/` | Spécifique à un domaine |
 
 ### Catégories
 
@@ -110,7 +110,7 @@ Naviguer vers :
 | Status | Critères |
 |--------|----------|
 | **candidate** | 1+ proven-in-use |
-| **approved** | 3+ proven-in-use (Bank-Wide) ou 1+ (Domain) |
+| **approved** | 3+ proven-in-use (Transversale) ou 1+ (Domain) |
 | **deprecated** | Obsolète, à remplacer |
 
 ### Domaines
@@ -235,8 +235,8 @@ const registreSources = {
 **Solution** :
 ```bash
 # Déplacer et renommer
-mv content/pras/fr/bank-wide/tech/operationalizing/mon-pra/page.md \
-   content/pras/fr/bank-wide/tech/operationalizing/mon-pra.md
+mv content/pras/fr/transversale/tech/operationalizing/mon-pra/page.md \
+   content/pras/fr/transversale/tech/operationalizing/mon-pra.md
 ```
 
 ### Erreur "source.files is not iterable"
@@ -281,14 +281,14 @@ pnpm dev
 
 ### 1. Structure des Fichiers
 
-✅ **Correct** : `pras/fr/bank-wide/tech/operationalizing/api-gateway.md`
-❌ **Incorrect** : `pras/fr/bank-wide/tech/operationalizing/api-gateway/page.md`
+✅ **Correct** : `pras/fr/transversale/tech/operationalizing/api-gateway.md`
+❌ **Incorrect** : `pras/fr/transversale/tech/operationalizing/api-gateway/page.md`
 
 ### 2. Bilingue Toujours
 
 Créer **FR et EN** en même temps avec chemins cohérents :
-- `pras/fr/bank-wide/tech/operationalizing/api-gateway.md`
-- `pras/en/bank-wide/tech/operationalizing/api-gateway.md`
+- `pras/fr/transversale/tech/operationalizing/api-gateway.md`
+- `pras/en/transversale/tech/operationalizing/api-gateway.md`
 
 ### 3. Frontmatter Complet
 
@@ -322,7 +322,7 @@ updated_at: "2025-12-03"  # Date actuelle
 git checkout -b feature/nouveau-pra-api-gateway
 
 # Commits descriptifs
-git commit -m "feat(pra): Add API Gateway pattern (Bank-Wide Tech Candidate)"
+git commit -m "feat(pra): Add API Gateway pattern (Transversale Tech Candidate)"
 
 # Pull Request avec review
 # Ne jamais commit sur main directement

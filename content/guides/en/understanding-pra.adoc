@@ -87,14 +87,14 @@ replaces: null
 
 == The 2 Scopes of a PRA
 
-=== 1. Bank-Wide (Transversal)
+=== 1. Transversal (Transversal)
 
 [plantuml]
 ----
 @startuml
 top to bottom direction
 skinparam rectangleRoundCorner 15
-rectangle "Bank-Wide PRA" as A
+rectangle "Transversal PRA" as A
 rectangle "Validated for ALL domains" as B
 rectangle "3+ multi-domain proven-in-use" as C
 rectangle "Approved by Expert Architects Committee" as D
@@ -132,7 +132,7 @@ rectangle "Domain PRA" as A
 rectangle "Specific to one domain" as B
 rectangle "1+ proven-in-use in the domain" as C
 rectangle "Approved by Domain Committee" as D
-rectangle "Can be promoted to Bank-Wide" as E
+rectangle "Can be promoted to Transversal" as E
 A --> B
 B --> C
 B --> D
@@ -146,15 +146,15 @@ B --> E
 * Validated by the *Domain Governance Committee*
 * At least *1 proven-in-use* in the domain
 * *All types of patterns* (functional AND technical)
-* Can be promoted to Bank-Wide if reusable outside the domain (*"in promotion"* status)
+* Can be promoted to Transversal if reusable outside the domain (*"in promotion"* status)
 * Location: `pra/secteurs/[domain]/[category]/`
 
 *Examples*:
 
 * Functional: Digital Onboarding (Retail), SAP ERP Integration (Corporate)
-* Technical: Serverless AWS, file transfer, data pipelines (in absence of Bank-Wide pattern)
+* Technical: Serverless AWS, file transfer, data pipelines (in absence of Transversal pattern)
 
-NOTE: When a Domain PRA is proposed to become Bank-Wide, it receives the *"in promotion"* status in its metadata. This status is visible to all domains during the review period by the Expert Architects Committee.
+NOTE: When a Domain PRA is proposed to become Transversal, it receives the *"in promotion"* status in its metadata. This status is visible to all domains during the review period by the Expert Architects Committee.
 
 == PRA Statuses
 
@@ -263,10 +263,10 @@ C --> D
 @startuml
 start
 :I have a need;
-if (Bank-Wide PRA exists?) then (Yes)
+if (Transversal PRA exists?) then (Yes)
   :Check application context;
   if (Applicable?) then (Yes)
-    :Use Bank-Wide PRA;
+    :Use Transversal PRA;
     stop
   else (Not applicable)
   endif

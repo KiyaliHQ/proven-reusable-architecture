@@ -53,7 +53,7 @@ Un PRA de qualité doit être :
 * Guide de migration (si applicable)
 * FAQ basée sur l'expérience
 
-=== Pour un PRA Bank-Wide Candidate
+=== Pour un PRA Transversale Candidate
 
 ==== Critères Obligatoires
 
@@ -101,7 +101,7 @@ Un PRA de qualité doit être :
 * Pas de feedback négatif majeur
 * Recommandé par pairs du domaine
 
-=== Pour un PRA Bank-Wide Approved
+=== Pour un PRA Transversale Approved
 
 ==== Critères Obligatoires (en plus de Candidate)
 
@@ -355,7 +355,7 @@ Avant de soumettre un PRA, vérifier :
 
 * Minimum requis documenté :
 ** PRA Domaine : 1+ pour Candidate et Approved
-** PRA Bank-Wide : 1+ pour Candidate, 3+ (multi-domaine) pour Approved
+** PRA Transversale : 1+ pour Candidate, 3+ (multi-domaine) pour Approved
 * Projets réels nommés
 * Feedback avec métriques
 * Dates récentes (< 2 ans)

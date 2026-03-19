@@ -6,7 +6,7 @@ name: Approve PRA Deprecation
 #
 # Governance:
 # - Domain PRA: Simple majority vote from Domain Governance Committee
-# - Bank-Wide PRA: 2/3 vote from Expert Architects Committee
+# - Transversale PRA: 2/3 vote from Expert Architects Committee
 #
 # Validation:
 # - Clear deprecation reason provided
@@ -140,7 +140,7 @@ jobs:
                   DOMAIN="gestion-patrimoine"
                   TRANSITION_PERIOD="3 months"
                 elif [[ "$file" =~ transversal ]]; then
-                  SCOPE="Bank-Wide"
+                  SCOPE="Transversale"
                   DOMAIN="transversal"
                   TRANSITION_PERIOD="6 months"
                 fi
@@ -218,8 +218,8 @@ jobs:
                   VALIDATION_OUTPUT+="\\n- [x] \`deprecated_at\` field present ($DEPRECATED_AT)\\n"
 
                   # Calculate end of support date
-                  if [[ "$SCOPE" == "Bank-Wide" ]]; then
-                    VALIDATION_OUTPUT+="- [x] Transition period: **6 months** (Bank-Wide)\\n"
+                  if [[ "$SCOPE" == "Transversale" ]]; then
+                    VALIDATION_OUTPUT+="- [x] Transition period: **6 months** (Transversale)\\n"
                   else
                     VALIDATION_OUTPUT+="- [x] Transition period: **3 months** (Domain)\\n"
                   fi
@@ -229,7 +229,7 @@ jobs:
 
                 VALIDATION_OUTPUT+="\\n**Governance** (manual approval required):\\n"
 
-                if [ "$SCOPE" = "Bank-Wide" ]; then
+                if [ "$SCOPE" = "Transversale" ]; then
                   VALIDATION_OUTPUT+="- [ ] 2/3 vote from Expert Architects Committee ⏳\\n"
                   VALIDATION_OUTPUT+="  _(Requires 2 approvals from committee of 3 members)_\\n\\n"
                   VALIDATION_OUTPUT+="### 👥 Assigned Reviewers\\n"
@@ -382,8 +382,8 @@ ${validationOutput}`;
 
             const labels = ['type:deprecation', 'status:deprecated'];
 
-            if (scope === 'Bank-Wide') {
-              labels.push('scope:bank-wide');
+            if (scope === 'Transversale') {
+              labels.push('scope:transversale');
             } else {
               labels.push('scope:domaine');
               if (domain === 'particuliers') labels.push('domaine:particuliers');

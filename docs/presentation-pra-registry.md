@@ -91,15 +91,15 @@ Comme un chef qui documente ses recettes à succès, un PRA capture les solution
 
 | Scope | Description | Critère |
 |-------|-------------|---------|
-| **Bank-Wide** | Transversal - Applicable à tous les secteurs | 3+ proven-in-use |
-| **Domain-Wide** | Spécifique à un secteur (Particuliers, Entreprises, Gestion Patrimoine) | 1+ proven-in-use |
+| **Transversale** | Transversal - Applicable à tous les secteurs | 3+ proven-in-use |
+| **Par Domaine** | Spécifique à un secteur (Particuliers, Entreprises, Gestion Patrimoine) | 1+ proven-in-use |
 
-### Promotion Domain → Bank-Wide
+### Promotion Domain → Transversale
 
-Un PRA Domain-Wide peut être promu Bank-Wide après validation dans 3+ contextes différents.
+Un PRA Par Domaine peut être promu Transversale après validation dans 3+ contextes différents.
 
 ```
-Domain-Wide (Particuliers) ──► Bank-Wide (Transversal)
+Par Domaine (Particuliers) ──► Transversale (Transversal)
         │                              │
    1 proven-in-use              3+ proven-in-use
 ```
@@ -137,7 +137,7 @@ Candidate ────────► Approved ────────► Depre
 | **Security** | Auth, Encryption, Compliance | OAuth2, mTLS |
 | **Business** | Patterns métier, Domaines | Event Sourcing |
 
-### Catégories Bank-Wide Spéciales
+### Catégories Transversale Spéciales
 
 | Catégorie | Description |
 |-----------|-------------|
@@ -158,7 +158,7 @@ Candidate ────────► Approved ────────► Depre
 ```
 ┌─────────────────────────────────────────────┐
 │     Comité des Architectes Experts          │
-│     (Validation Bank-Wide)                  │
+│     (Validation Transversale)                  │
 │     • Architectes seniors de chaque secteur │
 │     • Se réunit mensuellement               │
 └───────────────────┬─────────────────────────┘
@@ -170,7 +170,7 @@ Candidate ────────► Approved ────────► Depre
 │Particuliers│ │Entreprises│ │ Gestion   │
 │           │ │           │ │Patrimoine │
 └───────────┘ └───────────┘ └───────────┘
-   Domain-Wide Validation
+   Par Domaine Validation
 ```
 
 ---
@@ -181,8 +181,8 @@ Candidate ────────► Approved ────────► Depre
 
 | Flux | Nom | Description |
 |------|-----|-------------|
-| **Flow 1** | Bottom-Up | Équipe projet propose → Domaine valide → Bank-Wide |
-| **Flow 2** | Top-Down | Équipe transversale crée directement Bank-Wide |
+| **Flow 1** | Bottom-Up | Équipe projet propose → Domaine valide → Transversale |
+| **Flow 2** | Top-Down | Équipe transversale crée directement Transversale |
 | **Flow 3** | Bootstrap | Migration d'un standard existant vers le registre |
 
 ### Flow 1 - Le Plus Courant
@@ -194,7 +194,7 @@ Candidate ────────► Approved ────────► Depre
                                                   3+ proven-in-use
                                                           │
                                                           ▼
-                                              Comité Experts ──► Approved Bank-Wide
+                                              Comité Experts ──► Approved Transversale
 ```
 
 ---
@@ -203,7 +203,7 @@ Candidate ────────► Approved ────────► Depre
 
 ### Validation par Scope
 
-| Critère | Domain-Wide | Bank-Wide |
+| Critère | Par Domaine | Transversale |
 |---------|-------------|-----------|
 | **Proven-in-use minimum** | 1 projet | 3 projets |
 | **Documentation complète** | ✓ | ✓ |
@@ -221,8 +221,8 @@ Candidate ────────► Approved ────────► Depre
 | Activité | Architecte Projet | Comité Domaine | Comité Experts | Mainteneur |
 |----------|-------------------|----------------|----------------|------------|
 | Proposer PRA | **R** | C | I | - |
-| Valider Domain-Wide | C | **A/R** | I | - |
-| Valider Bank-Wide | I | C | **A/R** | - |
+| Valider Par Domaine | C | **A/R** | I | - |
+| Valider Transversale | I | C | **A/R** | - |
 | Maintenir PRA | C | I | I | **R** |
 | Déprécier PRA | I | C | **A** | R |
 
@@ -255,7 +255,7 @@ Mois 1-2          Mois 3-4          Mois 5-6          Mois 7+
 
 ## Slide 13: Processus de Promotion
 
-### Domain-Wide → Bank-Wide
+### Par Domaine → Transversale
 
 | Phase | Actions | Durée |
 |-------|---------|-------|
@@ -556,7 +556,7 @@ Avec 20 PRA actifs:
 | Concept | À Retenir |
 |---------|-----------|
 | **PRA** | Solution éprouvée, documentée, réutilisable |
-| **Scopes** | Bank-Wide (transversal) vs Domain-Wide (secteur) |
+| **Scopes** | Transversale (transversal) vs Par Domaine (secteur) |
 | **Statuts** | Candidate → Approved → Deprecated |
 | **Gouvernance** | 2 niveaux (Domaine + Experts) |
 | **Contribution** | Fork → Documenter → PR → Review → Merge |

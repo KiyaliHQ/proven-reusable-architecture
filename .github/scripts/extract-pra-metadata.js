@@ -25,7 +25,7 @@ function extractMetadata(filePath) {
 
   // Extract path components
   // Format: content/pras-{lang}/{scope}/{status}/{category}/pra-name.md
-  // OR:     content/pras-{lang}/domain-wide/{domain}/{status}/{category}/pra-name.md
+  // OR:     content/pras-{lang}/par-domaine/{domain}/{status}/{category}/pra-name.md
   const pathParts = filePath.split('/');
 
   // Extract language (pras-fr -> fr, pras-en -> en)
@@ -35,14 +35,14 @@ function extractMetadata(filePath) {
   // Find index of pras-* directory
   const prasIndex = pathParts.findIndex(part => part.startsWith('pras-'));
 
-  // Extract scope (bank-wide or domain-wide)
+  // Extract scope (transversale or par-domaine)
   const scope = pathParts[prasIndex + 1];
 
-  // Extract domain if domain-wide
+  // Extract domain if par-domaine
   let domain = null;
   let statusIndex = prasIndex + 2;
 
-  if (scope === 'domain-wide') {
+  if (scope === 'par-domaine') {
     domain = pathParts[prasIndex + 2]; // particuliers, entreprises, gestion-patrimoine
     statusIndex = prasIndex + 3;
   }

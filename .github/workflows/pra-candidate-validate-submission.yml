@@ -85,13 +85,13 @@ jobs:
           echo "Processing: $FIRST_PRA"
 
           # Extract scope/status/category from path
-          # Example: content/pras/fr/bank-wide/candidate/tech/api-gateway.md
+          # Example: content/pras/fr/transversale/candidate/tech/api-gateway.md
           IFS='/' read -ra PATH_PARTS <<< "$FIRST_PRA"
 
           LANG="${PATH_PARTS[2]}"  # fr or en
-          SCOPE="${PATH_PARTS[3]}"  # bank-wide or domain-wide
+          SCOPE="${PATH_PARTS[3]}"  # transversale or par-domaine
 
-          if [ "$SCOPE" == "domain-wide" ]; then
+          if [ "$SCOPE" == "par-domaine" ]; then
             DOMAIN="${PATH_PARTS[4]}"  # particuliers, entreprises, gestion-patrimoine
             STATUS="${PATH_PARTS[5]}"  # candidate
             CATEGORY="${PATH_PARTS[6]}"  # tech, integration, etc.
@@ -211,9 +211,9 @@ jobs:
             const domain = '${{ needs.detect-and-validate-pra.outputs.domain }}';
 
             let team;
-            if (scope === 'bank-wide') {
+            if (scope === 'transversale') {
               team = 'comite-architectes-experts';
-            } else if (scope === 'domain-wide') {
+            } else if (scope === 'par-domaine') {
               if (domain === 'particuliers') {
                 team = 'comite-gov-particuliers';
               } else if (domain === 'entreprises') {
@@ -282,7 +282,7 @@ jobs:
             const categoryCapitalized = category.charAt(0).toUpperCase() + category.slice(1);
 
             let teamName = '';
-            if (scope === 'bank-wide') {
+            if (scope === 'transversale') {
               teamName = 'Expert Architects Committee';
             } else {
               teamName = scopeCapitalized + ' Governance Committee';

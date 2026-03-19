@@ -23,7 +23,7 @@ content/pras/fr/[scope]/[category]/operationalizing/[your-pra].md
 
 **Example:**
 ```
-content/pras/fr/bank-wide/tech/operationalizing/kubernetes-deployment.md
+content/pras/fr/transversale/tech/operationalizing/kubernetes-deployment.md
 ```
 
 ### Step 2: Translate to English
@@ -48,7 +48,7 @@ content/pras/en/[scope]/[category]/operationalizing/[your-pra].md
 
 **Example:**
 ```
-content/pras/en/bank-wide/tech/operationalizing/kubernetes-deployment.md
+content/pras/en/transversale/tech/operationalizing/kubernetes-deployment.md
 ```
 
 ---
@@ -107,7 +107,7 @@ See: [`templates/TRANSLATION_PROMPT.md`](../templates/TRANSLATION_PROMPT.md)
 
 ## 🔄 Example Translation
 
-### French Version (`content/pras/fr/bank-wide/tech/operationalized/cicd-gitops.md`)
+### French Version (`content/pras/fr/transversale/tech/operationalized/cicd-gitops.md`)
 
 ```markdown
 ---
@@ -132,7 +132,7 @@ pra:
 Ce PRA décrit l'implémentation d'un pipeline CI/CD moderne...
 ```
 
-### English Version (`content/pras/en/bank-wide/tech/operationalized/cicd-gitops.md`)
+### English Version (`content/pras/en/transversale/tech/operationalized/cicd-gitops.md`)
 
 ```markdown
 ---

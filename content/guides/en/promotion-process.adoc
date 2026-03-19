@@ -1,14 +1,14 @@
-= Promotion Process (Domain -> Bank-Wide)
+= Promotion Process (Domain -> Transversal)
 :page-title: Promotion Process
-:keywords: pra, guide, promotion, domain, bank-wide
+:keywords: pra, guide, promotion, domain, transversal
 
-*This represents Flow 1* of the three PRA creation flows described in link:governance.adoc[Governance]. This is the organic, bottom-up flow where Domain PRAs are identified as having multi-domain value and promoted to Bank-Wide status.
+*This represents Flow 1* of the three PRA creation flows described in link:governance.adoc[Governance]. This is the organic, bottom-up flow where Domain PRAs are identified as having multi-domain value and promoted to Transversal status.
 
-This document describes the process for promoting a Domain pattern to the Bank-Wide level, making it applicable across all organizational domains.
+This document describes the process for promoting a Domain pattern to the Transversal level, making it applicable across all organizational domains.
 
 == Overview
 
-The promotion of a Domain pattern to the Bank-Wide level follows a 4-phase process:
+The promotion of a Domain pattern to the Transversal level follows a 4-phase process:
 
 [plantuml]
 ----
@@ -52,7 +52,7 @@ Create `justification.md`:
 - **Original Domain**: [Domain]
 - **Category**: tech | integration | security | business
 
-## Why is this pattern of Bank-Wide interest?
+## Why is this pattern of Transversal interest?
 - [Reason 1: Recurring need across domains]
 - [Reason 2: Multi-domain applicable]
 - [Reason 3: Mature and proven]
@@ -112,7 +112,7 @@ promotion_status: proposed
 git checkout -b promotion/[domain]-[pattern]
 git add content/registre/en-promotion/[folder]/
 git add content/registre/domaines/[domain]/[pattern].md
-git commit -m "feat: propose promotion [pattern] to Bank-Wide"
+git commit -m "feat: propose promotion [pattern] to Transversal"
 git push origin promotion/[domain]-[pattern]
 ----
 
@@ -138,7 +138,7 @@ The committee evaluates according to these criteria:
 * Positive feedback from domain teams?
 * Complete and clear documentation?
 
-==== 3. Compliance with Bank-Wide Standards
+==== 3. Compliance with Transversal Standards
 
 * Complies with enterprise technical standards?
 * Compatible with target architecture?
@@ -183,11 +183,11 @@ The pattern maintainer (with Expert Architects Committee support):
 ----
 # Move the pattern
 git mv content/registre/domaines/[domain]/[category]/[pattern].md \
-       content/registre/bank-wide/[category]/[pattern].md
+       content/registre/transversal/[category]/[pattern].md
 
 # Update metadata
 # In the frontmatter:
-scope: bank-wide
+scope: transversal
 original_domain: [original-domain]
 promotion_status: promoted
 promotion_date: YYYY-MM-DD
@@ -201,15 +201,15 @@ In the original domain, create a redirect:
 ----
 ---
 title: [Pattern Name]
-redirect: /registre/bank-wide/[category]/[pattern]
+redirect: /registre/transversal/[category]/[pattern]
 ---
 
 # [Pattern Name]
 
-This pattern was **promoted to Bank-Wide level** on [date].
+This pattern was **promoted to Transversal level** on [date].
 
 It is now accessible to all domains:
-[View the Bank-Wide pattern](/registre/bank-wide/[category]/[pattern])
+[View the Transversal pattern](/registre/transversal/[category]/[pattern])
 ----
 
 === 10. Communication
@@ -223,10 +223,10 @@ Automated email sent to:
 Template:
 
 ----
-Subject: New Bank-Wide pattern: [Pattern Name]
+Subject: New Transversal pattern: [Pattern Name]
 
 The pattern "[Pattern Name]" from the [Domain] domain has been promoted
-to Bank-Wide level.
+to Transversal level.
 
 Benefits: [Summary]
 Applicable domains: [List]
@@ -264,7 +264,7 @@ Adopting teams:
 
 === Continuous Evolution
 
-The maintainer (now at Bank-Wide level):
+The maintainer (now at Transversal level):
 
 * Integrates multi-domain learnings
 * Publishes regular updates
@@ -274,7 +274,7 @@ The maintainer (now at Bank-Wide level):
 
 A promotion is considered successful if:
 
-* *3+ domains* adopt the pattern within 6 months (to reach Bank-Wide Approved)
+* *3+ domains* adopt the pattern within 6 months (to reach Transversal Approved)
 * *80%+ satisfaction* from user teams
 * *Reduced duplication*: no new similar domain-specific pattern
 * *Maintained documentation*: < 6 months since last update
@@ -298,9 +298,9 @@ Yes, but max *2 active promotions* per domain to avoid overload.
 
 The pattern remains at Domain level. The rejection rationale is documented and can be reevaluated after 6 months.
 
-=== Can a Bank-Wide pattern be "demoted"?
+=== Can a Transversal pattern be "demoted"?
 
-No. If a Bank-Wide pattern becomes obsolete, it transitions to `deprecated`, but does not return to Domain level.
+No. If a Transversal pattern becomes obsolete, it transitions to `deprecated`, but does not return to Domain level.
 
 == Support
 
