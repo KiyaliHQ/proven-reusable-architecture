@@ -1,5 +1,5 @@
 = [DEMO DATA] Digital Client Onboarding
-:pra-name: Digital Client Onboarding
+:pra-name: [DEMO DATA] Digital Client Onboarding
 :pra-archetype: business
 :pra-subcategory: onboarding
 :pra-status: operationalizing

@@ -48,48 +48,59 @@ log() { echo "  [$1] $2"; }
 
 # Create a Confluence page under a parent, return its ID
 # If a page with that title already exists, return its ID instead
+# Uses python3 for cross-platform reliability (no base64 wrapping issues)
 create_or_find_page() {
     local title="$1" parent_id="$2"
-    local auth
-    auth=$(echo -n "${CONFLUENCE_USER}:${CONFLUENCE_TOKEN}" | base64)
+    python3 - "$title" "$parent_id" << 'PYEOF'
+import json, os, sys, urllib.request, urllib.parse, base64
 
-    # Try to create
-    local response
-    response=$(curl -s -w "\n%{http_code}" \
-        -H "Authorization: Basic ${auth}" \
-        -H "Content-Type: application/json" \
-        -X POST "${CONFLUENCE_URL}/rest/api/content" \
-        -d "{
-            \"type\": \"page\",
-            \"title\": \"${title}\",
-            \"space\": {\"key\": \"${CONFLUENCE_SPACE_KEY}\"},
-            \"ancestors\": [{\"id\": \"${parent_id}\"}],
-            \"body\": {\"storage\": {\"value\": \"<p></p>\", \"representation\": \"storage\"}}
-        }")
+title = sys.argv[1]
+parent_id = sys.argv[2]
+url = os.environ["CONFLUENCE_URL"]
+space = os.environ["CONFLUENCE_SPACE_KEY"]
+user = os.environ["CONFLUENCE_USER"]
+token = os.environ["CONFLUENCE_TOKEN"]
+auth = base64.b64encode(f"{user}:{token}".encode()).decode()
 
-    local http_code
-    http_code=$(echo "$response" | tail -1)
-    local body
-    body=$(echo "$response" | sed '$d')
+# Try to create the page
+payload = json.dumps({
+    "type": "page",
+    "title": title,
+    "space": {"key": space},
+    "ancestors": [{"id": parent_id}],
+    "body": {"storage": {"value": "<p></p>", "representation": "storage"}}
+}).encode()
 
-    if [[ "$http_code" == "200" ]]; then
-        echo "$body" | python3 -c "import json,sys; print(json.load(sys.stdin)['id'])"
-        return
-    fi
+req = urllib.request.Request(f"{url}/rest/api/content", data=payload, method="POST")
+req.add_header("Authorization", f"Basic {auth}")
+req.add_header("Content-Type", "application/json")
 
-    # If 400 (title conflict), find existing page
-    if [[ "$http_code" == "400" ]]; then
-        local encoded_title
-        encoded_title=$(python3 -c "import urllib.parse; print(urllib.parse.quote('${title}'))")
-        local existing
-        existing=$(curl -s \
-            -H "Authorization: Basic ${auth}" \
-            "${CONFLUENCE_URL}/rest/api/content?title=${encoded_title}&spaceKey=${CONFLUENCE_SPACE_KEY}&type=page")
-        echo "$existing" | python3 -c "import json,sys; r=json.load(sys.stdin)['results']; print(r[0]['id'] if r else 'ERROR')"
-        return
-    fi
+try:
+    with urllib.request.urlopen(req) as resp:
+        data = json.loads(resp.read())
+        print(data["id"])
+        sys.exit(0)
+except urllib.error.HTTPError as e:
+    if e.code != 400:
+        print("ERROR", file=sys.stderr)
+        print("ERROR")
+        sys.exit(0)
 
-    echo "ERROR"
+# Title conflict — find existing page
+encoded = urllib.parse.quote(title)
+req2 = urllib.request.Request(f"{url}/rest/api/content?title={encoded}&spaceKey={space}&type=page")
+req2.add_header("Authorization", f"Basic {auth}")
+try:
+    with urllib.request.urlopen(req2) as resp:
+        data = json.loads(resp.read())
+        results = data.get("results", [])
+        if results:
+            print(results[0]["id"])
+        else:
+            print("ERROR")
+except Exception:
+    print("ERROR")
+PYEOF
 }
 
 # Sanitize .adoc files: strip broken links, optionally add (EN) suffix

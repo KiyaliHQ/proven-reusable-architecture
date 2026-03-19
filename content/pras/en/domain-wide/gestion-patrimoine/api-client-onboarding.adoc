@@ -1,6 +1,6 @@
 = [DEMO DATA] API-Based Client Onboarding Pattern
 // === PRA METADATA ===
-:pra-name: API-Based Client Onboarding Pattern
+:pra-name: [DEMO DATA] API-Based Client Onboarding Pattern
 :pra-archetype: business
 :pra-subcategory: onboarding
 :pra-status: operationalizing

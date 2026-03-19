@@ -1,6 +1,6 @@
 = [DEMO DATA] Salesforce Financial Services Cloud
 // === METADONNEES PRA ===
-:pra-name: Salesforce Financial Services Cloud
+:pra-name: [DEMO DATA] Salesforce Financial Services Cloud
 :pra-archetype: integration
 :pra-subcategory: crm
 :pra-status: operationalizing

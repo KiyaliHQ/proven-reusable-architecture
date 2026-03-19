@@ -1,6 +1,6 @@
 = [DEMO DATA] API Gateway Test Pattern
 // === PRA METADATA ===
-:pra-name: API Gateway Test Pattern
+:pra-name: [DEMO DATA] API Gateway Test Pattern
 :pra-archetype: technology
 :pra-subcategory: api-gateway
 :pra-status: operationalizing
