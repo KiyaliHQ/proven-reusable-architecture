@@ -3,61 +3,50 @@
 :keywords: architecture, overview, plateforme, ci-cd, gouvernance
 :pra-hide-meta: true
 
-Le Registre PRA (Proven Reusable Architecture) est la plateforme centralisee de la Banque Nationale pour cataloguer, partager et gouverner les patrons architecturaux valides en production.
+Le Registre PRA (Proven Reusable Architecture) est la plateforme centralisée de la Banque Nationale pour cataloguer, partager et gouverner les patrons architecturaux validés en production.
 
-Ce document presente l'architecture complete de la plateforme, ses flux, ses agents IA et sa gouvernance.
+Ce document présente l'architecture complète de la plateforme, ses flux, ses agents IA et sa gouvernance.
 
 == 1. Vue d'ensemble de la plateforme
 
-Le registre suit un modele *Git-centric* : le repository GitHub est la source de verite unique. Deux cibles de publication sont alimentees automatiquement.
+Le registre suit un modèle *Git-centric* : le repository GitHub est la source de vérité unique. Deux cibles de publication sont alimentées automatiquement à chaque merge.
 
 [plantuml]
 ----
 @startuml
 skinparam backgroundColor transparent
+skinparam defaultFontName "Segoe UI"
 skinparam defaultFontSize 13
-skinparam rectangle {
-  RoundCorner 15
+skinparam shadowing false
+skinparam roundCorner 10
+skinparam ArrowColor #333333
+
+actor "Architectes\n(~200)" as arch
+
+package "GitHub Repository" as repo #c8102e {
 }
 
-skinparam cloud {
-  BackgroundColor #f8f9fa
-}
+rectangle "GitHub Actions\n(CI/CD automatique)" as ci #333333
 
-rectangle "GitHub Repository\n(Source de verite unique)" as repo #c8102e {
-  rectangle "PRAs (.adoc)" as pras #fff
-  rectangle "Guides" as guides #fff
-  rectangle "Templates" as templates #fff
-  rectangle "Agents IA" as agents #fff
-  rectangle "CI/CD Config" as cicd_conf #fff
-}
+rectangle "GitHub Pages\n(Dashboard filtrable)" as ghp #2563eb
+rectangle "Confluence\n(Wiki entreprise)" as conf #2563eb
 
-cloud "GitHub Actions\n(CI/CD)" as cicd #e3f2fd
+arch -down-> repo : Contribuer\n(Pull Request)
+repo -down-> ci : Merge sur main
+ci -right-> ghp : Build\nAsciidoctor + PlantUML
+ci -left-> conf : Publish\nDocker Publisher
+arch -right-> ghp : Consulter
+arch -left-> conf : Consulter
 
-rectangle "GitHub Pages\n(Site statique)" as ghpages #1a73e8 {
-  rectangle "Dashboard filtrable" as dash #fff
-  rectangle "Fiches PRA" as fiches #fff
-  rectangle "Guides interactifs" as guidesWeb #fff
-}
-
-rectangle "Confluence Cloud\n(Wiki entreprise)" as confluence #1a73e8 {
-  rectangle "Espace PRA" as confSpace #fff
-  rectangle "Hierarchie FR/EN" as confTree #fff
-}
-
-actor "Architectes" as arch #6c757d
-
-repo -down-> cicd : merge sur main
-cicd -down-> ghpages : Job 1 : Asciidoctor\n+ PlantUML
-cicd -down-> confluence : Job 2 : Confluence\nPublisher (Docker)
-
-arch -right-> ghpages : Consulter
-arch -right-> confluence : Consulter
-arch -up-> repo : Contribuer\n(PR)
+note bottom of repo
+  Source de vérité unique
+  PRAs · Guides · Templates
+  Config · Agents IA
+end note
 @enduml
 ----
 
-*Principe cle* : Git est le seul point d'ecriture. GitHub Pages et Confluence sont des vues en lecture seule, regenerees a chaque merge.
+*Principe clé* : Git est le seul point d'écriture. GitHub Pages et Confluence sont des vues en lecture seule, régénérées à chaque merge.
 
 == 2. Comment les architectes utilisent le registre
 
@@ -67,285 +56,251 @@ Trois modes d'utilisation couvrent l'ensemble du cycle : consulter, explorer ave
 ----
 @startuml
 skinparam backgroundColor transparent
+skinparam defaultFontName "Segoe UI"
 skinparam defaultFontSize 12
+skinparam shadowing false
+skinparam roundCorner 10
+skinparam ArrowColor #333333
 
-|Mode 1 — Consulter|
-start
-#e8f5e9:Besoin : "API Gateway ?";
-#e8f5e9:Catalogue : filtrer par
-archetyoe, scope, statut;
-#e8f5e9:Lire la fiche PRA :
-contexte, ADR, proven-in-use;
-#e8f5e9:Implementer dans son projet;
-stop
+rectangle "Consulter" as c1 #e8f5e9 {
+  rectangle "Besoin architectural" as c1a #ffffff
+  rectangle "Filtrer le catalogue\n(archétype, scope, statut)" as c1b #ffffff
+  rectangle "Lire fiche PRA\n(ADR, proven-in-use)" as c1c #ffffff
+  rectangle "Implémenter" as c1d #ffffff
+  c1a -down-> c1b
+  c1b -down-> c1c
+  c1c -down-> c1d
+}
 
-|Mode 2 — Agents IA|
-start
-#e3f2fd:PRA Explorer : decrire
-son contexte, recevoir
-des recommandations;
-#e3f2fd:PRA Guide : poser une
-question process, recevoir
-les etapes concretes;
-stop
+rectangle "Agents IA" as c2 #e3f2fd {
+  rectangle "PRA Explorer\nDécrire son contexte\n→ Recommandations" as c2a #ffffff
+  rectangle "PRA Guide\nQuestion process\n→ Étapes concrètes" as c2b #ffffff
+}
 
-|Mode 3 — Contribuer|
-start
-#fce4ec:Pattern valide en production;
-#fce4ec:Creer branche + documenter
-PRA (FR + EN);
-#fce4ec:Soumettre PR
-Review automatique + CODEOWNERS;
-#fce4ec:Merge
-Publication auto GH Pages + Confluence;
-stop
+rectangle "Contribuer" as c3 #fce4ec {
+  rectangle "Pattern validé\nen production" as c3a #ffffff
+  rectangle "Documenter PRA\n(FR + EN)" as c3b #ffffff
+  rectangle "Soumettre PR\n→ Review CODEOWNERS" as c3c #ffffff
+  rectangle "Merge\n→ Publication auto" as c3d #ffffff
+  c3a -down-> c3b
+  c3b -down-> c3c
+  c3c -down-> c3d
+}
+
+c1 -[hidden]right-> c2
+c2 -[hidden]right-> c3
 @enduml
 ----
 
 == 3. Architecture du contenu
 
-Le contenu est organise en deux scopes avec une hierarchie claire. Les 7 archetypes sont communs a tous les niveaux.
+Le contenu est organisé en deux scopes avec une hiérarchie claire. Les 7 archétypes sont communs à tous les niveaux.
 
 [plantuml]
 ----
 @startuml
 skinparam backgroundColor transparent
-skinparam rectangle {
-  RoundCorner 15
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 13
+skinparam shadowing false
+skinparam roundCorner 10
+skinparam ArrowColor #333333
+skinparam object {
+  BackgroundColor #ffffff
+  BorderColor #d1d5db
 }
 
 rectangle "Registre PRA" as root #c8102e
 
-rectangle "Bank-Wide\n(Transversal)" as bw #e8f5e9 {
-  rectangle "Integration" as bw_int #fff
-  rectangle "Application" as bw_app #fff
-  rectangle "DevOps" as bw_dev #fff
-  rectangle "Technology" as bw_tech #fff
-  rectangle "Business" as bw_bus #fff
-  rectangle "Data" as bw_data #fff
-  rectangle "Security" as bw_sec #fff
+rectangle "Bank-Wide\n(Transversal)" as bw #e8f5e9
+rectangle "Domain-Wide\n(Par domaine)" as dw #e3f2fd
+
+rectangle "7 Archétypes" as arch #fff5e1 {
+  rectangle "Intégration" as a1 #ffffff
+  rectangle "Application" as a2 #ffffff
+  rectangle "Data" as a3 #ffffff
+  rectangle "Sécurité" as a4 #ffffff
+  rectangle "Technology" as a5 #ffffff
+  rectangle "DevOps" as a6 #ffffff
+  rectangle "Business" as a7 #ffffff
 }
 
-rectangle "Domain-Wide\n(Sectoriel)" as dw #e3f2fd {
-  rectangle "Particuliers" as dw_part #fff
-  rectangle "Entreprises" as dw_ent #fff
-  rectangle "Gestion Patrimoine" as dw_gp #fff
-  rectangle "Carte" as dw_carte #fff
-  rectangle "..." as dw_more #f5f5f5
-}
-
-rectangle "Fiche PRA" as fiche #fff5e1 {
-  rectangle "Metadonnees\n(archetyoe, scope,\nstatut, tags)" as meta #fff
-  rectangle "Contenu\n(contexte, architecture,\nADR, implementation)" as content #fff
-  rectangle "Retours d'experience\n(proven-in-use)" as proven #fff
+rectangle "Domaines" as domains #e3f2fd {
+  rectangle "Particuliers" as d1 #ffffff
+  rectangle "Entreprises" as d2 #ffffff
+  rectangle "Gestion Patrimoine" as d3 #ffffff
+  rectangle "Carte" as d4 #ffffff
+  rectangle "..." as d5 #f5f5f5
 }
 
 root -down-> bw
 root -down-> dw
+bw -down-> arch : organisé par
+dw -down-> domains : organisé par
+domains -down-> arch : puis par archétype
 
-bw_int -[hidden]right-> bw_app
-bw_app -[hidden]right-> bw_dev
-bw_dev -[hidden]right-> bw_tech
+note bottom of arch
+  Chaque PRA contient :
+  · Fiche signalétique (métadonnées)
+  · Contexte, Architecture, ADR
+  · Implémentation, Proven-in-use
 
-dw_part -[hidden]right-> dw_ent
-dw_ent -[hidden]right-> dw_gp
-dw_gp -[hidden]right-> dw_carte
-
-dw --> fiche : chaque PRA\ncontient
-
-note bottom of fiche
-  Statut = metadonnee, pas un dossier :
-  operationalizing → operationalized → deprecated
+  Statut = métadonnée, pas un dossier
 end note
 @enduml
 ----
 
-*Point important* : Le statut (`operationalizing`, `operationalized`, `deprecated`) est une metadonnee du PRA, pas un element de la hierarchie de dossiers.
+*Point important* : Le statut (`operationalizing`, `operationalized`, `deprecated`) est une métadonnée du PRA, pas un élément de la hiérarchie de dossiers.
 
 == 4. Agents IA — Architecture
 
-Deux agents IA permettent aux architectes d'interagir avec le registre en langage naturel, directement depuis VS Code ou Claude Code.
+Deux agents IA permettent aux architectes d'interagir avec le registre en langage naturel, directement depuis VS Code ou Claude Code. Les deux sont *config-driven* et *structure-agnostic*.
 
 [plantuml]
 ----
 @startuml
 skinparam backgroundColor transparent
-skinparam participant {
-  RoundCorner 10
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 12
+skinparam shadowing false
+skinparam ArrowColor #333333
+skinparam sequence {
+  ParticipantBackgroundColor #ffffff
+  ParticipantBorderColor #d1d5db
+  LifeLineBackgroundColor #f9fafb
 }
 
 actor "Architecte" as arch
 participant "PRA Explorer" as explorer #c8102e
-database "content/pras/" as pras
-database "pra-registry.config.yml" as config
+participant "PRA Guide" as guide #2563eb
+database "Registre\n(config + contenu)" as reg
 
-== PRA Explorer : Trouver un pattern ==
+== Trouver un pattern ==
 
-arch -> explorer : "Je dois integrer\nSalesforce dans le\ndomaine entreprises"
-explorer -> config : Step 0 : Lire config\n(structure, archetypes, domaines)
-explorer -> pras : Step 1 : Explorer\ncontent/pras/{lang}/
-explorer -> pras : Step 2-3 : Chercher par\ntags, archetyoe, contenu
-explorer -> arch : Step 4 : Recommandation\n"Salesforce FSC (Domain-Wide)\n2 proven-in-use, satisfaction 8/10"
+arch -> explorer : "Je dois intégrer\nSalesforce pour Entreprises"
+explorer -> reg : Lire config + scanner PRAs
+explorer --> arch : "Salesforce FSC disponible\n2 proven-in-use, score 8/10"
 
-@enduml
-----
+== Comprendre le process ==
 
-[plantuml]
-----
-@startuml
-skinparam backgroundColor transparent
-skinparam participant {
-  RoundCorner 10
-}
-
-actor "Architecte" as arch
-participant "PRA Guide" as guide #1a73e8
-database "content/guides/" as guides
-database "docs/" as docs
-database "pra-registry.config.yml" as config
-
-== PRA Guide : Question process ==
-
-arch -> guide : "Comment soumettre\nun PRA ?"
-guide -> config : Step 0 : Lire config
-guide -> guides : Step 1 : Explorer\ncontent/guides/{lang}/
-guide -> docs : Step 2-3 : Lire\ndocumentation pertinente
-guide -> arch : Step 4 : Reponse structuree\n"1. Copier template\n2. Documenter FR+EN\n3. Soumettre PR\n4. Review CODEOWNERS"
+arch -> guide : "Comment soumettre un PRA ?"
+guide -> reg : Lire guides + docs
+guide --> arch : "1. Copier template\n2. Documenter FR+EN\n3. Soumettre PR"
 
 @enduml
 ----
-
-Les deux agents sont *config-driven* (`pra-registry.config.yml`) et *structure-agnostic* : ils decouvrent dynamiquement le contenu sans chemins hardcodes.
 
 == 5. Gouvernance
 
-Deux niveaux de gouvernance refletent les deux scopes du registre. Les CODEOWNERS GitHub automatisent l'assignation des reviewers.
+Deux niveaux de gouvernance reflètent les deux scopes du registre. Les CODEOWNERS GitHub automatisent l'assignation des reviewers.
 
 [plantuml]
 ----
 @startuml
 skinparam backgroundColor transparent
-skinparam rectangle {
-  RoundCorner 15
-}
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 12
+skinparam shadowing false
+skinparam roundCorner 10
+skinparam ArrowColor #333333
 
 rectangle "Bank-Wide" as bw #c8102e {
-  rectangle "Comite Architectes Experts\n(5-7 experts cross-domaines)" as cae #fff
-  rectangle "Review : 2-4 semaines\n2 approbations requises\n3+ proven-in-use, 2+ equipes" as bw_rules #fff
+  rectangle "Comité Architectes Experts\n5-7 experts cross-domaines\n\nReview : 2-4 semaines\n2 approbations\n3+ proven-in-use" as bw_rules #ffffff
 }
 
-rectangle "Domain-Wide" as dw #1a73e8 {
-  rectangle "Particuliers" as gov_part #fff {
-    rectangle "Comite Gouvernance\n(3-5 architectes)" as cg_part #fff
-  }
-  rectangle "Entreprises" as gov_ent #fff {
-    rectangle "Comite Gouvernance\n(3-5 architectes)" as cg_ent #fff
-  }
-  rectangle "Gestion Patrimoine" as gov_gp #fff {
-    rectangle "Comite Gouvernance\n(3-5 architectes)" as cg_gp #fff
-  }
+rectangle "Domain-Wide" as dw #2563eb {
+  rectangle "Comité par domaine\n3-5 architectes\n\nReview : 5-10 jours\n1+ proven-in-use" as dw_rules #ffffff
 }
 
-rectangle "CODEOWNERS (.github/CODEOWNERS)" as co #fff5e1 {
-  rectangle "content/pras/*/bank-wide/ → @comite-architectes-experts" as co1 #fff
-  rectangle "content/pras/*/domain-wide/particuliers/ → @comite-gov-particuliers" as co2 #fff
-  rectangle "content/pras/*/domain-wide/entreprises/ → @comite-gov-entreprises" as co3 #fff
-  rectangle ".github/, build/, scripts/ → @pra-development-team" as co4 #fff
+rectangle "CODEOWNERS (automatique)" as co #fff5e1 {
+  rectangle "bank-wide/ → @comité-experts\nparticuliers/ → @comité-particuliers\nentreprises/ → @comité-entreprises\nbuild/ → @équipe-plateforme" as co_rules #ffffff
 }
+
+bw -[hidden]right-> dw
+bw -down-> co
+dw -down-> co
 
 note bottom of co
-  Quand une PR touche un fichier,
   GitHub assigne automatiquement
-  les CODEOWNERS comme reviewers.
+  les reviewers selon le fichier modifié
 end note
 @enduml
 ----
 
 == 6. Cycle de vie d'un PRA
 
-Chaque PRA suit un cycle de vie clair, de la contribution initiale jusqu'a la depreciation eventuelle.
+Chaque PRA suit un cycle de vie clair, de la contribution initiale jusqu'à la dépréciation éventuelle.
 
 [plantuml]
 ----
 @startuml
 skinparam backgroundColor transparent
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 13
+skinparam shadowing false
+skinparam ArrowColor #333333
 skinparam state {
-  RoundCorner 15
-  BackgroundColor #fff
-  BorderColor #333
+  BackgroundColor #ffffff
+  BorderColor #d1d5db
 }
 
-[*] --> Contribution : Architecte soumet PR
+[*] --> Contribution
 
-state Contribution #fce4ec {
-  state "Branche + Documentation\nFR + EN" as contrib
-  state "PR Review\n(CI + CODEOWNERS)" as review
-  contrib --> review
-}
+state "Contribution" as contrib #fce4ec : PR + Review\nCODEOWNERS
 
-Contribution --> Operationalizing : Approuve
+contrib --> Operationalizing : Approuvé
 
-state Operationalizing #e3f2fd {
-  state "1+ proven-in-use" as op1
-  state "Collecte retours\nd'experience" as feedback
-  op1 --> feedback
-}
+state "Operationalizing" as op #e3f2fd : 1+ proven-in-use\nCollecte de retours
 
-Operationalizing --> Operationalized : 3+ proven-in-use\n(bank-wide)\nou criteres domaine
+op --> Operationalized : Critères atteints\n(3+ bank-wide)
 
-state Operationalized #e8f5e9 {
-  state "Pattern recommande\npour nouveaux projets" as recommended
-  state "Maintenance active\n(< 6 mois depuis MAJ)" as maintained
-  recommended --> maintained
-}
+state "Operationalized" as done #e8f5e9 : Pattern recommandé\nMaintenance active
 
-Operationalized --> Deprecated : Remplace ou obsolete
+done --> Deprecated : Remplacé ou obsolète
 
-state Deprecated #ffebee {
-  state "Non recommande\npour nouveaux projets" as not_rec
-  state "Plan de migration\ndocumente" as migration
-  not_rec --> migration
-}
+state "Deprecated" as dep #ffebee : Non recommandé\nPlan de migration
 
-Deprecated --> [*]
+dep --> [*]
 @enduml
 ----
 
 == 7. Pipeline CI/CD
 
-A chaque merge sur `main`, deux jobs paralleles publient le contenu en moins de 5 minutes.
+À chaque merge sur `main`, deux jobs parallèles publient le contenu en moins de 5 minutes.
 
 [plantuml]
 ----
 @startuml
 skinparam backgroundColor transparent
-skinparam participant {
-  RoundCorner 10
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 12
+skinparam shadowing false
+skinparam ArrowColor #333333
+skinparam sequence {
+  ParticipantBackgroundColor #ffffff
+  ParticipantBorderColor #d1d5db
 }
 
 actor "Architecte" as arch
-participant "GitHub" as gh #333
-participant "GitHub Actions" as gha #c8102e
-participant "GitHub Pages" as ghp #1a73e8
-participant "Confluence Cloud" as conf #1a73e8
+participant "GitHub" as gh #333333
+participant "GitHub Actions" as ci #c8102e
+participant "GitHub Pages" as ghp #2563eb
+participant "Confluence" as conf #2563eb
 
 arch -> gh : Merge PR sur main
-gh -> gha : Declenche workflows\n(push event)
+gh -> ci : Déclenche CI/CD
 
-== Job 1 : GitHub Pages (parallele) ==
-gha -> gha : Install Java 17\n+ Asciidoctor + PlantUML
-gha -> gha : generate-dashboard.sh\n(index/catalogue)
-gha -> gha : build.sh\n(.adoc → HTML + PNG)
-gha -> ghp : Deploy\n(upload artifact)
+ci -> ghp : Job 1 : Asciidoctor\n+ PlantUML → HTML
+ci -> conf : Job 2 : Docker\nPublisher → Pages
 
-== Job 2 : Confluence (parallele) ==
-gha -> gha : publish-confluence.sh
-gha -> conf : Create/find\nhierarchy pages\n(REST API)
-gha -> conf : Sanitize + publish\n14 sous-dossiers\n(Docker Publisher)
+ghp --> arch : Site à jour (< 2 min)
+conf --> arch : Pages à jour (< 3 min)
 
-ghp -> arch : Site a jour\n(< 2 min)
-conf -> arch : Pages a jour\n(< 3 min)
+note over ci
+  Deux jobs parallèles
+  Zéro intervention manuelle
+end note
 @enduml
 ----
 
-*Resultat* : Un seul merge sur `main` met a jour les deux plateformes simultanement. Zero intervention manuelle.
+*Résultat* : Un seul merge sur `main` met à jour les deux plateformes simultanément. Zéro intervention manuelle.
