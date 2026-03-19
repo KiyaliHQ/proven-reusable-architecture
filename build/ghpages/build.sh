@@ -220,15 +220,6 @@ EOF
 EOF
 
     # --- Overview link (if overview.adoc exists) ---
-    if [ -f "$guides_dir/overview.adoc" ]; then
-        local overview_label="Vue d'ensemble"
-        [ "$lang" = "en" ] && overview_label="Overview"
-        cat >> "$out" <<EOF
-    <a href="guides/${lang}/overview.html" class="sidebar-guide" style="display:block;padding:6px 12px;font-weight:600;">📐 ${overview_label}</a>
-    <div class="sidebar-divider"></div>
-EOF
-    fi
-
     # === TRANSVERSALE ===
     local scope_bw_label="Transversale"
     [ "$lang" = "en" ] && scope_bw_label="Transversal"
