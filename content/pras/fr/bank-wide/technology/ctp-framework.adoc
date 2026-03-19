@@ -1,4 +1,4 @@
-= CTP Framework
+= [DEMO DATA] CTP Framework
 // === MÉTADONNÉES PRA ===
 :pra-name: CTP Framework
 :pra-archetype: technology

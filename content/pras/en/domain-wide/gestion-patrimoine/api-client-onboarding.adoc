@@ -1,4 +1,4 @@
-= API-Based Client Onboarding Pattern
+= [DEMO DATA] API-Based Client Onboarding Pattern
 // === PRA METADATA ===
 :pra-name: API-Based Client Onboarding Pattern
 :pra-archetype: business

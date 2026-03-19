@@ -1,4 +1,4 @@
-= Salesforce Financial Services Cloud
+= [DEMO DATA] Salesforce Financial Services Cloud
 // === PRA METADATA ===
 :pra-name: Salesforce Financial Services Cloud
 :pra-archetype: integration

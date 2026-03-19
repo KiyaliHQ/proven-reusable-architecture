@@ -1,4 +1,4 @@
-= Processus ADR (Architecture Decision Records)
+= [DEMO DATA] Processus ADR (Architecture Decision Records)
 // === MÉTADONNÉES PRA ===
 :pra-name: Processus ADR
 :pra-archetype: application

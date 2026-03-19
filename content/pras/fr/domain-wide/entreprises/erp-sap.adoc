@@ -1,4 +1,4 @@
-= ERP SAP S/4HANA Integration
+= [DEMO DATA] ERP SAP S/4HANA Integration
 // === MÉTADONNÉES PRA ===
 :pra-name: ERP SAP S/4HANA Integration
 :pra-archetype: integration
