@@ -188,8 +188,8 @@ EOF
 
     # === BANK-WIDE ===
     cat >> "$out" <<'EOF'
-    <div class="sidebar-section-title open" onclick="toggleSection(this)"><span class="arrow"></span>Bank-Wide</div>
-    <div class="tree-children">
+    <div class="sidebar-section-title" onclick="toggleSection(this)"><span class="arrow"></span>Bank-Wide</div>
+    <div class="tree-children collapsed">
 EOF
 
     # Build per-archetype data for bank-wide
@@ -212,8 +212,8 @@ EOF
         if [ "$count" -eq 0 ]; then
             echo "      <div class=\"tree-node empty\"><span class=\"arrow\"></span><span class=\"tree-label\">${display_name}</span><span class=\"tree-count\">0</span></div>" >> "$out"
         else
-            echo "      <div class=\"tree-node open\" onclick=\"toggleNode(this)\"><span class=\"arrow\"></span><span class=\"tree-label\">${display_name}</span><span class=\"tree-count\">${count}</span></div>" >> "$out"
-            echo '      <div class="tree-children">' >> "$out"
+            echo "      <div class=\"tree-node\" onclick=\"toggleNode(this)\"><span class=\"arrow\"></span><span class=\"tree-label\">${display_name}</span><span class=\"tree-count\">${count}</span></div>" >> "$out"
+            echo '      <div class="tree-children collapsed">' >> "$out"
             echo -e "$leaves" >> "$out"
             echo '      </div>' >> "$out"
         fi
@@ -226,8 +226,8 @@ EOF
 
     # === DOMAIN-WIDE ===
     cat >> "$out" <<'EOF'
-    <div class="sidebar-section-title open" onclick="toggleSection(this)"><span class="arrow"></span>Domain-Wide</div>
-    <div class="tree-children">
+    <div class="sidebar-section-title" onclick="toggleSection(this)"><span class="arrow"></span>Domain-Wide</div>
+    <div class="tree-children collapsed">
 EOF
 
     # Get list of domains from directory structure
@@ -256,8 +256,8 @@ EOF
             continue
         fi
 
-        echo "      <div class=\"tree-node open\" onclick=\"toggleNode(this)\"><span class=\"arrow\"></span><span class=\"tree-label\">${domain_display}</span><span class=\"tree-count\">${domain_count}</span></div>" >> "$out"
-        echo '      <div class="tree-children">' >> "$out"
+        echo "      <div class=\"tree-node\" onclick=\"toggleNode(this)\"><span class=\"arrow\"></span><span class=\"tree-label\">${domain_display}</span><span class=\"tree-count\">${domain_count}</span></div>" >> "$out"
+        echo '      <div class="tree-children collapsed">' >> "$out"
 
         # Sub-archetypes under this domain
         for arch in $ARCHETYPES; do
@@ -280,8 +280,8 @@ EOF
             if [ "$arch_count" -eq 0 ]; then
                 echo "        <div class=\"tree-subnode empty\"><span class=\"arrow\"></span><span class=\"tree-label\">${arch_display}</span><span class=\"tree-count\">0</span></div>" >> "$out"
             else
-                echo "        <div class=\"tree-subnode open\" onclick=\"toggleNode(this)\"><span class=\"arrow\"></span><span class=\"tree-label\">${arch_display}</span><span class=\"tree-count\">${arch_count}</span></div>" >> "$out"
-                echo '        <div class="tree-children">' >> "$out"
+                echo "        <div class=\"tree-subnode\" onclick=\"toggleNode(this)\"><span class=\"arrow\"></span><span class=\"tree-label\">${arch_display}</span><span class=\"tree-count\">${arch_count}</span></div>" >> "$out"
+                echo '        <div class="tree-children collapsed">' >> "$out"
                 echo -e "$deep_leaves" >> "$out"
                 echo '        </div>' >> "$out"
             fi
@@ -297,8 +297,8 @@ EOF
 
     # === GUIDES ===
     cat >> "$out" <<'EOF'
-    <div class="sidebar-section-title open" onclick="toggleSection(this)"><span class="arrow"></span>Guides</div>
-    <div class="tree-children">
+    <div class="sidebar-section-title" onclick="toggleSection(this)"><span class="arrow"></span>Guides</div>
+    <div class="tree-children collapsed">
 EOF
 
     if [ -d "$guides_dir" ]; then
@@ -510,7 +510,7 @@ generate_meta_card() {
     fi
 
     # Author/maintainer class
-    local author_cls="" maint_cls=""
+    local author_cls=' class="meta-value"' maint_cls=' class="meta-value"'
     [ "$author" = "TBD" ] && author_cls=' class="meta-value muted"'
     [ "$maintainer" = "TBD" ] && maint_cls=' class="meta-value muted"'
 
@@ -525,8 +525,8 @@ generate_meta_card() {
     <tr><td class="meta-label">${lbl_proven}</td><td class="meta-value" style="font-weight:600">${proven}</td></tr>
     <tr><td class="meta-label">${lbl_tags}</td><td class="meta-value">${tags_html:-—}</td></tr>
     <tr><td class="meta-label">${lbl_version}</td><td class="meta-value">${version}</td></tr>
-    <tr><td class="meta-label">${lbl_author}</td><td${author_cls:-' class="meta-value"'}>${author}</td></tr>
-    <tr><td class="meta-label">${lbl_maint}</td><td${maint_cls:-' class="meta-value"'}>${maintainer}</td></tr>
+    <tr><td class="meta-label">${lbl_author}</td><td${author_cls}>${author}</td></tr>
+    <tr><td class="meta-label">${lbl_maint}</td><td${maint_cls}>${maintainer}</td></tr>
     <tr><td class="meta-label">${lbl_created}</td><td class="meta-value">${created:-—}</td></tr>
     <tr><td class="meta-label">${lbl_updated}</td><td class="meta-value">${updated:-—}</td></tr>
   </table>
@@ -567,6 +567,13 @@ convert_pra_page() {
     if [ -z "$body" ]; then
         body=$(sed -n '/<div id="content">/,$ p' "$tmp_html" | head -n -3)
     fi
+
+    # Strip the "Fiche signalétique" sidebarblock (duplicate of generated meta card)
+    body=$(echo "$body" | awk '
+        /<div class="sidebarblock">/ { skip=1; depth=0 }
+        skip { depth += gsub(/<div[ >]/, "&"); depth -= gsub(/<\/div>/, "&"); if (depth <= 0) { skip=0 }; next }
+        { print }
+    ')
 
     # Generate TOC
     local toc_html

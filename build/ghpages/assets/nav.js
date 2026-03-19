@@ -22,32 +22,40 @@ document.addEventListener("DOMContentLoaded", function () {
   var currentPath = window.location.pathname;
   var currentHref = window.location.href;
 
-  document.querySelectorAll(".sidebar a").forEach(function (link) {
-    var href = link.getAttribute("href");
-    if (!href) return;
-    if (currentPath.endsWith(href) || currentHref.endsWith(href)) {
-      link.classList.add("active");
-      // Open ancestor tree nodes / sections so the active link is visible
-      var parent = link.parentElement;
-      while (parent && !parent.classList.contains("sidebar")) {
-        if (parent.classList.contains("tree-children")) {
-          parent.classList.remove("collapsed");
-        }
-        if (
-          parent.classList.contains("tree-node") ||
-          parent.classList.contains("tree-subnode")
-        ) {
-          parent.classList.add("open");
-        }
-        if (parent.classList.contains("sidebar-section-title")) {
-          parent.classList.add("open");
-          var sib = parent.nextElementSibling;
-          if (sib) sib.classList.remove("collapsed");
-        }
-        parent = parent.parentElement;
+  // Find the active link — either already marked server-side or by URL match
+  var activeLink = document.querySelector(".sidebar a.active");
+  if (!activeLink) {
+    document.querySelectorAll(".sidebar a").forEach(function (link) {
+      var href = link.getAttribute("href");
+      if (!href) return;
+      if (currentPath.endsWith(href) || currentHref.endsWith(href)) {
+        link.classList.add("active");
+        activeLink = link;
       }
+    });
+  }
+
+  // Open ancestor tree-children so the active link is visible
+  if (activeLink) {
+    var el = activeLink.parentElement;
+    while (el && !el.classList.contains("sidebar")) {
+      if (el.classList.contains("tree-children")) {
+        el.classList.remove("collapsed");
+        // The toggle node/section is the previous sibling of tree-children
+        var prev = el.previousElementSibling;
+        if (prev) {
+          if (
+            prev.classList.contains("tree-node") ||
+            prev.classList.contains("tree-subnode") ||
+            prev.classList.contains("sidebar-section-title")
+          ) {
+            prev.classList.add("open");
+          }
+        }
+      }
+      el = el.parentElement;
     }
-  });
+  }
 
   /* ── Close sidebar on outside click (mobile) ── */
   document.addEventListener("click", function (e) {
