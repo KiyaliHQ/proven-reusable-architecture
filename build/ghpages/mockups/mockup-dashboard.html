@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalogue des PRA — Registre PRA</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4/dist/full.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.tailwindcss.min.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bnc: '#c8102e',
+            'bnc-dark': '#a00d24',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #1a1a1a;
+      line-height: 1.7;
+      margin: 0;
+      background: #ffffff;
+    }
+    .top-bar { height: 4px; background: #c8102e; }
+
+    /* Sidebar */
+    .sidebar { width: 280px; min-height: calc(100vh - 65px); background: #f9fafb; border-right: 1px solid #e5e7eb; }
+    .sidebar-section-title {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+      color: #9ca3af; padding: 14px 16px 4px; cursor: pointer; user-select: none;
+      display: flex; align-items: center;
+    }
+    .sidebar-section-title .arrow {
+      display: inline-block; width: 0; height: 0;
+      border-left: 5px solid #9ca3af; border-top: 4px solid transparent; border-bottom: 4px solid transparent;
+      margin-right: 8px; transition: transform 0.2s;
+    }
+    .sidebar-section-title.open .arrow { transform: rotate(90deg); }
+
+    /* Tree node (archetype / domain) */
+    .tree-node {
+      display: flex; align-items: center; padding: 4px 16px 4px 28px;
+      font-size: 13px; color: #4b5563; cursor: pointer; user-select: none; transition: color 0.15s;
+    }
+    .tree-node:hover { color: #c8102e; }
+    .tree-node .arrow {
+      display: inline-block; width: 0; height: 0;
+      border-left: 4px solid #9ca3af; border-top: 3px solid transparent; border-bottom: 3px solid transparent;
+      margin-right: 6px; transition: transform 0.15s; flex-shrink: 0;
+    }
+    .tree-node.open .arrow { transform: rotate(90deg); }
+    .tree-node.empty { color: #d1d5db; cursor: default; }
+    .tree-node.empty .arrow { border-left-color: #e5e7eb; }
+    .tree-label { flex: 1; }
+    .tree-count {
+      font-size: 10px; color: #9ca3af; background: #f3f4f6;
+      border-radius: 10px; padding: 0px 6px; font-weight: 500; margin-left: 6px;
+    }
+
+    /* Sub-tree node (archetype under domain) */
+    .tree-subnode {
+      display: flex; align-items: center; padding: 3px 16px 3px 44px;
+      font-size: 12.5px; color: #6b7280; cursor: pointer; user-select: none; transition: color 0.15s;
+    }
+    .tree-subnode:hover { color: #c8102e; }
+    .tree-subnode .arrow {
+      display: inline-block; width: 0; height: 0;
+      border-left: 4px solid #b0b0b0; border-top: 3px solid transparent; border-bottom: 3px solid transparent;
+      margin-right: 6px; transition: transform 0.15s; flex-shrink: 0;
+    }
+    .tree-subnode.open .arrow { transform: rotate(90deg); }
+    .tree-subnode.empty { color: #d1d5db; cursor: default; }
+    .tree-subnode.empty .arrow { border-left-color: #e5e7eb; }
+
+    /* PRA leaf link */
+    .tree-leaf {
+      display: block; padding: 3px 16px 3px 42px; font-size: 12.5px;
+      color: #6b7280; text-decoration: none; transition: all 0.15s;
+      border-left: 3px solid transparent;
+    }
+    .tree-leaf:hover { color: #c8102e; background: #f3f4f6; }
+    .tree-leaf.active {
+      color: #c8102e; font-weight: 600; background: #ffffff; border-left-color: #c8102e;
+    }
+    /* Deeper leaf (under domain > archetype) */
+    .tree-leaf-deep {
+      display: block; padding: 3px 16px 3px 58px; font-size: 12px;
+      color: #6b7280; text-decoration: none; transition: all 0.15s;
+      border-left: 3px solid transparent;
+    }
+    .tree-leaf-deep:hover { color: #c8102e; background: #f3f4f6; }
+    .tree-leaf-deep.active {
+      color: #c8102e; font-weight: 600; background: #ffffff; border-left-color: #c8102e;
+    }
+
+    /* Catalogue top link */
+    .sidebar-catalogue {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 16px; font-size: 13.5px; font-weight: 600;
+      color: #4b5563; text-decoration: none; transition: all 0.15s;
+      border-left: 3px solid transparent;
+    }
+    .sidebar-catalogue:hover { color: #c8102e; background: #f3f4f6; }
+    .sidebar-catalogue.active {
+      color: #c8102e; background: #ffffff; border-left-color: #c8102e;
+    }
+    .sidebar-catalogue .cat-icon { display: flex; align-items: center; gap: 6px; }
+    .sidebar-catalogue .sidebar-count {
+      font-size: 10px; color: #9ca3af; background: #f3f4f6;
+      border-radius: 10px; padding: 0px 6px; font-weight: 500;
+    }
+    .sidebar-catalogue.active .sidebar-count { background: #fef2f2; color: #c8102e; }
+
+    /* Guide links */
+    .sidebar-guide {
+      display: block; padding: 5px 16px 5px 28px; font-size: 13px;
+      color: #4b5563; text-decoration: none; transition: all 0.15s;
+      border-left: 3px solid transparent;
+    }
+    .sidebar-guide:hover { color: #c8102e; background: #f3f4f6; }
+    .sidebar-guide.active {
+      color: #c8102e; font-weight: 600; background: #ffffff; border-left-color: #c8102e;
+    }
+
+    .tree-children { overflow: hidden; }
+    .tree-children.collapsed { display: none; }
+
+    /* DataTables overrides */
+    .dataTables_wrapper .dataTables_filter input {
+      border: 1px solid #d1d5db !important;
+      border-radius: 8px !important;
+      padding: 6px 12px !important;
+      font-size: 13px !important;
+      outline: none !important;
+    }
+    .dataTables_wrapper .dataTables_filter input:focus {
+      border-color: #c8102e !important;
+      box-shadow: 0 0 0 3px rgba(200,16,46,0.1) !important;
+    }
+    .dataTables_wrapper .dataTables_length select {
+      border: 1px solid #d1d5db !important;
+      border-radius: 6px !important;
+      padding: 4px 8px !important;
+      font-size: 13px !important;
+    }
+    table.dataTable thead th {
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.05em !important;
+      color: #6b7280 !important;
+      border-bottom: 2px solid #e5e7eb !important;
+      padding: 10px 12px !important;
+      background: #f9fafb !important;
+    }
+    table.dataTable tbody td {
+      padding: 12px !important;
+      font-size: 13.5px !important;
+      border-bottom: 1px solid #f3f4f6 !important;
+      vertical-align: middle !important;
+    }
+    table.dataTable tbody tr:hover {
+      background: #fef7f7 !important;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-width: 32px !important;
+      height: 32px !important;
+      padding: 0 8px !important;
+      margin: 0 2px !important;
+      border: 1px solid #e5e7eb !important;
+      border-radius: 6px !important;
+      font-size: 13px !important;
+      color: #374151 !important;
+      background: white !important;
+      cursor: pointer !important;
+      text-decoration: none !important;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+      background: #f3f4f6 !important;
+      color: #c8102e !important;
+      border-color: #c8102e !important;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+      background: #c8102e !important;
+      color: white !important;
+      border-color: #c8102e !important;
+      border-radius: 6px !important;
+      font-weight: 600 !important;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+      opacity: 0.4 !important;
+      cursor: default !important;
+    }
+    .dataTables_wrapper .dataTables_paginate {
+      display: flex !important;
+      align-items: center !important;
+      gap: 2px !important;
+      margin-top: 0 !important;
+    }
+    .dataTables_wrapper .dataTables_info {
+      font-size: 12px !important;
+      color: #9ca3af !important;
+    }
+    .dataTables-info-bar {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      padding: 12px 16px !important;
+      border-bottom: 1px solid #f3f4f6 !important;
+    }
+    /* Table full width */
+    table.dataTable {
+      width: 100% !important;
+    }
+
+    /* Badge styles */
+    .badge-operationalizing {
+      background: #fffbeb; color: #b45309; border: 1px solid #fde68a;
+      padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; white-space: nowrap;
+    }
+    .badge-operationalized {
+      background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0;
+      padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; white-space: nowrap;
+    }
+    .badge-deprecated {
+      background: #f9fafb; color: #6b7280; border: 1px solid #e5e7eb;
+      padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; white-space: nowrap;
+    }
+    .badge-scope {
+      background: #f0f9ff; color: #0369a1; border: 1px solid #bae6fd;
+      padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; white-space: nowrap;
+    }
+    .pra-link { color: #c8102e; text-decoration: none; font-weight: 500; }
+    .pra-link:hover { text-decoration: underline; }
+
+    /* Custom filter dropdowns */
+    .filter-select {
+      font-size: 13px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 6px 28px 6px 10px;
+      background: white;
+      color: #374151;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236b7280' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+    }
+    .filter-select:focus {
+      outline: none;
+      border-color: #c8102e;
+      box-shadow: 0 0 0 3px rgba(200,16,46,0.1);
+    }
+
+    /* Mobile sidebar */
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .main-content { margin-left: 0 !important; }
+    }
+  </style>
+</head>
+<body data-theme="light">
+
+  <!-- Top Red Bar -->
+  <div class="top-bar"></div>
+
+  <!-- Header -->
+  <header class="border-b border-gray-200 bg-white sticky top-0 z-50">
+    <div class="px-6 py-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <button class="md:hidden text-gray-500 mr-2" onclick="document.querySelector('.sidebar').classList.toggle('!block')">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+        <a href="mockup-landing.html" class="flex items-center gap-2 text-decoration-none">
+          <img src="logo-bnc.svg" alt="Banque Nationale" height="28" style="height:28px; width:auto;">
+          <span class="text-base font-semibold text-gray-900">Registre PRA</span>
+        </a>
+      </div>
+      <div class="flex items-center gap-4">
+        <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
+          <a href="mockup-landing.html" class="hover:text-bnc transition-colors">Accueil</a>
+          <a href="mockup-dashboard.html" class="text-bnc font-semibold">Catalogue</a>
+          <a href="mockup-guide.html" class="hover:text-bnc transition-colors">Guides</a>
+        </nav>
+        <div class="flex items-center gap-1 text-sm border border-gray-200 rounded-md overflow-hidden">
+          <button class="px-2 py-1 bg-bnc text-white font-medium text-xs">FR</button>
+          <button class="px-2 py-1 text-gray-500 text-xs">EN</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Layout: Sidebar + Content -->
+  <div class="flex">
+
+    <!-- Sidebar -->
+    <aside class="sidebar flex-shrink-0 overflow-y-auto sticky top-[57px] h-[calc(100vh-57px)]">
+      <div class="py-4">
+
+        <!-- Catalogue -->
+        <a href="mockup-dashboard.html" class="sidebar-catalogue active">
+          <span class="cat-icon">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            Catalogue
+          </span>
+          <span class="sidebar-count">8</span>
+        </a>
+
+        <div class="my-2 mx-4 border-t border-gray-200"></div>
+
+        <!-- BANK-WIDE -->
+        <div class="sidebar-section-title open" onclick="toggleSection(this)"><span class="arrow"></span>Bank-Wide</div>
+        <div class="tree-children">
+          <div class="tree-node open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Integration</span><span class="tree-count">2</span></div>
+          <div class="tree-children">
+            <a href="mockup-pra.html" class="tree-leaf">ERP SAP S/4HANA Integration</a>
+            <a href="mockup-pra.html" class="tree-leaf">Salesforce Financial Services Cloud</a>
+          </div>
+          <div class="tree-node open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Application</span><span class="tree-count">1</span></div>
+          <div class="tree-children">
+            <a href="mockup-pra.html" class="tree-leaf">Processus ADR</a>
+          </div>
+          <div class="tree-node open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">DevOps</span><span class="tree-count">1</span></div>
+          <div class="tree-children">
+            <a href="mockup-pra.html" class="tree-leaf">Standards de Code Review</a>
+          </div>
+          <div class="tree-node open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Technology</span><span class="tree-count">1</span></div>
+          <div class="tree-children">
+            <a href="mockup-pra.html" class="tree-leaf">CTP Framework</a>
+          </div>
+          <div class="tree-node empty"><span class="arrow"></span><span class="tree-label">Business</span><span class="tree-count">0</span></div>
+          <div class="tree-node empty"><span class="arrow"></span><span class="tree-label">Data</span><span class="tree-count">0</span></div>
+          <div class="tree-node empty"><span class="arrow"></span><span class="tree-label">Security</span><span class="tree-count">0</span></div>
+        </div>
+
+        <div class="my-2 mx-4 border-t border-gray-200"></div>
+
+        <!-- DOMAIN-WIDE -->
+        <div class="sidebar-section-title open" onclick="toggleSection(this)"><span class="arrow"></span>Domain-Wide</div>
+        <div class="tree-children">
+          <div class="tree-node open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Particuliers</span><span class="tree-count">2</span></div>
+          <div class="tree-children">
+            <div class="tree-subnode open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Technology</span><span class="tree-count">1</span></div>
+            <div class="tree-children">
+              <a href="mockup-pra.html" class="tree-leaf-deep">API Gateway Test Pattern</a>
+            </div>
+            <div class="tree-subnode open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Business</span><span class="tree-count">1</span></div>
+            <div class="tree-children">
+              <a href="mockup-pra.html" class="tree-leaf-deep">Onboarding Client Digital</a>
+            </div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Integration</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Application</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">DevOps</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Data</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Security</span><span class="tree-count">0</span></div>
+          </div>
+          <div class="tree-node open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Entreprises</span><span class="tree-count">1</span></div>
+          <div class="tree-children">
+            <div class="tree-subnode open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Integration</span><span class="tree-count">1</span></div>
+            <div class="tree-children">
+              <a href="mockup-pra.html" class="tree-leaf-deep">ERP SAP S/4HANA Integration</a>
+            </div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Technology</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Business</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Application</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">DevOps</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Data</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Security</span><span class="tree-count">0</span></div>
+          </div>
+          <div class="tree-node open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Gestion Patrimoine</span><span class="tree-count">2</span></div>
+          <div class="tree-children">
+            <div class="tree-subnode open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Business</span><span class="tree-count">1</span></div>
+            <div class="tree-children">
+              <a href="mockup-pra.html" class="tree-leaf-deep">Patron d'Onboarding Client via API</a>
+            </div>
+            <div class="tree-subnode open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Integration</span><span class="tree-count">1</span></div>
+            <div class="tree-children">
+              <a href="mockup-pra.html" class="tree-leaf-deep">Salesforce Financial Services Cloud</a>
+            </div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Technology</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Application</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">DevOps</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Data</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Security</span><span class="tree-count">0</span></div>
+          </div>
+          <div class="tree-node empty"><span class="arrow"></span><span class="tree-label">Carte</span><span class="tree-count">0</span></div>
+        </div>
+
+        <div class="my-2 mx-4 border-t border-gray-200"></div>
+
+        <!-- GUIDES -->
+        <div class="sidebar-section-title open" onclick="toggleSection(this)"><span class="arrow"></span>Guides</div>
+        <div class="tree-children">
+          <a href="mockup-guide.html" class="sidebar-guide">Démarrage rapide</a>
+          <a href="mockup-guide.html" class="sidebar-guide">Comprendre les PRA</a>
+          <a href="mockup-guide.html" class="sidebar-guide">Contribuer</a>
+          <a href="mockup-guide.html" class="sidebar-guide">Gouvernance</a>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 min-w-0 p-8">
+
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 text-xs text-gray-400 mb-6">
+        <a href="mockup-landing.html" class="hover:text-gray-600">Accueil</a>
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        <span class="text-gray-600 font-medium">Catalogue des PRA</span>
+      </nav>
+
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">Catalogue des PRA</h1>
+        <p class="text-gray-500 text-sm mb-8">Explorez l'ensemble des Proven Reusable Architectures du registre. Utilisez les filtres et la recherche pour trouver le pattern adapté à votre contexte.</p>
+
+        <!-- Unified Filters -->
+        <div class="flex flex-wrap items-center gap-3 mb-6">
+          <div class="flex items-center gap-2 flex-1 min-w-[200px] max-w-xs relative">
+            <div class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            </div>
+            <input id="global-search" type="text" placeholder="Rechercher..." class="filter-select pl-9 w-full" oninput="filterTable()">
+          </div>
+          <select id="filter-archetype" class="filter-select" onchange="filterTable()">
+            <option value="">Tous les archétypes</option>
+            <option value="technology">Technology</option>
+            <option value="integration">Integration</option>
+            <option value="business">Business</option>
+            <option value="application">Application</option>
+            <option value="devops">DevOps</option>
+          </select>
+          <select id="filter-status" class="filter-select" onchange="filterTable()">
+            <option value="">Tous les statuts</option>
+            <option value="operationalizing">Operationalizing</option>
+            <option value="operationalized">Operationalized</option>
+            <option value="deprecated">Deprecated</option>
+          </select>
+          <select id="filter-scope" class="filter-select" onchange="filterTable()">
+            <option value="">Tous les scopes</option>
+            <option value="bank-wide">Bank-Wide</option>
+            <option value="domain-wide">Domain-Wide</option>
+          </select>
+          <select id="filter-origin" class="filter-select" onchange="filterTable()">
+            <option value="">Toutes les origines</option>
+            <option value="particuliers">Particuliers</option>
+            <option value="entreprises">Entreprises</option>
+            <option value="gestion-patrimoine">Gestion Patrimoine</option>
+            <option value="carte">Carte</option>
+            <option value="ctp">CTP</option>
+            <option value="software-engineering">Software Engineering</option>
+            <option value="pratique-architecture">Pratique Architecture</option>
+          </select>
+          <button onclick="clearFilters()" class="text-xs text-bnc hover:underline font-medium ml-1">Réinitialiser</button>
+        </div>
+
+        <!-- Table -->
+        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+          <table id="pra-table" class="w-full">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Archétype</th>
+                <th>Sous-catégorie</th>
+                <th>Statut</th>
+                <th>Scope</th>
+                <th>Origine</th>
+                <th>Proven</th>
+                <th>MAJ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="mockup-pra.html" class="pra-link">API Gateway Test Pattern</a></td>
+                <td>technology</td>
+                <td>api-gateway</td>
+                <td><span class="badge-operationalizing">operationalizing</span></td>
+                <td><span class="badge-scope">domain-wide</span></td>
+                <td><span class="badge-scope">particuliers</span></td>
+                <td class="text-center font-medium">1</td>
+                <td class="text-gray-500">2025-12-03</td>
+              </tr>
+              <tr>
+                <td><a href="mockup-pra.html" class="pra-link">CTP Framework</a></td>
+                <td>technology</td>
+                <td>ctp</td>
+                <td><span class="badge-operationalizing">operationalizing</span></td>
+                <td><span class="badge-scope">bank-wide</span></td>
+                <td><span class="badge-scope">ctp</span></td>
+                <td class="text-center font-medium">0</td>
+                <td class="text-gray-500">2025-01-30</td>
+              </tr>
+              <tr>
+                <td><a href="mockup-pra.html" class="pra-link">ERP SAP S/4HANA Integration</a></td>
+                <td>integration</td>
+                <td>erp</td>
+                <td><span class="badge-operationalizing">operationalizing</span></td>
+                <td><span class="badge-scope">domain-wide</span></td>
+                <td><span class="badge-scope">entreprises</span></td>
+                <td class="text-center font-medium">1</td>
+                <td class="text-gray-500">2025-01-30</td>
+              </tr>
+              <tr>
+                <td><a href="mockup-pra.html" class="pra-link">Onboarding Client Digital</a></td>
+                <td>business</td>
+                <td>onboarding</td>
+                <td><span class="badge-operationalizing">operationalizing</span></td>
+                <td><span class="badge-scope">domain-wide</span></td>
+                <td><span class="badge-scope">particuliers</span></td>
+                <td class="text-center font-medium">1</td>
+                <td class="text-gray-500">2025-01-30</td>
+              </tr>
+              <tr>
+                <td><a href="mockup-pra.html" class="pra-link">Patron d'Onboarding Client via API</a></td>
+                <td>business</td>
+                <td>onboarding</td>
+                <td><span class="badge-operationalizing">operationalizing</span></td>
+                <td><span class="badge-scope">domain-wide</span></td>
+                <td><span class="badge-scope">gestion-patrimoine</span></td>
+                <td class="text-center font-medium">1</td>
+                <td class="text-gray-500">2025-12-04</td>
+              </tr>
+              <tr>
+                <td><a href="mockup-pra.html" class="pra-link">Processus ADR</a></td>
+                <td>application</td>
+                <td>pratique-architecture</td>
+                <td><span class="badge-operationalizing">operationalizing</span></td>
+                <td><span class="badge-scope">bank-wide</span></td>
+                <td><span class="badge-scope">pratique-architecture</span></td>
+                <td class="text-center font-medium">0</td>
+                <td class="text-gray-500">2025-01-30</td>
+              </tr>
+              <tr>
+                <td><a href="mockup-pra.html" class="pra-link">Salesforce Financial Services Cloud</a></td>
+                <td>integration</td>
+                <td>crm</td>
+                <td><span class="badge-operationalizing">operationalizing</span></td>
+                <td><span class="badge-scope">domain-wide</span></td>
+                <td><span class="badge-scope">gestion-patrimoine</span></td>
+                <td class="text-center font-medium">1</td>
+                <td class="text-gray-500">2025-01-30</td>
+              </tr>
+              <tr>
+                <td><a href="mockup-pra.html" class="pra-link">Standards de Code Review</a></td>
+                <td>devops</td>
+                <td>software-engineering</td>
+                <td><span class="badge-operationalizing">operationalizing</span></td>
+                <td><span class="badge-scope">bank-wide</span></td>
+                <td><span class="badge-scope">software-engineering</span></td>
+                <td class="text-center font-medium">0</td>
+                <td class="text-gray-500">2025-01-30</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function toggleSection(el) {
+      el.classList.toggle('open');
+      var children = el.nextElementSibling;
+      if (children) children.classList.toggle('collapsed');
+    }
+    function toggleNode(el) {
+      if (el.classList.contains('empty')) return;
+      el.classList.toggle('open');
+      var children = el.nextElementSibling;
+      if (children && children.classList.contains('tree-children')) children.classList.toggle('collapsed');
+    }
+  </script>
+  <script>
+    var table;
+    $(document).ready(function() {
+      table = $('#pra-table').DataTable({
+        pageLength: 20,
+        dom: '<"dataTables-info-bar"ip>t',
+        language: {
+          info: "_START_ à _END_ sur _TOTAL_ PRAs",
+          infoEmpty: "Aucun PRA",
+          infoFiltered: "(filtré de _MAX_ total)",
+          zeroRecords: "Aucun PRA trouvé",
+          paginate: { previous: "←", next: "→" }
+        },
+        order: [[7, 'desc']],
+        columnDefs: [
+          { targets: [6], className: 'text-center' }
+        ]
+      });
+
+      // Read ?q= param from URL (from landing search or tag clicks)
+      var urlParams = new URLSearchParams(window.location.search);
+      var q = urlParams.get('q');
+      if (q) {
+        $('#global-search').val(q);
+        table.search(q).draw();
+      }
+    });
+
+    function filterTable() {
+      var globalSearch = $('#global-search').val();
+      var archetype = $('#filter-archetype').val();
+      var status = $('#filter-status').val();
+      var scope = $('#filter-scope').val();
+      var origin = $('#filter-origin').val();
+
+      table.search(globalSearch);
+      table.column(1).search(archetype);
+      table.column(3).search(status);
+      table.column(4).search(scope);
+      table.column(5).search(origin);
+      table.draw();
+    }
+
+    function clearFilters() {
+      $('#global-search').val('');
+      $('#filter-archetype').val('');
+      $('#filter-status').val('');
+      $('#filter-scope').val('');
+      $('#filter-origin').val('');
+      table.search('').columns().search('').draw();
+      // Clean URL
+      if (window.history.replaceState) {
+        window.history.replaceState({}, '', window.location.pathname);
+      }
+    }
+  </script>
+
+</body>
+</html>

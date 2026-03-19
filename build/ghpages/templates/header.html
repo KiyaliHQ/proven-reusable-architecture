@@ -1,26 +1,28 @@
-<!-- Top bar -->
-<div class="topbar">
-  <div class="topbar-inner">
-    <span class="topbar-brand">BANQUE NATIONALE DU CANADA</span>
-  </div>
-</div>
-<!-- Navbar -->
-<nav class="navbar">
-  <div class="navbar-inner">
-    <a href="{{ASSETS_PREFIX}}{{LANG}}/index.html" class="navbar-logo">
-      <span class="logo-mark">PRA</span>
-      <span class="logo-text">Registre</span>
-    </a>
-    <button class="sidebar-toggle" onclick="document.body.classList.toggle('sidebar-open')" aria-label="Menu">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-    </button>
-    <div class="navbar-links">
-      <a href="{{ASSETS_PREFIX}}{{LANG}}/index.html" class="nav-link">{{NAV_HOME}}</a>
-      <a href="{{ASSETS_PREFIX}}{{LANG}}/pras/index.html" class="nav-link">{{NAV_CATALOGUE}}</a>
-      <a href="{{ASSETS_PREFIX}}{{LANG}}/guides/index.html" class="nav-link">{{NAV_GUIDES}}</a>
+<!-- Top Red Bar -->
+<div class="top-bar"></div>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-left">
+      <button class="mobile-menu-btn" onclick="document.querySelector('.sidebar').classList.toggle('sidebar-visible')">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+      <a href="{{HOME_URL}}" class="header-logo">
+        <img src="{{ASSETS_PREFIX}}assets/logo-bnc.svg" alt="Banque Nationale" height="28">
+        <span class="header-logo-text">Registre PRA</span>
+      </a>
     </div>
-    <div class="navbar-right">
-      <a href="{{LANG_SWITCH_URL}}" class="lang-switch">{{LANG_SWITCH_LABEL}}</a>
+    <div class="header-right">
+      <nav class="header-nav">
+        <a href="{{HOME_URL}}" {{NAV_HOME_ACTIVE}}>{{NAV_HOME}}</a>
+        <a href="{{CATALOGUE_URL}}" {{NAV_CATALOGUE_ACTIVE}}>{{NAV_CATALOGUE}}</a>
+        <a href="{{GUIDES_URL}}" {{NAV_GUIDES_ACTIVE}}>{{NAV_GUIDES}}</a>
+      </nav>
+      <div class="lang-toggle">
+        <a href="{{LANG_FR_URL}}" class="lang-btn {{LANG_FR_ACTIVE}}">FR</a>
+        <a href="{{LANG_EN_URL}}" class="lang-btn {{LANG_EN_ACTIVE}}">EN</a>
+      </div>
     </div>
   </div>
-</nav>
+</header>

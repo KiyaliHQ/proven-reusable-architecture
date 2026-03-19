@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Gateway Test Pattern — Registre PRA</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4/dist/full.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bnc: '#c8102e',
+            'bnc-dark': '#a00d24',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #1a1a1a;
+      line-height: 1.7;
+      margin: 0;
+      background: #ffffff;
+    }
+    .top-bar { height: 4px; background: #c8102e; }
+
+    /* Sidebar */
+    .sidebar { width: 280px; min-height: calc(100vh - 65px); background: #f9fafb; border-right: 1px solid #e5e7eb; }
+    .sidebar-section-title {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+      color: #9ca3af; padding: 14px 16px 4px; cursor: pointer; user-select: none;
+      display: flex; align-items: center;
+    }
+    .sidebar-section-title .arrow {
+      display: inline-block; width: 0; height: 0;
+      border-left: 5px solid #9ca3af; border-top: 4px solid transparent; border-bottom: 4px solid transparent;
+      margin-right: 8px; transition: transform 0.2s;
+    }
+    .sidebar-section-title.open .arrow { transform: rotate(90deg); }
+    .tree-node {
+      display: flex; align-items: center; padding: 4px 16px 4px 28px;
+      font-size: 13px; color: #4b5563; cursor: pointer; user-select: none; transition: color 0.15s;
+    }
+    .tree-node:hover { color: #c8102e; }
+    .tree-node .arrow {
+      display: inline-block; width: 0; height: 0;
+      border-left: 4px solid #9ca3af; border-top: 3px solid transparent; border-bottom: 3px solid transparent;
+      margin-right: 6px; transition: transform 0.15s; flex-shrink: 0;
+    }
+    .tree-node.open .arrow { transform: rotate(90deg); }
+    .tree-node.empty { color: #d1d5db; cursor: default; }
+    .tree-node.empty .arrow { border-left-color: #e5e7eb; }
+    .tree-label { flex: 1; }
+    .tree-count {
+      font-size: 10px; color: #9ca3af; background: #f3f4f6;
+      border-radius: 10px; padding: 0px 6px; font-weight: 500; margin-left: 6px;
+    }
+    .tree-subnode {
+      display: flex; align-items: center; padding: 3px 16px 3px 44px;
+      font-size: 12.5px; color: #6b7280; cursor: pointer; user-select: none; transition: color 0.15s;
+    }
+    .tree-subnode:hover { color: #c8102e; }
+    .tree-subnode .arrow {
+      display: inline-block; width: 0; height: 0;
+      border-left: 4px solid #b0b0b0; border-top: 3px solid transparent; border-bottom: 3px solid transparent;
+      margin-right: 6px; transition: transform 0.15s; flex-shrink: 0;
+    }
+    .tree-subnode.open .arrow { transform: rotate(90deg); }
+    .tree-subnode.empty { color: #d1d5db; cursor: default; }
+    .tree-subnode.empty .arrow { border-left-color: #e5e7eb; }
+    .tree-leaf {
+      display: block; padding: 3px 16px 3px 42px; font-size: 12.5px;
+      color: #6b7280; text-decoration: none; transition: all 0.15s;
+      border-left: 3px solid transparent;
+    }
+    .tree-leaf:hover { color: #c8102e; background: #f3f4f6; }
+    .tree-leaf.active { color: #c8102e; font-weight: 600; background: #ffffff; border-left-color: #c8102e; }
+    .tree-leaf-deep {
+      display: block; padding: 3px 16px 3px 58px; font-size: 12px;
+      color: #6b7280; text-decoration: none; transition: all 0.15s;
+      border-left: 3px solid transparent;
+    }
+    .tree-leaf-deep:hover { color: #c8102e; background: #f3f4f6; }
+    .tree-leaf-deep.active { color: #c8102e; font-weight: 600; background: #ffffff; border-left-color: #c8102e; }
+    .sidebar-guide {
+      display: block; padding: 5px 16px 5px 28px; font-size: 13px;
+      color: #4b5563; text-decoration: none; transition: all 0.15s;
+      border-left: 3px solid transparent;
+    }
+    .sidebar-guide:hover { color: #c8102e; background: #f3f4f6; }
+    .sidebar-guide.active { color: #c8102e; font-weight: 600; background: #ffffff; border-left-color: #c8102e; }
+    .tree-children { overflow: hidden; }
+    .tree-children.collapsed { display: none; }
+
+    /* Content styles */
+    .content h2 {
+      font-size: 1.35rem; font-weight: 700; color: #1a1a1a;
+      margin-top: 2.5rem; margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem; border-bottom: 1px solid #f3f4f6;
+    }
+    .content h3 {
+      font-size: 1.1rem; font-weight: 600; color: #333333;
+      margin-top: 1.75rem; margin-bottom: 0.5rem;
+    }
+    .content p { margin-bottom: 1rem; color: #333333; font-size: 14.5px; }
+    .content ul { margin-bottom: 1rem; padding-left: 1.5rem; }
+    .content li { margin-bottom: 0.35rem; color: #333333; font-size: 14.5px; }
+    .content a { color: #c8102e; text-decoration: none; }
+    .content a:hover { text-decoration: underline; }
+
+    /* Code blocks */
+    .code-block {
+      background: #f8f9fa; border: 1px solid #e5e7eb; border-radius: 8px;
+      padding: 16px 20px; margin: 12px 0 20px;
+      font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, monospace;
+      font-size: 13px; line-height: 1.6; overflow-x: auto;
+      color: #1a1a1a;
+    }
+    .code-block .comment { color: #6b7280; }
+    .code-block .keyword { color: #c8102e; }
+    .code-block .string { color: #059669; }
+
+    /* Tag pills */
+    .tag-pill {
+      display: inline-block; background: #f3f4f6; color: #4b5563;
+      font-size: 12px; padding: 2px 10px; border-radius: 12px;
+      font-weight: 500; margin: 2px;
+    }
+
+    /* TOC */
+    .toc a {
+      display: block; padding: 4px 0; font-size: 12.5px; color: #6b7280;
+      text-decoration: none; transition: color 0.15s;
+    }
+    .toc a:hover { color: #c8102e; }
+    .toc a.active { color: #c8102e; font-weight: 600; }
+
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .toc-aside { display: none !important; }
+    }
+    @media (max-width: 1100px) {
+      .toc-aside { display: none !important; }
+    }
+  </style>
+</head>
+<body data-theme="light">
+
+  <!-- Top Red Bar -->
+  <div class="top-bar"></div>
+
+  <!-- Header -->
+  <header class="border-b border-gray-200 bg-white sticky top-0 z-50">
+    <div class="px-6 py-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <button class="md:hidden text-gray-500 mr-2">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+        <a href="mockup-landing.html" class="flex items-center gap-2" style="text-decoration:none">
+          <img src="logo-bnc.svg" alt="Banque Nationale" height="28" style="height:28px; width:auto;">
+          <span class="text-base font-semibold text-gray-900">Registre PRA</span>
+        </a>
+      </div>
+      <div class="flex items-center gap-4">
+        <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
+          <a href="mockup-landing.html" class="hover:text-bnc transition-colors">Accueil</a>
+          <a href="mockup-dashboard.html" class="text-bnc font-semibold">Catalogue</a>
+          <a href="mockup-guide.html" class="hover:text-bnc transition-colors">Guides</a>
+        </nav>
+        <div class="flex items-center gap-1 text-sm border border-gray-200 rounded-md overflow-hidden">
+          <button class="px-2 py-1 bg-bnc text-white font-medium text-xs">FR</button>
+          <button class="px-2 py-1 text-gray-500 text-xs">EN</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Layout -->
+  <div class="flex">
+
+    <!-- Sidebar -->
+    <aside class="sidebar flex-shrink-0 overflow-y-auto sticky top-[57px] h-[calc(100vh-57px)]">
+      <div class="py-4">
+        <!-- BANK-WIDE -->
+        <div class="sidebar-section-title open" onclick="toggleSection(this)"><span class="arrow"></span>Bank-Wide</div>
+        <div class="tree-children">
+          <div class="tree-node open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Integration</span><span class="tree-count">2</span></div>
+          <div class="tree-children">
+            <a href="mockup-pra.html" class="tree-leaf">ERP SAP S/4HANA Integration</a>
+            <a href="mockup-pra.html" class="tree-leaf">Salesforce Financial Services Cloud</a>
+          </div>
+          <div class="tree-node open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Application</span><span class="tree-count">1</span></div>
+          <div class="tree-children">
+            <a href="mockup-pra.html" class="tree-leaf">Processus ADR</a>
+          </div>
+          <div class="tree-node open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">DevOps</span><span class="tree-count">1</span></div>
+          <div class="tree-children">
+            <a href="mockup-pra.html" class="tree-leaf">Standards de Code Review</a>
+          </div>
+          <div class="tree-node open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Technology</span><span class="tree-count">1</span></div>
+          <div class="tree-children">
+            <a href="mockup-pra.html" class="tree-leaf">CTP Framework</a>
+          </div>
+          <div class="tree-node empty"><span class="arrow"></span><span class="tree-label">Business</span><span class="tree-count">0</span></div>
+          <div class="tree-node empty"><span class="arrow"></span><span class="tree-label">Data</span><span class="tree-count">0</span></div>
+          <div class="tree-node empty"><span class="arrow"></span><span class="tree-label">Security</span><span class="tree-count">0</span></div>
+        </div>
+
+        <div class="my-2 mx-4 border-t border-gray-200"></div>
+
+        <!-- DOMAIN-WIDE -->
+        <div class="sidebar-section-title open" onclick="toggleSection(this)"><span class="arrow"></span>Domain-Wide</div>
+        <div class="tree-children">
+          <div class="tree-node open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Particuliers</span><span class="tree-count">2</span></div>
+          <div class="tree-children">
+            <div class="tree-subnode open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Technology</span><span class="tree-count">1</span></div>
+            <div class="tree-children">
+              <a href="mockup-pra.html" class="tree-leaf-deep active">API Gateway Test Pattern</a>
+            </div>
+            <div class="tree-subnode open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Business</span><span class="tree-count">1</span></div>
+            <div class="tree-children">
+              <a href="mockup-pra.html" class="tree-leaf-deep">Onboarding Client Digital</a>
+            </div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Integration</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Application</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">DevOps</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Data</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Security</span><span class="tree-count">0</span></div>
+          </div>
+          <div class="tree-node open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Entreprises</span><span class="tree-count">1</span></div>
+          <div class="tree-children">
+            <div class="tree-subnode open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Integration</span><span class="tree-count">1</span></div>
+            <div class="tree-children">
+              <a href="mockup-pra.html" class="tree-leaf-deep">ERP SAP S/4HANA Integration</a>
+            </div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Technology</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Business</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Application</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">DevOps</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Data</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Security</span><span class="tree-count">0</span></div>
+          </div>
+          <div class="tree-node open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Gestion Patrimoine</span><span class="tree-count">2</span></div>
+          <div class="tree-children">
+            <div class="tree-subnode open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Business</span><span class="tree-count">1</span></div>
+            <div class="tree-children">
+              <a href="mockup-pra.html" class="tree-leaf-deep">Patron d'Onboarding Client via API</a>
+            </div>
+            <div class="tree-subnode open" onclick="toggleNode(this)"><span class="arrow"></span><span class="tree-label">Integration</span><span class="tree-count">1</span></div>
+            <div class="tree-children">
+              <a href="mockup-pra.html" class="tree-leaf-deep">Salesforce Financial Services Cloud</a>
+            </div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Technology</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Application</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">DevOps</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Data</span><span class="tree-count">0</span></div>
+            <div class="tree-subnode empty"><span class="arrow"></span><span class="tree-label">Security</span><span class="tree-count">0</span></div>
+          </div>
+          <div class="tree-node empty"><span class="arrow"></span><span class="tree-label">Carte</span><span class="tree-count">0</span></div>
+        </div>
+
+        <div class="my-2 mx-4 border-t border-gray-200"></div>
+
+        <!-- GUIDES -->
+        <div class="sidebar-section-title open" onclick="toggleSection(this)"><span class="arrow"></span>Guides</div>
+        <div class="tree-children">
+          <a href="mockup-guide.html" class="sidebar-guide">Démarrage rapide</a>
+          <a href="mockup-guide.html" class="sidebar-guide">Comprendre les PRA</a>
+          <a href="mockup-guide.html" class="sidebar-guide">Contribuer</a>
+          <a href="mockup-guide.html" class="sidebar-guide">Gouvernance</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 min-w-0 p-8">
+      <div class="flex gap-8">
+
+        <!-- Article -->
+        <div class="content flex-1 min-w-0 max-w-3xl">
+
+          <!-- Breadcrumb -->
+          <nav class="flex items-center gap-2 text-xs text-gray-400 mb-6">
+            <a href="mockup-landing.html" class="hover:text-gray-600">Accueil</a>
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+            <a href="mockup-dashboard.html" class="hover:text-gray-600">Catalogue</a>
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+            <span class="text-gray-600 font-medium">API Gateway Test Pattern</span>
+          </nav>
+
+          <h1 class="text-2xl font-bold text-gray-900 mb-6">API Gateway Test Pattern</h1>
+
+          <!-- Metadata Card -->
+          <div class="border-l-4 border-bnc bg-gray-50 rounded-r-lg p-5 mb-8">
+            <table class="w-full text-sm">
+              <tbody>
+                <tr class="border-b border-gray-200">
+                  <td class="py-2 pr-4 font-semibold text-gray-500 w-36">Archétype</td>
+                  <td class="py-2 text-gray-900">technology</td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                  <td class="py-2 pr-4 font-semibold text-gray-500">Sous-catégorie</td>
+                  <td class="py-2 text-gray-900">api-gateway</td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                  <td class="py-2 pr-4 font-semibold text-gray-500">Statut</td>
+                  <td class="py-2"><span class="inline-block bg-amber-50 text-amber-700 border border-amber-200 text-xs font-semibold px-2.5 py-0.5 rounded-full">operationalizing</span></td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                  <td class="py-2 pr-4 font-semibold text-gray-500">Scope</td>
+                  <td class="py-2"><span class="inline-block bg-blue-50 text-blue-700 border border-blue-200 text-xs font-semibold px-2.5 py-0.5 rounded-full">domain-wide</span></td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                  <td class="py-2 pr-4 font-semibold text-gray-500">Origine</td>
+                  <td class="py-2"><span class="inline-block bg-blue-50 text-blue-700 border border-blue-200 text-xs font-semibold px-2.5 py-0.5 rounded-full">particuliers</span></td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                  <td class="py-2 pr-4 font-semibold text-gray-500">Proven-in-use</td>
+                  <td class="py-2 font-semibold text-gray-900">1</td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                  <td class="py-2 pr-4 font-semibold text-gray-500">Tags</td>
+                  <td class="py-2">
+                    <a href="mockup-dashboard.html?q=api" class="tag-pill" style="text-decoration:none; cursor:pointer;">api</a>
+                    <a href="mockup-dashboard.html?q=gateway" class="tag-pill" style="text-decoration:none; cursor:pointer;">gateway</a>
+                    <a href="mockup-dashboard.html?q=microservices" class="tag-pill" style="text-decoration:none; cursor:pointer;">microservices</a>
+                    <a href="mockup-dashboard.html?q=kong" class="tag-pill" style="text-decoration:none; cursor:pointer;">kong</a>
+                  </td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                  <td class="py-2 pr-4 font-semibold text-gray-500">Version</td>
+                  <td class="py-2 text-gray-900">1.0.0</td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                  <td class="py-2 pr-4 font-semibold text-gray-500">Auteur</td>
+                  <td class="py-2 text-gray-400">TBD</td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                  <td class="py-2 pr-4 font-semibold text-gray-500">Maintainer</td>
+                  <td class="py-2 text-gray-400">TBD</td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                  <td class="py-2 pr-4 font-semibold text-gray-500">Créé</td>
+                  <td class="py-2 text-gray-900">2025-12-03</td>
+                </tr>
+                <tr>
+                  <td class="py-2 pr-4 font-semibold text-gray-500">Dernière MAJ</td>
+                  <td class="py-2 text-gray-900">2025-12-03</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Overview -->
+          <h2 id="overview">Overview</h2>
+          <p>L'API Gateway Test Pattern est un pattern d'architecture qui centralise la gestion du trafic API pour les architectures microservices. Il fournit un point d'entrée unique pour les clients, gérant le routage, l'authentification, le rate-limiting et la transformation des requêtes.</p>
+          <p>Ce pattern a été validé en production dans le contexte des services Particuliers de la Banque Nationale, où il gère actuellement le trafic de 12 microservices avec un SLA de 99.95%.</p>
+
+          <!-- Contexte -->
+          <h2 id="contexte">Contexte</h2>
+          <h3>Quand utiliser ce pattern</h3>
+          <ul>
+            <li>Votre architecture comprend <strong>3 microservices ou plus</strong> exposés aux clients</li>
+            <li>Vous avez besoin de <strong>rate-limiting</strong> centralisé et d'une politique d'authentification unifiée</li>
+            <li>Vous souhaitez <strong>découpler</strong> la structure interne de vos services de l'API exposée aux consommateurs</li>
+            <li>Vous devez supporter le <strong>versioning d'API</strong> sans impacter les services en aval</li>
+          </ul>
+          <h3>Quand ne PAS utiliser ce pattern</h3>
+          <ul>
+            <li><strong>Architecture monolithique</strong> — un reverse proxy simple (Nginx, Traefik) suffit</li>
+            <li><strong>Communication inter-services uniquement</strong> — préférez un service mesh (Istio, Linkerd)</li>
+            <li><strong>Moins de 3 services</strong> — la complexité d'un API Gateway n'est pas justifiée</li>
+          </ul>
+
+          <!-- Architecture -->
+          <h2 id="architecture">Architecture</h2>
+          <p>Le pattern repose sur Kong Gateway déployé sur Kubernetes, positionné entre le load balancer externe et les microservices internes.</p>
+
+          <div class="bg-gray-100 border border-gray-200 rounded-lg p-8 mb-4 text-center text-gray-400 text-sm">
+            <div class="flex items-center justify-center gap-4 text-xs font-mono">
+              <div class="bg-white border border-gray-300 rounded px-4 py-2">Client</div>
+              <span>→</span>
+              <div class="bg-white border border-gray-300 rounded px-4 py-2">Load Balancer</div>
+              <span>→</span>
+              <div class="bg-red-50 border-2 border-bnc rounded px-4 py-2 text-bnc font-semibold">Kong Gateway</div>
+              <span>→</span>
+              <div class="bg-white border border-gray-300 rounded px-4 py-2">Services</div>
+            </div>
+            <p class="mt-3 text-xs text-gray-400">[Diagramme d'architecture — simplifié]</p>
+          </div>
+
+          <h3>Stack technologique</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm border border-gray-200 rounded-lg overflow-hidden mb-4">
+              <thead>
+                <tr class="bg-gray-50">
+                  <th class="text-left px-4 py-2 font-semibold text-gray-600 text-xs uppercase">Composant</th>
+                  <th class="text-left px-4 py-2 font-semibold text-gray-600 text-xs uppercase">Version minimale</th>
+                  <th class="text-left px-4 py-2 font-semibold text-gray-600 text-xs uppercase">Rôle</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-t border-gray-100">
+                  <td class="px-4 py-2 font-medium">Kong Gateway</td>
+                  <td class="px-4 py-2">3.4+</td>
+                  <td class="px-4 py-2 text-gray-500">API Gateway, routage, plugins</td>
+                </tr>
+                <tr class="border-t border-gray-100">
+                  <td class="px-4 py-2 font-medium">Kubernetes</td>
+                  <td class="px-4 py-2">1.28+</td>
+                  <td class="px-4 py-2 text-gray-500">Orchestration des conteneurs</td>
+                </tr>
+                <tr class="border-t border-gray-100">
+                  <td class="px-4 py-2 font-medium">PostgreSQL</td>
+                  <td class="px-4 py-2">15+</td>
+                  <td class="px-4 py-2 text-gray-500">Stockage de la configuration Kong</td>
+                </tr>
+                <tr class="border-t border-gray-100">
+                  <td class="px-4 py-2 font-medium">Helm</td>
+                  <td class="px-4 py-2">3.12+</td>
+                  <td class="px-4 py-2 text-gray-500">Déploiement et gestion de configuration</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- ADR -->
+          <h2 id="adr-001">ADR-001 : Choix de Kong vs Envoy</h2>
+          <div class="bg-blue-50 border border-blue-100 rounded-lg p-5 mb-4">
+            <h3 class="text-sm font-semibold text-blue-800 mt-0 mb-2" style="margin-top:0; border:none; padding:0;">Contexte</h3>
+            <p class="text-sm text-blue-900 mb-3">L'équipe d'architecture devait choisir une solution d'API Gateway pour la plateforme microservices du domaine Particuliers. Les deux candidats principaux étaient Kong Gateway et Envoy Proxy.</p>
+
+            <h3 class="text-sm font-semibold text-blue-800 mt-0 mb-2" style="margin-top:0; border:none; padding:0;">Options considérées</h3>
+            <div class="overflow-x-auto mb-3">
+              <table class="w-full text-sm border border-blue-200 rounded overflow-hidden">
+                <thead>
+                  <tr class="bg-blue-100">
+                    <th class="text-left px-3 py-2 text-blue-800 text-xs">Critère</th>
+                    <th class="text-left px-3 py-2 text-blue-800 text-xs">Kong Gateway</th>
+                    <th class="text-left px-3 py-2 text-blue-800 text-xs">Envoy Proxy</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-t border-blue-100"><td class="px-3 py-1.5">Configuration</td><td class="px-3 py-1.5">Admin API + UI</td><td class="px-3 py-1.5">YAML / xDS API</td></tr>
+                  <tr class="border-t border-blue-100"><td class="px-3 py-1.5">Écosystème plugins</td><td class="px-3 py-1.5">100+ plugins prêts</td><td class="px-3 py-1.5">Filters (C++/WASM)</td></tr>
+                  <tr class="border-t border-blue-100"><td class="px-3 py-1.5">Courbe d'apprentissage</td><td class="px-3 py-1.5">Modérée</td><td class="px-3 py-1.5">Élevée</td></tr>
+                  <tr class="border-t border-blue-100"><td class="px-3 py-1.5">Performance</td><td class="px-3 py-1.5">Très bonne (Lua)</td><td class="px-3 py-1.5">Excellente (C++)</td></tr>
+                  <tr class="border-t border-blue-100"><td class="px-3 py-1.5">Support BNC existant</td><td class="px-3 py-1.5">Oui (licence)</td><td class="px-3 py-1.5">Non</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="text-sm font-semibold text-blue-800 mt-0 mb-2" style="margin-top:0; border:none; padding:0;">Décision</h3>
+            <p class="text-sm text-blue-900 mb-2"><strong>Kong Gateway</strong> a été retenu pour les raisons suivantes :</p>
+            <ul class="text-sm text-blue-900 mb-0 pl-4">
+              <li>Licence entreprise déjà en place à la BNC (réduction du time-to-market)</li>
+              <li>Écosystème de plugins riche couvrant 90% des besoins sans développement custom</li>
+              <li>Admin API déclarative compatible avec nos pipelines GitOps</li>
+            </ul>
+          </div>
+
+          <h3>Conséquences</h3>
+          <ul>
+            <li><strong>Positif :</strong> Mise en production en 3 semaines au lieu de 8 estimées avec Envoy</li>
+            <li><strong>Négatif :</strong> Dépendance à la licence commerciale Kong Enterprise</li>
+            <li><strong>Risque mitigé :</strong> Kong OSS disponible comme fallback si la licence n'est pas renouvelée</li>
+          </ul>
+
+          <!-- Implémentation -->
+          <h2 id="implementation">Implémentation</h2>
+
+          <h3>Étape 1 — Déploiement via Helm</h3>
+          <p>Installer Kong Gateway sur votre cluster Kubernetes avec le chart Helm officiel :</p>
+          <div class="code-block">
+<span class="comment"># Ajouter le repository Helm Kong</span>
+helm repo add kong https://charts.konghq.com
+helm repo update
+
+<span class="comment"># Installer Kong avec la configuration BNC</span>
+helm install kong-gateway kong/kong \
+  <span class="keyword">--namespace</span> api-gateway \
+  <span class="keyword">--set</span> env.database=<span class="string">postgres</span> \
+  <span class="keyword">--set</span> env.pg_host=<span class="string">postgres.db.svc.cluster.local</span> \
+  <span class="keyword">--set</span> proxy.type=<span class="string">LoadBalancer</span> \
+  <span class="keyword">--set</span> admin.enabled=<span class="string">true</span>
+          </div>
+
+          <h3>Étape 2 — Configuration du routage</h3>
+          <p>Déclarer les services et routes via l'Admin API :</p>
+          <div class="code-block">
+<span class="comment"># Créer un service</span>
+curl -X POST http://localhost:8001/services \
+  <span class="keyword">--data</span> name=<span class="string">accounts-service</span> \
+  <span class="keyword">--data</span> url=<span class="string">http://accounts.particuliers.svc:8080</span>
+
+<span class="comment"># Créer une route</span>
+curl -X POST http://localhost:8001/services/accounts-service/routes \
+  <span class="keyword">--data</span> paths[]=<span class="string">/api/v1/accounts</span> \
+  <span class="keyword">--data</span> strip_path=<span class="string">false</span>
+
+<span class="comment"># Activer le rate-limiting</span>
+curl -X POST http://localhost:8001/services/accounts-service/plugins \
+  <span class="keyword">--data</span> name=<span class="string">rate-limiting</span> \
+  <span class="keyword">--data</span> config.minute=<span class="string">100</span> \
+  <span class="keyword">--data</span> config.policy=<span class="string">redis</span>
+          </div>
+
+          <!-- Retours d'expérience -->
+          <h2 id="retours">Retours d'expérience</h2>
+          <div class="bg-green-50 border border-green-200 rounded-lg p-5 mb-4">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 text-green-600 text-sm font-bold">1</div>
+              <div>
+                <div class="font-semibold text-green-800 text-sm">Projet Alpha — Équipe Retail</div>
+                <div class="text-xs text-green-600 mb-2">Déployé en production : 2025-06-15</div>
+                <p class="text-sm text-green-900 mb-0">
+                  <strong>Résultat :</strong> Réduction de 40% de la latence moyenne sur les appels API grâce à la centralisation du caching et du rate-limiting. Le temps de mise en place d'un nouveau microservice exposé via l'API est passé de 2 jours à 2 heures grâce aux templates Kong standardisés.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Limitations -->
+          <h2 id="limitations">Limitations</h2>
+          <ul>
+            <li><strong>Point de défaillance unique (SPOF) :</strong> Le gateway doit être déployé en haute disponibilité (minimum 3 réplicas). Un incident sur le gateway impacte tous les services en aval.</li>
+            <li><strong>Latence additionnelle :</strong> Chaque requête traverse un hop supplémentaire (~2-5ms en P99). Pour des cas ultra-low-latency, envisager une connexion directe.</li>
+            <li><strong>Complexité opérationnelle :</strong> La gestion des plugins, des certificats TLS et du monitoring du gateway nécessite une expertise dédiée au sein de l'équipe plateforme.</li>
+          </ul>
+
+          <!-- Références -->
+          <h2 id="references">Références</h2>
+          <ul>
+            <li><a href="#">Kong Gateway Documentation (docs.konghq.com)</a></li>
+            <li><a href="#">Microservices Patterns — Chris Richardson, Chapter 8: API Gateway</a></li>
+            <li><a href="#">BNC Architecture Standards — API Management Guidelines v2.1</a></li>
+            <li><a href="#">CNCF API Gateway Landscape (landscape.cncf.io)</a></li>
+          </ul>
+
+          <!-- Nav -->
+          <div class="flex items-center justify-between mt-12 pt-6 border-t border-gray-200">
+            <a href="mockup-dashboard.html" class="text-sm text-gray-500 hover:text-bnc transition-colors flex items-center gap-1">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
+              Retour au catalogue
+            </a>
+            <a href="#" class="text-sm text-gray-500 hover:text-bnc transition-colors flex items-center gap-1">
+              CTP Framework
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Table of Contents -->
+        <aside class="toc-aside flex-shrink-0 hidden lg:block" style="width: 180px;">
+          <div class="sticky top-[80px]">
+            <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Sur cette page</div>
+            <nav class="toc border-l border-gray-200 pl-3">
+              <a href="#overview" class="active">Overview</a>
+              <a href="#contexte">Contexte</a>
+              <a href="#architecture">Architecture</a>
+              <a href="#adr-001">ADR-001</a>
+              <a href="#implementation">Implémentation</a>
+              <a href="#retours">Retours d'expérience</a>
+              <a href="#limitations">Limitations</a>
+              <a href="#references">Références</a>
+            </nav>
+          </div>
+        </aside>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function toggleSection(el) {
+      el.classList.toggle('open');
+      var children = el.nextElementSibling;
+      if (children) children.classList.toggle('collapsed');
+    }
+    function toggleNode(el) {
+      if (el.classList.contains('empty')) return;
+      el.classList.toggle('open');
+      var children = el.nextElementSibling;
+      if (children && children.classList.contains('tree-children')) children.classList.toggle('collapsed');
+    }
+  </script>
+  <script>
+    // Active TOC tracking on scroll
+    (function() {
+      var tocLinks = document.querySelectorAll('.toc a');
+      var sectionIds = [];
+      tocLinks.forEach(function(link) {
+        sectionIds.push(link.getAttribute('href').slice(1));
+      });
+
+      function getAbsoluteTop(el) {
+        var top = 0;
+        while (el) {
+          top += el.offsetTop;
+          el = el.offsetParent;
+        }
+        return top;
+      }
+
+      function updateToc() {
+        var scrollPos = window.scrollY + 140;
+        var currentId = sectionIds[0];
+        var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        var atBottom = (window.scrollY >= maxScroll - 10);
+
+        if (atBottom) {
+          // At bottom of page: pick the last section visible in viewport
+          for (var j = sectionIds.length - 1; j >= 0; j--) {
+            var elB = document.getElementById(sectionIds[j]);
+            if (elB && elB.getBoundingClientRect().top < window.innerHeight) {
+              currentId = sectionIds[j];
+              break;
+            }
+          }
+        } else {
+          for (var i = sectionIds.length - 1; i >= 0; i--) {
+            var el = document.getElementById(sectionIds[i]);
+            if (el && getAbsoluteTop(el) <= scrollPos) {
+              currentId = sectionIds[i];
+              break;
+            }
+          }
+        }
+
+        tocLinks.forEach(function(link) {
+          if (link.getAttribute('href') === '#' + currentId) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateToc, { passive: true });
+      updateToc();
+    })();
+  </script>
+</body>
+</html>
