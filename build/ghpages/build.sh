@@ -92,6 +92,26 @@ pretty_name() {
 # =============================================================================
 # STEP 1: Build PRA index (sorted list per language for prev/next)
 # =============================================================================
+# Rewrite legacy absolute links (/guides/NN-slug, /registre/...) to relative paths
+fix_internal_links() {
+    local body="$1" lang="$2" assets_prefix="$3"
+    local guides_base="${assets_prefix}guides/${lang}"
+    local cat_base="${assets_prefix}${lang}/pras/index.html"
+
+    echo "$body" | sed \
+        -e "s|href=\"/guides/01-getting-started\"|href=\"${guides_base}/getting-started.html\"|g" \
+        -e "s|href=\"/guides/02-understanding-pra\"|href=\"${guides_base}/understanding-pra.html\"|g" \
+        -e "s|href=\"/guides/03-roles-responsibilities\"|href=\"${guides_base}/roles-responsibilities.html\"|g" \
+        -e "s|href=\"/guides/04-lifecycle\"|href=\"${guides_base}/lifecycle.html\"|g" \
+        -e "s|href=\"/guides/05-standards\"|href=\"${guides_base}/standards.html\"|g" \
+        -e "s|href=\"/guides/06-contributing\"|href=\"${guides_base}/contributing.html\"|g" \
+        -e "s|href=\"/guides/07-promotion-process\"|href=\"${guides_base}/promotion-process.html\"|g" \
+        -e "s|href=\"/guides/08-governance\"|href=\"${guides_base}/governance.html\"|g" \
+        -e "s|href=\"/registre/transversal\"|href=\"${cat_base}\"|g" \
+        -e "s|href=\"/registre/[^\"]*\"|href=\"${cat_base}\"|g" \
+        -e "s|href=\"/templates/[^\"]*\"|href=\"#\"|g"
+}
+
 echo "  [1/6] Building PRA & guide indexes ..."
 
 build_pra_index() {
@@ -575,6 +595,9 @@ convert_pra_page() {
         { print }
     ')
 
+    # Fix internal links (legacy absolute paths → correct relative paths)
+    body=$(fix_internal_links "$body" "$lang" "$assets_prefix")
+
     # Generate TOC
     local toc_html
     toc_html=$(generate_toc "$tmp_html" "$lang")
@@ -700,6 +723,9 @@ convert_guide_page() {
     if [ -z "$body" ]; then
         body=$(sed -n '/<div id="content">/,$ p' "$tmp_html" | head -n -3)
     fi
+
+    # Fix internal links (legacy absolute paths → correct relative paths)
+    body=$(fix_internal_links "$body" "$lang" "$assets_prefix")
 
     # Generate TOC
     local toc_html
